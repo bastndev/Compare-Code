@@ -8,10 +8,7 @@
   "engines": {
     "vscode": "^1.74.0"
   },
-  "categories": [
-    "Visualization",
-    "Other"
-  ],
+  "categories": ["Other","Visualization"],
   "keywords": [
     "compare",
     "code",
@@ -50,10 +47,20 @@
   "contributes": {
     "commands": [
       {
-        "command": "compare-code.helloWorld",
-        "title": "Hello World"
+        "command": "compare-code.compareFiles",
+        "title": "Compare Code",
+        "icon": "$(diff)"
       }
-    ]
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "compare-code.compareFiles",
+          "when": "editorTextFocus",
+          "group": "navigation"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
