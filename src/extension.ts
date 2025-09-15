@@ -8,7 +8,7 @@ export function activate(context: vscode.ExtensionContext) {
 		const isOpen = compareDocument && openEditors.some(editor => editor.document === compareDocument);
 
 		if (isOpen) {
-			// Cerrar solo el documento específico
+			// Close only the specific document
 			const editor = openEditors.find(editor => editor.document === compareDocument);
 			if (editor) {
 				await vscode.window.showTextDocument(editor.document);
@@ -16,7 +16,7 @@ export function activate(context: vscode.ExtensionContext) {
 			}
 			compareDocument = undefined;
 		} else {
-			// Abrir o crear el documento
+			// Open or create the document
 			if (!compareDocument) {
 				compareDocument = await vscode.workspace.openTextDocument({
 					content: '',
@@ -31,6 +31,5 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {
-	// Limpiar referencias al desactivar
-	compareDocument = undefined;
+	compareDocument = undefined; // Clean up references
 }
