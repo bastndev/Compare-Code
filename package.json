@@ -63,8 +63,8 @@
     "keybindings": [
       {
         "command": "compare-code.compareFiles",
-        "key": "ctrl+shift+\\",
-        "mac": "ctrl+shift+\\"
+        "key": "alt+shift+\\",
+        "mac": "alt+shift+\\"
       }
     ]
   },
