@@ -1,29 +1,18 @@
 import * as vscode from 'vscode';
-
-let compareDocument: vscode.TextDocument | undefined;
+import { createCompareView, closeCompareView, isViewOpen } from './ui/compareView';
 
 export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('compare-code.compareFiles', async () => {
-		const openEditors = vscode.window.visibleTextEditors;
-		const isOpen = compareDocument && openEditors.some(editor => editor.document === compareDocument);
-
-		if (isOpen) {
-			// Close only the specific document
-			const editor = openEditors.find(editor => editor.document === compareDocument);
-			if (editor) {
-				await vscode.window.showTextDocument(editor.document);
-				await vscode.commands.executeCommand('workbench.action.closeActiveEditor');
+		try {
+			if (isViewOpen()) {
+				// Si está abierto, lo cerramos
+				await closeCompareView();
+			} else {
+				// Si no está abierto, lo creamos/mostramos
+				await createCompareView();
 			}
-			compareDocument = undefined;
-		} else {
-			// Open or create the document
-			if (!compareDocument) {
-				compareDocument = await vscode.workspace.openTextDocument({
-					content: '',
-					language: 'plaintext'
-				});
-			}
-			await vscode.window.showTextDocument(compareDocument);
+		} catch (error) {
+			vscode.window.showErrorMessage(`Error al manejar la vista de comparación: ${error}`);
 		}
 	});
 
@@ -31,5 +20,6 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {
-	compareDocument = undefined; // Clean up references
+	// Limpiar recursos al desactivar la extensión
+	closeCompareView();
 }
