@@ -1,13 +1,19 @@
 import * as vscode from 'vscode';
+import * as path from 'path';
 
 let comparePanel: vscode.WebviewPanel | undefined;
 
 // Creates or shows the compare view
-export async function createCompareView(): Promise<void> {
+export async function createCompareView(context: vscode.ExtensionContext): Promise<void> {
 	if (comparePanel) {
 		comparePanel.reveal(vscode.ViewColumn.One);
 		return;
 	}
+
+	// Get the custom icon URI
+	const iconUri = vscode.Uri.file(
+		path.join(context.extensionPath, 'assets', 'images', 'on1.svg')
+	);
 
 	comparePanel = vscode.window.createWebviewPanel(
 		'compareCode',
@@ -18,6 +24,8 @@ export async function createCompareView(): Promise<void> {
 			retainContextWhenHidden: true
 		}
 	);
+
+	comparePanel.iconPath = iconUri;
 
 	comparePanel.webview.html = getWebviewContent();
 

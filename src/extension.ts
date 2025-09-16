@@ -9,7 +9,7 @@ export function activate(context: vscode.ExtensionContext) {
 				await closeCompareView();
 			} else {
 				// If it's not open, create/show it
-				await createCompareView();
+				await createCompareView(context);
 			}
 		} catch (error) {
 			vscode.window.showErrorMessage(`Error handling the comparison view: ${error}`);
