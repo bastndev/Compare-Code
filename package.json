@@ -49,7 +49,7 @@
       {
         "command": "compare-code.compareFiles",
         "title": "Compare Files",
-        "icon": "$(diff)"
+        "icon": "$(activate-breakpoints)"
       }
     ],
     "menus": {
