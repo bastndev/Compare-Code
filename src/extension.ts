@@ -5,14 +5,14 @@ export function activate(context: vscode.ExtensionContext) {
 	let disposable = vscode.commands.registerCommand('compare-code.compareFiles', async () => {
 		try {
 			if (isViewOpen()) {
-				// Si está abierto, lo cerramos
+				// If it's open, close it
 				await closeCompareView();
 			} else {
-				// Si no está abierto, lo creamos/mostramos
+				// If it's not open, create/show it
 				await createCompareView();
 			}
 		} catch (error) {
-			vscode.window.showErrorMessage(`Error al manejar la vista de comparación: ${error}`);
+			vscode.window.showErrorMessage(`Error handling the comparison view: ${error}`);
 		}
 	});
 
@@ -20,6 +20,5 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 export function deactivate() {
-	// Limpiar recursos al desactivar la extensión
-	closeCompareView();
+	closeCompareView(); // Clean up on deactivation
 }
