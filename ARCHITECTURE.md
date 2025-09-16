@@ -6,7 +6,7 @@ This VS Code extension allows efficient code comparison. The current architectur
 ## Current Architecture Diagram
 
 
-```
+```py
 src/
 ├──__test__/              # Tests existentes + nuevos para servicios 
 ├── services/             # Lógica reutilizable
@@ -52,6 +52,31 @@ graph TD
     I --> K[Integration Tests for UI]
     L[Utils] --> M[Types & Interfaces]
     L --> G
+```
+
+NEXT- future
+
+```py
+src/
+├── __tests__/                    # Tests
+│   ├── unit/                     # Unit Tests for Services
+│   │   ├── comparisonService.test.ts
+│   │   ├── inputService.test.ts
+│   │   └── configService.test.ts
+│   └── integration/              # Integration Tests for UI
+│       └── diffEditor.integration.test.ts
+├── services/                     # Servicios principales
+│   ├── comparisonService.ts      # Procesa comparaciones tras recibir de Input/Config
+│   ├── inputService.ts           # Maneja selección/input del usuario
+│   └── configService.ts          # Configuraciones de VSCode
+├── ui/                          # UI Layer: Diff Editor / Webview
+│   └── diffEditor.ts            # Diff Editor / Webview que conecta con Logger
+├── utils/                       # Utils
+│   ├── logger.ts               # Logger (recibe de UI Layer)
+│   ├── types.ts                # Types & Interfaces
+│   └── errorHandler.ts         # Error Handler (recibe de Comparison Service)
+├── commandRegistry.ts          # Command Registry (punto intermedio tras activation)
+└── extension.ts                # Extension Activation (punto de entrada)
 ```
 
 ### Improved Components
