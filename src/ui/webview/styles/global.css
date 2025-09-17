@@ -62,7 +62,7 @@ body {
   align-items: center;
   height: 100vh;
   margin: 0;
-  background-color: var(--test);
+  background-color: var(--bg);
   color: var(--fg);
   font-family: var(--font-family);
 }

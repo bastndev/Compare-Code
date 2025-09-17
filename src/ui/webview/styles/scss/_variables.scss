@@ -80,3 +80,18 @@ $diff-removed: var(--diff-removed-bg);
 $diff-modified: var(--diff-modified-bg);
 $editor-background: var(--editor-bg);
 $panel-border-color: var(--panel-border);
+
+
+// ======================================
+// Global CSS
+// ======================================
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-family);
+}
