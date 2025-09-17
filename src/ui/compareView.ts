@@ -10,10 +10,11 @@ export async function createCompareView(context: vscode.ExtensionContext): Promi
 		return;
 	}
 
-	// Get the custom icon URI
-	const iconUri = vscode.Uri.file(
-		path.join(context.extensionPath, 'assets', 'images', 'cc.svg')
-	);
+	// Get the custom icon URIs
+	const iconUri = {
+		light: vscode.Uri.file(path.join(context.extensionPath, 'assets', 'images', 'cc-black.svg')),
+		dark: vscode.Uri.file(path.join(context.extensionPath, 'assets', 'images', 'cc.svg'))
+	};
 
 	comparePanel = vscode.window.createWebviewPanel(
 		'compareCode',
