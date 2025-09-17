@@ -50,6 +50,6 @@ export function isViewOpen(): boolean {
 
 // Generates HTML content for the webview
 function getWebviewContent(context: vscode.ExtensionContext): string {
-	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'compareView.html');
+	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'index.html');
 	return fs.readFileSync(htmlPath, 'utf8');
 }
