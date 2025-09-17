@@ -42,11 +42,30 @@ async function main() {
 			esbuildProblemMatcherPlugin,
 		],
 	});
+	const ctx2 = await esbuild.context({
+		entryPoints: [
+			'src/services/compareService.ts'
+		],
+		bundle: true,
+		format: 'iife',
+		minify: production,
+		sourcemap: !production,
+		sourcesContent: false,
+		platform: 'browser',
+		outfile: 'dist/compareService.js',
+		logLevel: 'silent',
+		plugins: [
+			/* add to the end of plugins array */
+			esbuildProblemMatcherPlugin,
+		],
+	});
 	if (watch) {
-		await ctx.watch();
+		await Promise.all([ctx.watch(), ctx2.watch()]);
 	} else {
 		await ctx.rebuild();
+		await ctx2.rebuild();
 		await ctx.dispose();
+		await ctx2.dispose();
 	}
 }
 
