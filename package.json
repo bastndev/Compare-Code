@@ -83,9 +83,9 @@
     "lint": "eslint src",
     "test": "vscode-test",
 
-    "compile-scss": "sass src/ui/webview/styles/main.scss:src/ui/webview/styles/main.css --watch",
-    "build-scss": "sass src/ui/webview/styles/main.scss:src/ui/webview/styles/main.css",
-    "watch:scss": "npm run compile-scss",
+    "compile-scss": "sass src/ui/webview/styles/main.scss:src/ui/webview/styles/global.css",
+    "build-scss": "sass src/ui/webview/styles/main.scss:src/ui/webview/styles/global.css",
+    "watch:scss": "sass src/ui/webview/styles/main.scss:src/ui/webview/styles/global.css --watch",
     "prebuild": "npm run build-scss"
   },
 
