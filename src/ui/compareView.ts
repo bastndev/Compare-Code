@@ -52,9 +52,9 @@ export function isViewOpen(): boolean {
 	return comparePanel !== undefined && comparePanel.visible;
 }
 
-// Generates HTML content for the webview
+// Generates HTML content for the webview MARK:HTML / CSS
 function getWebviewContent(context: vscode.ExtensionContext, webview: vscode.Webview): string {
-	// Get the CSS file URI
+	// Get the CSS file URI (compiled from SCSS)
 	const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'ui', 'webview', 'styles', 'global.css'));
 	const cssUri = webview.asWebviewUri(cssPath);
 

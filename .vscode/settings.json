@@ -12,5 +12,8 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": [
         "Kiro"
-    ]
+    ],
+    // Auto-run watch task when workspace opens
+    "task.autoDetect": "on",
+    "task.showDecorations": true
 }
