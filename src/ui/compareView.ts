@@ -1,5 +1,6 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
+import * as fs from 'fs';
 
 let comparePanel: vscode.WebviewPanel | undefined;
 
@@ -27,8 +28,7 @@ export async function createCompareView(context: vscode.ExtensionContext): Promi
 	);
 
 	comparePanel.iconPath = iconUri;
-
-	comparePanel.webview.html = getWebviewContent();
+	comparePanel.webview.html = getWebviewContent(context);
 
 	comparePanel.onDidDispose(() => {
 		comparePanel = undefined;
@@ -49,34 +49,7 @@ export function isViewOpen(): boolean {
 }
 
 // Generates HTML content for the webview
-function getWebviewContent(): string {
-	return `
-	<!DOCTYPE html>
-	<html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Compare Code</title>
-		<style>
-			body {
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				height: 100vh;
-				margin: 0;
-			}
-			
-			.circle {
-				width: 100px;
-				height: 100px;
-				background-color: red;
-				border-radius: 50%;
-			}
-		</style>
-	</head>
-	<body>
-		<div class="circle"></div>
-	</body>
-	</html>
-	`;
+function getWebviewContent(context: vscode.ExtensionContext): string {
+	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'compareView.html');
+	return fs.readFileSync(htmlPath, 'utf8');
 }
