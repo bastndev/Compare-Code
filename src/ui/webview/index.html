@@ -4,6 +4,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Compare Code</title>
+	<link rel="stylesheet" href="{{CSS_URI}}">
 	<style>
 		body {
 			display: flex;
@@ -11,8 +12,9 @@
 			align-items: center;
 			height: 100vh;
 			margin: 0;
-			background-color: var(--vscode-editor-background);
-			color: var(--vscode-editor-foreground);
+			background-color: var(--test);
+			color: var(--fg);
+			font-family: var(--font-family);
 		}
 
 		.circle {
@@ -21,10 +23,11 @@
 			background-color: orange;
 			border-radius: 50%;
 			transition: all 0.3s ease;
+			cursor: pointer;
 		}
 
 		.circle:hover {
-			background-color: darkred;
+			background-color: var(--test);
 			transform: scale(1.1);
 		}
 	</style>
@@ -32,43 +35,43 @@
 <body>
 	<div class="circle"></div>
 	
-    <script>
-        // VS Code API for communication with the extension
-        const vscode = acquireVsCodeApi();
+	<script>
+		// VS Code API for communication with the extension
+		const vscode = acquireVsCodeApi();
 
-        // Webview initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('Compare Code Webview loaded');
-            
-            // Event listener for the circle
-            const circle = document.querySelector('.circle');
-            
-            circle.addEventListener('click', function() {
-                // Send message to the extension
-                vscode.postMessage({
-                    command: 'circleClicked',
-                    text: 'Circle was clicked!'
-                });
-                
-                // Change color temporarily
-                this.style.backgroundColor = 'blue';
-                setTimeout(() => {
-                    this.style.backgroundColor = 'red';
-                }, 500);
-            });
-        });
+		// Webview initialization
+		document.addEventListener('DOMContentLoaded', function() {
+			console.log('Compare Code Webview loaded');
 
-        // Listen for messages from the extension
-        window.addEventListener('message', event => {
-            const message = event.data;
-            
-            switch (message.command) {
-                case 'updateColor':
-                    const circle = document.querySelector('.circle');
-                    circle.style.backgroundColor = message.color;
-                    break;
-            }
-        });
-    </script>
+			// Event listener for the circle
+			const circle = document.querySelector('.circle');
+
+			circle.addEventListener('click', function() {
+				// Send message to the extension
+				vscode.postMessage({
+					command: 'circleClicked',
+					text: 'Circle was clicked!'
+				});
+
+				// Change color temporarily
+				this.style.backgroundColor = 'blue';
+				setTimeout(() => {
+					this.style.backgroundColor = 'red';
+				}, 500);
+			});
+		});
+
+		// Listen for messages from the extension
+		window.addEventListener('message', event => {
+			const message = event.data;
+
+			switch (message.command) {
+				case 'updateColor':
+					const circle = document.querySelector('.circle');
+					circle.style.backgroundColor = message.color;
+					break;
+			}
+		});
+	</script>
 </body>
 </html>
