@@ -56,4 +56,29 @@
   --test: #e66815;
 }
 
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  background-color: var(--test);
+  color: var(--fg);
+  font-family: var(--font-family);
+}
+
+.circle {
+  width: 100px;
+  height: 100px;
+  background-color: rgb(9, 255, 0);
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.circle:hover {
+  background-color: var(--fg);
+  transform: scale(1.1);
+}
+
 /*# sourceMappingURL=global.css.map */
