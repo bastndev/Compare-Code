@@ -1,0 +1,27 @@
+/* Base colors */
+/* Typography */
+/* Interactive elements */
+/* Status & feedback */
+:root {
+  /* Base colors */
+  --bg: var(--vscode-editor-background);
+  --fg: var(--vscode-foreground);
+  --fg-muted: var(--vscode-descriptionForeground);
+  --border: var(--vscode-widget-border);
+  /* Typography */
+  --font-family: var(--vscode-font-family);
+  --font-size: var(--vscode-font-size);
+  /* Interactive elements */
+  --btn-bg: var(--vscode-button-background);
+  --btn-fg: var(--vscode-button-foreground);
+  --btn-hover: var(--vscode-button-hoverBackground);
+  --list-hover-bg: var(--vscode-list-hoverBackground);
+  --list-active-bg: var(--vscode-list-activeSelectionBackground);
+  /* Status & feedback */
+  --badge-bg: var(--vscode-badge-background);
+  --badge-fg: var(--vscode-badge-foreground);
+  --error-bg: var(--vscode-inputValidation-errorBackground);
+  --test: #001eff;
+}
+
+/*# sourceMappingURL=main.css.map */

@@ -27,51 +27,12 @@
 		}
 
 		.circle:hover {
-			background-color: var(--test);
+			background-color: var(--fg);
 			transform: scale(1.1);
 		}
 	</style>
 </head>
 <body>
 	<div class="circle"></div>
-	
-	<script>
-		// VS Code API for communication with the extension
-		const vscode = acquireVsCodeApi();
-
-		// Webview initialization
-		document.addEventListener('DOMContentLoaded', function() {
-			console.log('Compare Code Webview loaded');
-
-			// Event listener for the circle
-			const circle = document.querySelector('.circle');
-
-			circle.addEventListener('click', function() {
-				// Send message to the extension
-				vscode.postMessage({
-					command: 'circleClicked',
-					text: 'Circle was clicked!'
-				});
-
-				// Change color temporarily
-				this.style.backgroundColor = 'blue';
-				setTimeout(() => {
-					this.style.backgroundColor = 'red';
-				}, 500);
-			});
-		});
-
-		// Listen for messages from the extension
-		window.addEventListener('message', event => {
-			const message = event.data;
-
-			switch (message.command) {
-				case 'updateColor':
-					const circle = document.querySelector('.circle');
-					circle.style.backgroundColor = message.color;
-					break;
-			}
-		});
-	</script>
 </body>
 </html>

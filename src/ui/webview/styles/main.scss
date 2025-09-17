@@ -1,0 +1,32 @@
+// Variables
+@use './scss/variables' as *;
+
+// Base styles using SCSS variables
+:root {
+    /* Base colors */
+    --bg: #{$bg};
+    --fg: #{$fg};
+    --fg-muted: #{$fg-muted};
+    --border: #{$border};
+
+    /* Typography */
+    --font-family: #{$font-family};
+    --font-size: #{$font-size};
+
+    /* Interactive elements */
+    --btn-bg: #{$btn-bg};
+    --btn-fg: #{$btn-fg};
+    --btn-hover: #{$btn-hover};
+    
+    --list-hover-bg: #{$list-hover-bg};
+    --list-active-bg: #{$list-active-bg};
+
+    /* Status & feedback */
+    --badge-bg: #{$badge-bg};
+    --badge-fg: #{$badge-fg};
+    --error-bg: #{$error-bg};
+
+    --test: #{$test};
+}
+
+// Components
