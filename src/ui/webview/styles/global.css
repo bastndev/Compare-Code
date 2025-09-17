@@ -22,6 +22,5 @@
     --badge-fg: var(--vscode-badge-foreground);
     --error-bg: var(--vscode-inputValidation-errorBackground);
 
-    /* Cambié var(#001eff) por #001eff */
     --test: #001eff;
 }
