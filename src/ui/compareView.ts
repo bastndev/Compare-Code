@@ -67,10 +67,10 @@ function getWebviewContent(context: vscode.ExtensionContext, webview: vscode.Web
 	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'index.html');
 	let html = fs.readFileSync(htmlPath, 'utf8');
 	
-	// Replace the CSS placeholder with the actual URI
+	// SCSS
 	html = html.replace('{{CSS_URI}}', cssUri.toString());
 	
-	// Replace the script placeholder with the actual URI
+	// TS
 	html = html.replace('{{SCRIPT_URI}}', scriptUri.toString());
 	
 	return html;
