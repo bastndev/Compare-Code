@@ -7,9 +7,39 @@
     <script src="{{SCRIPT_URI}}" defer></script>
 </head>
 <body>
+    <!-- Top toolbar with | Info -->
+    <div class="toolbar">
+        <input type="text" placeholder="Search...">
+        <button>Compare</button>
+        <button>Reset</button>
+    </div>
+    
+    <!-- Main container with panels -->
     <div class="container">
-        <div class="circle" id="circle"></div>
-        <div class="message" id="message">Click! 🎉</div>
+        <!-- Left editor panel -->
+        <div class="editor-panel-left">
+            <div class="panel-header">Editor - Left Panel</div>
+            <div class="editor-content">
+                <div class="code-line code-removed">    // This line was removed</div>
+                <div class="code-line code-modified">    return true; // Modified</div>
+                <div class="code-line">}</div>
+            </div>
+        </div>
+        
+        <!-- Right editor panel -->
+        <div class="editor-panel-right">
+            <div class="panel-header">Editor - Right Panel</div>
+            <div class="editor-content">
+                <div class="code-line code-added">    // This line was added</div>
+                <div class="code-line code-modified">    return false; // Modified</div>
+                <div class="code-line">}</div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Bottom bar | Tools -->
+    <div class="bottom-bar">
+        <button>Hola</button>
     </div>
 </body>
 </html>
