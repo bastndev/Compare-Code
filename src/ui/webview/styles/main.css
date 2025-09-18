@@ -81,6 +81,7 @@ span {
 
 .btn {
   background-color: white;
+  cursor: pointer;
 }
 
 .btn img {
