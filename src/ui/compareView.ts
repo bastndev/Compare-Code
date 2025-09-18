@@ -58,7 +58,7 @@ export function isViewOpen(): boolean {
 // Generates HTML content for the webview MARK:HTML / SCSS / TS
 function getWebviewContent(context: vscode.ExtensionContext, webview: vscode.Webview): string {
 	// Get the CSS file URI (compiled from SCSS)
-	const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'ui', 'webview', 'styles', 'global.css'));
+	const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'ui', 'webview', 'styles', 'main.css'));
 	const cssUri = webview.asWebviewUri(cssPath);
 
 	// Get the script file URI (compiled from TS)

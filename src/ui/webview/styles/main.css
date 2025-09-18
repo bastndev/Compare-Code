@@ -69,7 +69,7 @@
 
 body {
   -webkit-font-smoothing: antialiased;
-  background-color: var(--bg);
+  background-color: purple;
   color: var(--fg);
   display: flex;
   flex-direction: column;
@@ -152,4 +152,4 @@ span {
   border-top: 1px solid var(--border);
 }
 
-/*# sourceMappingURL=global.css.map */
+/*# sourceMappingURL=main.css.map */
