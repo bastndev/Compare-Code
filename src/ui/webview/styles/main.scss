@@ -2,4 +2,8 @@
 @use './scss/variables';
 
 // Components
-@use './scss/test'
+@use './scss/base';
+@use './scss/layout';
+@use './scss/components';
+@use './scss/code';
+@use './scss/utilities';

@@ -1,0 +1,14 @@
+// ======================================
+// Base Styles - VS Code Extension
+// ======================================
+
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-family);
+}
+
