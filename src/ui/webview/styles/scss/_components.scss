@@ -5,23 +5,32 @@
 // Toolbar styles
 .toolbar {
     background-color: var(--toolbar-bg);
+    display: flex;
+    align-items: center;
     padding: 0 12px;
     border-bottom: 1px solid var(--border);
     display: grid;
-    // gap: 8px;
+    gap: 8px;
     height: 100px;
     grid-template-columns: 1fr 50px 1fr;
+    
 }
 
 .warning{
   display: flex;
   align-items: center;
+  background-color: #311000;
+  width: 150px;
+  height: 50px;
+  border-radius: 8px;
 }
 
 .warning-icon{
-  width: 35px;
+  width: 25px;
+  // color: #ffd900;
 }
 span{
   font-size: 15px;
+  color: white;
 }
 // Bottom bar styles
