@@ -1,9 +1,8 @@
-// Variables
-@use './scss/variables';
+// global.scss
+@use './scss/global';
 
 // Components
-@use './scss/base';
-@use './scss/layout';
-@use './scss/components';
-@use './scss/code';
-@use './scss/utilities';
+@use './scss/toolbar';
+@use './scss/diff-panel';
+@use './scss/diff-code';
+@use './scss/bottom-bar';

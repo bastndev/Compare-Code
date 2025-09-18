@@ -69,7 +69,7 @@
 
 body {
   -webkit-font-smoothing: antialiased;
-  background-color: blue;
+  background-color: var(--bg);
   color: var(--fg);
   display: flex;
   flex-direction: column;
@@ -109,18 +109,6 @@ body {
   }
 }
 /* ======================================
-  Layouts - VS Code Extension
-  ======================================= */
-.container {
-  background-color: rebeccapurple;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  flex: 1;
-  min-height: 0;
-  border-top: 1px solid var(--border);
-}
-
-/* ======================================
   Toolbar styles - VS Code Extension
   ======================================= */
 .toolbar {
@@ -150,6 +138,18 @@ body {
 span {
   font-size: 15px;
   color: white;
+}
+
+/* ======================================
+  Layouts - VS Code Extension
+  ======================================= */
+.diff-panel {
+  background-color: rgb(36, 91, 105);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--border);
 }
 
 /*# sourceMappingURL=global.css.map */
