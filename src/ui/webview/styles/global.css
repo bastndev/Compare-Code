@@ -132,4 +132,17 @@ body {
   grid-template-columns: 1fr 50px 1fr;
 }
 
+.warning {
+  display: flex;
+  align-items: center;
+}
+
+.warning-icon {
+  width: 40px;
+}
+
+span {
+  font-size: 15px;
+}
+
 /*# sourceMappingURL=global.css.map */
