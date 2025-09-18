@@ -76,6 +76,15 @@ body {
 
 span {
   font-size: 15px;
+  color: black;
+}
+
+.btn {
+  background-color: white;
+}
+
+.btn img {
+  width: 30px;
   color: white;
 }
 

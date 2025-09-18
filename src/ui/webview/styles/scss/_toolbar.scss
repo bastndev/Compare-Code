@@ -14,6 +14,7 @@
     
 }
 
+// ---- --- -- - Warning message
 .warning{
   display: flex;
   align-items: center;
@@ -29,5 +30,18 @@
 }
 span{
   font-size: 15px;
+  color: black;
+}
+
+// ---- --- -- - btn = play
+.btn{
+  // background-color: black;
+  background-color: white;
+}
+.btn img{
+  width: 30px;
   color: white;
 }
+
+// ---- --- -- -  Other Buttons
+
