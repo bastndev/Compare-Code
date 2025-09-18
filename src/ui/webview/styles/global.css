@@ -56,8 +56,16 @@
   --test: #e66815;
 }
 
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 body {
-  background-color: var(--bg);
+  background-color: red;
   color: var(--fg);
   display: flex;
   flex-direction: column;
@@ -66,6 +74,23 @@ body {
   height: 100vh;
   margin: 0;
   overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555555;
 }
 
 /*# sourceMappingURL=global.css.map */
