@@ -89,6 +89,20 @@ span {
   color: white;
 }
 
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.clear {
+  background-color: black;
+  color: white;
+  border-radius: 8px;
+  width: 100px;
+  height: 25px;
+}
+
 /* ======================================
   Diff Panel - VS Code Extension
   ======================================= */
