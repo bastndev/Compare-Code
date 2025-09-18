@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import { getWebviewIcons, replaceIconsInHtml } from './webview/view/webviewIcons';
 
 let comparePanel: vscode.WebviewPanel | undefined;
 
@@ -27,7 +28,8 @@ export async function createCompareView(context: vscode.ExtensionContext): Promi
 			localResourceRoots: [
 				vscode.Uri.file(path.join(context.extensionPath, 'src')),
 				vscode.Uri.file(path.join(context.extensionPath, 'styles')),
-				vscode.Uri.file(path.join(context.extensionPath, 'dist'))
+				vscode.Uri.file(path.join(context.extensionPath, 'dist')),
+				vscode.Uri.file(path.join(context.extensionPath, 'assets'))
 			]
 		}
 	);
@@ -63,15 +65,19 @@ function getWebviewContent(context: vscode.ExtensionContext, webview: vscode.Web
 	const scriptPath = vscode.Uri.file(path.join(context.extensionPath, 'dist', 'compareService.js'));
 	const scriptUri = webview.asWebviewUri(scriptPath);
 
+	// Get icons from webviewIcons service
+	const icons = getWebviewIcons(context, webview);
+
 	// Read the HTML template
-	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'index.html');
+	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'view', 'index.html');
 	let html = fs.readFileSync(htmlPath, 'utf8');
-	
-	// SCSS
+
+	// Replace CSS and Script URIs
 	html = html.replace('{{CSS_URI}}', cssUri.toString());
-	
-	// TS
 	html = html.replace('{{SCRIPT_URI}}', scriptUri.toString());
-	
+
+	// ICONS - webviewIcons
+	html = replaceIconsInHtml(html, icons);
+
 	return html;
 }
