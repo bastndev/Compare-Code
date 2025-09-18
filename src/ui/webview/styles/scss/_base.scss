@@ -14,11 +14,13 @@ body {
     color: var(--fg);
     display: flex;
     flex-direction: column;
-    font-family: var(--font-family);
-    font-size: 13px;
+    font-family: var(--font-family, 'Segoe UI', sans-serif);
+    font-size: var(--font-size, 13px);
     height: 100vh;
     margin: 0;
     overflow: hidden;
+    line-height: 1.4;
+    -webkit-font-smoothing: antialiased;
 }
 
 // Scrollbar styles
