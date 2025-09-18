@@ -127,10 +127,9 @@ body {
   background-color: var(--toolbar-bg);
   padding: 0 12px;
   border-bottom: 1px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  display: grid;
   height: 100px;
+  grid-template-columns: 1fr 50px 1fr;
 }
 
 /*# sourceMappingURL=global.css.map */
