@@ -3,12 +3,14 @@
 // ======================================
 
 body {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    margin: 0;
     background-color: var(--bg);
     color: var(--fg);
+    display: flex;
+    flex-direction: column;
     font-family: var(--font-family);
+    font-size: 13px;
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
 }
 
