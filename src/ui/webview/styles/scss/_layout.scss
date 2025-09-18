@@ -1,0 +1,12 @@
+/* ======================================
+  Layouts - VS Code Extension
+  ======================================= */
+
+.container {
+    background-color: rebeccapurple;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+  min-height: 0; // Important for grid overflow
+  border-top: 1px solid var(--border);
+}

@@ -56,6 +56,9 @@
   --test: #e66815;
 }
 
+/* ======================================
+  Base Styles - VS Code Extension
+  ======================================= */
 *,
 *::before,
 *::after {
@@ -66,7 +69,7 @@
 
 body {
   -webkit-font-smoothing: antialiased;
-  background-color: red;
+  background-color: blue;
   color: var(--fg);
   display: flex;
   flex-direction: column;
@@ -104,6 +107,17 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+/* ======================================
+  Layouts - VS Code Extension
+  ======================================= */
+.container {
+  background-color: rebeccapurple;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1;
+  min-height: 0;
+  border-top: 1px solid var(--border);
 }
 
 /*# sourceMappingURL=global.css.map */
