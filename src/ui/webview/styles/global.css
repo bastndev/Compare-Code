@@ -120,4 +120,17 @@ body {
   border-top: 1px solid var(--border);
 }
 
+/* ======================================
+  Toolbar styles - VS Code Extension
+  ======================================= */
+.toolbar {
+  background-color: var(--toolbar-bg);
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 100px;
+}
+
 /*# sourceMappingURL=global.css.map */
