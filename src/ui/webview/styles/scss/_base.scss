@@ -10,6 +10,7 @@
 }
 
 body {
+    -webkit-font-smoothing: antialiased;
     background-color: red;
     color: var(--fg);
     display: flex;
@@ -17,10 +18,9 @@ body {
     font-family: var(--font-family, 'Segoe UI', sans-serif);
     font-size: var(--font-size, 13px);
     height: 100vh;
+    line-height: 1.4;
     margin: 0;
     overflow: hidden;
-    line-height: 1.4;
-    -webkit-font-smoothing: antialiased;
 }
 
 // Scrollbar styles
