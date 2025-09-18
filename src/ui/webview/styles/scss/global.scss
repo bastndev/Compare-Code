@@ -1,31 +1,32 @@
-/* Base colors */
+// Base colors
 $bg: var(--vscode-editor-background);
 $fg: var(--vscode-foreground);
 $fg-muted: var(--vscode-descriptionForeground);
 $border: var(--vscode-widget-border);
 
-/* Typography */
+// Typography
 $font-family: var(--vscode-font-family);
 $font-size: var(--vscode-font-size);
 
-/* Interactive elements */
+// Interactive elements
 $btn-bg: var(--vscode-button-background);
 $btn-fg: var(--vscode-button-foreground);
 $btn-hover: var(--vscode-button-hoverBackground);
 $list-hover-bg: var(--vscode-list-hoverBackground);
 $list-active-bg: var(--vscode-list-activeSelectionBackground);
 
-/* Status & feedback */
+// Status & feedback
 $badge-bg: var(--vscode-badge-background);
 $badge-fg: var(--vscode-badge-foreground);
 $error-bg: var(--vscode-inputValidation-errorBackground);
 
-/* Custom variables */
+// Custom variables
 $test: #009e15;
 
-/* ======================================
-  Base Styles - VS Code Extension
-  ======================================= */
+// ======================================
+//  Base Styles - VS Code Extension
+//=======================================
+
 *,
 *::before,
 *::after {
