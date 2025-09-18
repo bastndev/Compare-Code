@@ -65,6 +65,7 @@
 }
 
 body {
+  -webkit-font-smoothing: antialiased;
   background-color: red;
   color: var(--fg);
   display: flex;
@@ -72,10 +73,9 @@ body {
   font-family: var(--font-family, "Segoe UI", sans-serif);
   font-size: var(--font-size, 13px);
   height: 100vh;
+  line-height: 1.4;
   margin: 0;
   overflow: hidden;
-  line-height: 1.4;
-  -webkit-font-smoothing: antialiased;
 }
 
 ::-webkit-scrollbar {
@@ -93,6 +93,17 @@ body {
 
 ::-webkit-scrollbar-thumb:hover {
   background: #555555;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /*# sourceMappingURL=global.css.map */
