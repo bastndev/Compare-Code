@@ -149,4 +149,11 @@ h1 {
   background-color: red;
 }
 
+/* ======================================
+  Bottom Bar - VS Code Extension
+  ======================================= */
+.bottom-bar {
+  background-color: black;
+}
+
 /*# sourceMappingURL=main.css.map */
