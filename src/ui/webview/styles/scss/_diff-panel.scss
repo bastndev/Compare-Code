@@ -9,3 +9,18 @@
   min-height: 0; // Important for grid overflow
   border-top: 1px solid var(--border);
 }
+
+// ----- ---- --- -- - Select TEC
+.panel-container{
+  background-color: red;
+  display: flex;
+  height: 30px;
+  // width: 100%;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-tec{
+  // align-items: center;
+  color: white;
+}

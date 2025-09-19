@@ -133,4 +133,16 @@ h1 {
   border-top: 1px solid var(--border);
 }
 
+.panel-container {
+  background-color: red;
+  display: flex;
+  height: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
+.select-tec {
+  color: white;
+}
+
 /*# sourceMappingURL=main.css.map */
