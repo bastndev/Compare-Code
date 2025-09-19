@@ -6,6 +6,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
 }
 
 .content{
@@ -18,6 +23,7 @@
     border-radius: 11px;
     gap: 20px;
     position: relative;
+    margin-bottom: 5px;
 }
 
 button{
