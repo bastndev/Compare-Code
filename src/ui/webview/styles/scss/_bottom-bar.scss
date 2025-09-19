@@ -2,5 +2,24 @@
   Bottom Bar - VS Code Extension
   ======================================= */
 .bottom-bar{
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content{
     background-color: blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 500px;
+    border-radius: 11px;
+    gap: 12px;
+}
+
+button{
+    // background-color: black;
+    color: red;
 }
