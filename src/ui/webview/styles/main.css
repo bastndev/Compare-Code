@@ -127,7 +127,7 @@ h1 {
 .diff-panel {
   background-color: rgb(36, 91, 105);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 25px 1fr;
   flex: 1;
   min-height: 0;
   border-top: 1px solid var(--border);
@@ -136,13 +136,17 @@ h1 {
 .panel-container {
   background-color: red;
   display: flex;
-  height: 20px;
+  height: 30px;
   justify-content: center;
   align-items: center;
 }
 
 .select-tec {
   color: white;
+}
+
+.separator {
+  background-color: red;
 }
 
 /*# sourceMappingURL=main.css.map */

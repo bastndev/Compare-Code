@@ -4,7 +4,7 @@
 .diff-panel {
   background-color: rgb(36, 91, 105);
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 25px 1fr;
   flex: 1;
   min-height: 0; // Important for grid overflow
   border-top: 1px solid var(--border);
@@ -23,4 +23,9 @@
 .select-tec{
   // align-items: center;
   color: white;
+}
+
+// ----- ---- --- -- - Separator
+.separator{
+  background-color: red;
 }
