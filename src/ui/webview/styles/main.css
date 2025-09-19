@@ -7,7 +7,6 @@
 }
 
 body {
-  -webkit-font-smoothing: antialiased;
   background-color: var(--vscode-editor-background);
   color: var(--vscode-foreground);
   display: flex;
@@ -18,6 +17,7 @@ body {
   line-height: 1.4;
   margin: 0;
   overflow: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 ::-webkit-scrollbar {
@@ -25,16 +25,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+  background: var(--vscode-editor-background);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
+  background: var(--vscode-widget-border);
   border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555555;
+  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -51,10 +51,10 @@ body {
   Toolbar styles - VS Code Extension
   ======================================= */
 .toolbar {
-  background-color: var(--toolbar-bg);
+  background-color: #c300ff;
   align-items: center;
   padding: 0 12px;
-  border-bottom: 1px solid var(--border);
+  border-bottom: 1px solid white;
   display: grid;
   gap: 8px;
   height: 70px;
