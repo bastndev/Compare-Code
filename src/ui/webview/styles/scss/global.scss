@@ -5,8 +5,8 @@ $fg-muted: var(--vscode-descriptionForeground);
 $border: var(--vscode-widget-border);
 
 // Typography
-$font-family: var(--vscode-font-family);
-$font-size: var(--vscode-font-size);
+$font-family: var(--vscode-font-family, var(--font-family, 'Segoe UI', sans-serif));
+$font-size: var(--vscode-font-size, 13px);
 
 // Interactive elements
 $btn-bg: var(--vscode-button-background);
@@ -20,12 +20,18 @@ $badge-bg: var(--vscode-badge-background);
 $badge-fg: var(--vscode-badge-foreground);
 $error-bg: var(--vscode-inputValidation-errorBackground);
 
+// Scrollbar
+$scrollbar-width: 14px;
+$scrollbar-track-bg: $bg;
+$scrollbar-thumb-bg: $border;
+$scrollbar-thumb-hover: var(--vscode-scrollbarSlider-hoverBackground, #555555);
+
 // Custom variables
 $test: #00ff22;
 
 // ======================================
 //  Base Styles - VS Code Extension
-//=======================================
+//======================================
 
 *,
 *::before,
@@ -36,35 +42,38 @@ $test: #00ff22;
 }
 
 body {
-    -webkit-font-smoothing: antialiased;
-    background-color: $test;
-    color: var(--fg);
+    background-color: $bg;
+    color: $fg;
     display: flex;
     flex-direction: column;
-    font-family: var(--font-family, 'Segoe UI', sans-serif);
-    font-size: var(--font-size, 13px);
+    font-family: $font-family;
+    font-size: $font-size;
     height: 100vh;
     line-height: 1.4;
     margin: 0;
     overflow: hidden;
+    -webkit-font-smoothing: antialiased;
 }
 
-// Scrollbar styles
+// ======================================
+// Scrollbar Styles
+// ======================================
+
 ::-webkit-scrollbar {
-  width: 14px;
+    width: $scrollbar-width;
 }
 
 ::-webkit-scrollbar-track {
-  background: var(--bg);
+    background: $scrollbar-track-bg;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--border);
-  border-radius: 6px;
+    background: $scrollbar-thumb-bg;
+    border-radius: 6px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555555;
+    background: $scrollbar-thumb-hover;
 }
 
 // ==============================================
