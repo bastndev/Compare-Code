@@ -51,17 +51,15 @@ body {
   Toolbar styles - VS Code Extension
   ======================================= */
 .toolbar {
-  background-color: #c300ff;
+  background-color: var(--vscode-editor-background);
   align-items: center;
   padding: 0 12px;
-  border-bottom: 1px solid white;
   display: grid;
   height: 70px;
-  grid-template-columns: 1fr 50px 1fr;
+  grid-template-columns: 1fr 60px 1fr;
 }
 
 .warning-container {
-  background-color: #1eff00;
   width: 100%;
   height: 100%;
   display: flex;
@@ -97,7 +95,6 @@ span {
 }
 
 .buttons-container {
-  background-color: #1eff00;
   display: flex;
   align-items: center;
   justify-content: flex-end;
