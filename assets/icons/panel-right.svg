@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-box-align-right">
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="white" class="icon icon-tabler icons-tabler-filled icon-tabler-box-align-right">
   <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
   <!-- Caja principal (ahora alineada a la derecha) -->
   <path d="M13.998 3.003h5a2 2 0 0 1 2 2v14a2 2 0 0 1 -2 2h-5a1 1 0 0 1 -1 -1v-16a1 1 0 0 1 1 -1z"/>
