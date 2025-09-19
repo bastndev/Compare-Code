@@ -48,6 +48,7 @@ span{
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  gap: 8px;
 }
 
 .clear{
@@ -58,3 +59,16 @@ span{
   height: 25px;
 }
 
+.btn-panel-right{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+h1{
+  cursor: default;
+}
+.btn-panel-left{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
