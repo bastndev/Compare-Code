@@ -150,8 +150,8 @@ h1 {
 }
 
 /* ======================================
-  Bottom Bar - VS Code Extension
-  ======================================= */
+   Bottom Bar - VS Code Extension
+   ======================================= */
 .bottom-bar {
   background-color: transparent;
   display: flex;
@@ -165,13 +165,37 @@ h1 {
   align-items: center;
   justify-content: center;
   height: 50px;
-  width: 500px;
+  width: 320px;
   border-radius: 11px;
-  gap: 12px;
+  gap: 20px;
+  position: relative;
 }
 
 button {
   color: red;
+}
+
+.bottom-bar .content button {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  position: relative;
+}
+.bottom-bar .content button:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 24px;
+  background-color: rgba(255, 255, 255, 0.842);
+}
+
+.icon {
+  width: 30px;
 }
 
 /*# sourceMappingURL=main.css.map */

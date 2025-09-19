@@ -1,6 +1,6 @@
 /* ======================================
-  Bottom Bar - VS Code Extension
-  ======================================= */
+   Bottom Bar - VS Code Extension
+   ======================================= */
 .bottom-bar{
     background-color: transparent;
     display: flex;
@@ -14,12 +14,38 @@
     align-items: center;
     justify-content: center;
     height: 50px;
-    width: 500px;
+    width: 320px;
     border-radius: 11px;
-    gap: 12px;
+    gap: 20px;
+    position: relative;
 }
 
 button{
     // background-color: black;
     color: red;
+}
+
+// ----- ---- --- -- - ICONS
+.bottom-bar .content button{
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    
+    &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -10px; 
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 24px; 
+        background-color: rgba(255, 255, 255, 0.842);
+    }
+}
+
+.icon{
+    width: 30px;
 }
