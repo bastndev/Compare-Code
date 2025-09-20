@@ -189,10 +189,10 @@ h1 {
 .diff-panel {
   background-color: var(--vscode-editor-background);
   display: grid;
-  grid-template-columns: 1fr 25px 1fr;
   flex: 1;
   min-height: 0;
   border-top: 1px solid var(--border);
+  grid-template-columns: 1fr 20px 1fr;
 }
 
 .file-info {
@@ -243,7 +243,6 @@ h1 {
 
 .on1 {
   background-color: var(--vscode-input-background);
-  width: 25px;
   height: 30px;
 }
 
@@ -252,7 +251,6 @@ h1 {
   border-left: 1px solid var(--vscode-input-border);
   border-right: 1px solid var(--vscode-input-border);
   height: 100%;
-  width: 25px;
 }
 
 /* ======================================
