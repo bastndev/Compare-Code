@@ -1,0 +1,30 @@
+/* ======================================
+  Diff Code Styles - VS Code Extension
+  ======================================= */
+
+.code-line {
+    display: block;
+    white-space: pre;
+    margin: 0;
+    padding: 2px 4px;
+    border-radius: 2px;
+    transition: background-color 0.2s ease;
+}
+
+.code-added {
+    background-color: var(--vscode-diffEditor-insertedTextBackground, rgba(0, 255, 0, 0.1));
+    color: var(--vscode-diffEditor-insertedTextForeground, inherit);
+    border-left: 3px solid var(--vscode-diffEditor-insertedLineBackground, green);
+}
+
+.code-removed {
+    background-color: var(--vscode-diffEditor-removedTextBackground, rgba(255, 0, 0, 0.1));
+    color: var(--vscode-diffEditor-removedTextForeground, inherit);
+    border-left: 3px solid var(--vscode-diffEditor-removedLineBackground, red);
+}
+
+.code-modified {
+    background-color: var(--vscode-diffEditor-modifiedTextBackground, rgba(255, 255, 0, 0.1));
+    color: var(--vscode-diffEditor-modifiedTextForeground, inherit);
+    border-left: 3px solid var(--vscode-diffEditor-modifiedLineBackground, yellow);
+}
