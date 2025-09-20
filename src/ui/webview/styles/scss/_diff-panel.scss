@@ -2,7 +2,7 @@
   Diff Panel - VS Code Extension
   ======================================= */
 .diff-panel {
-  background-color: rgb(36, 91, 105);
+  background-color: $bg;
   display: grid;
   grid-template-columns: 1fr 25px 1fr;
   flex: 1;
@@ -12,12 +12,13 @@
 
 // ----- ---- --- -- - Select TEC
 .panel-container{
-  background-color: red;
+  background-color: $input-bg;
   display: flex;
   height: 30px;
   // width: 100%;
   justify-content: center;
   align-items: center;
+  border-bottom: 1px solid $input-border;
 }
 
 .select-tec{
@@ -27,7 +28,9 @@
 
 // ----- ---- --- -- - Separator
 .separator{
-  background-color: red;
+  background-color:$input-bg;
+  border-left: 1px solid $input-border;
+  border-right: 1px solid $input-border;
 }
 
 // ----- ---- --- -- - editor-panel-left | Box 1
