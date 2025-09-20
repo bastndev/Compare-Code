@@ -27,13 +27,26 @@
 }
 
 // ----- ---- --- -- - Separator
-.separator{
-  background-color:$input-bg;
-  border-left: 1px solid $input-border;
-  border-right: 1px solid $input-border;
-  margin-top: 30px;
+// .separator{
+//   background-color:$input-bg;
+//   border-left: 1px solid $input-border;
+//   border-right: 1px solid $input-border;
+//   margin-top: 30px;
+// }
+
+.on1{
+  background-color: $input-bg;
+  width: 25px;
+  height: 30px;
 }
 
+.on2{
+  background-color: $input-bg;
+  border-left: 1px solid $input-border;
+  border-right: 1px solid $input-border;
+  height: 100%;
+  width: 25px;
+}
 // ----- ---- --- -- - editor-panel-left | Box 1
 
 
