@@ -71,9 +71,9 @@ body {
 .warning-box {
   display: flex;
   align-items: center;
-  background-color: var(--vscode-button-secondaryBackground, rgba(87, 182, 137, 0.4392156863));
+  background-color: var(--vscode-editor-background);
   color: var(--vscode-foreground);
-  border: 1px solid var(--vscode-button-border, var(--vscode-widget-border));
+  border: none;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 13px;

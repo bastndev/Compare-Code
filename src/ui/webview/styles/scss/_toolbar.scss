@@ -24,9 +24,10 @@
 .warning-box {
   display: flex;
   align-items: center;
-  background-color: var(--vscode-button-secondaryBackground, #57b68970);
+  background-color: $bg;
   color: $fg;
-  border: 1px solid var(--vscode-button-border, $border);
+  // border: 1px solid var(--vscode-button-border, $border);
+  border: none;
   padding: 6px 12px;
   border-radius: 6px;
   font-size: 13px;
