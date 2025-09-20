@@ -55,9 +55,10 @@ body {
   align-items: center;
   padding: 8px 16px;
   display: grid;
-  height: 60px;
+  height: 50px;
   grid-template-columns: 1fr auto 1fr;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid var(--vscode-panel-border);
 }
 
 .warning-container {
@@ -201,7 +202,7 @@ h1 {
   align-items: center;
   justify-content: center;
   height: 30px;
-  border-bottom: 1px solid var(--vscode-input-border);
+  border-bottom: 1px dashed var(--vscode-input-border);
   gap: 8px;
 }
 
@@ -248,9 +249,17 @@ h1 {
 
 .on2 {
   background-color: var(--vscode-input-background);
-  border-left: 1px solid var(--vscode-input-border);
-  border-right: 1px solid var(--vscode-input-border);
+  border-left: 1px dashed var(--vscode-input-border);
+  border-right: 1px dashed var(--vscode-input-border);
   height: 100%;
+}
+
+.editor-panel-left {
+  background-color: var(--vscode-editor-background);
+}
+
+.editor-panel-right {
+  background-color: var(--vscode-editor-background);
 }
 
 /* ======================================

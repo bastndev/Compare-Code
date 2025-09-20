@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   height: 30px;
-  border-bottom: 1px solid $input-border;
+  border-bottom: 1px dashed $input-border;
   gap: 8px;
 }
 
@@ -75,12 +75,18 @@
 
 .on2{
   background-color: $input-bg;
-  border-left: 1px solid $input-border;
-  border-right: 1px solid $input-border;
+  border-left: 1px dashed $input-border;
+  border-right: 1px dashed $input-border;
   height: 100%;
   // width: 25px;
 }
-// ----- ---- --- -- - editor-panel-left | Box 1
 
+// ----- ---- --- -- - editor-panel-left | Box 1
+.editor-panel-left{
+  background-color: $bg;
+}
 
 // ----- ---- --- -- - editor-panel-right | Box 2
+.editor-panel-right{
+  background-color: $bg;
+}
