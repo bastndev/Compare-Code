@@ -36,6 +36,9 @@ export function getWebviewIcons(context: vscode.ExtensionContext, webview: vscod
     const switchOnPath = vscode.Uri.file(path.join(context.extensionPath, 'assets', 'icons', 'switch-on.svg'));
     const switchOnUri = webview.asWebviewUri(switchOnPath);
 
+    const refreshPath = vscode.Uri.file(path.join(context.extensionPath, 'assets', 'icons', 'refresh.svg'));
+    const refreshUri = webview.asWebviewUri(refreshPath);
+
     return {
         warning: warningUri.toString(),
         play: playUri.toString(),
@@ -49,6 +52,7 @@ export function getWebviewIcons(context: vscode.ExtensionContext, webview: vscod
         onlyCode: onlyCodeUri.toString(),
         switchOff: switchOffUri.toString(),
         switchOn: switchOnUri.toString(),
+        refresh: refreshUri.toString(),
 
     };
 }
@@ -68,6 +72,7 @@ export function replaceIconsInHtml(html: string, icons: ReturnType<typeof getWeb
     processedHtml = processedHtml.replace('{{SWITCH_OFF_ICON}}', icons.switchOff);
     processedHtml = processedHtml.replace('{{SWITCH_ON_ICON}}', icons.switchOn);
     processedHtml = processedHtml.replace('{{EARTH_CODE_ICON}}', icons.earthCode);
+    processedHtml = processedHtml.replace('{{REFRESH_ICON}}', icons.refresh);
 
     return processedHtml;
 }
