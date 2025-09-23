@@ -65,9 +65,18 @@
                 </div>
             </div>
             <div class="editor-content">
-                <div class="code-line code-removed">    // This line was removed</div>
-                <div class="code-line code-modified">    return true; // Modified</div>
-                <div class="code-line">}</div>
+                <div class="diff-gutter"></div>
+                <textarea class="code-textarea" placeholder="Paste your modified code here...
+
+// Example:
+function calculateSum(a, b) {
+    return a + b;
+}
+
+const result = calculateSum(5, 3);
+console.log('Result:', result);
+
+// More code here..."></textarea>
             </div>
         </div>        
 
@@ -91,9 +100,19 @@
                 </div>
             </div>
             <div class="editor-content">
-                <div class="code-line code-added">    // This line was added</div>
-                <div class="code-line code-modified">    return false; // Modified</div>
-                <div class="code-line">}</div>
+                <div class="diff-gutter"></div>
+                <textarea class="code-textarea" placeholder="Paste your modified code here...
+
+// Example:
+function calculateSum(a, b, c = 0) {
+    const sum = a + b + c;
+    return sum;
+}
+
+const result = calculateSum(5, 3, 2);
+console.log('Updated result:', result);
+
+// Enhanced version..."></textarea>
             </div>
         </div>
     </div>
