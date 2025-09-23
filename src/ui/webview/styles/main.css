@@ -7,7 +7,7 @@
 }
 
 body {
-  background-color: var(--vscode-editor-background);
+  background-color: #9dff00;
   color: var(--vscode-foreground);
   display: flex;
   flex-direction: column;

@@ -1,3 +1,7 @@
+// ======================================
+// VS Code Theme Variables
+// ======================================
+
 // Base colors
 $bg: var(--vscode-editor-background);
 $fg: var(--vscode-foreground);
@@ -13,12 +17,10 @@ $btn-bg: var(--vscode-button-background);
 $btn-fg: var(--vscode-button-foreground);
 $btn-hover: var(--vscode-button-hoverBackground);
 $list-hover-bg: var(--vscode-list-hoverBackground);
-$list-active-bg: var(--vscode-list-activeSelectionBackground);
 
-// Status & feedback
-$badge-bg: var(--vscode-badge-background);
-$badge-fg: var(--vscode-badge-foreground);
-$error-bg: var(--vscode-inputValidation-errorBackground);
+// Input elements
+$input-bg: var(--vscode-input-background);
+$input-border: var(--vscode-input-border);
 
 // Scrollbar
 $scrollbar-width: 14px;
@@ -26,11 +28,34 @@ $scrollbar-track-bg: $bg;
 $scrollbar-thumb-bg: $border;
 $scrollbar-thumb-hover: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 
-// Custom variables
-$test: #51ff00;
+// ======================================
+// Custom Design System Variables
+// ======================================
 
-$input-bg: var(--vscode-input-background);
-$input-border: var(--vscode-input-border);
+// Diff colors (used in toolbar stats and gutter)
+$accent-green: #22c55e;
+$accent-red: #ef4444;
+$accent-orange: #f59e0b;
+$accent-blue: #3b82f6;
+
+$test: #9dff00;
+
+// Layout spacing
+$toolbar-height: 60px;
+$bottom-bar-height: 50px;
+$file-info-height: 35px;
+
+// Border radius
+$border-radius: 6px;
+$border-radius-sm: 4px;
+$border-radius-lg: 8px;
+
+// Spacing scale
+$spacing-xs: 4px;
+$spacing-sm: 8px;
+$spacing-md: 16px;
+$spacing-lg: 24px;
+$spacing-xl: 32px;
 
 // ======================================
 //  Base Styles - VS Code Extension
