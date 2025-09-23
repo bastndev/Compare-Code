@@ -276,7 +276,7 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 30px;
+  height: 35px;
   border-bottom: 1px solid var(--vscode-input-border);
   gap: 8px;
 }
@@ -319,7 +319,7 @@ h1 {
 
 .on1 {
   background-color: var(--vscode-input-background);
-  height: 30px;
+  height: 35px;
 }
 
 .on2 {
