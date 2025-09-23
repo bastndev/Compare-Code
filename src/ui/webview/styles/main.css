@@ -312,7 +312,7 @@ body {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding-right: 23px;
+  padding-right: 22px;
 }
 .copy-clear img {
   width: 15px;
@@ -465,7 +465,7 @@ body {
   }
 }
 /* ======================================
-   Bottom Bar - VS Code Extension
+   BOTTOM BAR - VS Code Extension
    ======================================= */
 .bottom-bar {
   background-color: transparent;
@@ -487,7 +487,7 @@ body {
   height: 50px;
   width: 320px;
   border-radius: 11px;
-  gap: 20px;
+  gap: 24px;
   position: relative;
   border: 2px dashed var(--vscode-input-border);
 }
@@ -495,28 +495,19 @@ body {
 .content button {
   background-color: transparent;
   border: none;
-}
-
-.content button:hover {
-  border-radius: 10px;
-  background-color: rgba(85, 85, 85, 0.377);
-  cursor: pointer;
-  padding: 2px;
-}
-
-.icon {
-  width: 30px;
-}
-
-.bottom-bar .content button {
   width: 40px;
   height: 40px;
   border-radius: 8px;
-  border: none;
   cursor: pointer;
   position: relative;
+  transition: background-color 0.2s ease;
 }
-.bottom-bar .content button:not(:last-child)::after {
+.content button:hover {
+  border-radius: 10px;
+  background-color: rgba(85, 85, 85, 0.377);
+  padding: 2px;
+}
+.content button:not(:last-child)::after {
   content: "";
   position: absolute;
   right: -10px;
@@ -524,7 +515,11 @@ body {
   transform: translateY(-50%);
   width: 1px;
   height: 24px;
-  background-color: rgba(255, 255, 255, 0.4117647059);
+  background-color: rgba(255, 255, 255, 0.41);
+}
+.content button .icon {
+  width: 30px;
+  height: 30px;
 }
 
 /*# sourceMappingURL=main.css.map */
