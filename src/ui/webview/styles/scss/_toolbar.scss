@@ -173,7 +173,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  gap: 8px;
+  // gap: 6px;
   width: 100%;
   height: 100%;
 }
@@ -190,9 +190,12 @@
   display: flex;
   align-items: center;
   gap: 4px;
+  margin-right: 18px;
 }
 
 .clear:hover {
+  border-radius: 4px;
+  padding: 4px 8px;
   background-color: var(--vscode-button-secondaryHoverBackground, #4c5561);
 }
 
@@ -215,6 +218,8 @@
 
 .btn-panel-right:hover,
 .btn-panel-left:hover {
+    padding: 6px;
+  border-radius: 4px;
   background-color: $list-hover-bg;
 }
 
