@@ -7,15 +7,21 @@
     <script src="{{SCRIPT_URI}}" defer></script>
 </head>
 <body>
-    <!-- Top toolbar with | Info -->
+    <!-- ======================================
+         TOOLBAR - Top navigation and controls
+         ====================================== -->
     <div class="toolbar">
-        <!-- <div class="warning-container">
+        <!-- Warning container - Future implementation -->
+        <!-- 
+        <div class="warning-container">
             <div class="warning-box">
                 <img class="warning-icon" src="{{WARNING_ICON}}">
                 <span>1 : Changes</span>
             </div>
-        </div> -->
+        </div> 
+        -->
 
+        <!-- Diff statistics display -->
         <div class="diff-stats">
             <div class="stat-item">
                 <div class="stat-icon added">+</div>
@@ -31,25 +37,33 @@
             </div>
         </div>
 
+        <!-- Primary compare button -->
         <button class="btn-play">
-            <img src="{{PLAY_ICON}}">
+            <img src="{{PLAY_ICON}}" alt="Compare">
             <span>Compare</span>
         </button>
 
+        <!-- Secondary actions and panel controls -->
         <div class="buttons-container">
             <button class="clear">🗑️ Clear</button>
             
-            <button class="btn-panel-left" ><img src="{{PANEL_LEFT_ICON}}"></button>
-            <h1>/</h1>
-            <button class="btn-panel-right"><img src="{{PANEL_RIGHT_ICON}}"></button>
+            <button class="btn-panel-left">
+                <img src="{{PANEL_LEFT_ICON}}" alt="Panel Left">
+            </button>
+            <span class="separator">/</span>
+            <button class="btn-panel-right">
+                <img src="{{PANEL_RIGHT_ICON}}" alt="Panel Right">
+            </button>
         </div>
     </div>
 
-
-    <!-- Main container with panels -->
+    <!-- ======================================
+         DIFF PANEL - Main comparison interface
+         ====================================== -->
     <div class="diff-panel">
         <!-- Left editor panel -->
         <div class="editor-panel-left">
+            <!-- File selector and controls -->
             <div class="file-info">
                 <div class="file-selector">
                     <div class="file-icon">JS</div>
@@ -60,11 +74,12 @@
                     </select>
                 </div>
                 <div class="copy-clear">
-                    <img src="{{COPY_ICON}}">
-                    <img src="{{CLEAR_ICON}}">
+                    <img src="{{COPY_ICON}}" alt="Copy">
+                    <img src="{{CLEAR_ICON}}" alt="Clear">
                     <div style="width: 65px;"></div>
                 </div>
             </div>
+            <!-- Code editor area -->
             <div class="editor-content">
                 <div class="diff-gutter"></div>
                 <textarea class="code-textarea" placeholder="Paste your modified code here...
@@ -80,12 +95,17 @@ console.log('Updated result:', result);
 
 // Enhanced version..."></textarea>
             </div>
-        </div>        
+        </div>
 
-        <div class="separator"><div class="on1"></div><div class="on2"></div></div> <!--  Separator 2 box vertical -->
+        <!-- Vertical separator -->
+        <div class="separator">
+            <div class="on1"></div>
+            <div class="on2"></div>
+        </div>
 
         <!-- Right editor panel -->
         <div class="editor-panel-right">
+            <!-- File selector and controls -->
             <div class="file-info">
                 <div class="file-selector">
                     <div class="file-icon">JS</div>
@@ -96,11 +116,12 @@ console.log('Updated result:', result);
                     </select>
                 </div>
                 <div class="copy-clear">
-                    <img src="{{COPY_ICON2}}">
-                    <img src="{{CLEAR_ICON2}}">
+                    <img src="{{COPY_ICON2}}" alt="Copy">
+                    <img src="{{CLEAR_ICON2}}" alt="Clear">
                     <div style="width: 65px;"></div>
                 </div>
             </div>
+            <!-- Code editor area -->
             <div class="editor-content">
                 <div class="diff-gutter"></div>
                 <textarea class="code-textarea" placeholder="Paste your modified code here...
@@ -121,15 +142,26 @@ console.log('Result:', result);
         </div>
     </div>
 
-
-    <!-- Bottom bar | Tools -->
+    <!-- ======================================
+         BOTTOM BAR - Floating tool controls
+         ====================================== -->
     <div class="bottom-bar">
         <div class="content">
-            <button><img class="icon" src="{{ONLY_CODE_ICON}}""></button>
-            <button><img class="icon" src="{{DUAL_SCROLL_ICON}}""></button>
-            <button><img class="icon" src="{{SWITCH_ON_ICON}}""></button>
-            <button><img class="icon" src="{{LANGUAGE_ICON}}""></button>
-            <button><img class="icon" src="{{EARTH_CODE_ICON}}""></button>
+            <button>
+                <img class="icon" src="{{ONLY_CODE_ICON}}" alt="Only Code">
+            </button>
+            <button>
+                <img class="icon" src="{{DUAL_SCROLL_ICON}}" alt="Dual Scroll">
+            </button>
+            <button>
+                <img class="icon" src="{{SWITCH_ON_ICON}}" alt="Switch On">
+            </button>
+            <button>
+                <img class="icon" src="{{LANGUAGE_ICON}}" alt="Language">
+            </button>
+            <button>
+                <img class="icon" src="{{EARTH_CODE_ICON}}" alt="Earth Code">
+            </button>
         </div>
     </div>
 </body>
