@@ -39,25 +39,7 @@
 // }
 
 // ----- ---- --- -- - ICONS
-// .bottom-bar .content button{
-//     width: 40px;
-//     height: 40px;
-//     border-radius: 8px;
-//     border: none;
-//     cursor: pointer;
-//     position: relative;
-    
-//     &:not(:last-child)::after {
-//         content: '';
-//         position: absolute;
-//         right: -10px; 
-//         top: 50%;
-//         transform: translateY(-50%);
-//         width: 1px;
-//         height: 24px; 
-//         background-color: rgba(255, 255, 255, 0.842);
-//     }
-// }
+
 button{
     background-color: transparent;
     border: none;
@@ -73,4 +55,24 @@ button:hover{
 .icon{
     width: 30px;
     // background-color: red;
+}
+
+.bottom-bar .content button{
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    position: relative;
+    
+    &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        right: -10px; 
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1px;
+        height: 24px; 
+        background-color: rgba(255, 255, 255, 0.842);
+    }
 }
