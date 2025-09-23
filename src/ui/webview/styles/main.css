@@ -397,7 +397,7 @@ body {
   flex: 1; /* Take all available space */
   background: transparent;
   border: none;
-  color: var(--text-primary);
+  color: rgba(255, 255, 255, 0.4862745098);
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
   font-size: 14px;
   line-height: 1.6;
@@ -465,7 +465,7 @@ body {
   }
 }
 /* ======================================
-   BOTTOM BAR - VS Code Extension
+   BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */
 .bottom-bar {
   background-color: transparent;
@@ -480,7 +480,7 @@ body {
 }
 
 .content {
-  background-color: var(--vscode-button-secondaryBackground);
+  background-color: var(--vscode-input-background);
   display: flex;
   align-items: center;
   justify-content: center;
