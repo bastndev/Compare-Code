@@ -69,11 +69,14 @@
                 <textarea class="code-textarea" placeholder="Paste your modified code here...
 
 // Example:
-function calculateSum(a, b) {
-    return a + b;
+// calculateSum: sums up to three numbers (third parameter is optional)
+function calculateSum(a, b, c = 0) {
+    const sum = a + b + c;
+    return sum;
 }
 
-const result = calculateSum(5, 3);
+// Usage
+const result = calculateSum(5, 3, 2);
 console.log('Result:', result);
 
 // More code here..."></textarea>
