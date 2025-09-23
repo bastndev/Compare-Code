@@ -159,6 +159,9 @@
 .btn-play:hover {
   // background-color: var(--accent-blue-hover);
   background-color: var(--vscode-button-hoverBackground);
+  // background-color: red;
+    border-radius: 6px;
+  padding: 6px 14px 6px 14px;
 }
 
 .btn-play:active {
