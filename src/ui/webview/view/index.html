@@ -11,16 +11,15 @@
          TOOLBAR - Top navigation and controls
          ====================================== -->
     <div class="toolbar">
-        <!-- Warning container - Future implementation -->
-        <!-- 
-        <div class="warning-container">
+        <!-- Warning container -->
+
+        <!-- <div class="warning-container">
             <div class="warning-box">
                 <img class="warning-icon" src="{{WARNING_ICON}}">
                 <span>1 : Changes</span>
             </div>
-        </div> 
-        -->
-
+        </div>  -->
+       
         <!-- Diff statistics display -->
         <div class="diff-stats">
             <div class="stat-item">
@@ -37,13 +36,13 @@
             </div>
         </div>
 
-        <!-- Primary compare button -->
+        <!-- Primary compare button | PLAY -->
         <button class="btn-play">
             <img src="{{PLAY_ICON}}" alt="Compare">
             <span>Compare</span>
         </button>
 
-        <!-- Secondary actions and panel controls -->
+        <!-- Secondary panel controls | Clear - Close & Open -->
         <div class="buttons-container">
             <button class="clear">🗑️ Clear</button>
             
@@ -61,9 +60,9 @@
          DIFF PANEL - Main comparison interface
          ====================================== -->
     <div class="diff-panel">
-        <!-- Left editor panel -->
+        <!-- LEFT - EDITOR PANEL -->
         <div class="editor-panel-left">
-            <!-- File selector and controls -->
+
             <div class="file-info">
                 <div class="file-selector">
                     <div class="file-icon">JS</div>
@@ -79,7 +78,8 @@
                     <div style="width: 65px;"></div>
                 </div>
             </div>
-            <!-- Code editor area -->
+
+            <!-- Code editor area | MARK: Code L-->
             <div class="editor-content">
                 <div class="diff-gutter"></div>
                 <textarea class="code-textarea" placeholder="Paste your modified code here...
@@ -101,11 +101,10 @@ console.log('Updated result:', result);
         <div class="separator">
             <div class="on1"></div>
             <div class="on2"></div>
-        </div>
+        </div><!--   separator  -->
 
-        <!-- Right editor panel -->
+        <!-- RIGHT - EDITOR PANEL -->
         <div class="editor-panel-right">
-            <!-- File selector and controls -->
             <div class="file-info">
                 <div class="file-selector">
                     <div class="file-icon">JS</div>
@@ -121,7 +120,8 @@ console.log('Updated result:', result);
                     <div style="width: 65px;"></div>
                 </div>
             </div>
-            <!-- Code editor area -->
+
+            <!-- Code editor area | MARK: Code R-->
             <div class="editor-content">
                 <div class="diff-gutter"></div>
                 <textarea class="code-textarea" placeholder="Paste your modified code here...
