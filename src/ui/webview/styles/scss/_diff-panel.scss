@@ -55,10 +55,15 @@
 
 // COPY-CLEAR / CONTROLS
 .copy-clear {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding-right: 22px;
+  
   img {
     width: 15px;
+    height: 15px;
     cursor: pointer;
-    margin-right: $spacing-sm;
     opacity: 0.7;
     transition: opacity 0.2s ease;
     

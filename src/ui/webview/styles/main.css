@@ -308,10 +308,16 @@ body {
   transition: border-color 0.2s ease;
 }
 
+.copy-clear {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 23px;
+}
 .copy-clear img {
   width: 15px;
+  height: 15px;
   cursor: pointer;
-  margin-right: 8px;
   opacity: 0.7;
   transition: opacity 0.2s ease;
 }
