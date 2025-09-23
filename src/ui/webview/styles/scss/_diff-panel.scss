@@ -17,7 +17,7 @@
   align-items: center;
   justify-content: center;
   height: 30px;
-  border-bottom: 1px dashed $input-border;
+  border-bottom: 1px solid $input-border;
   gap: 8px;
 }
 
@@ -75,8 +75,8 @@
 
 .on2{
   background-color: $input-bg;
-  border-left: 1px dashed $input-border;
-  border-right: 1px dashed $input-border;
+  border-left: 1px solid $input-border;
+  border-right: 1px solid $input-border;
   height: 100%;
   // width: 25px;
 }
