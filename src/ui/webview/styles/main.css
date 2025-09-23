@@ -48,10 +48,10 @@ body {
   }
 }
 /* ======================================
-  Toolbar styles - VS Code Extension
-  ======================================= */
+   TOOLBAR - VS Code Extension MARK: TOOLBAR
+   ======================================= */
 .toolbar {
-  background-color: var(--bg-tertiary);
+  background-color: var(--vscode-editor-background);
   align-items: center;
   padding: 8px 16px;
   display: grid;
@@ -67,6 +67,32 @@ body {
   display: flex;
   align-items: center;
   justify-content: flex-start;
+}
+
+.warning-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-foreground);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: var(--vscode-font-size, 13px);
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+  cursor: default;
+}
+
+.warning-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.warning-box span {
+  font-size: var(--vscode-font-size, 13px);
+  color: inherit;
 }
 
 .diff-stats {
@@ -87,8 +113,8 @@ body {
   align-items: center;
   gap: 8px;
   font-weight: 500;
-  font-size: 13px;
-  color: var(--vscode-foreground, var(--text-primary));
+  font-size: var(--vscode-font-size, 13px);
+  color: var(--vscode-foreground);
   white-space: nowrap;
   transition: opacity 0.2s ease;
   cursor: default;
@@ -127,74 +153,44 @@ body {
   }
 }
 .stat-icon.added {
-  background: linear-gradient(135deg, var(--accent-green, #22c55e), #16a34a);
+  background: linear-gradient(135deg, #22c55e, #16a34a);
 }
 .stat-icon.removed {
-  background: linear-gradient(135deg, var(--accent-red, #ef4444), #dc2626);
+  background: linear-gradient(135deg, #ef4444, #dc2626);
 }
 .stat-icon.modified {
-  background: linear-gradient(135deg, var(--accent-orange, #f59e0b), #d97706);
-}
-
-.warning-box {
-  display: flex;
-  align-items: center;
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  border: none;
-  padding: 6px 12px;
-  border-radius: 6px;
-  font-size: 13px;
-  font-weight: 500;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-  transition: background-color 0.2s ease;
-  cursor: default;
-}
-
-.warning-icon {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
-}
-
-.warning-box span {
-  font-size: 13px;
-  color: inherit;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
 }
 
 .btn-play {
-  background-color: var(--vscode-button-background);
   border: none;
-  border-radius: 6px;
-  padding: 6px 14px 6px 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+.btn-play:active {
+  transform: scale(0.95);
+}
+.btn-play {
+  background-color: var(--vscode-button-background);
+  padding: 6px 14px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
 }
-
 .btn-play img {
   width: 18px;
   height: 18px;
 }
-
 .btn-play span {
   color: white;
   font-weight: bold;
   padding-left: 6px;
   font-size: 15px;
 }
-
 .btn-play:hover {
   background-color: var(--vscode-button-hoverBackground);
-  border-radius: 6px;
-  padding: 6px 14px 6px 14px;
-}
-
-.btn-play:active {
-  transform: scale(0.95);
 }
 
 .buttons-container {
@@ -206,57 +202,53 @@ body {
 }
 
 .clear {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+.clear:active {
+  transform: scale(0.95);
+}
+.clear {
   background-color: var(--vscode-button-secondaryBackground, #5f6a79);
   color: var(--vscode-button-secondaryForeground, var(--vscode-foreground));
   border: 1px solid var(--vscode-button-border, var(--vscode-widget-border));
-  border-radius: 4px;
   padding: 4px 8px;
   font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  display: flex;
-  align-items: center;
   gap: 4px;
-  margin-right: 18px;
+  margin-right: 24px;
 }
-
 .clear:hover {
-  border-radius: 4px;
-  padding: 4px 8px;
   background-color: var(--vscode-button-secondaryHoverBackground, #4c5561);
-}
-
-.clear:active {
-  transform: scale(0.95);
 }
 
 .btn-panel-right,
 .btn-panel-left {
-  background-color: transparent;
   border: none;
   cursor: pointer;
-  padding: 6px;
-  border-radius: 4px;
-  transition: background-color 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 6px;
 }
-
 .btn-panel-right:hover,
 .btn-panel-left:hover {
-  padding: 6px;
-  border-radius: 4px;
   background-color: var(--vscode-list-hoverBackground);
 }
-
 .btn-panel-right img,
 .btn-panel-left img {
   width: 20px;
   height: 20px;
 }
 
-h1 {
+.separator {
   cursor: default;
   font-size: 16px;
   color: var(--vscode-descriptionForeground);
