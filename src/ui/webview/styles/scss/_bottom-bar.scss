@@ -40,12 +40,12 @@
 
 // ----- ---- --- -- - ICONS
 
-button{
+.content button{
     background-color: transparent;
     border: none;
 }
 
-button:hover{
+.content button:hover{
     border-radius: 10px;
     background-color: rgba(85, 85, 85, 0.377);
     cursor: pointer;
