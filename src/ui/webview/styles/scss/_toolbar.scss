@@ -46,10 +46,11 @@
   color: var(--vscode-foreground, var(--text-primary));
   white-space: nowrap;
   transition: opacity 0.2s ease;
+  cursor: default;
+  opacity: 0.8;
   
-  &:hover {
-    opacity: 0.8;
-  }
+  // &:hover {
+  // }
   
   // Mobile optimization
   @media (max-width: 480px) {

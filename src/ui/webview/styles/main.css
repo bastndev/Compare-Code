@@ -91,8 +91,7 @@ body {
   color: var(--vscode-foreground, var(--text-primary));
   white-space: nowrap;
   transition: opacity 0.2s ease;
-}
-.stat-item:hover {
+  cursor: default;
   opacity: 0.8;
 }
 @media (max-width: 480px) {
