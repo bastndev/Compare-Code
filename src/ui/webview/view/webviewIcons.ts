@@ -82,10 +82,10 @@ export function replaceIconsInHtml(html: string, icons: ReturnType<typeof getWeb
     processedHtml = processedHtml.replace('{{EARTH_CODE_ICON}}', icons.earthCode);
     processedHtml = processedHtml.replace('{{REFRESH_ICON}}', icons.refresh);
 
-    processedHtml = processedHtml.replace('{{CLEAR_ICON}}', icons.clear);
-    processedHtml = processedHtml.replace('{{CLEAR_ICON2}}', icons.clear);
-    processedHtml = processedHtml.replace('{{COPY_ICON}}', icons.copy);
-    processedHtml = processedHtml.replace('{{COPY_ICON2}}', icons.copy);
+    processedHtml = processedHtml.replace('{{CLEAR_ICON_L}}', icons.clear);
+    processedHtml = processedHtml.replace('{{CLEAR_ICON_R}}', icons.clear);
+    processedHtml = processedHtml.replace('{{COPY_ICON_R}}', icons.copy);
+    processedHtml = processedHtml.replace('{{COPY_ICON_L}}', icons.copy);
 
     return processedHtml;
 }
