@@ -281,9 +281,16 @@ h1 {
   background-color: var(--vscode-input-background);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   height: 35px;
   border-bottom: 1px solid var(--vscode-input-border);
+}
+
+.file-selector {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 8px;
 }
 
@@ -341,6 +348,12 @@ h1 {
 
 .editor-panel-right {
   background-color: var(--vscode-editor-background);
+}
+
+.copy-clear img {
+  width: 18px;
+  cursor: pointer;
+  padding-right: 5px;
 }
 
 /* ======================================
