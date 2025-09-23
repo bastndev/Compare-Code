@@ -83,7 +83,9 @@ export function replaceIconsInHtml(html: string, icons: ReturnType<typeof getWeb
     processedHtml = processedHtml.replace('{{REFRESH_ICON}}', icons.refresh);
 
     processedHtml = processedHtml.replace('{{CLEAR_ICON}}', icons.clear);
+    processedHtml = processedHtml.replace('{{CLEAR_ICON2}}', icons.clear);
     processedHtml = processedHtml.replace('{{COPY_ICON}}', icons.copy);
+    processedHtml = processedHtml.replace('{{COPY_ICON2}}', icons.copy);
 
     return processedHtml;
 }

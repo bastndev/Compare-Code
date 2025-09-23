@@ -351,9 +351,14 @@ h1 {
 }
 
 .copy-clear img {
-  width: 18px;
+  width: 15px;
   cursor: pointer;
-  padding-right: 5px;
+  margin-right: 10px;
+}
+
+.clear-icon {
+  margin-right: 40px;
+  background-color: red;
 }
 
 /* ======================================
