@@ -257,14 +257,13 @@ body {
 }
 
 /* ======================================
-  Diff Panel - VS Code Extension
-  ======================================= */
+   DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
+   ======================================= */
 .diff-panel {
   background-color: var(--vscode-editor-background);
   display: grid;
   flex: 1;
   min-height: 0;
-  border-top: 1px solid var(--border);
   grid-template-columns: 1fr 20px 1fr;
 }
 
@@ -298,27 +297,26 @@ body {
   color: #000;
 }
 
-.file-name {
-  font-size: 13px;
-  color: #cccccc;
-  font-weight: 400;
-}
-
-.file-path {
-  font-size: 11px;
-  color: #969696;
-  margin-left: 8px;
-}
-
 .select {
   background: var(--vscode-input-background);
-  color: #cccccc;
+  color: var(--vscode-foreground);
   border: none;
   padding: 6px 24px 6px 8px;
   border-radius: 4px;
-  font-size: 13px;
+  font-size: var(--vscode-font-size, 13px);
   cursor: pointer;
   transition: border-color 0.2s ease;
+}
+
+.copy-clear img {
+  width: 15px;
+  cursor: pointer;
+  margin-right: 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.copy-clear img:hover {
+  opacity: 1;
 }
 
 .on1 {
@@ -333,23 +331,9 @@ body {
   height: 100%;
 }
 
-.editor-panel-left {
-  background-color: var(--vscode-editor-background);
-}
-
+.editor-panel-left,
 .editor-panel-right {
   background-color: var(--vscode-editor-background);
-}
-
-.copy-clear img {
-  width: 15px;
-  cursor: pointer;
-  margin-right: 10px;
-}
-
-.clear-icon {
-  margin-right: 40px;
-  background-color: red;
 }
 
 /* ======================================
