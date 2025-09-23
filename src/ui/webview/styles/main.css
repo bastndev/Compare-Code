@@ -248,7 +248,7 @@ body {
   height: 20px;
 }
 
-.separator {
+.slash {
   cursor: default;
   font-size: 16px;
   color: var(--vscode-descriptionForeground);
