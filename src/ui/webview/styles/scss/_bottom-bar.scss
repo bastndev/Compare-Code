@@ -23,36 +23,54 @@
     border-radius: 11px;
     gap: 20px;
     position: relative;
-    margin-bottom: 5px;
-    border: 1px solid $input-border;
+    // margin-bottom: 5px;
+    // border: 1px solid $input-border;
+    border: 2px dashed $input-border;
 }
 
-button{
-    // background-color: black;
-    color: red;
-}
+// .content:hover{
+//     border: 2px dashed $input-border;
+// }
+
+
+// button{
+//     // background-color: black;
+//     color: red;
+// }
 
 // ----- ---- --- -- - ICONS
-.bottom-bar .content button{
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    position: relative;
+// .bottom-bar .content button{
+//     width: 40px;
+//     height: 40px;
+//     border-radius: 8px;
+//     border: none;
+//     cursor: pointer;
+//     position: relative;
     
-    &:not(:last-child)::after {
-        content: '';
-        position: absolute;
-        right: -10px; 
-        top: 50%;
-        transform: translateY(-50%);
-        width: 1px;
-        height: 24px; 
-        background-color: rgba(255, 255, 255, 0.842);
-    }
+//     &:not(:last-child)::after {
+//         content: '';
+//         position: absolute;
+//         right: -10px; 
+//         top: 50%;
+//         transform: translateY(-50%);
+//         width: 1px;
+//         height: 24px; 
+//         background-color: rgba(255, 255, 255, 0.842);
+//     }
+// }
+button{
+    background-color: transparent;
+    border: none;
+}
+
+button:hover{
+    border-radius: 10px;
+    background-color: rgba(85, 85, 85, 0.377);
+    cursor: pointer;
+    padding: 2px;
 }
 
 .icon{
     width: 30px;
+    // background-color: red;
 }
