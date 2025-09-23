@@ -427,7 +427,7 @@ button:hover {
   transform: translateY(-50%);
   width: 1px;
   height: 24px;
-  background-color: rgba(255, 255, 255, 0.842);
+  background-color: rgba(255, 255, 255, 0.4117647059);
 }
 
 /*# sourceMappingURL=main.css.map */
