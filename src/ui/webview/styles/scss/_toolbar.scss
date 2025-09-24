@@ -81,12 +81,11 @@
   align-items: center;
   gap: $spacing-sm;
   font-weight: 500;
-  font-size: $font-size;
-  color: $fg;
+   font-size: $font-size;
+    color: $fg;
   white-space: nowrap;
   transition: opacity 0.2s ease;
   cursor: default;
-  opacity: 0.8;
 }
 
 .stat-icon {
@@ -97,16 +96,12 @@
   align-items: center;
   justify-content: center;
   font-size: 11px;
-  color: white;
+  color: $color-white;
+  opacity: none;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-  
-  &:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  }
   
   &.added {
     background: linear-gradient(135deg, $color-green, #16a34a);
@@ -119,10 +114,17 @@
   &.modified {
     background: linear-gradient(135deg, $color-orange, #d97706);
   }
+
+  &:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .stat-item span{
   font-size: 11px;
+  color: $fg;
+  opacity: 0.8;
 }
 // ======================================
 // Primary Compare Button | MARK: play
