@@ -337,6 +337,9 @@ body {
   height: 100%;
 }
 
+/* ========================================
+  Editor Panels Content - VS Code Extension | MARK: DIFF CODE
+  ========================================= */
 .editor-panel-left,
 .editor-panel-right {
   background-color: var(--vscode-editor-background);
@@ -346,9 +349,6 @@ body {
   min-height: 0;
 }
 
-/* ======================================
-  Editor Content Styles - VS Code Extension
-  ======================================= */
 .diff-code {
   flex: 1;
   position: relative;
@@ -365,6 +365,7 @@ body {
   flex: 0 0 40px;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
   font-size: 14px;
+  font-weight: 500;
   line-height: 1.6;
   padding: 11px 8px 24px 2px;
   color: var(--vscode-editorLineNumber-foreground);
@@ -375,12 +376,6 @@ body {
   text-align: right;
   user-select: none;
   pointer-events: none;
-  /* Ensure perfect alignment with textarea */
-  box-sizing: border-box;
-  height: 100%;
-  /* Match textarea dimensions exactly */
-  min-height: 300px;
-  /* Hide scrollbars but keep functionality */
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -434,54 +429,6 @@ body[data-vscode-theme-kind=vscode-high-contrast] .code-editor {
   background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
 }
 
-/* 
-.diff-gutter {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 6px;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    transparent 25%,
-    var(--accent-red) 25%,
-    var(--accent-red) 30%,
-    transparent 30%,
-    transparent 45%,
-    var(--accent-green) 45%,
-    var(--accent-green) 50%,
-    transparent 50%,
-    transparent 65%,
-    var(--accent-orange) 65%,
-    var(--accent-orange) 70%,
-    transparent 70%
-  );
-  opacity: 0.6;
-  border-radius: 0 3px 3px 0;
-  transition: opacity 0.3s ease;
-}
- */
-/* .editor-panel-right .diff-gutter {
-  background: linear-gradient(
-    to bottom,
-    transparent 25%,
-    var(--accent-green) 25%,
-    var(--accent-green) 30%,
-    transparent 30%,
-    transparent 45%,
-    var(--accent-red) 45%,
-    var(--accent-red) 50%,
-    transparent 50%,
-    transparent 65%,
-    var(--accent-orange) 65%,
-    var(--accent-orange) 70%,
-    transparent 70%
-  );
-}
-
-.diff-gutter:hover {
-  opacity: 0.8;
-} */
 /* ======================================
    BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */

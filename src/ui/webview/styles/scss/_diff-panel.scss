@@ -89,15 +89,3 @@
   border-right: 1px solid $input-border;
   height: 100%;
 }
-
-// ======================================
-// MARK:Editor Panels
-// ======================================
-.editor-panel-left,
-.editor-panel-right {
-  background-color: $bg;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}// continue... | _diff-code.scss
