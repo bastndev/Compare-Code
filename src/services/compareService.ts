@@ -38,27 +38,27 @@ function updateLineNumbers(textareaId: string, lineNumbersId: string): void {
 // Initialize line numbers for both editors after DOM content is loaded
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => {
-        updateLineNumbers('codeEditor1', 'lineNumbers1');
-        updateLineNumbers('codeEditor2', 'lineNumbers2');
+        updateLineNumbers('code-editor-left', 'line-numbers-left');
+        updateLineNumbers('code-editor-right', 'line-numbers-right');
     }, 100);
     
     // Clear functionality
     const clearButton = document.querySelector('.clear') as HTMLElement;
     if (clearButton) {
         clearButton.addEventListener('click', () => {
-            const editor1 = document.getElementById('codeEditor1') as HTMLTextAreaElement;
-            const editor2 = document.getElementById('codeEditor2') as HTMLTextAreaElement;
+            const editorLeft = document.getElementById('code-editor-left') as HTMLTextAreaElement;
+            const editorRight = document.getElementById('code-editor-right') as HTMLTextAreaElement;
             
-            if (editor1) {
-                editor1.value = '';
+            if (editorLeft) {
+                editorLeft.value = '';
             }
-            if (editor2) {
-                editor2.value = '';
+            if (editorRight) {
+                editorRight.value = '';
             }
             
             // Update line numbers after clearing
-            updateLineNumbers('codeEditor1', 'lineNumbers1');
-            updateLineNumbers('codeEditor2', 'lineNumbers2');
+            updateLineNumbers('code-editor-left', 'line-numbers-left');
+            updateLineNumbers('code-editor-right', 'line-numbers-right');
         });
     }
 });

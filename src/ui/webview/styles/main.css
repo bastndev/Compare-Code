@@ -361,7 +361,7 @@ body {
   min-height: 0;
 }
 
-.diff-number {
+.line-numbers {
   flex: 0 0 40px;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
   font-size: 14px;
@@ -410,7 +410,7 @@ body {
   opacity: 0.8;
 }
 
-.code-textarea {
+.code-editor {
   width: 100%;
   height: 100%;
   min-height: 300px;
@@ -431,69 +431,69 @@ body {
   overflow-y: auto;
   overflow-x: auto;
 }
-body[data-vscode-theme-kind=vscode-dark] .code-textarea {
+body[data-vscode-theme-kind=vscode-dark] .code-editor {
   color: #ffffff;
 }
-body[data-vscode-theme-kind=vscode-light] .code-textarea {
+body[data-vscode-theme-kind=vscode-light] .code-editor {
   color: #000000;
 }
-body[data-vscode-theme-kind=vscode-high-contrast] .code-textarea {
+body[data-vscode-theme-kind=vscode-high-contrast] .code-editor {
   color: var(--vscode-editor-foreground, #ffffff);
 }
 
-.code-textarea:focus {
+.code-editor:focus {
   background: rgba(255, 255, 255, 0.02);
   box-shadow: inset 0 0 0 1px var(--accent-blue);
 }
 
-.code-textarea::placeholder {
+.code-editor::placeholder {
   color: rgba(255, 255, 255, 0.4862745098);
   font-style: normal;
   opacity: 1;
 }
 
-.code-textarea::selection {
+.code-editor::selection {
   background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
 }
 @media (prefers-color-scheme: dark) {
-  .code-textarea::selection {
+  .code-editor::selection {
     background-color: rgba(173, 214, 255, 0.3);
   }
 }
 @media (prefers-color-scheme: light) {
-  .code-textarea::selection {
+  .code-editor::selection {
     background-color: rgba(0, 120, 215, 0.3);
   }
 }
-body[data-vscode-theme-kind=vscode-dark] .code-textarea::selection {
+body[data-vscode-theme-kind=vscode-dark] .code-editor::selection {
   background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
 }
-body[data-vscode-theme-kind=vscode-light] .code-textarea::selection {
+body[data-vscode-theme-kind=vscode-light] .code-editor::selection {
   background-color: var(--vscode-editor-selectionBackground, rgba(0, 120, 215, 0.3));
 }
-body[data-vscode-theme-kind=vscode-high-contrast] .code-textarea::selection {
+body[data-vscode-theme-kind=vscode-high-contrast] .code-editor::selection {
   background-color: var(--vscode-editor-selectionBackground, rgba(255, 255, 255, 0.5));
 }
 
-.code-textarea::-webkit-scrollbar {
+.code-editor::-webkit-scrollbar {
   width: 8px;
 }
 
-.code-textarea::-webkit-scrollbar-track {
+.code-editor::-webkit-scrollbar-track {
   background: transparent;
 }
 
-.code-textarea::-webkit-scrollbar-thumb {
+.code-editor::-webkit-scrollbar-thumb {
   background: var(--border-secondary);
   border-radius: 4px;
 }
 
-.code-textarea::-webkit-scrollbar-thumb:hover {
+.code-editor::-webkit-scrollbar-thumb:hover {
   background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 }
 
 @media (max-width: 768px) {
-  .code-textarea {
+  .code-editor {
     padding: 16px 16px 16px 24px;
     font-size: 13px;
     min-height: 250px;
@@ -507,7 +507,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .code-textarea::selection {
   .editor-panel-right {
     min-height: 300px;
   }
-  .code-textarea {
+  .code-editor {
     min-height: 200px;
     padding: 12px 12px 12px 20px;
     font-size: 12px;
