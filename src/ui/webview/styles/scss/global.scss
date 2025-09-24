@@ -6,10 +6,6 @@ $fg: var(--vscode-foreground);
 $fg-muted: var(--vscode-descriptionForeground);
 $border: var(--vscode-widget-border);
 
-// USER-CODE / USER-CODE / USER-CODE 
-$primary-bg:var(--bg-primary);
-$selection-bg: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
-
 // Typography
 $font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
 $font-size: var(--vscode-font-size, 13px);
@@ -33,6 +29,11 @@ $scrollbar-track-bg: $bg;
 $scrollbar-thumb-bg: $border;
 $scrollbar-thumb-hover: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 
+// USER-CODE / USER-CODE / USER-CODE 
+$primary-bg:var(--bg-primary);
+$selection-bg: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
+$contrast: var(--vscode-editor-foreground, #ffffff);
+
 // ======================================
 // Custom Design System Variables
 // ======================================
@@ -42,6 +43,9 @@ $color-green: #22c55e;
 $color-red: #ef4444;
 $color-orange: #f59e0b;
 $color-blue: #3b82f6;
+
+$color-white: #ffffff;
+$color-black: #000000;
 $color-grey: #ffffff7c;
 
 $test: #9dff00;

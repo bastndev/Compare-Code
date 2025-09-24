@@ -67,20 +67,19 @@
   font-weight: 400;
   border-radius: 8px;
   transition: all 0.2s ease;
-  // caret-color: var(--accent-blue);
   overflow-y: auto;
   overflow-x: auto;
   
   body[data-vscode-theme-kind="vscode-dark"] & {
-    color: #ffffff;
+    color: $color-white;
   }
   
   body[data-vscode-theme-kind="vscode-light"] & {
-    color: #000000;
+    color:  $color-black;
   }
   
   body[data-vscode-theme-kind="vscode-high-contrast"] & {
-    color: var(--vscode-editor-foreground, #ffffff);
+    color: $contrast;
   }
 }
 
