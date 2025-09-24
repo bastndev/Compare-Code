@@ -68,7 +68,7 @@
   color: inherit;
 }
 
-// DIFF STATISTICS DISPLAY | MARK: diff/A-R-M
+// DIFF STAT-ITEMS| MARK: stat-item
 .diff-stats {
   display: flex;
   align-items: center;
@@ -121,6 +121,9 @@
   }
 }
 
+.stat-item span{
+  font-size: 11px;
+}
 // ======================================
 // Primary Compare Button | MARK: play
 // ======================================

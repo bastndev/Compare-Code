@@ -101,12 +101,6 @@ body {
   gap: clamp(16px, 2vw, 24px);
   padding: 0 8px;
 }
-@media (max-width: 768px) {
-  .diff-stats {
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-}
 
 .stat-item {
   display: flex;
@@ -119,12 +113,6 @@ body {
   transition: opacity 0.2s ease;
   cursor: default;
   opacity: 0.8;
-}
-@media (max-width: 480px) {
-  .stat-item {
-    font-size: 12px;
-    gap: 6px;
-  }
 }
 
 .stat-icon {
@@ -145,13 +133,6 @@ body {
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
 }
-@media (max-width: 480px) {
-  .stat-icon {
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
-  }
-}
 .stat-icon.added {
   background: linear-gradient(135deg, #22c55e, #16a34a);
 }
@@ -160,6 +141,10 @@ body {
 }
 .stat-icon.modified {
   background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.stat-item span {
+  font-size: 11px;
 }
 
 .btn-play {
