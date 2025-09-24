@@ -249,19 +249,17 @@ body {
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
-  background-color: var(--vscode-editorHoverWidget-background, #1e1e1e);
-  color: var(--vscode-editorHoverWidget-foreground, #cccccc);
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
   padding: 6px 10px;
-  border-radius: 3px;
+  border-radius: 50px;
   font-size: 12px;
   white-space: nowrap;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-  border: 1px solid var(--vscode-foreground);
+  border: 1px solid var(--vscode-input-border);
   z-index: 1000;
   margin-top: 6px;
   opacity: 0;
   animation: tooltipFadeIn 0.2s ease forwards;
-  border-radius: 50px;
 }
 
 .btn-panel-left[data-tooltip]:hover::after {
