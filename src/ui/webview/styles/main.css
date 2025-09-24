@@ -434,23 +434,6 @@ body[data-vscode-theme-kind=vscode-high-contrast] .code-editor {
   background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
 }
 
-.code-editor::-webkit-scrollbar {
-  width: 8px;
-}
-
-.code-editor::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.code-editor::-webkit-scrollbar-thumb {
-  background: var(--border-secondary);
-  border-radius: 4px;
-}
-
-.code-editor::-webkit-scrollbar-thumb:hover {
-  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
-}
-
 /* 
 .diff-gutter {
   position: absolute;
