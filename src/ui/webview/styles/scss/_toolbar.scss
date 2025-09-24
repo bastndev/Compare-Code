@@ -81,8 +81,8 @@
   align-items: center;
   gap: $spacing-sm;
   font-weight: 500;
-   font-size: $font-size;
-    color: $fg;
+  font-size: $font-size;
+  color: $fg;
   white-space: nowrap;
   transition: opacity 0.2s ease;
   cursor: default;
@@ -126,6 +126,7 @@
   color: $fg;
   opacity: 0.8;
 }
+
 // ======================================
 // Primary Compare Button | MARK: play
 // ======================================
