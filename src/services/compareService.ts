@@ -1,28 +1,66 @@
-const circle: HTMLElement | null = document.getElementById('circle');
-const message: HTMLElement | null = document.getElementById('message');
-let clickCount: number = 0;
-const colors: string[] = ['rgb(9, 255, 0)', '#ffffffff', '#000000ff', '#1900ffff', '#f92487ff'];
-
-const showMessage = (text: string): void => {
-    if (message) {
-        message.textContent = text;
-        message.classList.add('show');
-        setTimeout(() => message.classList.remove('show'), 1000);
+// Function to update line numbers
+function updateLineNumbers(textareaId: string, lineNumbersId: string): void {
+    const textarea = document.getElementById(textareaId) as HTMLTextAreaElement;
+    const lineNumbers = document.getElementById(lineNumbersId) as HTMLElement;
+    
+    if (!textarea || !lineNumbers) {
+        return;
     }
-};
-
-if (circle) {
-    circle.addEventListener('click', () => {
-        clickCount++;
-        circle.classList.add('clicked');
-        circle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        showMessage(`¡Click #${clickCount}! 🎉`);
-        setTimeout(() => circle.classList.remove('clicked'), 1000);
+    
+    function updateNumbers(): void {
+        const text = textarea.value || textarea.placeholder || '';
+        const lines = text.split('\n');
+        const lineCount = lines.length;
+        
+        let numbersHTML = '';
+        for (let i = 1; i <= lineCount; i++) {
+            numbersHTML += i + '\n';
+        }
+        
+        lineNumbers.textContent = numbersHTML.trim();
+    }
+    
+    // Update on input
+    textarea.addEventListener('input', updateNumbers);
+    textarea.addEventListener('paste', () => {
+        setTimeout(updateNumbers, 0);
     });
-
-    circle.addEventListener('dblclick', () => {
-        clickCount = 0;
-        circle.style.backgroundColor = colors[0];
-        showMessage('Reset! 🔄');
+    
+    // Sync scroll
+    textarea.addEventListener('scroll', () => {
+        lineNumbers.scrollTop = textarea.scrollTop;
     });
+    
+    // Initial update
+    updateNumbers();
 }
+
+// Initialize line numbers for both editors after DOM content is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        updateLineNumbers('codeEditor1', 'lineNumbers1');
+        updateLineNumbers('codeEditor2', 'lineNumbers2');
+    }, 100);
+    
+    // Clear functionality
+    const clearButton = document.querySelector('.clear') as HTMLElement;
+    if (clearButton) {
+        clearButton.addEventListener('click', () => {
+            const editor1 = document.getElementById('codeEditor1') as HTMLTextAreaElement;
+            const editor2 = document.getElementById('codeEditor2') as HTMLTextAreaElement;
+            
+            if (editor1) {
+                editor1.value = '';
+            }
+            if (editor2) {
+                editor2.value = '';
+            }
+            
+            // Update line numbers after clearing
+            updateLineNumbers('codeEditor1', 'lineNumbers1');
+            updateLineNumbers('codeEditor2', 'lineNumbers2');
+        });
+    }
+});
+
+export {};
