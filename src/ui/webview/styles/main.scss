@@ -1,8 +1,8 @@
-// global.scss
-@import './scss/global';
+// Import - global.scss
+@use './scss/global' as *;
 
 // Components
-@import './scss/toolbar';
-@import './scss/diff-panel';
-@import './scss/diff-code';
-@import './scss/bottom-bar';
+@use './scss/toolbar';
+@use './scss/diff-panel';
+@use './scss/diff-code';
+@use './scss/bottom-bar';
