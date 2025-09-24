@@ -333,8 +333,8 @@ body {
   height: 100%;
   min-height: 0;
 }
-
-.diff-code {
+.editor-panel-left .diff-code,
+.editor-panel-right .diff-code {
   flex: 1;
   position: relative;
   overflow: auto;
@@ -345,8 +345,8 @@ body {
   flex-direction: row;
   min-height: 0;
 }
-
-.line-numbers {
+.editor-panel-left .diff-code .line-numbers,
+.editor-panel-right .diff-code .line-numbers {
   flex: 0 0 40px;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 14px;
@@ -364,11 +364,12 @@ body {
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
-.line-numbers::-webkit-scrollbar {
+.editor-panel-left .diff-code .line-numbers::-webkit-scrollbar,
+.editor-panel-right .diff-code .line-numbers::-webkit-scrollbar {
   display: none;
 }
-
-.code-editor {
+.editor-panel-left .diff-code .code-editor,
+.editor-panel-right .diff-code .code-editor {
   width: 100%;
   height: 100%;
   min-height: 300px;
@@ -388,27 +389,30 @@ body {
   overflow-y: auto;
   overflow-x: auto;
 }
-body[data-vscode-theme-kind=vscode-dark] .code-editor {
+body[data-vscode-theme-kind=vscode-dark] .editor-panel-left .diff-code .code-editor,
+body[data-vscode-theme-kind=vscode-dark] .editor-panel-right .diff-code .code-editor {
   color: #ffffff;
 }
-body[data-vscode-theme-kind=vscode-light] .code-editor {
+body[data-vscode-theme-kind=vscode-light] .editor-panel-left .diff-code .code-editor,
+body[data-vscode-theme-kind=vscode-light] .editor-panel-right .diff-code .code-editor {
   color: #000000;
 }
-body[data-vscode-theme-kind=vscode-high-contrast] .code-editor {
+body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-left .diff-code .code-editor,
+body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code .code-editor {
   color: var(--vscode-editor-foreground, #ffffff);
 }
-
-.code-editor:focus {
+.editor-panel-left .diff-code .code-editor:focus,
+.editor-panel-right .diff-code .code-editor:focus {
   background: rgba(255, 255, 255, 0.02);
 }
-
-.code-editor::placeholder {
+.editor-panel-left .diff-code .code-editor::placeholder,
+.editor-panel-right .diff-code .code-editor::placeholder {
   color: rgba(255, 255, 255, 0.4862745098);
   font-style: normal;
   opacity: 1;
 }
-
-.code-editor::selection {
+.editor-panel-left .diff-code .code-editor::selection,
+.editor-panel-right .diff-code .code-editor::selection {
   background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
 }
 

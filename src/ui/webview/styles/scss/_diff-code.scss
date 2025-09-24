@@ -10,91 +10,90 @@
   flex-direction: column;
   height: 100%;
   min-height: 0;
-}
 
-// Box - LEFT & RIGHT
-.diff-code {
-  flex: 1;
-  position: relative;
-  overflow: auto;
-  background: $primary-bg;
-  border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: row;
-  min-height: 0;
-}
+  // Box - LEFT & RIGHT
+  .diff-code {
+    flex: 1;
+    position: relative;
+    overflow: auto;
+    background: $primary-bg;
+    border-radius: 8px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: row;
+    min-height: 0;
 
-// line numbers - LEFT & RIGHT | MARK: PLUS L & R
-.line-numbers {
-  flex: 0 0 40px;
-  font-family: $font-family;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.6;
-  padding: 11px 8px 24px 2px;
-  color: $color-numbers;
-  background: $primary-bg;
-  overflow-y: auto;
-  overflow-x: hidden;
-  white-space: pre;
-  text-align: right;
-  user-select: none;
-  pointer-events: none;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  
-  &::-webkit-scrollbar {
-    display: none;
+    // line numbers - LEFT & RIGHT | MARK: PLUS L & R
+    .line-numbers {
+      flex: 0 0 40px;
+      font-family: $font-family;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.6;
+      padding: 11px 8px 24px 2px;
+      color: $color-numbers;
+      background: $primary-bg;
+      overflow-y: auto;
+      overflow-x: hidden;
+      white-space: pre;
+      text-align: right;
+      user-select: none;
+      pointer-events: none;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    // ----- ---- --- -- - USER WRITE | MARK: CODE
+    .code-editor {
+      width: 100%;
+      height: 100%;
+      min-height: 300px;
+      flex: 1;
+      background: transparent;
+      border: none;
+      font-family: $font-family; 
+      font-size: 14px;
+      line-height: 1.6;
+      padding: 11px 0px 24px 8px;
+      resize: none;
+      outline: none;
+      tab-size: 2;
+      font-weight: 400;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      overflow-y: auto;
+      overflow-x: auto;
+      
+      body[data-vscode-theme-kind="vscode-dark"] & {
+        color: $color-white;
+      }
+      
+      body[data-vscode-theme-kind="vscode-light"] & {
+        color:  $color-black;
+      }
+      
+      body[data-vscode-theme-kind="vscode-high-contrast"] & {
+        color: $contrast;
+      }
+
+      // Focused / Placeholder / selection - LEFT & RIGHT
+      &:focus {
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      &::placeholder {
+        color: $color-grey;
+        font-style: normal;
+        opacity: 1;
+      }
+
+      &::selection {
+        background-color: $selection-bg;
+      }
+    }
   }
-}
-
-// ----- ---- --- -- - USER WRITE | MARK: CODE
-.code-editor {
-  width: 100%;
-  height: 100%;
-  min-height: 300px;
-  flex: 1;
-  background: transparent;
-  border: none;
-  font-family: $font-family; 
-  font-size: 14px;
-  line-height: 1.6;
-  padding: 11px 0px 24px 8px;
-  resize: none;
-  outline: none;
-  tab-size: 2;
-  font-weight: 400;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  overflow-y: auto;
-  overflow-x: auto;
-  
-  body[data-vscode-theme-kind="vscode-dark"] & {
-    color: $color-white;
-  }
-  
-  body[data-vscode-theme-kind="vscode-light"] & {
-    color:  $color-black;
-  }
-  
-  body[data-vscode-theme-kind="vscode-high-contrast"] & {
-    color: $contrast;
-  }
-}
-
-// Focused / Placeholder / selection - LEFT & RIGHT
-.code-editor:focus {
-  background: rgba(255, 255, 255, 0.02);
-}
-
-.code-editor::placeholder {
-  color: $color-grey;
-  font-style: normal;
-  opacity: 1;
-}
-
-.code-editor::selection {
-  background-color: $selection-bg;
-  
 }
