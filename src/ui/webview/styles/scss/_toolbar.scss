@@ -74,11 +74,6 @@
   align-items: center;
   gap: clamp($spacing-md, 2vw, $spacing-lg);
   padding: 0 $spacing-sm;
-  
-  @media (max-width: 768px) {
-    gap: 12px;
-    flex-wrap: wrap;
-  }
 }
 
 .stat-item {
@@ -92,11 +87,6 @@
   transition: opacity 0.2s ease;
   cursor: default;
   opacity: 0.8;
-  
-  @media (max-width: 480px) {
-    font-size: 12px;
-    gap: 6px;
-  }
 }
 
 .stat-icon {
@@ -116,12 +106,6 @@
   &:hover {
     transform: translateY(-1px);
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-  }
-  
-  @media (max-width: 480px) {
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
   }
   
   &.added {
