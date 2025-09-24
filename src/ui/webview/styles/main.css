@@ -366,48 +366,12 @@ body {
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
   font-size: 14px;
   line-height: 1.6;
-  padding: 24px 8px 24px 8px;
+  padding: 11px 8px 24px 2px;
   color: var(--vscode-editorLineNumber-foreground);
   background: var(--bg-primary);
   overflow: hidden;
   white-space: pre;
   text-align: right;
-  border-right: 1px solid var(--border-secondary);
-}
-
-/* 
-.diff-gutter {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 6px;
-  height: 100%;
-  background: linear-gradient(
-    to bottom,
-    transparent 25%,
-    var(--accent-red) 25%,
-    var(--accent-red) 30%,
-    transparent 30%,
-    transparent 45%,
-    var(--accent-green) 45%,
-    var(--accent-green) 50%,
-    transparent 50%,
-    transparent 65%,
-    var(--accent-orange) 65%,
-    var(--accent-orange) 70%,
-    transparent 70%
-  );
-  opacity: 0.6;
-  border-radius: 0 3px 3px 0;
-  transition: opacity 0.3s ease;
-}
- */
-.editor-panel-right .diff-gutter {
-  background: linear-gradient(to bottom, transparent 25%, var(--accent-green) 25%, var(--accent-green) 30%, transparent 30%, transparent 45%, var(--accent-red) 45%, var(--accent-red) 50%, transparent 50%, transparent 65%, var(--accent-orange) 65%, var(--accent-orange) 70%, transparent 70%);
-}
-
-.diff-gutter:hover {
-  opacity: 0.8;
 }
 
 .code-editor {
@@ -420,7 +384,7 @@ body {
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
   font-size: 14px;
   line-height: 1.6;
-  padding: 24px 24px 24px 24px;
+  padding: 11px 2px 24px 8px;
   resize: none;
   outline: none;
   tab-size: 2;
@@ -513,6 +477,54 @@ body[data-vscode-theme-kind=vscode-high-contrast] .code-editor::selection {
     font-size: 12px;
   }
 }
+/* 
+.diff-gutter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 25%,
+    var(--accent-red) 25%,
+    var(--accent-red) 30%,
+    transparent 30%,
+    transparent 45%,
+    var(--accent-green) 45%,
+    var(--accent-green) 50%,
+    transparent 50%,
+    transparent 65%,
+    var(--accent-orange) 65%,
+    var(--accent-orange) 70%,
+    transparent 70%
+  );
+  opacity: 0.6;
+  border-radius: 0 3px 3px 0;
+  transition: opacity 0.3s ease;
+}
+ */
+/* .editor-panel-right .diff-gutter {
+  background: linear-gradient(
+    to bottom,
+    transparent 25%,
+    var(--accent-green) 25%,
+    var(--accent-green) 30%,
+    transparent 30%,
+    transparent 45%,
+    var(--accent-red) 45%,
+    var(--accent-red) 50%,
+    transparent 50%,
+    transparent 65%,
+    var(--accent-orange) 65%,
+    var(--accent-orange) 70%,
+    transparent 70%
+  );
+}
+
+.diff-gutter:hover {
+  opacity: 0.8;
+} */
 /* ======================================
    BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */
