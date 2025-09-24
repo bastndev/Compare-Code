@@ -125,15 +125,15 @@
   }
   
   &.added {
-    background: linear-gradient(135deg, $accent-green, #16a34a);
+    background: linear-gradient(135deg, $color-green, #16a34a);
   }
   
   &.removed {
-    background: linear-gradient(135deg, $accent-red, #dc2626);
+    background: linear-gradient(135deg, $color-red, #dc2626);
   }
   
   &.modified {
-    background: linear-gradient(135deg, $accent-orange, #d97706);
+    background: linear-gradient(135deg, $color-orange, #d97706);
   }
 }
 

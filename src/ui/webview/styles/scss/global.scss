@@ -6,8 +6,11 @@ $fg: var(--vscode-foreground);
 $fg-muted: var(--vscode-descriptionForeground);
 $border: var(--vscode-widget-border);
 
+$primary-bg:var(--bg-primary);
+$selection-bg: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
+
 // Typography
-$font-family: var(--vscode-font-family, var(--font-family, 'Segoe UI', sans-serif));
+$font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
 $font-size: var(--vscode-font-size, 13px);
 
 // Interactive elements
@@ -34,11 +37,11 @@ $scrollbar-thumb-hover: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 // ======================================
 
 // Diff colors (used in toolbar stats and gutter)
-$accent-green: #22c55e;
-$accent-red: #ef4444;
-$accent-orange: #f59e0b;
-$accent-blue: #3b82f6;
-$accent-white: #cccccc;
+$color-green: #22c55e;
+$color-red: #ef4444;
+$color-orange: #f59e0b;
+$color-blue: #3b82f6;
+$color-grey: #ffffff7c;
 
 $test: #9dff00;
 

@@ -11,7 +11,7 @@ body {
   color: var(--vscode-foreground);
   display: flex;
   flex-direction: column;
-  font-family: var(--vscode-font-family, var(--font-family, "Segoe UI", sans-serif));
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: var(--vscode-font-size, 13px);
   height: 100vh;
   line-height: 1.4;
@@ -363,7 +363,7 @@ body {
 
 .line-numbers {
   flex: 0 0 40px;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 14px;
   font-weight: 500;
   line-height: 1.6;
@@ -390,7 +390,7 @@ body {
   flex: 1;
   background: transparent;
   border: none;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 14px;
   line-height: 1.6;
   padding: 11px 2px 24px 8px;
@@ -400,7 +400,6 @@ body {
   font-weight: 400;
   border-radius: 8px;
   transition: all 0.2s ease;
-  caret-color: var(--accent-blue);
   overflow-y: auto;
   overflow-x: auto;
 }
@@ -497,7 +496,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .code-editor {
   transform: scale(1.05);
 }
 .content button:focus {
-  outline: 2px solid #cccccc;
+  outline: 2px solid rgba(255, 255, 255, 0.4862745098);
   outline-offset: 2px;
 }
 .content button:not(:last-child)::after {

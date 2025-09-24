@@ -17,7 +17,7 @@
   flex: 1;
   position: relative;
   overflow: auto;
-  background: var(--bg-primary);
+  background: $primary-bg;
   border-radius: 8px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
@@ -28,13 +28,13 @@
 // line numbers - LEFT & RIGHT | MARK: PLUS L & R
 .line-numbers {
   flex: 0 0 40px;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
+  font-family: $font-family;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.6;
   padding: 11px 8px 24px 2px;
   color: $color-numbers;
-  background: var(--bg-primary);
+  background: $primary-bg;
   overflow-y: auto;
   overflow-x: hidden;
   white-space: pre;
@@ -57,7 +57,7 @@
   flex: 1;
   background: transparent;
   border: none;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
+  font-family: $font-family; 
   font-size: 14px;
   line-height: 1.6;
   padding: 11px 2px 24px 8px;
@@ -67,7 +67,7 @@
   font-weight: 400;
   border-radius: 8px;
   transition: all 0.2s ease;
-  caret-color: var(--accent-blue);
+  // caret-color: var(--accent-blue);
   overflow-y: auto;
   overflow-x: auto;
   
@@ -90,12 +90,12 @@
 }
 
 .code-editor::placeholder {
-  color: #ffffff7c;
+  color: $color-grey;
   font-style: normal;
   opacity: 1;
 }
 
 .code-editor::selection {
-  background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
+  background-color: $selection-bg;
   
 }
