@@ -345,25 +345,24 @@ body {
 /* ======================================
   Editor Content Styles - VS Code Extension
   ======================================= */
-/* Panel layout fixes for full height */
 .editor-panel-left,
 .editor-panel-right {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 0; /* Important for flexbox overflow */
+  min-height: 0;
 }
 
 .diff-code {
   flex: 1;
   position: relative;
-  overflow: auto; /* Changed from hidden to auto to allow scrolling */
+  overflow: auto;
   background: var(--bg-primary);
   border-radius: 8px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  min-height: 0; /* diff-code to fill available space */
+  min-height: 0;
 }
 
 .diff-code:hover {
@@ -382,7 +381,7 @@ body {
   transition: opacity 0.3s ease;
 }
 
-.editor-panel.right .diff-gutter {
+.editor-panel-right .diff-gutter {
   background: linear-gradient(to bottom, transparent 25%, var(--accent-green) 25%, var(--accent-green) 30%, transparent 30%, transparent 45%, var(--accent-red) 45%, var(--accent-red) 50%, transparent 50%, transparent 65%, var(--accent-orange) 65%, var(--accent-orange) 70%, transparent 70%);
 }
 
@@ -393,15 +392,14 @@ body {
 .code-textarea {
   width: 100%;
   height: 100%;
-  min-height: 300px; /* Minimum height to ensure usability */
-  flex: 1; /* Take all available space */
+  min-height: 300px;
+  flex: 1;
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.4862745098);
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
   font-size: 14px;
   line-height: 1.6;
-  padding: 24px 24px 24px 32px; /* Extra left padding for gutter */
+  padding: 24px 24px 24px 32px;
   resize: none;
   outline: none;
   tab-size: 2;
@@ -409,8 +407,17 @@ body {
   border-radius: 8px;
   transition: all 0.2s ease;
   caret-color: var(--accent-blue);
-  overflow-y: auto; /* Enable vertical scrolling */
-  overflow-x: auto; /* Enable horizontal scrolling for long lines */
+  overflow-y: auto;
+  overflow-x: auto;
+}
+body[data-vscode-theme-kind=vscode-dark] .code-textarea {
+  color: #ffffff;
+}
+body[data-vscode-theme-kind=vscode-light] .code-textarea {
+  color: #000000;
+}
+body[data-vscode-theme-kind=vscode-high-contrast] .code-textarea {
+  color: var(--vscode-editor-foreground, #ffffff);
 }
 
 .code-textarea:focus {
@@ -419,9 +426,32 @@ body {
 }
 
 .code-textarea::placeholder {
-  color: var(--text-muted);
+  color: rgba(255, 255, 255, 0.4862745098);
   font-style: normal;
-  opacity: 0.7;
+  opacity: 1;
+}
+
+.code-textarea::selection {
+  background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
+}
+@media (prefers-color-scheme: dark) {
+  .code-textarea::selection {
+    background-color: rgba(173, 214, 255, 0.3);
+  }
+}
+@media (prefers-color-scheme: light) {
+  .code-textarea::selection {
+    background-color: rgba(0, 120, 215, 0.3);
+  }
+}
+body[data-vscode-theme-kind=vscode-dark] .code-textarea::selection {
+  background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
+}
+body[data-vscode-theme-kind=vscode-light] .code-textarea::selection {
+  background-color: var(--vscode-editor-selectionBackground, rgba(0, 120, 215, 0.3));
+}
+body[data-vscode-theme-kind=vscode-high-contrast] .code-textarea::selection {
+  background-color: var(--vscode-editor-selectionBackground, rgba(255, 255, 255, 0.5));
 }
 
 .code-textarea::-webkit-scrollbar {
@@ -441,22 +471,20 @@ body {
   background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 }
 
-/* Responsive adjustments */
 @media (max-width: 768px) {
   .code-textarea {
     padding: 16px 16px 16px 24px;
     font-size: 13px;
-    min-height: 250px; /* Smaller minimum height on mobile */
+    min-height: 250px;
   }
   .diff-gutter {
     width: 4px;
   }
 }
-/* Additional responsive fixes for mobile */
 @media (max-width: 480px) {
   .editor-panel-left,
   .editor-panel-right {
-    min-height: 300px; /* Ensure minimum height on very small screens */
+    min-height: 300px;
   }
   .code-textarea {
     min-height: 200px;
