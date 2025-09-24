@@ -354,7 +354,7 @@ body {
   min-height: 0; /* Important for flexbox overflow */
 }
 
-.editor-content {
+.diff-code {
   flex: 1;
   position: relative;
   overflow: auto; /* Changed from hidden to auto to allow scrolling */
@@ -363,10 +363,10 @@ body {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
-  min-height: 0; /* Important for content to fill available space */
+  min-height: 0; /* diff-code to fill available space */
 }
 
-.editor-content:hover {
+.diff-code:hover {
   box-shadow: inset 0 0 0 1px var(--border-secondary);
 }
 
