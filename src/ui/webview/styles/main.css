@@ -369,9 +369,23 @@ body {
   padding: 11px 8px 24px 2px;
   color: var(--vscode-editorLineNumber-foreground);
   background: var(--bg-primary);
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
   white-space: pre;
   text-align: right;
+  user-select: none;
+  pointer-events: none;
+  /* Ensure perfect alignment with textarea */
+  box-sizing: border-box;
+  height: 100%;
+  /* Match textarea dimensions exactly */
+  min-height: 300px;
+  /* Hide scrollbars but keep functionality */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.line-numbers::-webkit-scrollbar {
+  display: none;
 }
 
 .code-editor {
