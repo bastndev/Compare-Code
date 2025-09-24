@@ -1,5 +1,8 @@
-// Variables
-@use './scss/variables';
+// Import - global.scss
+@use './scss/global' as *;
 
 // Components
-@use './scss/test'
+@use './scss/toolbar';
+@use './scss/diff-panel';
+@use './scss/diff-code';
+@use './scss/bottom-bar';

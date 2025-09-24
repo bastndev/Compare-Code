@@ -1,0 +1,99 @@
+@use 'global' as *;
+
+/* ======================================
+   DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
+   ======================================= */
+.diff-panel {
+  background-color: $bg;
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: 1fr 20px 1fr;
+}
+
+// ======================================
+// File Info MARK:Header
+// ======================================
+.file-info {
+  background-color: $input-bg;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: $file-info-height;
+  border-bottom: 1px solid $input-border;
+}
+
+.file-selector {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: $spacing-sm;
+}
+
+.file-icon {
+  width: 16px;
+  height: 16px;
+  background: #f1c40f;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #000;
+}
+
+.select {
+  background: $input-bg;
+  color: $fg;
+  border: none;
+  padding: 6px 24px 6px $spacing-sm;
+  border-radius: $border-radius-sm;
+  font-size: $font-size;
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+// COPY-CLEAR / CONTROLS
+.copy-clear {
+  display: flex;
+  align-items: center;
+  gap: $spacing-sm;
+  padding-right: 22px;
+  
+  img {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity 0.2s ease;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// ======================================
+// Vertical MARK:Separator
+// ======================================
+.on1 {
+  background-color: $input-bg;
+  height: $file-info-height;
+}
+
+.on2 {
+  background-color: $input-bg;
+  border-left: 1px solid $input-border;
+  border-right: 1px solid $input-border;
+  height: 100%;
+}
+
+// ======================================
+// MARK:Editor Panels
+// ======================================
+.editor-panel-left,
+.editor-panel-right {
+  background-color: $bg;
+}

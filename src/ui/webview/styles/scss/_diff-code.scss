@@ -1,0 +1,155 @@
+@use 'global' as *;
+
+/* ======================================
+  Editor Content Styles - VS Code Extension
+  ======================================= */
+
+/* Panel layout fixes for full height */
+.editor-panel-left,
+.editor-panel-right {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0; /* Important for flexbox overflow */
+}
+
+.editor-content {
+  flex: 1;
+  position: relative;
+  overflow: auto; /* Changed from hidden to auto to allow scrolling */
+  background: var(--bg-primary);
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Important for content to fill available space */
+}
+
+.editor-content:hover {
+  box-shadow: inset 0 0 0 1px var(--border-secondary);
+}
+
+.diff-gutter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent 25%,
+    var(--accent-red) 25%,
+    var(--accent-red) 30%,
+    transparent 30%,
+    transparent 45%,
+    var(--accent-green) 45%,
+    var(--accent-green) 50%,
+    transparent 50%,
+    transparent 65%,
+    var(--accent-orange) 65%,
+    var(--accent-orange) 70%,
+    transparent 70%
+  );
+  opacity: 0.6;
+  border-radius: 0 3px 3px 0;
+  transition: opacity 0.3s ease;
+}
+
+.editor-panel.right .diff-gutter {
+  background: linear-gradient(
+    to bottom,
+    transparent 25%,
+    var(--accent-green) 25%,
+    var(--accent-green) 30%,
+    transparent 30%,
+    transparent 45%,
+    var(--accent-red) 45%,
+    var(--accent-red) 50%,
+    transparent 50%,
+    transparent 65%,
+    var(--accent-orange) 65%,
+    var(--accent-orange) 70%,
+    transparent 70%
+  );
+}
+
+.diff-gutter:hover {
+  opacity: 0.8;
+}
+
+.code-textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 300px; /* Minimum height to ensure usability */
+  flex: 1; /* Take all available space */
+  background: transparent;
+  border: none;
+  color: #ffffff7c;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 24px 24px 24px 32px; /* Extra left padding for gutter */
+  resize: none;
+  outline: none;
+  tab-size: 2;
+  font-weight: 400;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  caret-color: var(--accent-blue);
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling for long lines */
+}
+
+.code-textarea:focus {
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 0 0 1px var(--accent-blue);
+}
+
+.code-textarea::placeholder {
+  color: var(--text-muted);
+  font-style: normal;
+  opacity: 0.7;
+}
+
+.code-textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.code-textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-textarea::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: 4px;
+}
+
+.code-textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .code-textarea {
+    padding: 16px 16px 16px 24px;
+    font-size: 13px;
+    min-height: 250px; /* Smaller minimum height on mobile */
+  }
+  .diff-gutter {
+    width: 4px;
+  }
+}
+
+/* Additional responsive fixes for mobile */
+@media (max-width: 480px) {
+  .editor-panel-left,
+  .editor-panel-right {
+    min-height: 300px; /* Ensure minimum height on very small screens */
+  }
+  
+  .code-textarea {
+    min-height: 200px;
+    padding: 12px 12px 12px 20px;
+    font-size: 12px;
+  }
+}

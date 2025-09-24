@@ -1,0 +1,558 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-foreground);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--vscode-font-family, var(--font-family, "Segoe UI", sans-serif));
+  font-size: var(--vscode-font-size, 13px);
+  height: 100vh;
+  line-height: 1.4;
+  margin: 0;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--vscode-editor-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--vscode-widget-border);
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* ======================================
+   TOOLBAR - VS Code Extension | MARK: TOOLBAR
+   ======================================= */
+.toolbar {
+  background-color: var(--vscode-editor-background);
+  align-items: center;
+  padding: 8px 16px;
+  display: grid;
+  height: 60px;
+  grid-template-columns: 1fr auto 1fr;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border-bottom: 5px dashed var(--vscode-sideBar-border);
+}
+
+.warning-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.warning-box {
+  display: flex;
+  align-items: center;
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-foreground);
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: var(--vscode-font-size, 13px);
+  font-weight: 500;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.2s ease;
+  cursor: default;
+}
+
+.warning-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.warning-box span {
+  font-size: var(--vscode-font-size, 13px);
+  color: inherit;
+}
+
+.diff-stats {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 2vw, 24px);
+  padding: 0 8px;
+}
+@media (max-width: 768px) {
+  .diff-stats {
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+}
+
+.stat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 500;
+  font-size: var(--vscode-font-size, 13px);
+  color: var(--vscode-foreground);
+  white-space: nowrap;
+  transition: opacity 0.2s ease;
+  cursor: default;
+  opacity: 0.8;
+}
+@media (max-width: 480px) {
+  .stat-item {
+    font-size: 12px;
+    gap: 6px;
+  }
+}
+
+.stat-icon {
+  width: 18px;
+  height: 18px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  color: white;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.stat-icon:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 480px) {
+  .stat-icon {
+    width: 16px;
+    height: 16px;
+    font-size: 10px;
+  }
+}
+.stat-icon.added {
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+}
+.stat-icon.removed {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+.stat-icon.modified {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.btn-play {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+.btn-play:active {
+  transform: scale(0.95);
+}
+.btn-play {
+  background-color: var(--vscode-button-background);
+  padding: 6px 14px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.btn-play img {
+  width: 18px;
+  height: 18px;
+}
+.btn-play span {
+  color: white;
+  font-weight: bold;
+  padding-left: 6px;
+  font-size: 15px;
+}
+.btn-play:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 100%;
+  height: 100%;
+}
+
+.clear {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+.clear:active {
+  transform: scale(0.95);
+}
+.clear {
+  background-color: var(--vscode-button-secondaryBackground, #5f6a79);
+  color: var(--vscode-button-secondaryForeground, var(--vscode-foreground));
+  border: 1px solid var(--vscode-button-border, var(--vscode-widget-border));
+  padding: 4px 8px;
+  font-size: 12px;
+  gap: 4px;
+  margin-right: 24px;
+}
+.clear:hover {
+  background-color: var(--vscode-button-secondaryHoverBackground, #4c5561);
+}
+
+.btn-panel-right,
+.btn-panel-left {
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  border-radius: 4px;
+  background-color: transparent;
+  padding: 6px;
+}
+.btn-panel-right:hover,
+.btn-panel-left:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+.btn-panel-right img,
+.btn-panel-left img {
+  width: 20px;
+  height: 20px;
+}
+
+.slash {
+  cursor: default;
+  font-size: 16px;
+  color: var(--vscode-descriptionForeground);
+  margin: 0 4px;
+  user-select: none;
+}
+
+/* ======================================
+   DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
+   ======================================= */
+.diff-panel {
+  background-color: var(--vscode-editor-background);
+  display: grid;
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: 1fr 20px 1fr;
+}
+
+.file-info {
+  background-color: var(--vscode-input-background);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 35px;
+  border-bottom: 1px solid var(--vscode-input-border);
+}
+
+.file-selector {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.file-icon {
+  width: 16px;
+  height: 16px;
+  background: #f1c40f;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: bold;
+  color: #000;
+}
+
+.select {
+  background: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  border: none;
+  padding: 6px 24px 6px 8px;
+  border-radius: 4px;
+  font-size: var(--vscode-font-size, 13px);
+  cursor: pointer;
+  transition: border-color 0.2s ease;
+}
+
+.copy-clear {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-right: 22px;
+}
+.copy-clear img {
+  width: 15px;
+  height: 15px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.copy-clear img:hover {
+  opacity: 1;
+}
+
+.on1 {
+  background-color: var(--vscode-input-background);
+  height: 35px;
+}
+
+.on2 {
+  background-color: var(--vscode-input-background);
+  border-left: 1px solid var(--vscode-input-border);
+  border-right: 1px solid var(--vscode-input-border);
+  height: 100%;
+}
+
+.editor-panel-left,
+.editor-panel-right {
+  background-color: var(--vscode-editor-background);
+}
+
+/* ======================================
+  Editor Content Styles - VS Code Extension
+  ======================================= */
+/* Panel layout fixes for full height */
+.editor-panel-left,
+.editor-panel-right {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0; /* Important for flexbox overflow */
+}
+
+.editor-content {
+  flex: 1;
+  position: relative;
+  overflow: auto; /* Changed from hidden to auto to allow scrolling */
+  background: var(--bg-primary);
+  border-radius: 8px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  min-height: 0; /* Important for content to fill available space */
+}
+
+.editor-content:hover {
+  box-shadow: inset 0 0 0 1px var(--border-secondary);
+}
+
+.diff-gutter {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 6px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 25%, var(--accent-red) 25%, var(--accent-red) 30%, transparent 30%, transparent 45%, var(--accent-green) 45%, var(--accent-green) 50%, transparent 50%, transparent 65%, var(--accent-orange) 65%, var(--accent-orange) 70%, transparent 70%);
+  opacity: 0.6;
+  border-radius: 0 3px 3px 0;
+  transition: opacity 0.3s ease;
+}
+
+.editor-panel.right .diff-gutter {
+  background: linear-gradient(to bottom, transparent 25%, var(--accent-green) 25%, var(--accent-green) 30%, transparent 30%, transparent 45%, var(--accent-red) 45%, var(--accent-red) 50%, transparent 50%, transparent 65%, var(--accent-orange) 65%, var(--accent-orange) 70%, transparent 70%);
+}
+
+.diff-gutter:hover {
+  opacity: 0.8;
+}
+
+.code-textarea {
+  width: 100%;
+  height: 100%;
+  min-height: 300px; /* Minimum height to ensure usability */
+  flex: 1; /* Take all available space */
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.4862745098);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
+  font-size: 14px;
+  line-height: 1.6;
+  padding: 24px 24px 24px 32px; /* Extra left padding for gutter */
+  resize: none;
+  outline: none;
+  tab-size: 2;
+  font-weight: 400;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  caret-color: var(--accent-blue);
+  overflow-y: auto; /* Enable vertical scrolling */
+  overflow-x: auto; /* Enable horizontal scrolling for long lines */
+}
+
+.code-textarea:focus {
+  background: rgba(255, 255, 255, 0.02);
+  box-shadow: inset 0 0 0 1px var(--accent-blue);
+}
+
+.code-textarea::placeholder {
+  color: var(--text-muted);
+  font-style: normal;
+  opacity: 0.7;
+}
+
+.code-textarea::-webkit-scrollbar {
+  width: 8px;
+}
+
+.code-textarea::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.code-textarea::-webkit-scrollbar-thumb {
+  background: var(--border-secondary);
+  border-radius: 4px;
+}
+
+.code-textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .code-textarea {
+    padding: 16px 16px 16px 24px;
+    font-size: 13px;
+    min-height: 250px; /* Smaller minimum height on mobile */
+  }
+  .diff-gutter {
+    width: 4px;
+  }
+}
+/* Additional responsive fixes for mobile */
+@media (max-width: 480px) {
+  .editor-panel-left,
+  .editor-panel-right {
+    min-height: 300px; /* Ensure minimum height on very small screens */
+  }
+  .code-textarea {
+    min-height: 200px;
+    padding: 12px 12px 12px 20px;
+    font-size: 12px;
+  }
+}
+/* ======================================
+   BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
+   ======================================= */
+.bottom-bar {
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  z-index: 1000;
+  animation: slideDown 0.5s ease-in-out 1s forwards;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.bottom-bar:hover {
+  transform: translateX(-50%) translateY(-4px);
+  opacity: 1;
+  animation: none;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) translateY(calc(100% - 4px));
+    opacity: 0.3;
+  }
+}
+.content {
+  background-color: var(--vscode-input-background);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 50px;
+  width: 320px;
+  border-radius: 6px;
+  gap: 24px;
+  position: relative;
+  border: 2px dashed var(--vscode-input-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 400px) {
+  .content {
+    width: 280px;
+    gap: 16px;
+  }
+}
+
+.content button {
+  background-color: transparent;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+.content button:hover {
+  border-radius: 6px;
+  background-color: var(--vscode-list-hoverBackground);
+  transform: scale(1.05);
+}
+.content button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+.content button:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 24px;
+  background-color: var(--vscode-widget-border);
+  transition: opacity 0.2s ease;
+}
+.content button:hover::after {
+  opacity: 0.5;
+}
+.content button .icon {
+  width: 30px;
+  height: 30px;
+}
+
+/*# sourceMappingURL=main.css.map */

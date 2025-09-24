@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{CSS_URI}}">
+    <script src="{{SCRIPT_URI}}" defer></script>
+</head>
+<body>
+    <!-- ======================================
+         TOOLBAR - Top navigation and controls
+         ====================================== -->
+    <div class="toolbar">
+        <!-- Warning container -->
+
+        <!-- <div class="warning-container">
+            <div class="warning-box">
+                <img class="warning-icon" src="{{WARNING_ICON}}">
+                <span>1 : Changes</span>
+            </div>
+        </div>  -->
+       
+        <!-- Diff statistics display -->
+        <div class="diff-stats">
+            <div class="stat-item">
+                <div class="stat-icon added">+</div>
+                <span>4 lines added</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon removed">-</div>
+                <span>2 lines removed</span>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon modified">~</div>
+                <span>3 lines modified</span>
+            </div>
+        </div>
+
+        <!-- Primary compare button | PLAY -->
+        <button class="btn-play">
+            <img src="{{PLAY_ICON}}">
+            <span>Compare</span>
+        </button>
+
+        <!-- Secondary panel controls | Clear - Close & Open -->
+        <div class="buttons-container">
+            <button class="clear">🗑️ Clear</button>
+            
+            <button class="btn-panel-left">
+                <img src="{{PANEL_LEFT_ICON}}">
+            </button>
+            <span class="slash">/</span>
+            <button class="btn-panel-right">
+                <img src="{{PANEL_RIGHT_ICON}}">
+            </button>
+        </div>
+    </div>
+
+    <!-- ======================================
+         DIFF PANEL - Main comparison interface
+         ====================================== -->
+    <div class="diff-panel">
+        <!-- LEFT - EDITOR PANEL -->
+        <div class="editor-panel-left">
+
+            <div class="file-info">
+                <div class="file-selector">
+                    <div class="file-icon">JS</div>
+                    <select class="select">
+                        <option>modified.js</option>
+                        <option>Astro.js</option>
+                        <option>_diff-panel.scss</option>
+                    </select>
+                </div>
+                <div class="copy-clear">
+                    <img src="{{COPY_ICON_L}}">
+                    <img src="{{CLEAR_ICON_L}}">
+                </div>
+            </div>
+
+            <!-- Code editor area | MARK: Code L-->
+            <div class="editor-content">
+                <div class="diff-gutter"></div>
+                <textarea class="code-textarea" placeholder="Paste your modified code here...
+
+// Example:
+function calculateSum(a, b, c = 0) {
+    const sum = a + b + c;
+    return sum;
+}
+
+const result = calculateSum(5, 3, 2);
+console.log('Updated result:', result);
+
+// Enhanced version..."></textarea>
+            </div>
+        </div>
+
+        <!-- Vertical separator -->
+        <div class="separator">
+            <div class="on1"></div>
+            <div class="on2"></div>
+        </div><!--   separator  -->
+
+        <!-- RIGHT - EDITOR PANEL -->
+        <div class="editor-panel-right">
+            <div class="file-info">
+                <div class="file-selector">
+                    <div class="file-icon">JS</div>
+                    <select class="select">
+                        <option>Astro.js</option>
+                        <option>modified.js</option>
+                        <option>_diff-panel.scss</option>
+                    </select>
+                </div>
+                <div class="copy-clear">
+                    <img src="{{COPY_ICON_R}}">
+                    <img src="{{CLEAR_ICON_R}}">
+                </div>
+            </div>
+
+            <!-- Code editor area | MARK: Code R-->
+            <div class="editor-content">
+                <div class="diff-gutter"></div>
+                <textarea class="code-textarea" placeholder="Paste your modified code here...
+
+// Example:
+// calculateSum: sums up to three numbers (third parameter is optional)
+function calculateSum(a, b, c = 0) {
+    const sum = a + b + c;
+    return sum;
+}
+
+// Usage
+const result = calculateSum(5, 3, 2);
+console.log('Result:', result);
+
+// More code here..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- ======================================
+         BOTTOM BAR - Floating tool controls
+         ====================================== -->
+    <div class="bottom-bar">
+        <div class="content">
+            <button><img class="icon" src="{{ONLY_CODE_ICON}}  "></button>
+            <button><img class="icon" src="{{DUAL_SCROLL_ICON}}"></button>
+            <button><img class="icon" src="{{SWITCH_ON_ICON}}  "></button>
+            <button><img class="icon" src="{{LANGUAGE_ICON}}   "></button>
+            <button><img class="icon" src="{{EARTH_CODE_ICON}} "></button>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import { getWebviewIcons, replaceIconsInHtml } from './webview/view/webviewIcons';
 
 let comparePanel: vscode.WebviewPanel | undefined;
 
@@ -26,7 +27,9 @@ export async function createCompareView(context: vscode.ExtensionContext): Promi
 			retainContextWhenHidden: true,
 			localResourceRoots: [
 				vscode.Uri.file(path.join(context.extensionPath, 'src')),
-				vscode.Uri.file(path.join(context.extensionPath, 'styles'))
+				vscode.Uri.file(path.join(context.extensionPath, 'styles')),
+				vscode.Uri.file(path.join(context.extensionPath, 'dist')),
+				vscode.Uri.file(path.join(context.extensionPath, 'assets'))
 			]
 		}
 	);
@@ -52,18 +55,29 @@ export function isViewOpen(): boolean {
 	return comparePanel !== undefined && comparePanel.visible;
 }
 
-// Generates HTML content for the webview MARK:HTML / CSS
+// Generates HTML content for the webview MARK:HTML / SCSS / TS
 function getWebviewContent(context: vscode.ExtensionContext, webview: vscode.Webview): string {
 	// Get the CSS file URI (compiled from SCSS)
-	const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'ui', 'webview', 'styles', 'global.css'));
+	const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'ui', 'webview', 'styles', 'main.css'));
 	const cssUri = webview.asWebviewUri(cssPath);
 
+	// Get the script file URI (compiled from TS)
+	const scriptPath = vscode.Uri.file(path.join(context.extensionPath, 'dist', 'compareService.js'));
+	const scriptUri = webview.asWebviewUri(scriptPath);
+
+	// Get icons from webviewIcons service
+	const icons = getWebviewIcons(context, webview);
+
 	// Read the HTML template
-	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'index.html');
+	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'view', 'index.html');
 	let html = fs.readFileSync(htmlPath, 'utf8');
-	
-	// Replace the CSS placeholder with the actual URI
+
+	// Replace CSS and Script URIs
 	html = html.replace('{{CSS_URI}}', cssUri.toString());
-	
+	html = html.replace('{{SCRIPT_URI}}', scriptUri.toString());
+
+	// ICONS - webviewIcons
+	html = replaceIconsInHtml(html, icons);
+
 	return html;
 }
