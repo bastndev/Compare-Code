@@ -1,4 +1,4 @@
-// Versión súper simplificada - solo lo esencial
+// Very simplified version - only the essentials
 function updateLineNumbers(textareaId: string, lineNumbersId: string): void {
     const textarea = document.getElementById(textareaId) as HTMLTextAreaElement;
     const lineNumbers = document.getElementById(lineNumbersId) as HTMLElement;
@@ -20,12 +20,12 @@ function updateLineNumbers(textareaId: string, lineNumbersId: string): void {
     update(); // Initial
 }
 
-// Inicializar cuando cargue la página
+// Initialize when the page loads
 document.addEventListener('DOMContentLoaded', () => {
     updateLineNumbers('code-editor-left', 'line-numbers-left');
     updateLineNumbers('code-editor-right', 'line-numbers-right');
     
-    // Botón limpiar (opcional)
+    // Clear button (optional)
     const clearBtn = document.querySelector('.clear') as HTMLElement;
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
