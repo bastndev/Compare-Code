@@ -94,45 +94,7 @@
 .code-editor::selection {
   background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
   
-  @media (prefers-color-scheme: dark) {
-    background-color: rgba(173, 214, 255, 0.3);
-  }
-  
-  @media (prefers-color-scheme: light) {
-    background-color: rgba(0, 120, 215, 0.3);
-  }
-  
-  body[data-vscode-theme-kind="vscode-dark"] & {
-    background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
-  }
-  
-  body[data-vscode-theme-kind="vscode-light"] & {
-    background-color: var(--vscode-editor-selectionBackground, rgba(0, 120, 215, 0.3));
-  }
-  
-  body[data-vscode-theme-kind="vscode-high-contrast"] & {
-    background-color: var(--vscode-editor-selectionBackground, rgba(255, 255, 255, 0.5));
-  }
 }
-
-.code-editor::-webkit-scrollbar {
-  width: 8px;
-}
-
-.code-editor::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.code-editor::-webkit-scrollbar-thumb {
-  background: var(--border-secondary);
-  border-radius: 4px;
-}
-
-.code-editor::-webkit-scrollbar-thumb:hover {
-  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
-}
-
-
 
 
 /* 

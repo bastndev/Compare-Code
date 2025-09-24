@@ -433,25 +433,6 @@ body[data-vscode-theme-kind=vscode-high-contrast] .code-editor {
 .code-editor::selection {
   background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
 }
-@media (prefers-color-scheme: dark) {
-  .code-editor::selection {
-    background-color: rgba(173, 214, 255, 0.3);
-  }
-}
-@media (prefers-color-scheme: light) {
-  .code-editor::selection {
-    background-color: rgba(0, 120, 215, 0.3);
-  }
-}
-body[data-vscode-theme-kind=vscode-dark] .code-editor::selection {
-  background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
-}
-body[data-vscode-theme-kind=vscode-light] .code-editor::selection {
-  background-color: var(--vscode-editor-selectionBackground, rgba(0, 120, 215, 0.3));
-}
-body[data-vscode-theme-kind=vscode-high-contrast] .code-editor::selection {
-  background-color: var(--vscode-editor-selectionBackground, rgba(255, 255, 255, 0.5));
-}
 
 .code-editor::-webkit-scrollbar {
   width: 8px;
@@ -470,27 +451,6 @@ body[data-vscode-theme-kind=vscode-high-contrast] .code-editor::selection {
   background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 }
 
-@media (max-width: 768px) {
-  .code-editor {
-    padding: 16px 16px 16px 24px;
-    font-size: 13px;
-    min-height: 250px;
-  }
-  .diff-gutter {
-    width: 4px;
-  }
-}
-@media (max-width: 480px) {
-  .editor-panel-left,
-  .editor-panel-right {
-    min-height: 300px;
-  }
-  .code-editor {
-    min-height: 200px;
-    padding: 12px 12px 12px 20px;
-    font-size: 12px;
-  }
-}
 /* 
 .diff-gutter {
   position: absolute;
