@@ -19,7 +19,7 @@
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 
   &:hover {
-    transform: translateX(-50%) translateY(0);
+    transform: translateX(-50%) translateY(-4px);
     opacity: 1;
     animation: none;
   }
@@ -43,10 +43,17 @@
   justify-content: center;
   height: $bottom-bar-height;
   width: 320px;
-  border-radius: 11px;
+  border-radius: $border-radius;
   gap: $spacing-lg;
   position: relative;
   border: 2px dashed $input-border;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+
+  // Responsive design for smaller screens
+  @media (max-width: 400px) {
+    width: 280px;
+    gap: $spacing-md;
+  }
 }
 
 // ======================================
@@ -61,12 +68,17 @@
     border-radius: $border-radius-lg;
     cursor: pointer;
     position: relative;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, transform 0.1s ease;
 
     &:hover {
-      border-radius: 10px;
-      background-color: rgba(85, 85, 85, 0.377);
-      padding: 2px;
+      border-radius: $border-radius-md;
+      background-color: $list-hover-bg;
+      transform: scale(1.05);
+    }
+
+    &:focus {
+      outline: 2px solid $accent-blue;
+      outline-offset: 2px;
     }
 
     // Separator lines between buttons
@@ -78,7 +90,12 @@
       transform: translateY(-50%);
       width: 1px;
       height: 24px;
-      background-color: rgba(255, 255, 255, 0.41);
+      background-color: $border;
+      transition: opacity 0.2s ease;
+    }
+
+    &:hover::after {
+      opacity: 0.5;
     }
 
     .icon {

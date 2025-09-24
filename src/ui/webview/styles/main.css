@@ -482,7 +482,7 @@ body {
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .bottom-bar:hover {
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(-4px);
   opacity: 1;
   animation: none;
 }
@@ -504,10 +504,17 @@ body {
   justify-content: center;
   height: 50px;
   width: 320px;
-  border-radius: 11px;
+  border-radius: 6px;
   gap: 24px;
   position: relative;
   border: 2px dashed var(--vscode-input-border);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+@media (max-width: 400px) {
+  .content {
+    width: 280px;
+    gap: 16px;
+  }
 }
 
 .content button {
@@ -518,12 +525,16 @@ body {
   border-radius: 8px;
   cursor: pointer;
   position: relative;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.2s ease, transform 0.1s ease;
 }
 .content button:hover {
-  border-radius: 10px;
-  background-color: rgba(85, 85, 85, 0.377);
-  padding: 2px;
+  border-radius: 6px;
+  background-color: var(--vscode-list-hoverBackground);
+  transform: scale(1.05);
+}
+.content button:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
 }
 .content button:not(:last-child)::after {
   content: "";
@@ -533,7 +544,11 @@ body {
   transform: translateY(-50%);
   width: 1px;
   height: 24px;
-  background-color: rgba(255, 255, 255, 0.41);
+  background-color: var(--vscode-widget-border);
+  transition: opacity 0.2s ease;
+}
+.content button:hover::after {
+  opacity: 0.5;
 }
 .content button .icon {
   width: 30px;
