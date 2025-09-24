@@ -533,7 +533,7 @@ body {
   transform: scale(1.05);
 }
 .content button:focus {
-  outline: 2px solid #3b82f6;
+  outline: 2px solid #ececec;
   outline-offset: 2px;
 }
 .content button:not(:last-child)::after {
