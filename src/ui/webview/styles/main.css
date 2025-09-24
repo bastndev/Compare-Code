@@ -237,12 +237,53 @@ body {
 
 .slash {
   cursor: default;
-  font-size: 16px;
-  color: var(--vscode-descriptionForeground);
-  margin: 0 4px;
-  user-select: none;
 }
 
+[data-tooltip] {
+  position: relative;
+}
+
+[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--vscode-editorHoverWidget-background, #1e1e1e);
+  color: var(--vscode-editorHoverWidget-foreground, #cccccc);
+  padding: 6px 10px;
+  border-radius: 3px;
+  font-size: 12px;
+  white-space: nowrap;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--vscode-foreground);
+  z-index: 1000;
+  margin-top: 6px;
+  opacity: 0;
+  animation: tooltipFadeIn 0.2s ease forwards;
+  border-radius: 50px;
+}
+
+.btn-panel-left[data-tooltip]:hover::after {
+  left: 15px;
+  transform: translateX(10%);
+}
+
+.btn-panel-right[data-tooltip]:hover::after {
+  left: -30px;
+  transform: translateX(10%);
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
 /* ======================================
    DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
    ======================================= */
