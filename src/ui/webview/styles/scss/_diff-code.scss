@@ -84,9 +84,9 @@
   }
 }
 
+// Focused / Placeholder / selection - LEFT & RIGHT
 .code-editor:focus {
   background: rgba(255, 255, 255, 0.02);
-  box-shadow: inset 0 0 0 1px var(--accent-blue);
 }
 
 .code-editor::placeholder {
