@@ -1,28 +1,43 @@
-const circle: HTMLElement | null = document.getElementById('circle');
-const message: HTMLElement | null = document.getElementById('message');
-let clickCount: number = 0;
-const colors: string[] = ['rgb(9, 255, 0)', '#ffffffff', '#000000ff', '#1900ffff', '#f92487ff'];
-
-const showMessage = (text: string): void => {
-    if (message) {
-        message.textContent = text;
-        message.classList.add('show');
-        setTimeout(() => message.classList.remove('show'), 1000);
+// Very simplified version - only the essentials
+function updateLineNumbers(textareaId: string, lineNumbersId: string): void {
+    const textarea = document.getElementById(textareaId) as HTMLTextAreaElement;
+    const lineNumbers = document.getElementById(lineNumbersId) as HTMLElement;
+    
+    if (!textarea || !lineNumbers) {
+        return;
     }
-};
-
-if (circle) {
-    circle.addEventListener('click', () => {
-        clickCount++;
-        circle.classList.add('clicked');
-        circle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-        showMessage(`¡Click #${clickCount}! 🎉`);
-        setTimeout(() => circle.classList.remove('clicked'), 1000);
-    });
-
-    circle.addEventListener('dblclick', () => {
-        clickCount = 0;
-        circle.style.backgroundColor = colors[0];
-        showMessage('Reset! 🔄');
-    });
+    
+    function update(): void {
+        const text = textarea.value || textarea.placeholder || '';
+        const lines = text.split('\n').length;
+        lineNumbers.textContent = Array.from({length: lines}, (_, i) => i + 1).join('\n');
+        lineNumbers.scrollTop = textarea.scrollTop;
+    }
+    
+    textarea.addEventListener('input', update);
+    textarea.addEventListener('scroll', () => lineNumbers.scrollTop = textarea.scrollTop);
+    
+    update(); // Initial
 }
+
+// Initialize when the page loads
+document.addEventListener('DOMContentLoaded', () => {
+    updateLineNumbers('code-editor-left', 'line-numbers-left');
+    updateLineNumbers('code-editor-right', 'line-numbers-right');
+    
+    // Clear button (optional)
+    const clearBtn = document.querySelector('.clear') as HTMLElement;
+    if (clearBtn) {
+        clearBtn.addEventListener('click', () => {
+            ['code-editor-left', 'code-editor-right'].forEach(id => {
+                const editor = document.getElementById(id) as HTMLTextAreaElement;
+                if (editor) {
+                    editor.value = '';
+                    editor.dispatchEvent(new Event('input'));
+                }
+            });
+        });
+    }
+});
+
+export {};

@@ -7,7 +7,7 @@ $fg-muted: var(--vscode-descriptionForeground);
 $border: var(--vscode-widget-border);
 
 // Typography
-$font-family: var(--vscode-font-family, var(--font-family, 'Segoe UI', sans-serif));
+$font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
 $font-size: var(--vscode-font-size, 13px);
 
 // Interactive elements
@@ -20,22 +20,33 @@ $list-hover-bg: var(--vscode-list-hoverBackground);
 $input-bg: var(--vscode-input-background);
 $input-border: var(--vscode-input-border);
 
+// Line colors Numbers
+$color-numbers: var(--vscode-editorLineNumber-foreground);
+
 // Scrollbar
 $scrollbar-width: 14px;
 $scrollbar-track-bg: $bg;
 $scrollbar-thumb-bg: $border;
 $scrollbar-thumb-hover: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 
+// USER-CODE / USER-CODE / USER-CODE 
+$primary-bg:var(--bg-primary);
+$selection-bg: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
+$contrast: var(--vscode-editor-foreground, #ffffff);
+
 // ======================================
 // Custom Design System Variables
 // ======================================
 
 // Diff colors (used in toolbar stats and gutter)
-$accent-green: #22c55e;
-$accent-red: #ef4444;
-$accent-orange: #f59e0b;
-$accent-blue: #3b82f6;
-$accent-white: #cccccc;
+$color-green: #22c55e;
+$color-red: #ef4444;
+$color-orange: #f59e0b;
+$color-blue: #3b82f6;
+
+$color-white: #ebebeb;
+$color-black: #000000;
+$color-grey: #cccccc;
 
 $test: #9dff00;
 
@@ -46,9 +57,10 @@ $file-info-height: 35px;
 
 // Border radius
 $border-radius: 6px;
-$border-radius-sm: 4px;
+$border-radius-sm: 3px;
 $border-radius-md: 6px;
 $border-radius-lg: 8px;
+$fifty-fifty: 50px;
 
 // Spacing scale
 $spacing-xs: 4px;
@@ -58,7 +70,7 @@ $spacing-lg: 24px;
 $spacing-xl: 32px;
 
 // ======================================
-//  Base Styles - VS Code Extension
+//  Base Styles - VS Code Extension | MARK: BASE
 //======================================
 
 *,

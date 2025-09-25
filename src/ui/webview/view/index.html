@@ -46,11 +46,11 @@
         <div class="buttons-container">
             <button class="clear">🗑️ Clear</button>
             
-            <button class="btn-panel-left">
+            <button class="btn-panel-left" data-tooltip="Close/Open panel LEFT">
                 <img src="{{PANEL_LEFT_ICON}}">
             </button>
             <span class="slash">/</span>
-            <button class="btn-panel-right">
+            <button class="btn-panel-right" data-tooltip="Close/Open panel RIGHT">
                 <img src="{{PANEL_RIGHT_ICON}}">
             </button>
         </div>
@@ -73,15 +73,20 @@
                     </select>
                 </div>
                 <div class="copy-clear">
-                    <img src="{{COPY_ICON_L}}">
-                    <img src="{{CLEAR_ICON_L}}">
+                    <button class="copy-code" data-tooltip="Copy code" >
+                        <img src="{{COPY_ICON_L}}">
+                    </button>
+                    <button class="clear-code" data-tooltip="Clear">
+                        <img src="{{CLEAR_ICON_L}}">
+                    </button>
                 </div>
             </div>
 
             <!-- Code editor area | MARK: Code L-->
-            <div class="editor-content">
+            <div class="diff-code">
+                <div class="line-numbers" id="line-numbers-left"></div>
                 <div class="diff-gutter"></div>
-                <textarea class="code-textarea" placeholder="Paste your modified code here...
+                <textarea class="code-editor" id="code-editor-left" placeholder="Paste your modified code here...
 
 // Example:
 function calculateSum(a, b, c = 0) {
@@ -114,15 +119,20 @@ console.log('Updated result:', result);
                     </select>
                 </div>
                 <div class="copy-clear">
-                    <img src="{{COPY_ICON_R}}">
-                    <img src="{{CLEAR_ICON_R}}">
+                    <button class="copy-code" data-tooltip="Copy code" >
+                        <img src="{{COPY_ICON_R}}">
+                    </button>
+                    <button class="clear-code" data-tooltip="Clear">
+                        <img src="{{CLEAR_ICON_R}}">
+                    </button>
                 </div>
             </div>
 
             <!-- Code editor area | MARK: Code R-->
-            <div class="editor-content">
+            <div class="diff-code">
+                <div class="line-numbers" id="line-numbers-right"></div>
                 <div class="diff-gutter"></div>
-                <textarea class="code-textarea" placeholder="Paste your modified code here...
+                <textarea class="code-editor" id="code-editor-right" placeholder="Paste your modified code here...
 
 // Example:
 // calculateSum: sums up to three numbers (third parameter is optional)
@@ -145,11 +155,23 @@ console.log('Result:', result);
          ====================================== -->
     <div class="bottom-bar">
         <div class="content">
-            <button><img class="icon" src="{{ONLY_CODE_ICON}}  "></button>
-            <button><img class="icon" src="{{DUAL_SCROLL_ICON}}"></button>
-            <button><img class="icon" src="{{SWITCH_ON_ICON}}  "></button>
-            <button><img class="icon" src="{{LANGUAGE_ICON}}   "></button>
-            <button><img class="icon" src="{{EARTH_CODE_ICON}} "></button>
+            <button class="only-code bbtn" data-tooltip="Show modified code">
+                <img class="icon" src="{{ONLY_CODE_ICON}}  ">
+            </button>
+            <button class="dual-scroll bbtn" data-tooltip="Dual scroll">
+                <img class="icon" src="{{DUAL_SCROLL_ICON}}">
+            </button>
+            <button class="switch-on-off bbtn" data-tooltip="Normal/Pro version">
+                <img class="icon" src="{{SWITCH_ON_ICON}}  ">
+            </button>
+            <button class="language bbtn" data-tooltip="Change language">
+                <img class="icon" src="{{LANGUAGE_ICON}}   ">
+            </button>
+            <button class="sponsor bbtn" data-tooltip="Sponsor" >
+                <a href="https://github.com/sponsors/bastndev" title="@bastndev">
+                    <img class="icon" src="{{EARTH_CODE_ICON}}">
+                </a>
+            </button>
         </div>
     </div>
 </body>

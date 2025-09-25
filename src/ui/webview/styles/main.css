@@ -11,7 +11,7 @@ body {
   color: var(--vscode-foreground);
   display: flex;
   flex-direction: column;
-  font-family: var(--vscode-font-family, var(--font-family, "Segoe UI", sans-serif));
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: var(--vscode-font-size, 13px);
   height: 100vh;
   line-height: 1.4;
@@ -101,12 +101,6 @@ body {
   gap: clamp(16px, 2vw, 24px);
   padding: 0 8px;
 }
-@media (max-width: 768px) {
-  .diff-stats {
-    gap: 12px;
-    flex-wrap: wrap;
-  }
-}
 
 .stat-item {
   display: flex;
@@ -118,39 +112,22 @@ body {
   white-space: nowrap;
   transition: opacity 0.2s ease;
   cursor: default;
-  opacity: 0.8;
-}
-@media (max-width: 480px) {
-  .stat-item {
-    font-size: 12px;
-    gap: 6px;
-  }
 }
 
 .stat-icon {
   width: 18px;
   height: 18px;
-  border-radius: 4px;
+  border-radius: 3px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 11px;
-  color: white;
+  color: #ebebeb;
+  opacity: none;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-.stat-icon:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-}
-@media (max-width: 480px) {
-  .stat-icon {
-    width: 16px;
-    height: 16px;
-    font-size: 10px;
-  }
 }
 .stat-icon.added {
   background: linear-gradient(135deg, #22c55e, #16a34a);
@@ -161,6 +138,16 @@ body {
 .stat-icon.modified {
   background: linear-gradient(135deg, #f59e0b, #d97706);
 }
+.stat-icon:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+}
+
+.stat-item span {
+  font-size: 11px;
+  color: var(--vscode-foreground);
+  opacity: 0.8;
+}
 
 .btn-play {
   border: none;
@@ -169,7 +156,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 .btn-play:active {
   transform: scale(0.95);
@@ -208,7 +195,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  border-radius: 4px;
+  border-radius: 3px;
 }
 .clear:active {
   transform: scale(0.95);
@@ -234,7 +221,7 @@ body {
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
-  border-radius: 4px;
+  border-radius: 3px;
   background-color: transparent;
   padding: 6px;
 }
@@ -250,12 +237,54 @@ body {
 
 .slash {
   cursor: default;
-  font-size: 16px;
-  color: var(--vscode-descriptionForeground);
-  margin: 0 4px;
-  user-select: none;
 }
 
+.btn-panel-left[data-tooltip],
+.btn-panel-right[data-tooltip] {
+  position: relative;
+}
+
+.btn-panel-left[data-tooltip]:hover::after,
+.btn-panel-right[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  padding: 6px 10px;
+  border-radius: 50px;
+  font-size: 12px;
+  white-space: nowrap;
+  border: 1px solid var(--vscode-input-border);
+  z-index: 1000;
+  margin-top: 6px;
+  opacity: 0;
+  animation: tooltipFadeIn 0.2s ease forwards;
+  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
+}
+
+.btn-panel-left[data-tooltip]:hover::after {
+  left: 13px;
+  transform: translateX(10%);
+}
+
+.btn-panel-right[data-tooltip]:hover::after {
+  left: -30px;
+  transform: translateX(10%);
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
 /* ======================================
    DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
    ======================================= */
@@ -302,10 +331,17 @@ body {
   color: var(--vscode-foreground);
   border: none;
   padding: 6px 24px 6px 8px;
-  border-radius: 4px;
+  border-radius: 3px;
   font-size: var(--vscode-font-size, 13px);
   cursor: pointer;
   transition: border-color 0.2s ease;
+}
+.select:hover {
+  background-color: var(--vscode-dropdown-listBackground, rgba(var(--vscode-input-background), 1.1));
+}
+.select:focus {
+  outline: none;
+  outline-offset: 2px;
 }
 
 .copy-clear {
@@ -318,11 +354,43 @@ body {
   width: 15px;
   height: 15px;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.6;
   transition: opacity 0.2s ease;
 }
 .copy-clear img:hover {
   opacity: 1;
+}
+
+.copy-clear button {
+  background-color: transparent;
+  border: none;
+}
+
+.copy-code[data-tooltip],
+.clear-code[data-tooltip] {
+  position: relative;
+}
+
+.copy-code[data-tooltip]:hover::after,
+.clear-code[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  white-space: nowrap;
+  border: 1px solid var(--vscode-input-border);
+  z-index: 1000;
+  margin-top: 6px;
+  opacity: 0;
+  animation: tooltipFadeIn 0.2s ease forwards;
+  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
 }
 
 .on1 {
@@ -337,156 +405,103 @@ body {
   height: 100%;
 }
 
+/* ========================================
+  Editor Panels Content - VS Code Extension | MARK: DIFF CODE
+  ========================================= */
 .editor-panel-left,
 .editor-panel-right {
   background-color: var(--vscode-editor-background);
-}
-
-/* ======================================
-  Editor Content Styles - VS Code Extension
-  ======================================= */
-/* Panel layout fixes for full height */
-.editor-panel-left,
-.editor-panel-right {
   display: flex;
   flex-direction: column;
   height: 100%;
-  min-height: 0; /* Important for flexbox overflow */
+  min-height: 0;
 }
-
-.editor-content {
+.editor-panel-left .diff-code,
+.editor-panel-right .diff-code {
   flex: 1;
   position: relative;
-  overflow: auto; /* Changed from hidden to auto to allow scrolling */
+  overflow: auto;
   background: var(--bg-primary);
   border-radius: 8px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
-  flex-direction: column;
-  min-height: 0; /* Important for content to fill available space */
+  flex-direction: row;
+  min-height: 0;
 }
-
-.editor-content:hover {
-  box-shadow: inset 0 0 0 1px var(--border-secondary);
+.editor-panel-left .diff-code .line-numbers,
+.editor-panel-right .diff-code .line-numbers {
+  flex: 0 0 40px;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.6;
+  padding: 11px 8px 24px 2px;
+  color: var(--vscode-editorLineNumber-foreground);
+  background: var(--bg-primary);
+  overflow-y: auto;
+  overflow-x: hidden;
+  white-space: pre;
+  text-align: right;
+  user-select: none;
+  pointer-events: none;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-
-.diff-gutter {
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 6px;
-  height: 100%;
-  background: linear-gradient(to bottom, transparent 25%, var(--accent-red) 25%, var(--accent-red) 30%, transparent 30%, transparent 45%, var(--accent-green) 45%, var(--accent-green) 50%, transparent 50%, transparent 65%, var(--accent-orange) 65%, var(--accent-orange) 70%, transparent 70%);
-  opacity: 0.6;
-  border-radius: 0 3px 3px 0;
-  transition: opacity 0.3s ease;
+.editor-panel-left .diff-code .line-numbers::-webkit-scrollbar,
+.editor-panel-right .diff-code .line-numbers::-webkit-scrollbar {
+  display: none;
 }
-
-.editor-panel.right .diff-gutter {
-  background: linear-gradient(to bottom, transparent 25%, var(--accent-green) 25%, var(--accent-green) 30%, transparent 30%, transparent 45%, var(--accent-red) 45%, var(--accent-red) 50%, transparent 50%, transparent 65%, var(--accent-orange) 65%, var(--accent-orange) 70%, transparent 70%);
-}
-
-.diff-gutter:hover {
-  opacity: 0.8;
-}
-
-.code-textarea {
+.editor-panel-left .diff-code .code-editor,
+.editor-panel-right .diff-code .code-editor {
   width: 100%;
   height: 100%;
-  min-height: 300px; /* Minimum height to ensure usability */
-  flex: 1; /* Take all available space */
+  min-height: 300px;
+  flex: 1;
   background: transparent;
   border: none;
-  color: rgba(255, 255, 255, 0.4862745098);
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", monospace);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 14px;
   line-height: 1.6;
-  padding: 24px 24px 24px 32px; /* Extra left padding for gutter */
+  padding: 11px 0px 24px 8px;
   resize: none;
   outline: none;
   tab-size: 2;
   font-weight: 400;
   border-radius: 8px;
   transition: all 0.2s ease;
-  caret-color: var(--accent-blue);
-  overflow-y: auto; /* Enable vertical scrolling */
-  overflow-x: auto; /* Enable horizontal scrolling for long lines */
+  overflow-y: auto;
+  overflow-x: auto;
 }
-
-.code-textarea:focus {
+body[data-vscode-theme-kind=vscode-dark] .editor-panel-left .diff-code .code-editor,
+body[data-vscode-theme-kind=vscode-dark] .editor-panel-right .diff-code .code-editor {
+  color: #ebebeb;
+}
+body[data-vscode-theme-kind=vscode-light] .editor-panel-left .diff-code .code-editor,
+body[data-vscode-theme-kind=vscode-light] .editor-panel-right .diff-code .code-editor {
+  color: #000000;
+}
+body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-left .diff-code .code-editor,
+body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code .code-editor {
+  color: var(--vscode-editor-foreground, #ffffff);
+}
+.editor-panel-left .diff-code .code-editor:focus,
+.editor-panel-right .diff-code .code-editor:focus {
   background: rgba(255, 255, 255, 0.02);
-  box-shadow: inset 0 0 0 1px var(--accent-blue);
 }
-
-.code-textarea::placeholder {
-  color: var(--text-muted);
+.editor-panel-left .diff-code .code-editor::placeholder,
+.editor-panel-right .diff-code .code-editor::placeholder {
+  color: var(--vscode-editorLineNumber-foreground);
   font-style: normal;
-  opacity: 0.7;
+  opacity: 1;
+}
+.editor-panel-left .diff-code .code-editor::selection,
+.editor-panel-right .diff-code .code-editor::selection {
+  background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
 }
 
-.code-textarea::-webkit-scrollbar {
-  width: 8px;
-}
-
-.code-textarea::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.code-textarea::-webkit-scrollbar-thumb {
-  background: var(--border-secondary);
-  border-radius: 4px;
-}
-
-.code-textarea::-webkit-scrollbar-thumb:hover {
-  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
-}
-
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .code-textarea {
-    padding: 16px 16px 16px 24px;
-    font-size: 13px;
-    min-height: 250px; /* Smaller minimum height on mobile */
-  }
-  .diff-gutter {
-    width: 4px;
-  }
-}
-/* Additional responsive fixes for mobile */
-@media (max-width: 480px) {
-  .editor-panel-left,
-  .editor-panel-right {
-    min-height: 300px; /* Ensure minimum height on very small screens */
-  }
-  .code-textarea {
-    min-height: 200px;
-    padding: 12px 12px 12px 20px;
-    font-size: 12px;
-  }
-}
 /* ======================================
    BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */
-.bottom-bar {
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-  z-index: 1000;
-  animation: slideDown 0.5s ease-in-out 1s forwards;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
-}
-.bottom-bar:hover {
-  transform: translateX(-50%) translateY(-4px);
-  opacity: 1;
-  animation: none;
-}
-
 @keyframes slideDown {
   from {
     transform: translateX(-50%) translateY(0);
@@ -497,17 +512,47 @@ body {
     opacity: 0.3;
   }
 }
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.bottom-bar {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  animation: slideDown 0.5s ease-in-out 1s forwards;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+.bottom-bar:hover {
+  transform: translateX(-50%) translateY(-4px);
+  opacity: 1;
+  animation: none;
+}
+
 .content {
-  background-color: var(--vscode-input-background);
   display: flex;
   align-items: center;
   justify-content: center;
   height: 50px;
   width: 320px;
-  border-radius: 6px;
   gap: 24px;
   position: relative;
+  background-color: var(--vscode-input-background);
   border: 2px dashed var(--vscode-input-border);
+  border-radius: 6px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 @media (max-width: 400px) {
@@ -517,42 +562,136 @@ body {
   }
 }
 
-.content button {
+.bbtn {
   background-color: transparent;
   border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 40px;
   height: 40px;
-  border-radius: 8px;
-  cursor: pointer;
   position: relative;
-  transition: background-color 0.2s ease, transform 0.1s ease;
+  border-radius: 8px;
+  transition: background-color 0.2s ease, transform 0.1s ease, border-radius 0.2s ease;
 }
-.content button:hover {
-  border-radius: 6px;
+.bbtn:hover {
   background-color: var(--vscode-list-hoverBackground);
+  border-radius: 6px;
   transform: scale(1.05);
 }
-.content button:focus {
-  outline: 2px solid #ececec;
+.bbtn:focus {
+  outline: 2px solid #cccccc;
   outline-offset: 2px;
 }
-.content button:not(:last-child)::after {
+.bbtn:active {
+  transform: scale(0.98);
+}
+.bbtn:not(:last-child)::after {
   content: "";
   position: absolute;
-  right: -10px;
+  right: -12px;
   top: 50%;
   transform: translateY(-50%);
   width: 1px;
   height: 24px;
   background-color: var(--vscode-widget-border);
+  opacity: 1;
   transition: opacity 0.2s ease;
+  z-index: 1;
 }
-.content button:hover::after {
+.bbtn:hover::after {
   opacity: 0.5;
 }
-.content button .icon {
+
+.icon {
   width: 30px;
   height: 30px;
+  pointer-events: none;
+  display: block;
+}
+
+.bbtn[data-tooltip] {
+  position: relative;
+}
+.bbtn[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  z-index: 1001;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+  white-space: nowrap;
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 12px;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: tooltipFadeIn 0.3s ease forwards;
+}
+
+.sponsor:hover {
+  background-color: rgba(46, 160, 67, 0.1);
+}
+.sponsor:focus {
+  outline-color: rgba(46, 160, 67, 0.5);
+}
+.sponsor a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+}
+.sponsor a:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar {
+    animation: none;
+    transition: none;
+  }
+  .bbtn {
+    transition: background-color 0.1s ease;
+  }
+  .bbtn:hover {
+    transform: none;
+  }
+  .bbtn:active {
+    transform: none;
+  }
+  .bbtn[data-tooltip]:hover::before {
+    animation: none;
+    opacity: 1;
+  }
+}
+.bottom-bar--hidden {
+  display: none;
+}
+.bottom-bar--disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+.bbtn--active {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+.bbtn--active:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+.bbtn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
 }
 
 /*# sourceMappingURL=main.css.map */
