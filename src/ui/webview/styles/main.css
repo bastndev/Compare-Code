@@ -503,7 +503,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
-  85% {
+  80% {
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
@@ -533,7 +533,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   transform: translateX(-50%);
   opacity: 0;
   z-index: 1000;
-  animation: simpleAppearAndHide 4s ease-in-out 1s forwards;
+  animation: simpleAppearAndHide 2.8s ease-in-out 1s forwards;
 }
 .bottom-bar:hover {
   opacity: 1 !important;
