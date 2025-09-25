@@ -202,19 +202,21 @@
   cursor: default;
 }
 
-// txt - floating message 
-[data-tooltip] {
+// --- --- --- -- - TXT - FLOATING MESSAGE
+.btn-panel-left[data-tooltip],
+.btn-panel-right[data-tooltip] {
   position: relative;
 }
 
-[data-tooltip]:hover::after {
+.btn-panel-left[data-tooltip]:hover::after,
+.btn-panel-right[data-tooltip]:hover::after {
   content: attr(data-tooltip);
   position: absolute;
   top: 100%;
   left: 50%;
   transform: translateX(-50%);
   background-color: $input-bg;
-  color:  $fg;
+  color: $fg;
   padding: 6px 10px;
   border-radius: $fifty-fifty;
   font-size: 12px;
@@ -224,6 +226,7 @@
   margin-top: 6px;
   opacity: 0;
   animation: tooltipFadeIn 0.2s ease forwards;
+  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
 }
 
 // Position floating message 

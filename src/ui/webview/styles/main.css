@@ -239,11 +239,17 @@ body {
   cursor: default;
 }
 
-[data-tooltip] {
+.slash {
+  cursor: default;
+}
+
+.btn-panel-left[data-tooltip],
+.btn-panel-right[data-tooltip] {
   position: relative;
 }
 
-[data-tooltip]:hover::after {
+.btn-panel-left[data-tooltip]:hover::after,
+.btn-panel-right[data-tooltip]:hover::after {
   content: attr(data-tooltip);
   position: absolute;
   top: 100%;
@@ -260,6 +266,7 @@ body {
   margin-top: 6px;
   opacity: 0;
   animation: tooltipFadeIn 0.2s ease forwards;
+  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
 }
 
 .btn-panel-left[data-tooltip]:hover::after {
