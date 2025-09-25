@@ -1,8 +1,8 @@
 @use 'global' as *;
 
 /* ======================================
-   DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
-   ======================================= */
+  DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
+  ======================================= */
 .diff-panel {
   background-color: $bg;
   display: grid;
@@ -12,7 +12,7 @@
 }
 
 // ======================================
-// File Info MARK:Header
+// File Info MARK: SELECT FILE
 // ======================================
 .file-info {
   background-color: $input-bg;
@@ -30,30 +30,6 @@
   align-items: center;
   gap: $spacing-sm;
 }
-
-// .content{
-//   // background: var(--vscode-dropdown-background, $input-bg);
-//   color: $fg;
-//   // border: 1px solid var(--vscode-dropdown-border, $input-border);
-//   padding:$spacing-sm;
-//   // border-radius: $border-radius;
-//   font-size: 12px;
-//   font-family: $font-family;
-//   cursor: pointer;
-//   transition: all 200ms;
-//   min-width: 120px;
-  
-//   &:hover {
-//     border-color: var(--vscode-focusBorder, $color-black);
-//     background-color: var(--vscode-dropdown-listBackground, rgba(var(--vscode-input-background), 1.1));
-//   }
-  
-//   &:focus {
-//     outline: 2px solid var(--vscode-focusBorder, $color-black);
-//     outline-offset: 2px;
-//     border-color: var(--vscode-focusBorder, $color-black);
-//   }
-// }
 
 .file-icon {
   width: 16px;
@@ -78,41 +54,120 @@
   cursor: pointer;
   transition: border-color 0.2s ease;
 
-
   &:hover {
-    background-color: var(--vscode-dropdown-listBackground, rgba(var(--vscode-input-background), 1.1));
+   background-color: var(--vscode-dropdown-listBackground, rgba(var(--vscode-input-background), 1.1));
   }
   
   &:focus {
-    outline: none;
-    outline-offset: 2px;
+   outline: none;
+   outline-offset: 2px;
   }
 }
 
-// COPY-CLEAR / CONTROLS
+// ======================================
+// Vertical MARK:Separator
+// ======================================
+.on1 {
+  background-color: $input-bg;
+  height: $file-info-height;
+}
+
+.on2 {
+  background-color: $input-bg;
+  border-left: 1px solid $input-border;
+  border-right: 1px solid $input-border;
+  height: 100%;
+}
+
+// ======================================
+// COPY-CLEAR / CONTROLS WITH ANIMATIONS | MARK: COPY & CLEAR
+// ======================================
 .copy-clear {
   display: flex;
   align-items: center;
   gap: $spacing-sm;
   padding-right: 22px;
+}
+
+.copy-clear button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  border-radius: $border-radius-sm;
+  position: relative;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  // Effect when pressing the button
+  &:active {
+   transform: translateY(0) scale(0.95);
+  }
   
   img {
-    width: 15px;
-    height: 15px;
-    cursor: pointer;
-    opacity: 0.6;
-    transition: opacity 0.2s ease;
-    
-    &:hover {
-      opacity: 1;
-    }
+   width: 15px;
+   height: 15px;
+   cursor: pointer;
+   opacity: 0.6;
+   transition: opacity 0.2s ease;
+   
+   &:hover {
+    opacity: 1;
+   }
   }
 }
 
-.copy-clear button{
-  background-color: transparent;
-  border: none;
+// Specific animations for each button
+.copy-code {
+  img {
+   // Animation on click - copy effect
+   &:active {
+    animation: copyPulse 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+   }
+  }
+  
+  // Special effect on click
+  &:active::before {
+   content: '';
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   width: 0;
+   height: 0;
+   border-radius: 50%;
+   background-color: rgba(34, 197, 94, 0.3);
+   animation: rippleEffect 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+   transform: translate(-50%, -50%);
+   pointer-events: none;
+  }
 }
+
+.clear-code {
+  img {
+   // Animation on click - clear effect
+   &:active {
+    animation: clearSpin 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+   }
+  }
+  
+  // Special effect on click
+  &:active::before {
+   content: '';
+   position: absolute;
+   top: 50%;
+   left: 50%;
+   width: 0;
+   height: 0;
+   border-radius: 50%;
+   background-color: rgba(239, 68, 68, 0.3);
+   animation: rippleEffect 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+   transform: translate(-50%, -50%);
+   pointer-events: none;
+  }
+}
+
+// ======================================
+// TOOLTIPS
+// ======================================
 .copy-code[data-tooltip],
 .clear-code[data-tooltip] {
   position: relative;
@@ -141,16 +196,120 @@
 }
 
 // ======================================
-// Vertical MARK:Separator
+// SPECIAL STATES (for use with JavaScript)
 // ======================================
-.on1 {
-  background-color: $input-bg;
-  height: $file-info-height;
+
+// Class to apply when the action is successful
+.copy-code.success,
+.clear-code.success {
+  animation: successFeedback 0.5s ease;
+  
+  img {
+   filter: brightness(1.3);
+  }
 }
 
-.on2 {
-  background-color: $input-bg;
-  border-left: 1px solid $input-border;
-  border-right: 1px solid $input-border;
-  height: 100%;
+// Loading state (optional)
+.copy-code.loading img,
+.clear-code.loading img {
+  animation: spin 1s linear infinite;
+  opacity: 0.4;
+}
+
+// ======================================
+// KEYFRAMES FOR MARK:ANIMATIONS
+// ======================================
+
+// Animation for tooltip
+@keyframes tooltipFadeIn {
+  from {
+   opacity: 0;
+   transform: translateX(-50%) translateY(-5px);
+  }
+  to {
+   opacity: 1;
+   transform: translateX(-50%) translateY(0);
+  }
+}
+
+// Animation for copy button - pulse effect
+@keyframes copyPulse {
+  0% {
+   transform: scale(1);
+  }
+  25% {
+   transform: scale(0.9);
+  }
+  50% {
+   transform: scale(1.2);
+   filter: brightness(1.2);
+  }
+  75% {
+   transform: scale(0.95);
+  }
+  100% {
+   transform: scale(1);
+   filter: brightness(1);
+  }
+}
+
+// Animation for clear button - spin effect
+@keyframes clearSpin {
+  0% {
+   transform: scale(1) rotate(0deg);
+  }
+  25% {
+   transform: scale(0.8) rotate(90deg);
+  }
+  50% {
+   transform: scale(1.1) rotate(180deg);
+   filter: brightness(1.2);
+  }
+  75% {
+   transform: scale(0.9) rotate(270deg);
+  }
+  100% {
+   transform: scale(1) rotate(360deg);
+   filter: brightness(1);
+  }
+}
+
+// Ripple effect on click
+@keyframes rippleEffect {
+  0% {
+   width: 0;
+   height: 0;
+   opacity: 1;
+  }
+  100% {
+   width: 40px;
+   height: 40px;
+   opacity: 0;
+  }
+}
+
+// Additional animation for successful visual feedback
+@keyframes successFeedback {
+  0% {
+   transform: scale(1);
+   background-color: rgba(34, 197, 94, 0);
+  }
+  50% {
+   transform: scale(1.05);
+   background-color: rgba(34, 197, 94, 0.2);
+  }
+  100% {
+   transform: scale(1);
+   background-color: rgba(34, 197, 94, 0);
+  }
+}
+
+// Spin animation
+@keyframes spin {
+  from {
+   transform: rotate(0deg);
+  }
+  to {
+   transform: rotate(360deg);
+  }
 }
