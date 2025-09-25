@@ -42,7 +42,6 @@ $scale-active: 0.98;
 
 // Bottom Bar Container
 .bottom-bar {
-  // Positioning
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -158,9 +157,7 @@ $scale-active: 0.98;
   position: relative;
   
   &:hover::before {
-    content: attr(data-tooltip);
-    
-    // Positioning
+    content: attr(data-tooltip);    
     position: absolute;
     bottom: 100%;
     left: 50%;
@@ -184,11 +181,7 @@ $scale-active: 0.98;
   }
 }
 
-// ======================================
-// Button Variants
-// ======================================
-
-// Sponsor button special styling
+// SPONSOR BUTTON - special styling
 .sponsor {
   &:hover {
     background-color: rgba(46, 160, 67, 0.1);
@@ -212,7 +205,9 @@ $scale-active: 0.98;
   }
 }
 
-// Accessibility & Motion
+// ======================================
+// Accessibility & Motion MARK:Accessibility
+// ======================================
 @media (prefers-reduced-motion: reduce) {
   .bottom-bar {
     animation: none;
