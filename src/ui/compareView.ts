@@ -1,83 +1,135 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
-import { getWebviewIcons, replaceIconsInHtml } from './webview/view/webviewIcons';
+import {
+  getWebviewIcons,
+  replaceIconsInHtml,
+} from './webview/view/webviewIcons';
 
 let comparePanel: vscode.WebviewPanel | undefined;
 
 // Creates or shows the compare view
-export async function createCompareView(context: vscode.ExtensionContext): Promise<void> {
-	if (comparePanel) {
-		comparePanel.reveal(vscode.ViewColumn.One);
-		return;
-	}
+export async function createCompareView(
+  context: vscode.ExtensionContext
+): Promise<void> {
+  if (comparePanel) {
+    comparePanel.reveal(vscode.ViewColumn.One);
+    return;
+  }
 
-	// Get the custom icon URIs
-	const iconUri = {
-		light: vscode.Uri.file(path.join(context.extensionPath, 'assets', 'images', 'cc-black.svg')),
-		dark: vscode.Uri.file(path.join(context.extensionPath, 'assets', 'images', 'cc.svg'))
-	};
+  // Get the custom icon URIs
+  const iconUri = {
+    light: vscode.Uri.file(
+      path.join(context.extensionPath, 'assets', 'images', 'cc-black.svg')
+    ),
+    dark: vscode.Uri.file(
+      path.join(context.extensionPath, 'assets', 'images', 'cc.svg')
+    ),
+  };
 
-	comparePanel = vscode.window.createWebviewPanel(
-		'compareCode',
-		'Compare Code',
-		vscode.ViewColumn.One,
-		{
-			enableScripts: true,
-			retainContextWhenHidden: true,
-			localResourceRoots: [
-				vscode.Uri.file(path.join(context.extensionPath, 'src')),
-				vscode.Uri.file(path.join(context.extensionPath, 'styles')),
-				vscode.Uri.file(path.join(context.extensionPath, 'dist')),
-				vscode.Uri.file(path.join(context.extensionPath, 'assets'))
-			]
-		}
-	);
+  comparePanel = vscode.window.createWebviewPanel(
+    'compareCode',
+    'Compare Code',
+    vscode.ViewColumn.One,
+    {
+      enableScripts: true,
+      retainContextWhenHidden: true,
+      localResourceRoots: [
+        vscode.Uri.file(path.join(context.extensionPath, 'src')),
+        vscode.Uri.file(path.join(context.extensionPath, 'styles')),
+        vscode.Uri.file(path.join(context.extensionPath, 'dist')),
+        vscode.Uri.file(path.join(context.extensionPath, 'assets')),
+      ],
+    }
+  );
 
-	comparePanel.iconPath = iconUri;
-	comparePanel.webview.html = getWebviewContent(context, comparePanel.webview);
+  comparePanel.iconPath = iconUri;
+  comparePanel.webview.html = getWebviewContent(context, comparePanel.webview);
 
-	comparePanel.onDidDispose(() => {
-		comparePanel = undefined;
-	});
+  // Close panel Right and Left
+  comparePanel.webview.onDidReceiveMessage(async (message) => {
+    const config = vscode.workspace.getConfiguration('workbench');
+    const location = config.get('sideBar.location');
+    switch (message.command) {
+      case 'toggleLeftPanel':
+        if (location === 'left') {
+          await vscode.commands.executeCommand('workbench.action.toggleSidebarVisibility');
+        } else {
+          await vscode.commands.executeCommand('workbench.action.toggleAuxiliaryBar');
+        }
+        break;
+      case 'toggleRightPanel':
+        if (location === 'left') {
+          await vscode.commands.executeCommand('workbench.action.toggleAuxiliaryBar');
+        } else {
+          await vscode.commands.executeCommand('workbench.action.toggleSidebarVisibility');
+        }
+        break;
+    }
+  });
+
+  comparePanel.onDidDispose(() => {
+    comparePanel = undefined;
+  });
 }
 
 // Closes the compare view if open
 export async function closeCompareView(): Promise<void> {
-	if (comparePanel) {
-		comparePanel.dispose();
-		comparePanel = undefined;
-	}
+  if (comparePanel) {
+    comparePanel.dispose();
+    comparePanel = undefined;
+  }
 }
 
 // Checks if the view is currently open
 export function isViewOpen(): boolean {
-	return comparePanel !== undefined && comparePanel.visible;
+  return comparePanel !== undefined && comparePanel.visible;
 }
 
 // Generates HTML content for the webview MARK:HTML / SCSS / TS
-function getWebviewContent(context: vscode.ExtensionContext, webview: vscode.Webview): string {
-	// Get the CSS file URI (compiled from SCSS)
-	const cssPath = vscode.Uri.file(path.join(context.extensionPath, 'src', 'ui', 'webview', 'styles', 'main.css'));
-	const cssUri = webview.asWebviewUri(cssPath);
+function getWebviewContent(
+  context: vscode.ExtensionContext,
+  webview: vscode.Webview
+): string {
+  // Get the CSS file URI (compiled from SCSS)
+  const cssPath = vscode.Uri.file(
+    path.join(
+      context.extensionPath,
+      'src',
+      'ui',
+      'webview',
+      'styles',
+      'main.css'
+    )
+  );
+  const cssUri = webview.asWebviewUri(cssPath);
 
-	// Get the script file URI (compiled from TS)
-	const scriptPath = vscode.Uri.file(path.join(context.extensionPath, 'dist', 'compareService.js'));
-	const scriptUri = webview.asWebviewUri(scriptPath);
+  // Get the script file URI (compiled from TS)
+  const scriptPath = vscode.Uri.file(
+    path.join(context.extensionPath, 'dist', 'main.js')
+  );
+  const scriptUri = webview.asWebviewUri(scriptPath);
 
-	// Get icons from webviewIcons service
-	const icons = getWebviewIcons(context, webview);
+  // Get icons from webviewIcons service
+  const icons = getWebviewIcons(context, webview);
 
-	// Read the HTML template
-	const htmlPath = path.join(context.extensionPath, 'src', 'ui', 'webview', 'view', 'index.html');
-	let html = fs.readFileSync(htmlPath, 'utf8');
+  // Read the HTML template
+  const htmlPath = path.join(
+    context.extensionPath,
+    'src',
+    'ui',
+    'webview',
+    'view',
+    'index.html'
+  );
+  let html = fs.readFileSync(htmlPath, 'utf8');
 
-	// Replace CSS and Script URIs
-	html = html.replace('{{CSS_URI}}', cssUri.toString());
-	html = html.replace('{{SCRIPT_URI}}', scriptUri.toString());
+  // Replace CSS and Script URIs
+  html = html.replace('{{CSS_URI}}', cssUri.toString());
+  html = html.replace('{{SCRIPT_URI}}', scriptUri.toString());
 
-	// ICONS - webviewIcons
-	html = replaceIconsInHtml(html, icons);
+  // ICONS - webviewIcons
+  html = replaceIconsInHtml(html, icons);
 
-	return html;
+  return html;
 }
