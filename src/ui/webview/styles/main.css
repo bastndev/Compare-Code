@@ -483,7 +483,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
 }
 .editor-panel-left .diff-code .code-editor::placeholder,
 .editor-panel-right .diff-code .code-editor::placeholder {
-  color: rgba(255, 255, 255, 0.4862745098);
+  color: rgba(105, 105, 105, 0.5607843137);
   font-style: normal;
   opacity: 1;
 }
@@ -574,7 +574,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   transform: scale(1.05);
 }
 .bbtn:focus {
-  outline: 2px solid rgba(255, 255, 255, 0.4862745098);
+  outline: 2px solid #cccccc;
   outline-offset: 2px;
 }
 .bbtn:active {
