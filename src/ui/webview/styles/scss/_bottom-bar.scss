@@ -96,7 +96,7 @@
   }
 }
 
-// Main bottom-bar styles with nested structure for better organization
+// MAIN BOTTOM-BAR STYLES
 .bottom-bar {
   background-color: transparent;
   display: flex;
@@ -108,7 +108,7 @@
   transform: translateX(-50%);
   opacity: 0;
   z-index: 1000;
-  animation: simpleAppearAndHide 2.8s ease-in-out 1s forwards;
+  animation: simpleAppearAndHide 2.8s ease-in-out 1s forwards; // Duration Animation
 
   &:hover {
     opacity: 1 !important;
