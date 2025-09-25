@@ -342,7 +342,6 @@ body {
 .select:focus {
   outline: none;
   outline-offset: 2px;
-  border: 1px solid red;
 }
 
 .copy-clear {
