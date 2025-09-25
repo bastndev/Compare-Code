@@ -80,8 +80,8 @@
     transform: translateX(-50%) translateY(0);
   }
   100% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(80px);
+    opacity: 0.7; //OPACITY
+    transform: translateX(-50%) translateY(48px); // HIDES BOT
   }
 }
 
