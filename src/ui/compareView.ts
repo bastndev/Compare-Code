@@ -52,6 +52,9 @@ export async function createCompareView(
       case 'toggleExplorer':
         await vscode.commands.executeCommand('workbench.action.toggleSidebarVisibility');
         break;
+      case 'toggleAuxiliaryBar':
+        await vscode.commands.executeCommand('workbench.action.toggleAuxiliaryBar');
+        break;
     }
   });
 

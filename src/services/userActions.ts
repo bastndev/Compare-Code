@@ -32,6 +32,15 @@ function initializePanelLeftButton(): void {
   }
 }
 
+function initializePanelRightButton(): void {
+  const btn = document.getElementById('btn-panel-right') as HTMLElement;
+  if (btn) {
+    btn.addEventListener('click', () => {
+      vscode.postMessage({ command: 'toggleAuxiliaryBar' });
+    });
+  }
+}
+
 
 /* ======================================
    Copy & Clear | MARK: diff-panel
@@ -114,6 +123,7 @@ export function initializeUserActions(): void {
   initializeCopyButtons();
   initializeClearCodeButtons();
   initializePanelLeftButton();
+  initializePanelRightButton();
   // TODO: Add other button handlers here
   // initializeCompareButton();
   // initializePanelControls();
