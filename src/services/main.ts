@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateLineNumbers('code-editor-left', 'line-numbers-left');
   updateLineNumbers('code-editor-right', 'line-numbers-right');
 
-  // Initialize user actions (buttons, controls, etc.)
+  // HERE - userActions
   initializeUserActions();
 });
 

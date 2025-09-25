@@ -1,5 +1,5 @@
 /* ======================================
-   User Actions | MARK: TOOLBAR
+   Clear | MARK: TOOLBAR
    ======================================= */
 function initializeClearButton(): void {
     const clearBtn = document.querySelector('.clear') as HTMLElement;
@@ -15,6 +15,11 @@ function initializeClearButton(): void {
         });
     }
 }
+
+/* ======================================
+   Copy & Clear | MARK: diff-panel
+   ======================================= */
+
 
 /**
  * Initialize all user action handlers
