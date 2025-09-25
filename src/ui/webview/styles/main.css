@@ -122,7 +122,7 @@ body {
   align-items: center;
   justify-content: center;
   font-size: 11px;
-  color: #ffffff;
+  color: #ebebeb;
   opacity: none;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
@@ -467,7 +467,7 @@ body {
 }
 body[data-vscode-theme-kind=vscode-dark] .editor-panel-left .diff-code .code-editor,
 body[data-vscode-theme-kind=vscode-dark] .editor-panel-right .diff-code .code-editor {
-  color: #ffffff;
+  color: #ebebeb;
 }
 body[data-vscode-theme-kind=vscode-light] .editor-panel-left .diff-code .code-editor,
 body[data-vscode-theme-kind=vscode-light] .editor-panel-right .diff-code .code-editor {
