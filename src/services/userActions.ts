@@ -2,6 +2,9 @@
    Clear & close/open panel R-L | MARK: TOOLBAR
    ======================================= */
 
+declare const acquireVsCodeApi: any;
+const vscode = acquireVsCodeApi();
+
 // Clear ALL code
 function initializeClearButton(): void {
   const clearBtn = document.querySelector('.clear') as HTMLElement;
@@ -19,6 +22,15 @@ function initializeClearButton(): void {
 }
 
 // Close/Open panel R-L
+
+function initializePanelLeftButton(): void {
+  const btn = document.getElementById('btn-panel-left') as HTMLElement;
+  if (btn) {
+    btn.addEventListener('click', () => {
+      vscode.postMessage({ command: 'toggleExplorer' });
+    });
+  }
+}
 
 
 /* ======================================
@@ -101,6 +113,7 @@ export function initializeUserActions(): void {
   initializeClearButton();
   initializeCopyButtons();
   initializeClearCodeButtons();
+  initializePanelLeftButton();
   // TODO: Add other button handlers here
   // initializeCompareButton();
   // initializePanelControls();

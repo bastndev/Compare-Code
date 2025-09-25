@@ -46,6 +46,15 @@ export async function createCompareView(
   comparePanel.iconPath = iconUri;
   comparePanel.webview.html = getWebviewContent(context, comparePanel.webview);
 
+  // Close panel Right and Left
+  comparePanel.webview.onDidReceiveMessage(async (message) => {
+    switch (message.command) {
+      case 'toggleExplorer':
+        await vscode.commands.executeCommand('workbench.action.toggleSidebarVisibility');
+        break;
+    }
+  });
+
   comparePanel.onDidDispose(() => {
     comparePanel = undefined;
   });
