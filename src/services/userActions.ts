@@ -18,6 +18,9 @@ function initializeClearButton(): void {
   }
 }
 
+// Close/Open panel R-L
+
+
 /* ======================================
    Copy & Clear | MARK: diff-panel
    ======================================= */
