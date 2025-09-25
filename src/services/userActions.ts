@@ -5,7 +5,7 @@
 declare const acquireVsCodeApi: any;
 const vscode = acquireVsCodeApi();
 
-// Clear ALL code
+// CLEAR ALL CODE
 function initializeClearButton(): void {
   const clearBtn = document.querySelector('.clear') as HTMLElement;
   if (clearBtn) {
@@ -21,8 +21,7 @@ function initializeClearButton(): void {
   }
 }
 
-// Close/Open panel R-L
-
+ // CLOSE PANEL RIGHT AND LEFT
 function initializePanelLeftButton(): void {
   const btn = document.getElementById('btn-panel-left') as HTMLElement;
   if (btn) {
@@ -40,7 +39,6 @@ function initializePanelRightButton(): void {
     });
   }
 }
-
 
 /* ======================================
    Copy & Clear | MARK: diff-panel
