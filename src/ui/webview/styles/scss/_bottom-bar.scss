@@ -26,8 +26,8 @@ $scale-active: 0.98;
     opacity: 1;
   }
   to {
-    transform: translateX(-50%) translateY(calc(100% - 4px));
-    opacity: 0.3;
+    transform: translateX(-50%) translateY(calc(100% - 4px)); // HIDE BOT
+    opacity: 0.3; // OPACITY
   }
 }
 
