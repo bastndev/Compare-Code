@@ -75,6 +75,36 @@
   }
 }
 
+.copy-clear button{
+  background-color: transparent;
+  border: none;
+}
+.copy-code[data-tooltip],
+.clear-code[data-tooltip] {
+  position: relative;
+}
+
+.copy-code[data-tooltip]:hover::after,
+.clear-code[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $input-bg;
+  color: $fg;
+  padding: 6px 10px;
+  border-radius: $border-radius-md;
+  font-size: 12px;
+  white-space: nowrap;
+  border: 1px solid $input-border;
+  z-index: 1000;
+  margin-top: 6px;
+  opacity: 0;
+  animation: tooltipFadeIn 0.2s ease forwards;
+  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
+}
+
 // ======================================
 // Vertical MARK:Separator
 // ======================================
