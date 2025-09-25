@@ -4,9 +4,7 @@
    BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */
 
-// ======================================
 // Local Variables
-// ======================================
 $bottom-bar-content-width: 320px;
 $bottom-bar-content-width-mobile: 280px;
 $button-size: 40px;
@@ -18,7 +16,7 @@ $scale-hover: 1.05;
 $scale-active: 0.98;
 
 // ======================================
-// Keyframe Animations
+// Keyframe Animations | MARK: animation
 // ======================================
 @keyframes slideDown {
   from {
@@ -42,25 +40,17 @@ $scale-active: 0.98;
   }
 }
 
-// ======================================
 // Bottom Bar Container
-// ======================================
 .bottom-bar {
   // Positioning
   position: fixed;
   bottom: 0;
   left: 50%;
   z-index: 1000;
-  
-  // Layout
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  // Visual
   background-color: transparent;
-  
-  // Transform & Animation
   transform: translateX(-50%) translateY(0);
   opacity: 1;
   animation: slideDown 0.5s ease-in-out 1s forwards;
@@ -74,11 +64,8 @@ $scale-active: 0.98;
   }
 }
 
-// ======================================
 // Content Container
-// ======================================
 .content {
-  // Layout
   display: flex;
   align-items: center;
   justify-content: center;
@@ -86,8 +73,6 @@ $scale-active: 0.98;
   width: $bottom-bar-content-width;
   gap: $spacing-lg;
   position: relative;
-  
-  // Visual styling
   background-color: $input-bg;
   border: 2px dashed $input-border;
   border-radius: $border-radius;
@@ -101,26 +86,19 @@ $scale-active: 0.98;
 }
 
 // ======================================
-// Button Base Styles (.bbtn)
+// BUTTON BASE STYLE (.bbtn) MARK: button style
 // ======================================
 .bbtn {
-  // Reset default button styles
   background-color: transparent;
   border: none;
   cursor: pointer;
-  
-  // Layout & sizing
   display: flex;
   align-items: center;
   justify-content: center;
   width: $button-size;
   height: $button-size;
   position: relative;
-  
-  // Visual
   border-radius: $border-radius-lg;
-  
-  // Smooth transitions
   transition: 
     background-color 0.2s ease,
     transform 0.1s ease,
@@ -165,18 +143,16 @@ $scale-active: 0.98;
   }
 }
 
-// ======================================
 // Button Icon Styles
-// ======================================
 .icon {
   width: $icon-size;
   height: $icon-size;
-  pointer-events: none; // Prevents icon from interfering with button events
+  pointer-events: none;
   display: block;
 }
 
 // ======================================
-// Tooltip System
+// TOOLTIP SYSTEM | MARK: tooltip
 // ======================================
 .bbtn[data-tooltip] {
   position: relative;
@@ -190,12 +166,8 @@ $scale-active: 0.98;
     left: 50%;
     z-index: 1001;
     margin-bottom: $tooltip-offset;
-    
-    // Layout
     padding: $spacing-sm 12px;
     white-space: nowrap;
-    
-    // Visual styling
     background-color: $input-bg;
     color: $fg;
     border: 1px solid $input-border;
@@ -226,7 +198,6 @@ $scale-active: 0.98;
     outline-color: rgba(46, 160, 67, 0.5);
   }
   
-  // Handle nested anchor tag
   a {
     display: flex;
     align-items: center;
@@ -236,14 +207,12 @@ $scale-active: 0.98;
     text-decoration: none;
     
     &:focus {
-      outline: none; // Parent button handles focus
+      outline: none; // Yellow box - none
     }
   }
 }
 
-// ======================================
 // Accessibility & Motion
-// ======================================
 @media (prefers-reduced-motion: reduce) {
   .bottom-bar {
     animation: none;
@@ -268,9 +237,7 @@ $scale-active: 0.98;
   }
 }
 
-// ======================================
 // States & Modifiers
-// ======================================
 .bottom-bar {
   &--hidden {
     display: none;
