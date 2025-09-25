@@ -354,7 +354,7 @@ body {
   width: 15px;
   height: 15px;
   cursor: pointer;
-  opacity: 0.7;
+  opacity: 0.6;
   transition: opacity 0.2s ease;
 }
 .copy-clear img:hover {
