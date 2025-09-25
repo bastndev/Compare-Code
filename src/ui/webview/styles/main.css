@@ -237,6 +237,7 @@ body {
 
 .slash {
   cursor: default;
+  padding-top: 3px;
 }
 
 .btn-panel-left[data-tooltip],
