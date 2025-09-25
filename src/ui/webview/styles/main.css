@@ -494,52 +494,47 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
 /* ======================================
    BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */
-@keyframes simpleAppearAndHide {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(0);
-  }
-  15% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  80% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-  100% {
-    opacity: 0.8;
-    transform: translateX(-50%) translateY(48px);
-  }
-}
-@keyframes tooltipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
 .bottom-bar {
   background-color: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 8px;
+  bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
-  opacity: 0;
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
   z-index: 1000;
-  animation: simpleAppearAndHide 2.8s ease-in-out 1s forwards;
+  animation: slideDown 0.5s ease-in-out 1s forwards;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
 }
 .bottom-bar:hover {
-  opacity: 1 !important;
-  animation-play-state: paused;
+  transform: translateX(-50%) translateY(-4px);
+  opacity: 1;
+  animation: none;
 }
-.bottom-bar .content {
+
+@keyframes slideDown {
+  from {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(-50%) translateY(calc(100% - 4px));
+    opacity: 0.3;
+  }
+}
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.content {
   background-color: var(--vscode-input-background);
   display: flex;
   align-items: center;
@@ -553,12 +548,13 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 @media (max-width: 400px) {
-  .bottom-bar .content {
+  .content {
     width: 280px;
     gap: 16px;
   }
 }
-.bottom-bar .content button {
+
+.content button {
   background-color: transparent;
   border: none;
   width: 40px;
@@ -567,46 +563,20 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   cursor: pointer;
   position: relative;
   transition: background-color 0.2s ease, transform 0.1s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-.bottom-bar .content button:hover {
+.content button:hover {
   border-radius: 6px;
   background-color: var(--vscode-list-hoverBackground);
   transform: scale(1.05);
 }
-.bottom-bar .content button:focus-visible {
-  outline: 2px solid rgba(255, 255, 255, 0.4862745098);
+.content button:focus {
+  outline: 2px solid #ffffff;
   outline-offset: 2px;
 }
-.bottom-bar .content button:active {
-  transform: scale(0.98);
-}
-.bottom-bar .content button .icon {
-  width: 30px;
-  height: 30px;
-  pointer-events: none;
-}
-.bottom-bar .content button:not(:last-child)::after {
-  content: "";
-  position: absolute;
-  right: -10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 24px;
-  background-color: var(--vscode-widget-border);
-  transition: opacity 0.2s ease;
-  z-index: 1;
-}
-.bottom-bar .content button:hover::after {
-  opacity: 0.5;
-}
-.bottom-bar .content button[data-tooltip] {
+.content button[data-tooltip] {
   position: relative;
 }
-.bottom-bar .content button[data-tooltip]:hover::before {
+.content button[data-tooltip]:hover::before {
   content: attr(data-tooltip);
   position: absolute;
   bottom: 100%;
@@ -626,12 +596,23 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   animation: tooltipFadeIn 0.3s ease forwards;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
-.bottom-bar .content button.sponsor:hover {
-  background-color: rgba(46, 160, 67, 0.1);
-  border-color: rgba(46, 160, 67, 0.3);
+.content button:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: -10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 24px;
+  background-color: var(--vscode-widget-border);
+  transition: opacity 0.2s ease;
 }
-.bottom-bar .content button.sponsor:focus-visible {
-  outline: 2px solid rgba(46, 160, 67, 0.5);
+.content button:hover::after {
+  opacity: 0.5;
+}
+.content button .icon {
+  width: 30px;
+  height: 30px;
 }
 
 /*# sourceMappingURL=main.css.map */
