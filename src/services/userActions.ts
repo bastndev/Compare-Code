@@ -1,5 +1,5 @@
 /* ======================================
-   Clear | MARK: TOOLBAR
+   Clear & close/open panel R-L | MARK: TOOLBAR
    ======================================= */
 
 // Clear ALL code
