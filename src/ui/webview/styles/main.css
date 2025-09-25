@@ -492,7 +492,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
 }
 
 /* ======================================
-   BOTTOM BAR - VS Code Extension
+   BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */
 @keyframes slideDown {
   from {
