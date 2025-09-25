@@ -544,6 +544,31 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   }
 }
 
+.bbtn[data-tooltip] {
+  position: relative;
+}
+
+.bbtn[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  border: 1px solid var(--vscode-input-border);
+  z-index: 1001;
+  margin-bottom: 8px;
+  opacity: 0;
+  pointer-events: none;
+  animation: tooltipFadeIn 0.3s ease forwards;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
 .content button {
   background-color: transparent;
   border: none;
@@ -553,6 +578,9 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   cursor: pointer;
   position: relative;
   transition: background-color 0.2s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .content button:hover {
   border-radius: 6px;
@@ -562,6 +590,9 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
 .content button:focus {
   outline: 2px solid rgba(255, 255, 255, 0.4862745098);
   outline-offset: 2px;
+}
+.content button:active {
+  transform: scale(0.98);
 }
 .content button:not(:last-child)::after {
   content: "";
@@ -573,6 +604,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   height: 24px;
   background-color: var(--vscode-widget-border);
   transition: opacity 0.2s ease;
+  z-index: 1;
 }
 .content button:hover::after {
   opacity: 0.5;
@@ -580,6 +612,14 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
 .content button .icon {
   width: 30px;
   height: 30px;
+  pointer-events: none;
+}
+.content button.sponsor:hover {
+  background-color: rgba(46, 160, 67, 0.1);
+  border-color: rgba(46, 160, 67, 0.3);
+}
+.content button.sponsor:focus {
+  outline: 2px solid rgba(46, 160, 67, 0.5);
 }
 
 /*# sourceMappingURL=main.css.map */

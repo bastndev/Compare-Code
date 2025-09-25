@@ -155,11 +155,23 @@ console.log('Result:', result);
          ====================================== -->
     <div class="bottom-bar">
         <div class="content">
-            <button><img class="icon" src="{{ONLY_CODE_ICON}}  "></button>
-            <button><img class="icon" src="{{DUAL_SCROLL_ICON}}"></button>
-            <button><img class="icon" src="{{SWITCH_ON_ICON}}  "></button>
-            <button><img class="icon" src="{{LANGUAGE_ICON}}   "></button>
-            <button><img class="icon" src="{{EARTH_CODE_ICON}} "></button>
+            <button class="only-code bbtn" data-tooltip="Only code different">
+                <img class="icon" src="{{ONLY_CODE_ICON}}  ">
+            </button>
+            <button class="dual-scroll bbtn" data-tooltip="Dual scroll Active/Disable">
+                <img class="icon" src="{{DUAL_SCROLL_ICON}}">
+            </button>
+            <button class="switch-on-off bbtn" data-tooltip="Normal version / Pro">
+                <img class="icon" src="{{SWITCH_ON_ICON}}  ">
+            </button>
+            <button class="language bbtn" data-tooltip="Change language">
+                <img class="icon" src="{{LANGUAGE_ICON}}   ">
+            </button>
+            <button class="sponsor bbtn" data-tooltip="Sponsor">
+                <a href="https://github.com/sponsors/bastndev">
+                    <img class="icon" src="{{EARTH_CODE_ICON}}">
+                </a>
+            </button>
         </div>
     </div>
 </body>

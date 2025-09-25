@@ -12,6 +12,7 @@
     "typescript.tsc.autoDetect": "off",
     "cSpell.words": [
         "**/main.css.map",
+        "bbtn",
         "EAGI",
         "Kiro",
         "scrollbars"

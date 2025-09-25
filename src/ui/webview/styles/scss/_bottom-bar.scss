@@ -57,6 +57,34 @@
 }
 
 // ======================================
+// Tooltip Styles - Show above icons
+// ======================================
+.bbtn[data-tooltip] {
+  position: relative;
+}
+
+.bbtn[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: $input-bg;
+  color: $fg;
+  padding: 8px 12px;
+  border-radius: $border-radius-md;
+  font-size: 12px;
+  white-space: nowrap;
+  border: 1px solid $input-border;
+  z-index: 1001;
+  margin-bottom: 8px;
+  opacity: 0;
+  pointer-events: none;
+  animation: tooltipFadeIn 0.3s ease forwards;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+// ======================================
 // Bottom Bar Buttons
 // ======================================
 .content {
@@ -69,6 +97,9 @@
     cursor: pointer;
     position: relative;
     transition: background-color 0.2s ease, transform 0.1s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
       border-radius: $border-radius-md;
@@ -77,8 +108,12 @@
     }
 
     &:focus {
-      outline: 2px solid $color-grey; // border =  transparent or color here
+      outline: 2px solid $color-grey;
       outline-offset: 2px;
+    }
+
+    &:active {
+      transform: scale(0.98);
     }
 
     // Separator lines between buttons
@@ -92,6 +127,7 @@
       height: 24px;
       background-color: $border;
       transition: opacity 0.2s ease;
+      z-index: 1;
     }
 
     &:hover::after {
@@ -101,6 +137,19 @@
     .icon {
       width: 30px;
       height: 30px;
+      pointer-events: none; // Prevent icon from interfering with button events
+    }
+
+    // Special styling for sponsor button
+    &.sponsor {
+      &:hover {
+        background-color: rgba(46, 160, 67, 0.1);
+        border-color: rgba(46, 160, 67, 0.3);
+      }
+      
+      &:focus {
+        outline: 2px solid rgba(46, 160, 67, 0.5);
+      }
     }
   }
 }
