@@ -336,6 +336,14 @@ body {
   cursor: pointer;
   transition: border-color 0.2s ease;
 }
+.select:hover {
+  background-color: var(--vscode-dropdown-listBackground, rgba(var(--vscode-input-background), 1.1));
+}
+.select:focus {
+  outline: none;
+  outline-offset: 2px;
+  border: 1px solid red;
+}
 
 .copy-clear {
   display: flex;

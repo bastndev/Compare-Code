@@ -31,6 +31,30 @@
   gap: $spacing-sm;
 }
 
+// .content{
+//   // background: var(--vscode-dropdown-background, $input-bg);
+//   color: $fg;
+//   // border: 1px solid var(--vscode-dropdown-border, $input-border);
+//   padding:$spacing-sm;
+//   // border-radius: $border-radius;
+//   font-size: 12px;
+//   font-family: $font-family;
+//   cursor: pointer;
+//   transition: all 200ms;
+//   min-width: 120px;
+  
+//   &:hover {
+//     border-color: var(--vscode-focusBorder, $color-black);
+//     background-color: var(--vscode-dropdown-listBackground, rgba(var(--vscode-input-background), 1.1));
+//   }
+  
+//   &:focus {
+//     outline: 2px solid var(--vscode-focusBorder, $color-black);
+//     outline-offset: 2px;
+//     border-color: var(--vscode-focusBorder, $color-black);
+//   }
+// }
+
 .file-icon {
   width: 16px;
   height: 16px;
@@ -53,6 +77,16 @@
   font-size: $font-size;
   cursor: pointer;
   transition: border-color 0.2s ease;
+
+
+  &:hover {
+    background-color: var(--vscode-dropdown-listBackground, rgba(var(--vscode-input-background), 1.1));
+  }
+  
+  &:focus {
+    outline: none;
+    outline-offset: 2px;
+  }
 }
 
 // COPY-CLEAR / CONTROLS
