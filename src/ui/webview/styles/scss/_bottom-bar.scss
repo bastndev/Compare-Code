@@ -1,30 +1,25 @@
 @use 'global' as *;
 
 /* ======================================
-   BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
+   BOTTOM BAR - VS Code Extension
    ======================================= */
 
-.bottom-bar {
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
-  z-index: 1000;
-  animation: slideDown 0.5s ease-in-out 1s forwards;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+// ======================================
+// Local Variables
+// ======================================
+$bottom-bar-content-width: 320px;
+$bottom-bar-content-width-mobile: 280px;
+$button-size: 40px;
+$icon-size: 30px;
+$separator-offset: calc($spacing-lg / 2);
+$tooltip-offset: 8px;
+$hover-lift: -4px;
+$scale-hover: 1.05;
+$scale-active: 0.98;
 
-  &:hover {
-    transform: translateX(-50%) translateY(-4px);
-    opacity: 1;
-    animation: none;
-  }
-}
-
+// ======================================
+// Keyframe Animations
+// ======================================
 @keyframes slideDown {
   from {
     transform: translateX(-50%) translateY(0);
@@ -47,97 +42,259 @@
   }
 }
 
+// ======================================
+// Bottom Bar Container
+// ======================================
+.bottom-bar {
+  // Positioning
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  z-index: 1000;
+  
+  // Layout
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  // Visual
+  background-color: transparent;
+  
+  // Transform & Animation
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+  animation: slideDown 0.5s ease-in-out 1s forwards;
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  
+  // Hover state
+  &:hover {
+    transform: translateX(-50%) translateY($hover-lift);
+    opacity: 1;
+    animation: none;
+  }
+}
+
+// ======================================
+// Content Container
+// ======================================
 .content {
-  background-color: $input-bg;
+  // Layout
   display: flex;
   align-items: center;
   justify-content: center;
   height: $bottom-bar-height;
-  width: 320px;
-  border-radius: $border-radius;
+  width: $bottom-bar-content-width;
   gap: $spacing-lg;
   position: relative;
+  
+  // Visual styling
+  background-color: $input-bg;
   border: 2px dashed $input-border;
+  border-radius: $border-radius;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-
-  // Responsive design for smaller screens
+  
+  // Responsive design
   @media (max-width: 400px) {
-    width: 280px;
+    width: $bottom-bar-content-width-mobile;
     gap: $spacing-md;
   }
 }
 
 // ======================================
-// Bottom Bar Buttons
+// Button Base Styles (.bbtn)
 // ======================================
-.content {
-  button {
-    background-color: transparent;
-    border: none;
-    width: 40px;
-    height: 40px;
-    border-radius: $border-radius-lg;
-    cursor: pointer;
-    position: relative;
-    transition: background-color 0.2s ease, transform 0.1s ease;
+.bbtn {
+  // Reset default button styles
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  
+  // Layout & sizing
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $button-size;
+  height: $button-size;
+  position: relative;
+  
+  // Visual
+  border-radius: $border-radius-lg;
+  
+  // Smooth transitions
+  transition: 
+    background-color 0.2s ease,
+    transform 0.1s ease,
+    border-radius 0.2s ease;
+  
+  // Hover state
+  &:hover {
+    background-color: $list-hover-bg;
+    border-radius: $border-radius-md;
+    transform: scale($scale-hover);
+  }
+  
+  // Focus state (accessibility)
+  &:focus {
+    outline: 2px solid $color-grey;
+    outline-offset: 2px;
+  }
+  
+  // Active state
+  &:active {
+    transform: scale($scale-active);
+  }
+  
+  // Separator line between buttons
+  &:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    right: -$separator-offset;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 1px;
+    height: 24px;
+    background-color: $border;
+    opacity: 1;
+    transition: opacity 0.2s ease;
+    z-index: 1;
+  }
+  
+  // Hide separator on hover for cleaner look
+  &:hover::after {
+    opacity: 0.5;
+  }
+}
 
-    &:hover {
-      border-radius: $border-radius-md;
-      background-color: $list-hover-bg;
-      transform: scale(1.05);
-    }
+// ======================================
+// Button Icon Styles
+// ======================================
+.icon {
+  width: $icon-size;
+  height: $icon-size;
+  pointer-events: none; // Prevents icon from interfering with button events
+  display: block;
+}
 
+// ======================================
+// Tooltip System
+// ======================================
+.bbtn[data-tooltip] {
+  position: relative;
+  
+  &:hover::before {
+    content: attr(data-tooltip);
+    
+    // Positioning
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    z-index: 1001;
+    margin-bottom: $tooltip-offset;
+    
+    // Layout
+    padding: $spacing-sm 12px;
+    white-space: nowrap;
+    
+    // Visual styling
+    background-color: $input-bg;
+    color: $fg;
+    border: 1px solid $input-border;
+    border-radius: $border-radius-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 12px;
+    font-family: $font-family;
+    
+    // Animation & Transform
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%);
+    animation: tooltipFadeIn 0.3s ease forwards;
+  }
+}
+
+// ======================================
+// Button Variants
+// ======================================
+
+// Sponsor button special styling
+.sponsor {
+  &:hover {
+    background-color: rgba(46, 160, 67, 0.1);
+  }
+  
+  &:focus {
+    outline-color: rgba(46, 160, 67, 0.5);
+  }
+  
+  // Handle nested anchor tag
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    
     &:focus {
-      outline: 2px solid $color-white; // border =  transparent or color here
-      outline-offset: 2px;
+      outline: none; // Parent button handles focus
     }
+  }
+}
 
-    // Tooltip functionality
-    &[data-tooltip] {
-      position: relative;
-
-      &:hover::before {
-        content: attr(data-tooltip);
-        position: absolute;
-        bottom: 100%;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: $input-bg;
-        color: $fg;
-        padding: 8px 12px;
-        border-radius: $border-radius-md;
-        font-size: 12px;
-        white-space: nowrap;
-        border: 1px solid $input-border;
-        z-index: 1001;
-        margin-bottom: 8px;
-        opacity: 0;
-        pointer-events: none;
-        animation: tooltipFadeIn 0.3s ease forwards;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-      }
+// ======================================
+// Accessibility & Motion
+// ======================================
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar {
+    animation: none;
+    transition: none;
+  }
+  
+  .bbtn {
+    transition: background-color 0.1s ease;
+    
+    &:hover {
+      transform: none;
     }
-
-    // Separator lines between buttons
-    &:not(:last-child)::after {
-      content: '';
-      position: absolute;
-      right: -10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 1px;
-      height: 24px;
-      background-color: $border;
-      transition: opacity 0.2s ease;
+    
+    &:active {
+      transform: none;
     }
+  }
+  
+  .bbtn[data-tooltip]:hover::before {
+    animation: none;
+    opacity: 1;
+  }
+}
 
-    &:hover::after {
-      opacity: 0.5;
-    }
+// ======================================
+// States & Modifiers
+// ======================================
+.bottom-bar {
+  &--hidden {
+    display: none;
+  }
+  
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+}
 
-    .icon {
-      width: 30px;
-      height: 30px;
+.bbtn {
+  &--active {
+    background-color: $btn-bg;
+    color: $btn-fg;
+    
+    &:hover {
+      background-color: $btn-hover;
     }
+  }
+  
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
   }
 }
