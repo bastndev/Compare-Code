@@ -494,14 +494,22 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
 /* ======================================
    BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */
-@keyframes slideDown {
-  from {
+@keyframes simpleAppearAndHide {
+  0% {
+    opacity: 0;
     transform: translateX(-50%) translateY(0);
-    opacity: 1;
   }
-  to {
-    transform: translateX(-50%) translateY(calc(100% - 4px));
-    opacity: 0.3;
+  15% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  85% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(80px);
   }
 }
 @keyframes tooltipFadeIn {
@@ -520,18 +528,16 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   align-items: center;
   justify-content: center;
   position: fixed;
-  bottom: 0;
+  bottom: 8px;
   left: 50%;
-  transform: translateX(-50%) translateY(0);
-  opacity: 1;
+  transform: translateX(-50%);
+  opacity: 0;
   z-index: 1000;
-  animation: slideDown 0.5s ease-in-out 1s forwards;
-  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  animation: simpleAppearAndHide 4s ease-in-out 1s forwards;
 }
 .bottom-bar:hover {
-  transform: translateX(-50%) translateY(-4px);
-  opacity: 1;
-  animation: none;
+  opacity: 1 !important;
+  animation-play-state: paused;
 }
 .bottom-bar .content {
   background-color: var(--vscode-input-background);
