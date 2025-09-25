@@ -48,12 +48,22 @@ export async function createCompareView(
 
   // Close panel Right and Left
   comparePanel.webview.onDidReceiveMessage(async (message) => {
+    const config = vscode.workspace.getConfiguration('workbench');
+    const location = config.get('sideBar.location');
     switch (message.command) {
-      case 'toggleExplorer':
-        await vscode.commands.executeCommand('workbench.action.toggleSidebarVisibility');
+      case 'toggleLeftPanel':
+        if (location === 'left') {
+          await vscode.commands.executeCommand('workbench.action.toggleSidebarVisibility');
+        } else {
+          await vscode.commands.executeCommand('workbench.action.toggleAuxiliaryBar');
+        }
         break;
-      case 'toggleAuxiliaryBar':
-        await vscode.commands.executeCommand('workbench.action.toggleAuxiliaryBar');
+      case 'toggleRightPanel':
+        if (location === 'left') {
+          await vscode.commands.executeCommand('workbench.action.toggleAuxiliaryBar');
+        } else {
+          await vscode.commands.executeCommand('workbench.action.toggleSidebarVisibility');
+        }
         break;
     }
   });

@@ -26,7 +26,7 @@ function initializePanelLeftButton(): void {
   const btn = document.getElementById('btn-panel-left') as HTMLElement;
   if (btn) {
     btn.addEventListener('click', () => {
-      vscode.postMessage({ command: 'toggleExplorer' });
+      vscode.postMessage({ command: 'toggleLeftPanel' });
     });
   }
 }
@@ -35,7 +35,7 @@ function initializePanelRightButton(): void {
   const btn = document.getElementById('btn-panel-right') as HTMLElement;
   if (btn) {
     btn.addEventListener('click', () => {
-      vscode.postMessage({ command: 'toggleAuxiliaryBar' });
+      vscode.postMessage({ command: 'toggleRightPanel' });
     });
   }
 }
