@@ -1,5 +1,7 @@
 let isComparing: boolean = false;
 
+import { setPlayBtnToEdit, setPlayBtnToCompare } from '../user-actions/user-actions-top';
+
 export function toggle(): void {
   if (isComparing) {
     reset();
@@ -54,8 +56,7 @@ export function compare(): void {
   document.querySelectorAll('.code-input').forEach((el) => (el as HTMLElement).style.display = 'none');
   document.querySelectorAll('.code-display').forEach((el) => (el as HTMLElement).style.display = 'block');
 
-  const playBtn = document.getElementById('playBtn') as HTMLElement;
-  playBtn.textContent = 'Edit';
+  setPlayBtnToEdit();
   isComparing = true;
 }
 
@@ -63,8 +64,7 @@ export function reset(): void {
   document.querySelectorAll('.code-input').forEach((el) => (el as HTMLElement).style.display = 'block');
   document.querySelectorAll('.code-display').forEach((el) => (el as HTMLElement).style.display = 'none');
 
-  const playBtn = document.getElementById('playBtn') as HTMLElement;
-  playBtn.textContent = 'Compare';
+  setPlayBtnToCompare();
   isComparing = false;
 }
 

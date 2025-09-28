@@ -5,7 +5,9 @@
 declare const acquireVsCodeApi: any;
 const vscode = acquireVsCodeApi();
 
-// CLEAR ALL CODE
+/* ======================================
+   toolbar | MARK: CLEAR  
+   ======================================= */
 function initializeClearButton(): void {
   const clearBtn = document.querySelector('.clear') as HTMLElement;
   if (clearBtn) {
@@ -41,7 +43,24 @@ function initializePanelRightButton(): void {
 }
 
 /* ======================================
-   Copy & Clear | MARK: diff-panel
+   toolbar | MARK: playBtn
+   ======================================= */
+export function setPlayBtnToEdit(): void {
+  const playBtn = document.getElementById('playBtn') as HTMLElement;
+  if (playBtn) {
+    playBtn.textContent = 'stop';
+  }
+}
+
+export function setPlayBtnToCompare(): void {
+  const playBtn = document.getElementById('playBtn') as HTMLElement;
+  if (playBtn) {
+    playBtn.textContent = 'Compare';
+  }
+}
+
+/* ======================================
+   diff-panel| MARK: Copy & Clear  
    ======================================= */
 
 // Handles copy functionality for individual panels
@@ -122,10 +141,6 @@ export function initializeUserActions(): void {
   initializeClearCodeButtons();
   initializePanelLeftButton();
   initializePanelRightButton();
-  // TODO: Add other button handlers here
-  // initializeCompareButton();
-  // initializePanelControls();
-  // initializeBottomBarButtons();
 }
 
 export {};
