@@ -56,7 +56,7 @@ export function compare(): void {
   document.querySelectorAll('.code-input').forEach((el) => (el as HTMLElement).style.display = 'none');
   document.querySelectorAll('.code-display').forEach((el) => (el as HTMLElement).style.display = 'block');
 
-  setPlayBtnToEdit();
+  setPlayBtnToEdit(); // playBtn
   isComparing = true;
 }
 
@@ -64,7 +64,7 @@ export function reset(): void {
   document.querySelectorAll('.code-input').forEach((el) => (el as HTMLElement).style.display = 'block');
   document.querySelectorAll('.code-display').forEach((el) => (el as HTMLElement).style.display = 'none');
 
-  setPlayBtnToCompare();
+  setPlayBtnToCompare(); // playBtn
   isComparing = false;
 }
 
