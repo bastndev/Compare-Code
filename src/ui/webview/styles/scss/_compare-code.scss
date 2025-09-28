@@ -35,8 +35,15 @@
 
 .code-input{
   border-top: 1px solid $input-border;
-  border-right: 1px solid $input-border;
   outline: none;
+}
+
+#code1 {
+  border-right: 1px solid $input-border;
+}
+
+#code2 {
+  border-left: 1px solid $input-border;
 }
 
 .code-display {
@@ -47,7 +54,9 @@
   counter-reset: line-number;
 }
 
-// ============= CODE TS & JS =============
+// ==========================================
+// CODE TS & JS 
+// ==========================================
 .code-line {
   display: block;
   counter-increment: line-number;
@@ -70,7 +79,7 @@
 }
 
 // ==========================================
-//  Color  Modify 
+//  Color  Modify  | MARK: IDENTIFIER
 // ==========================================
 .added {
   background: #d4edda;
