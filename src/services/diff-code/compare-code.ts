@@ -15,6 +15,7 @@ export function compare(): void {
   const codeBox2Element = document.getElementById('codeBox2') as HTMLTextAreaElement;
   
   if (!codeBox1Element || !codeBox2Element) {
+    console.error('Code box Element no found');
     return;
   }
 
@@ -32,49 +33,49 @@ export function compare(): void {
 
   let html1 = '', html2 = '';
 
-  // Comparación línea por línea
+  // Line Compare
   for (let i = 0; i < maxLines; i++) {
     const line1 = lines1[i] !== undefined ? lines1[i] : '';
     const line2 = lines2[i] !== undefined ? lines2[i] : '';
 
     if (line1 === line2) {
-      // Líneas idénticas
+      // Identical lines
       html1 += `<div class="code-line"><span class="code-line-content">${esc(line1)}</span></div>`;
       html2 += `<div class="code-line"><span class="code-line-content">${esc(line2)}</span></div>`;
     } else {
-      // Líneas diferentes
+      // Different lines
       if (line1 !== '' && line2 === '') {
-        // Línea removida (solo existe en código 1)
+        // Removed line (only exists in code 1)
         html1 += `<div class="code-line removed"><span class="code-line-content">${esc(line1)}</span></div>`;
         html2 += `<div class="code-line empty-line"><span class="code-line-content"></span></div>`;
       } else if (line1 === '' && line2 !== '') {
-        // Línea añadida (solo existe en código 2)
+        // Added line (only exists in code 2)
         html1 += `<div class="code-line empty-line"><span class="code-line-content"></span></div>`;
         html2 += `<div class="code-line added"><span class="code-line-content">${esc(line2)}</span></div>`;
       } else {
-        // Líneas modificadas (ambas existen pero son diferentes)
+        // Modified lines (both exist but are different)
         html1 += `<div class="code-line modified"><span class="code-line-content">${esc(line1)}</span></div>`;
         html2 += `<div class="code-line modified"><span class="code-line-content">${esc(line2)}</span></div>`;
       }
     }
   }
 
-  // Actualizar displays
+  // Update displays
   const display1 = document.getElementById('display1') as HTMLElement;
   const display2 = document.getElementById('display2') as HTMLElement;
   
   if (!display1 || !display2) {
-    console.error('No se encontraron los elementos de display');
+    console.error('Display elements not found');
     return;
   }
 
   display1.innerHTML = html1;
   display2.innerHTML = html2;
 
-  // Cambiar visibilidad
+  // Change visibility
   showComparisonMode();
   
-  // Actualizar botón
+  // Update button
   setPlayBtnToEdit();
   isComparing = true;
 }
