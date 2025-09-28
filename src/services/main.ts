@@ -1,11 +1,11 @@
-// Main entry point - coordinates all initializations
 import { initializeUserActions } from './user-actions/user-actions-top';
-import { initializeCompareGrid } from './diff-code/compare-code';
+import { toggle, initializeCompareCode } from './diff-code/compare-code';
 
-// Initialize when the page loads
+// INITIALIZE WHEN THE PAGE LOADS
 document.addEventListener('DOMContentLoaded', () => {
-  initializeCompareGrid();
   initializeUserActions();
+  initializeCompareCode();
+  (window as any).toggle = toggle;
 });
 
 export {};

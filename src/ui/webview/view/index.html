@@ -37,7 +37,7 @@
         </div>
 
         <!-- TODO: Primary compare button | PLAY -->
-        <button class="btn-play">
+        <button class="btn-play" onclick="toggle()" id="playBtn" >
             <img src="{{PLAY_ICON}}">
             <span>Compare</span>
         </button>
@@ -59,96 +59,20 @@
     <!-- ======================================
          DIFF PANEL - Main comparison interface
          ====================================== -->
-    <div class="diff-panel">
-        <!-- TODO: LEFT - EDITOR PANEL -->
-        <div class="editor-panel-left">
 
-            <div class="file-info">
-                <div class="file-selector">
-                    <div class="file-icon">JS</div>
-                    <select class="select">
-                        <option>modified.js</option>
-                        <option>Astro.js</option>
-                        <option>_diff-panel.scss</option>
-                    </select>
-                </div>
-                <div class="copy-clear">
-                    <button class="copy-code" data-tooltip="Copy code" >
-                        <img src="{{COPY_ICON_L}}">
-                    </button>
-                    <button class="clear-code" data-tooltip="Clear">
-                        <img src="{{CLEAR_ICON_L}}">
-                    </button>
-                </div>
+        <div class="compare-grid">
+            <div class="code-panel">
+                <div class="panel-header">1 Box</div>
+                <textarea class="code-input" id="code1" placeholder="Example One Code here..."></textarea>
+                <div class="code-display" id="display1"></div>
             </div>
-
-            <!-- Code editor area | MARK: Code L-->
-            <div class="diff-code">
-                <div class="line-numbers" id="line-numbers-left"></div>
-                <div class="diff-gutter"></div>
-                <textarea class="code-editor" id="code-editor-left" placeholder="Paste your modified code here...
-
-// Example:
-function calculateSum(a, b, c = 0) {
-    const sum = a + b + c;
-    return sum;
-}
-
-const result = calculateSum(5, 3, 2);
-console.log('Updated result:', result);
-
-// Enhanced version..."></textarea>
+            
+            <div class="code-panel">
+                <div class="panel-header">2 Box</div>
+                <textarea class="code-input" id="code2" placeholder="Example Two Code here..."></textarea>
+                <div class="code-display" id="display2"></div>
             </div>
         </div>
-
-        <!-- Vertical separator -->
-        <div class="separator">
-            <div class="on1"></div>
-            <div class="on2"></div>
-        </div><!--   separator  -->
-
-        <!-- TODO: RIGHT - EDITOR PANEL -->
-        <div class="editor-panel-right">
-            <div class="file-info">
-                <div class="file-selector">
-                    <div class="file-icon">JS</div>
-                    <select class="select">
-                        <option>Astro.js</option>
-                        <option>modified.js</option>
-                        <option>_diff-panel.scss</option>
-                    </select>
-                </div>
-                <div class="copy-clear">
-                    <button class="copy-code" data-tooltip="Copy code" >
-                        <img src="{{COPY_ICON_R}}">
-                    </button>
-                    <button class="clear-code" data-tooltip="Clear">
-                        <img src="{{CLEAR_ICON_R}}">
-                    </button>
-                </div>
-            </div>
-
-            <!-- Code editor area | MARK: Code R-->
-            <div class="diff-code">
-                <div class="line-numbers" id="line-numbers-right"></div>
-                <div class="diff-gutter"></div>
-                <textarea class="code-editor" id="code-editor-right" placeholder="Paste your modified code here...
-
-// Example:
-// calculateSum: sums up to three numbers (third parameter is optional)
-function calculateSum(a, b, c = 0) {
-    const sum = a + b + c;
-    return sum;
-}
-
-// Usage
-const result = calculateSum(5, 3, 2);
-console.log('Result:', result);
-
-// More code here..."></textarea>
-            </div>
-        </div>
-    </div>
 
     <!-- ======================================
          BOTTOM BAR - Floating tool controls
@@ -176,3 +100,4 @@ console.log('Result:', result);
     </div>
 </body>
 </html>
+

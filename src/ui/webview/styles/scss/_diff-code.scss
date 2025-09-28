@@ -3,97 +3,91 @@
 /* ========================================
   Editor Panels Content - VS Code Extension | MARK: DIFF CODE
   ========================================= */
-.editor-panel-left,
-.editor-panel-right {
-  background-color: $bg;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  min-height: 0;
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
 
-  // Box - LEFT & RIGHT
-  .diff-code {
-    flex: 1;
-    position: relative;
-    overflow: auto;
-    background: $primary-bg;
-    border-radius: 8px;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    display: flex;
-    flex-direction: row;
-    min-height: 0;
+.code-panel {
+  border: 2px solid #ddd;
+  border-radius: 6px;
+  overflow: hidden;
+}
 
-    // line numbers - LEFT & RIGHT | MARK: PLUS L & R
-    .line-numbers {
-      flex: 0 0 40px;
-      font-family: $font-family;
-      font-size: 14px;
-      font-weight: 500;
-      line-height: 1.6;
-      padding: 11px 8px 24px 2px;
-      color: $color-numbers;
-      background: $primary-bg;
-      overflow-y: auto;
-      overflow-x: hidden;
-      white-space: pre;
-      text-align: right;
-      user-select: none;
-      pointer-events: none;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      
-      &::-webkit-scrollbar {
-        display: none;
-      }
-    }
+.panel-header {
+  background: #333;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+}
 
-    // ----- ---- --- -- - USER WRITE | MARK: CODE
-    .code-editor {
-      width: 100%;
-      height: 100%;
-      min-height: 300px;
-      flex: 1;
-      background: transparent;
-      border: none;
-      font-family: $font-family; 
-      font-size: 14px;
-      line-height: 1.6;
-      padding: 11px 0px 24px 8px;
-      resize: none;
-      outline: none;
-      tab-size: 2;
-      font-weight: 400;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-      overflow-y: auto;
-      overflow-x: auto;
-      
-      body[data-vscode-theme-kind="vscode-dark"] & {
-        color: $color-white;
-      }
-      
-      body[data-vscode-theme-kind="vscode-light"] & {
-        color:  $color-black;
-      }
-      
-      body[data-vscode-theme-kind="vscode-high-contrast"] & {
-        color: $contrast;
-      }
+.code-input,
+.code-display {
+  width: 100%;
+  height: 400px;
+  padding: 15px;
+  border: none;
+  font-family: monospace;
+  font-size: 13px;
+  line-height: 1.4;
+  resize: none;
+  background: #fafafa;
+}
 
-      // Focused / Placeholder / selection - LEFT & RIGHT
-      &:focus {
-        background: rgba(255, 255, 255, 0.02);
-      }
+.code-display {
+  overflow-y: auto;
+  white-space: pre-wrap;
+  display: none;
+  font-family: 'Courier New', monospace;
+  counter-reset: line-number;
+}
 
-      &::placeholder {
-        color: $color-numbers; // Color, Example code
-        font-style: normal;
-        opacity: 1;
-      }
+.code-line {
+  display: block;
+  counter-increment: line-number;
+  position: relative;
+  padding-left: 50px;
+  min-height: 1.4em;
+}
 
-      &::selection {
-        background-color: $selection-bg;
-      }
-    }
-  }
+.code-line::before {
+  content: counter(line-number);
+  position: absolute;
+  left: 5px;
+  width: 35px;
+  text-align: right;
+  color: #666;
+  font-size: 12px;
+  user-select: none;
+  border-right: 1px solid #ddd;
+  padding-right: 8px;
+}
+
+// ==========================================
+//  Color  Modify 
+// ==========================================
+.added {
+  background: #d4edda;
+  border-left: 3px solid #28a745;
+  padding: 2px 5px;
+  margin: 1px 0;
+}
+.removed {
+  background: #f8d7da;
+  border-left: 3px solid #dc3545;
+  padding: 2px 5px;
+  margin: 1px 0;
+}
+.modified {
+  background: #fff3cd;
+  border-left: 3px solid #ffc107;
+  padding: 2px 5px;
+  margin: 1px 0;
+}
+.empty-line {
+  min-height: 1.4em;
+  margin: 1px 0;
 }
