@@ -293,7 +293,7 @@ body {
   DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
   ======================================= */
 .compare-panel {
-  background: #4c00ff;
+  background-color: var(--vscode-input-background);
   color: white;
   padding: 10px;
   font-weight: bold;
@@ -306,6 +306,7 @@ body {
   Editor Panels Content - VS Code Extension | MARK: COMPARE CODE
   ========================================= */
 .compare-code {
+  background-color: var(--vscode-input-background);
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
@@ -316,6 +317,7 @@ body {
   border: 2px solid #ddd;
   border-radius: 6px;
   overflow: hidden;
+  background-color: rgb(0, 60, 255);
 }
 
 .code-input,
