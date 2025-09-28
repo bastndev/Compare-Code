@@ -179,6 +179,9 @@ body {
 .btn-play:hover {
   background-color: var(--vscode-button-hoverBackground);
 }
+.btn-play.stop {
+  background-color: red;
+}
 
 .buttons-container {
   display: flex;
