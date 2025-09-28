@@ -79,6 +79,9 @@ export class EditorInstance {
     this.textareaElement.addEventListener('input', () => this.updateLineNumbers());
     this.textareaElement.addEventListener('scroll', () => this.syncEditScroll());
     this.textareaElement.addEventListener('keydown', (e) => this.handleKeyDown(e));
+    
+    // Window resize event to recalculate wrapped lines
+    window.addEventListener('resize', () => this.updateLineNumbers());
   }
 
   private handleKeyDown(e: KeyboardEvent): void {
@@ -119,28 +122,125 @@ export class EditorInstance {
   }
 
   // ==========================================
-  // LINE NUMBERS MANAGEMENT
+  // LINE NUMBERS MANAGEMENT WITH WORD WRAP
   // ==========================================
 
   public updateLineNumbers(): void {
+    if (this.unifiedEditor.classList.contains('mode-compare')) {
+      // In compare mode, line numbers are handled by updateComparisonLineNumbers
+      return;
+    }
+
     const content = this.textareaElement.value;
-    const lines = content.split('\n');
-    const lineCount = Math.max(lines.length, 1);
+    const logicalLines = content.split('\n');
+    const lineCount = Math.max(logicalLines.length, 1);
     
+    // Calculate visual lines considering word wrap
+    const visualLineHeights = this.calculateVisualLines(logicalLines, this.textareaElement);
+    
+    // Generate line numbers HTML with proper spacing
     let numbersHTML = '';
-    for (let i = 1; i <= lineCount; i++) {
-      numbersHTML += i + '\n';
+    for (let i = 0; i < lineCount; i++) {
+      const logicalLineNumber = i + 1;
+      const visualHeight = visualLineHeights[i];
+      
+      // Create line number with appropriate height to match wrapped content
+      numbersHTML += this.createLineNumberElement(logicalLineNumber, visualHeight);
     }
     
-    this.lineNumbersElement.textContent = numbersHTML;
+    this.lineNumbersElement.innerHTML = numbersHTML;
   }
 
-  private updateComparisonLineNumbers(lineCount: number): void {
+  private calculateVisualLines(logicalLines: string[], container: HTMLElement): number[] {
+    const visualHeights: number[] = [];
+    
+    // Create a temporary element to measure text wrapping
+    const measurer = document.createElement('div');
+    measurer.style.cssText = `
+      position: absolute;
+      visibility: hidden;
+      height: auto;
+      width: ${container.clientWidth - 10}px;
+      font-family: ${window.getComputedStyle(container).fontFamily};
+      font-size: ${window.getComputedStyle(container).fontSize};
+      line-height: ${window.getComputedStyle(container).lineHeight};
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    `;
+    document.body.appendChild(measurer);
+
+    logicalLines.forEach(line => {
+      measurer.textContent = line || ' '; // Empty lines need at least a space
+      const height = measurer.offsetHeight;
+      const lineHeight = parseFloat(window.getComputedStyle(container).lineHeight);
+      const visualLines = Math.max(1, Math.round(height / lineHeight));
+      visualHeights.push(visualLines);
+    });
+
+    document.body.removeChild(measurer);
+    return visualHeights;
+  }
+
+  private createLineNumberElement(lineNumber: number, visualLines: number): string {
+    const lineHeight = 1.4; // em units
+    const totalHeight = visualLines * lineHeight;
+    
+    // Center the line number vertically if the content spans multiple visual lines
+    const centerOffset = visualLines > 1 ? (totalHeight - lineHeight) / 2 : 0;
+    
+    return `<div class="line-number-item" style="height: ${totalHeight}em; line-height: ${lineHeight}em; padding-top: ${centerOffset}em;">${lineNumber}</div>`;
+  }
+
+  private updateComparisonLineNumbers(lines: ComparisonLine[]): void {
+    // Calculate visual lines for comparison mode
+    const visualHeights = this.calculateComparisonVisualLines(lines);
+    
     let numbersHTML = '';
-    for (let i = 1; i <= Math.max(lineCount, 1); i++) {
-      numbersHTML += i + '\n';
+    for (let i = 0; i < lines.length; i++) {
+      const logicalLineNumber = i + 1;
+      const visualLines = visualHeights[i];
+      numbersHTML += this.createLineNumberElement(logicalLineNumber, visualLines);
     }
-    this.lineNumbersElement.textContent = numbersHTML;
+    
+    this.lineNumbersElement.innerHTML = numbersHTML;
+  }
+
+  private calculateComparisonVisualLines(lines: ComparisonLine[]): number[] {
+    const visualHeights: number[] = [];
+    
+    // Create a temporary element to measure text wrapping for comparison display
+    const measurer = document.createElement('div');
+    measurer.style.cssText = `
+      position: absolute;
+      visibility: hidden;
+      height: auto;
+      width: ${this.displayElement.clientWidth - 10}px;
+      font-family: ${window.getComputedStyle(this.displayElement).fontFamily};
+      font-size: ${window.getComputedStyle(this.displayElement).fontSize};
+      line-height: ${window.getComputedStyle(this.displayElement).lineHeight};
+      white-space: pre-wrap;
+      word-wrap: break-word;
+      overflow-wrap: break-word;
+      padding: 0;
+      margin: 0;
+      border: 0;
+    `;
+    document.body.appendChild(measurer);
+
+    lines.forEach(line => {
+      measurer.textContent = line.content || ' '; // Empty lines need at least a space
+      const height = measurer.offsetHeight;
+      const lineHeight = parseFloat(window.getComputedStyle(this.displayElement).lineHeight);
+      const visualLines = Math.max(1, Math.round(height / lineHeight));
+      visualHeights.push(visualLines);
+    });
+
+    document.body.removeChild(measurer);
+    return visualHeights;
   }
 
   // ==========================================
@@ -186,7 +286,7 @@ export class EditorInstance {
     });
 
     this.displayElement.innerHTML = html;
-    this.updateComparisonLineNumbers(lines.length);
+    this.updateComparisonLineNumbers(lines);
   }
 
   private getLineCssClass(type: LineType): string {

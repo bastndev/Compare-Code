@@ -379,7 +379,7 @@ body {
 }
 
 /* ==========================================
-   TEXTAREA INPUT MODE
+   TEXTAREA INPUT MODE - WITH WORD WRAP
    ========================================== */
 .code-input {
   width: 100%;
@@ -395,9 +395,13 @@ body {
   outline: none;
   resize: none;
   box-sizing: border-box;
-  white-space: pre;
-  overflow-x: auto;
-  overflow-y: auto;
+  /* WORD WRAP CONFIGURATION */
+  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
+  word-wrap: break-word; /* Break long words if necessary */
+  overflow-wrap: break-word; /* Modern browsers */
+  /* SCROLL BEHAVIOR */
+  overflow-x: hidden; /* Hide horizontal scroll */
+  overflow-y: auto; /* Keep vertical scroll */
 }
 .code-input::placeholder {
   color: #6a737d;
@@ -408,7 +412,7 @@ body {
 }
 
 /* ==========================================
-   DISPLAY MODE - Comparison Results
+   DISPLAY MODE - Comparison Results WITH WORD WRAP
    ========================================== */
 .code-display {
   width: 100%;
@@ -420,11 +424,15 @@ body {
   line-height: 1.4;
   padding: 15px 15px 15px 0px; /* PADDING COMPARE CODE*/
   margin: 0;
-  overflow-x: auto;
-  overflow-y: auto;
-  white-space: pre;
-  display: none; /* Hidden by default */
   box-sizing: border-box;
+  display: none; /* Hidden by default */
+  /* WORD WRAP CONFIGURATION */
+  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
+  word-wrap: break-word; /* Break long words if necessary */
+  overflow-wrap: break-word; /* Modern browsers */
+  /* SCROLL BEHAVIOR */
+  overflow-x: hidden; /* Hide horizontal scroll */
+  overflow-y: auto; /* Keep vertical scroll */
 }
 
 /* ==========================================
@@ -448,18 +456,21 @@ body {
 
 /* Default to edit mode */
 /* ==========================================
-   COMPARISON LINES - Diff highlighting
+   COMPARISON LINES - Diff highlighting WITH WORD WRAP
    ========================================== */
 .diff-line {
   display: block;
   position: relative;
   min-height: 1.4em;
-  height: 1.4em;
   margin: 0;
   padding: 0;
-  white-space: pre;
-  overflow-x: auto;
   box-sizing: border-box;
+  /* WORD WRAP FOR DIFF LINES */
+  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
+  word-wrap: break-word; /* Break long words if necessary */
+  overflow-wrap: break-word; /* Modern browsers */
+  /* Remove fixed height to allow multi-line content */
+  height: auto; /* Changed from fixed 1.4em */
 }
 
 /* Line types */
@@ -483,12 +494,26 @@ body {
 
 .diff-line.empty {
   background: rgba(204, 204, 204, 0.03);
+  /* Ensure empty lines have minimum height */
+  min-height: 1.4em;
 }
 
 .diff-line.identical {
   /* Default styling - no special highlighting */
   /* Maintain consistent height even without borders */
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
+}
+
+/* ==========================================
+   LINE NUMBERS FOR WRAPPED CONTENT
+   ========================================== */
+/* Line number positioning for wrapped lines */
+.line-number-item {
+  display: block;
+  text-align: right;
+  color: #666;
+  user-select: none;
+  /* Height will be calculated dynamically by JavaScript */
 }
 
 /* ==========================================
