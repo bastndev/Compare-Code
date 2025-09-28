@@ -46,6 +46,9 @@
   border-left: 1px solid $input-border;
 }
 
+// ==========================================
+// CODE TS & JS | MARK:TS
+// ==========================================
 .code-display {
   overflow-y: auto;
   white-space: pre-wrap;
@@ -54,9 +57,6 @@
   counter-reset: line-number;
 }
 
-// ==========================================
-// CODE TS & JS 
-// ==========================================
 .code-line {
   display: block;
   counter-increment: line-number;

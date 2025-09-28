@@ -354,6 +354,7 @@ body {
   display: none;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   counter-reset: line-number;
+  background-color: purple;
 }
 
 .code-line {
