@@ -12,27 +12,27 @@
          ====================================== -->
     <div class="toolbar">
         <!-- Warning container -->
-
+         
         <!-- <div class="warning-container">
             <div class="warning-box">
                 <img class="warning-icon" src="{{WARNING_ICON}}">
                 <span>1 : Changes</span>
             </div>
         </div>  -->
-       
+
         <!-- TODO: Diff statistics display -->
         <div class="diff-stats">
             <div class="stat-item">
                 <div class="stat-icon added">+</div>
-                <span>4 lines added</span>
+                <span id="added-count">0 lines added</span>
             </div>
             <div class="stat-item">
                 <div class="stat-icon removed">-</div>
-                <span>2 lines removed</span>
+                <span id="removed-count">0 lines removed</span>
             </div>
             <div class="stat-item">
                 <div class="stat-icon modified">~</div>
-                <span>3 lines modified</span>
+                <span id="modified-count">0 lines modified</span>
             </div>
         </div>
 
@@ -44,7 +44,7 @@
 
         <!-- TODO: Secondary panel controls | Clear - Close & Open -->
         <div class="buttons-container">
-            <button class="clear">🗑️ Clear</button>
+            <button class="clear" onclick="clearAll()">🗑️ Clear</button>
             
             <button class="btn-panel-left" id="btn-panel-left" data-tooltip="Close/Open panel LEFT">
                 <img src="{{PANEL_LEFT_ICON}}">
@@ -60,20 +60,44 @@
     <div class="compare-panel">1 Box & 2 Box</div>
 
     <!-- ======================================
-         Main comparison interface |MARK:Compare Code
+         Main comparison interface | HYBRID ARCHITECTURE
          ====================================== -->
 
-        <div class="compare-code">
-            <div class="code-panel">
-                <textarea class="code-input" id="codeBox1" placeholder="Example One Code here..."></textarea>
-                <div class="code-display" id="display1"></div>
-            </div>
-            
-            <div class="code-panel">
-                <textarea class="code-input" id="codeBox2" placeholder="Example Two Code here..."></textarea>
-                <div class="code-display" id="display2"></div>
+    <div class="compare-code">
+        <div class="code-panel" id="panel1">
+            <!-- Unified Editor Container -->
+            <div class="unified-editor" id="editor1">
+                <div class="line-numbers" id="lineNumbers1">1</div>
+                <div class="code-area">
+                    <!-- Edit Mode: Textarea -->
+                    <textarea 
+                        class="code-input" 
+                        id="codeInput1" 
+                        placeholder="Example One Code here..."
+                        spellcheck="false"></textarea>
+                    <!-- Compare Mode: Rendered Diff -->
+                    <div class="code-display" id="codeDisplay1"></div>
+                </div>
             </div>
         </div>
+        
+        <div class="code-panel" id="panel2">
+            <!-- Unified Editor Container -->
+            <div class="unified-editor" id="editor2">
+                <div class="line-numbers" id="lineNumbers2">1</div>
+                <div class="code-area">
+                    <!-- Edit Mode: Textarea -->
+                    <textarea 
+                        class="code-input" 
+                        id="codeInput2" 
+                        placeholder="Example Two Code here..."
+                        spellcheck="false"></textarea>
+                    <!-- Compare Mode: Rendered Diff -->
+                    <div class="code-display" id="codeDisplay2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ======================================
          BOTTOM BAR - Floating tool controls
@@ -81,18 +105,18 @@
     <div class="bottom-bar">
         <div class="content">
             <button class="only-code bbtn" data-tooltip="Show modified code">
-                <img class="icon" src="{{ONLY_CODE_ICON}}  ">
+                <img class="icon" src="{{ONLY_CODE_ICON}}">
             </button>
             <button class="dual-scroll bbtn" data-tooltip="Dual scroll">
                 <img class="icon" src="{{DUAL_SCROLL_ICON}}">
             </button>
             <button class="switch-on-off bbtn" data-tooltip="Normal/Pro version">
-                <img class="icon" src="{{SWITCH_ON_ICON}}  ">
+                <img class="icon" src="{{SWITCH_ON_ICON}}">
             </button>
             <button class="language bbtn" data-tooltip="Change language">
-                <img class="icon" src="{{LANGUAGE_ICON}}   ">
+                <img class="icon" src="{{LANGUAGE_ICON}}">
             </button>
-            <button class="sponsor bbtn" data-tooltip="Sponsor" >
+            <button class="sponsor bbtn" data-tooltip="Sponsor">
                 <a href="https://github.com/sponsors/bastndev" title="@bastndev">
                     <img class="icon" src="{{EARTH_CODE_ICON}}">
                 </a>
@@ -101,4 +125,3 @@
     </div>
 </body>
 </html>
-

@@ -1,8 +1,9 @@
 @use 'global' as *;
 
 /* ========================================
-  Editor Panels Content - VS Code Extension | MARK: COMPARE CODE
+  HYBRID ARCHITECTURE - Compare Code Extension
   ========================================= */
+
 .compare-code {
   background-color: $input-bg;
   display: grid;
@@ -19,15 +20,36 @@
   position: relative;
 }
 
-/* Container for textarea with line numbers */
-.code-input-container {
+/* ==========================================
+   UNIFIED EDITOR CONTAINER
+   ========================================== */
+
+.unified-editor {
   position: relative;
   height: calc(100vh - 98px);
   background: $bg;
   display: flex;
+  font-family: $font-family;
+  font-size: 13px;
+  line-height: 1.4;
+  overflow: hidden;
 }
 
-/* Line numbers for textarea */
+/* Panel-specific borders */
+#editor1 {
+  border-right: 1px solid $input-border;
+  border-top: 1px solid $input-border;
+}
+
+#editor2 {
+  border-left: 1px solid $input-border;
+  border-top: 1px solid $input-border;
+}
+
+/* ==========================================
+   LINE NUMBERS - Consistent across modes
+   ========================================== */
+
 .line-numbers {
   width: 45px;
   background-color: rgba(0, 0, 0, 0.1);
@@ -43,124 +65,204 @@
   border-right: 1px solid rgba(255, 255, 255, 0.1);
   margin: 0;
   box-sizing: border-box;
+  flex-shrink: 0;
+  
+  /* Ensure line numbers align exactly with content */
+  vertical-align: top;
 }
 
-/* Shared base styles */
-.code-input, .code-display {
+/* ==========================================
+   CODE AREA - Container for input/display
+   ========================================== */
+
+.code-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================
+   TEXTAREA INPUT MODE
+   ========================================== */
+
+.code-input {
+  width: 100%;
+  height: 100%;
   background: $bg;
   color: $fg;
   font-family: $font-family;
-  width: 100%;
   font-size: 13px;
   line-height: 1.4;
+  padding: 15px 15px 15px 10px; /* PADDING COPY CODE*/
+  margin: 0;
   border: none;
-  box-sizing: border-box;
-}
-
-.code-input {
-  height: calc(100vh - 98px);
-  padding: 15px 15px 15px 10px;
-  border-top: 1px solid $input-border;
   outline: none;
   resize: none;
-  background: transparent;
-  flex: 1;
-  margin: 0;
-  border-left: none;
-  border-bottom: none;
-  border-radius: 0;
+  box-sizing: border-box;
+  white-space: pre;
+  overflow-x: auto;
+  overflow-y: auto;
+
+  &::placeholder {
+    color: #6a737d;
+    font-style: italic;
+  }
+
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.02);
+  }
 }
 
-#codeBox1 {
-  border-right: 1px solid $input-border;
-}
+/* ==========================================
+   DISPLAY MODE - Comparison Results
+   ========================================== */
 
-#codeBox2 {
-  border-left: 1px solid $input-border;
-}
-
-// ==========================================
-// CODE TS & JS | MARK:TS
-// ==========================================
 .code-display {
+  width: 100%;
+  height: 100%;
+  background: $bg;
+  color: $fg;
+  font-family: $font-family;
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 15px 15px 15px 0px; /* PADDING COMPARE CODE*/
+  margin: 0;
   overflow-x: auto;
   overflow-y: auto;
   white-space: pre;
-  display: none;
-  font-family: $font-family;
-  counter-reset: line-number;
-  padding: 15px 0 15px 0;
-  height: calc(100vh - 98px);
-}
-
-.code-line {
-  display: flex;
-  counter-increment: line-number;
-  position: relative;
-  min-height: 1.4em;
-  padding: 0;
-}
-
-.code-line::before {
-  content: counter(line-number);
-  flex-shrink: 0;
-  width: 45px;
-  text-align: right;
-  color: #666;
-  font-size: 13px; 
-  user-select: none;
-  padding: 0 8px 0 5px;
-  background-color: rgba(0, 0, 0, 0.1);
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
+  display: none; /* Hidden by default */
   box-sizing: border-box;
 }
 
-/* Line content */
-.code-line-content {
-  flex: 1;
-  padding: 0 10px;
-  overflow-x: auto;
-  white-space: nowrap;
+/* ==========================================
+   MODE SWITCHING - Edit vs Compare
+   ========================================== */
+
+/* Edit Mode Active */
+.mode-edit {
+  .code-input {
+    display: block;
+  }
+  .code-display {
+    display: none;
+  }
 }
 
-// ==========================================
-//  Color  Modify  | MARK: IDENTIFIER
-// ==========================================
-.added {
+/* Compare Mode Active */
+.mode-compare {
+  .code-input {
+    display: none;
+  }
+  .code-display {
+    display: block;
+  }
+}
+
+/* Default to edit mode */
+.unified-editor {
+  @extend .mode-edit;
+}
+
+/* ==========================================
+   COMPARISON LINES - Diff highlighting
+   ========================================== */
+
+.diff-line {
+  display: block;
+  position: relative;
+  min-height: 1.4em; 
+  height: 1.4em; 
+  margin: 0; 
+  padding: 0;
+  white-space: pre;
+  overflow-x: auto;
+  box-sizing: border-box;
+}
+
+/* Line types */
+.diff-line.added {
   background: linear-gradient(90deg, rgba($color-green, 0.2) 0%, rgba($color-green, 0.1) 100%);
   border-left: 3px solid #28a745;
-  margin: 1px 0;
+  padding-left: 7px; /* Compensate border */
 }
 
-.added::before {
-  background-color: $color-numbers;
-}
-
-.removed {
+.diff-line.removed {
   background: linear-gradient(90deg, rgba($color-red, 0.2) 0%, rgba($color-red, 0.1) 100%);
   border-left: 3px solid #dc3545;
-  margin: 1px 0;
+  padding-left: 7px; /* Compensate border */
 }
 
-.removed::before {
-  background-color: rgba(220, 53, 69, 0.1);
-}
-
-.modified {
+.diff-line.modified {
   background: linear-gradient(90deg, rgba($color-orange, 0.2) 0%, rgba($color-orange, 0.1) 100%);
   border-left: 3px solid #ffc107;
-  margin: 1px 0;
+  padding-left: 7px; /* Compensate border */
 }
 
-.modified::before {
-  background-color: rgba(255, 193, 7, 0.1);
-}
-
-.empty-line {
+.diff-line.empty {
   background: rgba($color-grey, 0.03);
-  min-height: 1.4em;
-  margin: 1px 0;
+}
+
+.diff-line.identical {
+  /* Default styling - no special highlighting */
+  /* Maintain consistent height even without borders */
+  padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
+}
+
+/* ==========================================
+   SCROLLBAR STYLING
+   ========================================== */
+
+.code-input::-webkit-scrollbar,
+.code-display::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.code-input::-webkit-scrollbar-track,
+.code-display::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.code-input::-webkit-scrollbar-thumb,
+.code-display::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+}
+
+.code-input::-webkit-scrollbar-thumb:hover,
+.code-display::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================
+   RESPONSIVE & ACCESSIBILITY
+   ========================================== */
+
+@media (max-width: 768px) {
+  .compare-code {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  
+  .unified-editor {
+    height: calc(50vh - 50px);
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .diff-line.added {
+    background: rgba($color-green, 0.4);
+    border-left-width: 4px;
+  }
+  
+  .diff-line.removed {
+    background: rgba($color-red, 0.4);
+    border-left-width: 4px;
+  }
+  
+  .diff-line.modified {
+    background: rgba($color-orange, 0.4);
+    border-left-width: 4px;
+  }
 }
