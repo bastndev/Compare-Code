@@ -37,11 +37,11 @@
   outline: none;
 }
 
-#code1 {
+#codeBox1 {
   border-right: 1px solid $input-border;
 }
 
-#code2 {
+#codeBox2 {
   border-left: 1px solid $input-border;
 }
 
@@ -100,7 +100,7 @@
 }
 
 .added::before {
-  background-color: rgba(40, 167, 69, 0.1); /* Verde suave para números */
+  background-color: $color-numbers; /* Verde suave para números */
 }
 
 .removed {

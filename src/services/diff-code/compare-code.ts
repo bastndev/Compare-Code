@@ -11,8 +11,8 @@ export function toggle(): void {
 }
 
 export function compare(): void {
-  const code1Element = document.getElementById('code1') as HTMLTextAreaElement;
-  const code2Element = document.getElementById('code2') as HTMLTextAreaElement;
+  const code1Element = document.getElementById('codeBox1') as HTMLTextAreaElement;
+  const code2Element = document.getElementById('codeBox2') as HTMLTextAreaElement;
   
   if (!code1Element || !code2Element) {
     console.error('No se encontraron los elementos de código');

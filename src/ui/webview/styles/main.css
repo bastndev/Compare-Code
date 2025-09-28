@@ -340,11 +340,11 @@ body {
   outline: none;
 }
 
-#code1 {
+#codeBox1 {
   border-right: 1px solid var(--vscode-input-border);
 }
 
-#code2 {
+#codeBox2 {
   border-left: 1px solid var(--vscode-input-border);
 }
 
@@ -397,7 +397,7 @@ body {
 }
 
 .added::before {
-  background-color: rgba(40, 167, 69, 0.1); /* Verde suave para números */
+  background-color: var(--vscode-editorLineNumber-foreground); /* Verde suave para números */
 }
 
 .removed {
