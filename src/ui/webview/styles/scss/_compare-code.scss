@@ -18,9 +18,8 @@
   flex-direction: column;
 }
 
-.code-input,
-.code-display {
-  background:  $bg;
+.code-input, .code-display {
+  background: $bg;
   color: $fg;
   font-family: $font-family;
   width: 100%;
@@ -33,7 +32,7 @@
   box-sizing: border-box;
 }
 
-.code-input{
+.code-input {
   border-top: 1px solid $input-border;
   outline: none;
 }
@@ -50,32 +49,45 @@
 // CODE TS & JS | MARK:TS
 // ==========================================
 .code-display {
+  overflow-x: auto; /* Cambiado: permitir scroll horizontal */
   overflow-y: auto;
-  white-space: pre-wrap;
+  white-space: pre; /* Cambiado: mantener espacios y no envolver líneas */
   display: none;
   font-family: $font-family;
   counter-reset: line-number;
+  padding: 0; /* Removido padding para evitar doble espaciado */
 }
 
 .code-line {
-  display: block;
+  display: flex; /* Cambiado: usar flexbox para mejor alineación */
   counter-increment: line-number;
   position: relative;
-  padding-left: 50px;
   min-height: 1.4em;
+  padding: 0; /* Removido padding izquierdo */
 }
 
 .code-line::before {
   content: counter(line-number);
-  position: absolute;
-  left: 5px;
-  width: 35px;
+  flex-shrink: 0; /* No se encoge */
+  width: 45px; /* Ancho fijo más amplio */
   text-align: right;
   color: #666;
   font-size: 12px;
   user-select: none;
-  border-right: 1px solid #ddd;
-  padding-right: 8px;
+  padding: 0 8px 0 5px; /* Padding solo horizontal */
+  background-color: rgba(0, 0, 0, 0.1); /* Fondo sutil para separar */
+  border-right: none; /* Removido border */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Contenido de la línea */
+.code-line-content {
+  flex: 1;
+  padding: 0 10px; /* Padding horizontal para el contenido */
+  overflow-x: auto; /* Scroll horizontal si es necesario */
+  white-space: nowrap; /* No envolver texto */
 }
 
 // ==========================================
@@ -84,21 +96,33 @@
 .added {
   background: linear-gradient(90deg, rgba($color-green, 0.2) 0%, rgba($color-green, 0.1) 100%);
   border-left: 3px solid #28a745;
-  padding: 2px 5px;
   margin: 1px 0;
 }
+
+.added::before {
+  background-color: rgba(40, 167, 69, 0.1); /* Verde suave para números */
+}
+
 .removed {
   background: linear-gradient(90deg, rgba($color-red, 0.2) 0%, rgba($color-red, 0.1) 100%);
   border-left: 3px solid #dc3545;
-  padding: 2px 5px;
   margin: 1px 0;
 }
+
+.removed::before {
+  background-color: rgba(220, 53, 69, 0.1); /* Rojo suave para números */
+}
+
 .modified {
   background: linear-gradient(90deg, rgba($color-orange, 0.2) 0%, rgba($color-orange, 0.1) 100%);
   border-left: 3px solid #ffc107;
-  padding: 2px 5px;
   margin: 1px 0;
 }
+
+.modified::before {
+  background-color: rgba(255, 193, 7, 0.1); /* Amarillo suave para números */
+}
+
 .empty-line {
   background: rgba($color-grey, 0.03);
   min-height: 1.4em;
