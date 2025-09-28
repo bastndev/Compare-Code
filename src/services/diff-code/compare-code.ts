@@ -87,10 +87,10 @@ export function reset(): void {
 }
 
 function showComparisonMode(): void {
-  const codeInputs = document.querySelectorAll('.code-input');
+  const codeInputContainers = document.querySelectorAll('.code-input-container');
   const codeDisplays = document.querySelectorAll('.code-display');
   
-  codeInputs.forEach((el) => {
+  codeInputContainers.forEach((el) => {
     (el as HTMLElement).style.display = 'none';
   });
   
@@ -100,11 +100,11 @@ function showComparisonMode(): void {
 }
 
 function showEditMode(): void {
-  const codeInputs = document.querySelectorAll('.code-input');
+  const codeInputContainers = document.querySelectorAll('.code-input-container');
   const codeDisplays = document.querySelectorAll('.code-display');
   
-  codeInputs.forEach((el) => {
-    (el as HTMLElement).style.display = 'block';
+  codeInputContainers.forEach((el) => {
+    (el as HTMLElement).style.display = 'flex';
   });
   
   codeDisplays.forEach((el) => {
@@ -128,7 +128,56 @@ function esc(str: string): string {
   return str.replace(/[&<>"']/g, (match) => escapeMap[match]);
 }
 
+// ===========================================
+// FUNCTION TO UPDATE LINE NUMBERS IN REAL TIME
+// ===========================================
+function updateLineNumbers(textareaId: string, lineNumbersId: string): void {
+  const textarea = document.getElementById(textareaId) as HTMLTextAreaElement;
+  const lineNumbers = document.getElementById(lineNumbersId) as HTMLElement;
+  
+  if (!textarea || !lineNumbers) {
+    return;
+  }
+
+  const lines = textarea.value.split('\n');
+  const lineCount = lines.length;
+  
+  let numbersHTML = '';
+  for (let i = 1; i <= lineCount; i++) {
+    numbersHTML += i + '\n';
+  }
+  
+  lineNumbers.textContent = numbersHTML;
+  
+  // Synchronize scroll
+  lineNumbers.scrollTop = textarea.scrollTop;
+}
+
+// Function to synchronize scroll between textarea and line numbers
+function syncScroll(textareaId: string, lineNumbersId: string): void {
+  const textarea = document.getElementById(textareaId) as HTMLTextAreaElement;
+  const lineNumbers = document.getElementById(lineNumbersId) as HTMLElement;
+  
+  if (!textarea || !lineNumbers){
+     return;
+  }
+  
+  lineNumbers.scrollTop = textarea.scrollTop;
+}
+
 export function initializeCompareCode(): void {
+  // Create containers and line numbers for both text area
+  const codeBox1 = document.getElementById('codeBox1') as HTMLTextAreaElement;
+  const codeBox2 = document.getElementById('codeBox2') as HTMLTextAreaElement;
+  
+  if (codeBox1 && codeBox2) {
+    // Wrap codeBox1
+    wrapTextareaWithLineNumbers(codeBox1, 'codeBox1');
+    // Wrap codeBox2
+    wrapTextareaWithLineNumbers(codeBox2, 'codeBox2');
+  }
+
+  // Event listeners for keyboard
   document.addEventListener('keydown', (e: KeyboardEvent) => {
     if (e.ctrlKey && e.key === 'Enter') {
       e.preventDefault();
@@ -140,4 +189,40 @@ export function initializeCompareCode(): void {
       reset();
     }
   });
+}
+
+function wrapTextareaWithLineNumbers(textarea: HTMLTextAreaElement, textareaId: string): void {
+  const parent = textarea.parentElement;
+  if (!parent) {
+    return;
+  }
+
+  // Create container
+  const container = document.createElement('div');
+  container.className = 'code-input-container';
+  
+  // Create line numbers
+  const lineNumbers = document.createElement('div');
+  lineNumbers.className = 'line-numbers';
+  lineNumbers.id = `lineNumbers${textareaId}`;
+  lineNumbers.textContent = '1\n';
+  
+  // Insert container before the textarea
+  parent.insertBefore(container, textarea);
+  
+  // Move textarea to the container
+  container.appendChild(lineNumbers);
+  container.appendChild(textarea);
+  
+  // Event listeners to update line numbers
+  textarea.addEventListener('input', () => {
+    updateLineNumbers(textareaId, `lineNumbers${textareaId}`);
+  });
+  
+  textarea.addEventListener('scroll', () => {
+    syncScroll(textareaId, `lineNumbers${textareaId}`);
+  });
+  
+  // Initialize line numbers
+  updateLineNumbers(textareaId, `lineNumbers${textareaId}`);
 }

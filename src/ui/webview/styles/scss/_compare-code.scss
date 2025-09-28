@@ -16,25 +16,59 @@
   background-color: transparent;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
+/* Container for textarea with line numbers */
+.code-input-container {
+  position: relative;
+  height: calc(100vh - 98px);
+  background: $bg;
+  display: flex;
+}
+
+/* Line numbers for textarea */
+.line-numbers {
+  width: 45px;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #666;
+  font-size: 13px;
+  font-family: $font-family;
+  padding: 15px 8px 15px 5px;
+  text-align: right;
+  user-select: none;
+  line-height: 1.4;
+  white-space: pre;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Shared base styles */
 .code-input, .code-display {
   background: $bg;
   color: $fg;
   font-family: $font-family;
   width: 100%;
-  height: calc(100vh - 98px);
-  padding: 15px;
-  border: none;
   font-size: 13px;
   line-height: 1.4;
-  resize: none;
+  border: none;
   box-sizing: border-box;
 }
 
 .code-input {
+  height: calc(100vh - 98px);
+  padding: 15px 15px 15px 10px;
   border-top: 1px solid $input-border;
   outline: none;
+  resize: none;
+  background: transparent;
+  flex: 1;
+  margin: 0;
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0;
 }
 
 #codeBox1 {
@@ -51,15 +85,16 @@
 .code-display {
   overflow-x: auto;
   overflow-y: auto;
-  white-space: pre; 
+  white-space: pre;
   display: none;
   font-family: $font-family;
   counter-reset: line-number;
-  padding: 0; 
+  padding: 15px 0 15px 0;
+  height: calc(100vh - 98px);
 }
 
 .code-line {
-  display: flex; 
+  display: flex;
   counter-increment: line-number;
   position: relative;
   min-height: 1.4em;
@@ -68,25 +103,26 @@
 
 .code-line::before {
   content: counter(line-number);
-  flex-shrink: 0; 
+  flex-shrink: 0;
   width: 45px;
   text-align: right;
   color: #666;
-  font-size: 12px;
+  font-size: 13px; 
   user-select: none;
   padding: 0 8px 0 5px;
-  background-color: rgba(0, 0, 0, 0.1); 
-  border-right: none; 
+  background-color: rgba(0, 0, 0, 0.1);
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  box-sizing: border-box;
 }
 
 /* Line content */
 .code-line-content {
   flex: 1;
-  padding: 0 10px; 
-  overflow-x: auto; 
+  padding: 0 10px;
+  overflow-x: auto;
   white-space: nowrap;
 }
 

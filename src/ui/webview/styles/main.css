@@ -1,3 +1,4 @@
+@charset "UTF-8";
 *,
 *::before,
 *::after {
@@ -318,25 +319,61 @@ body {
   background-color: transparent;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
+/* Contenedor para textarea con números de línea */
+.code-input-container {
+  position: relative;
+  height: calc(100vh - 98px);
+  background: var(--vscode-editor-background);
+  display: flex;
+}
+
+/* Números de línea para textarea */
+.line-numbers {
+  width: 45px;
+  background-color: rgba(0, 0, 0, 0.1);
+  color: #666;
+  font-size: 13px; /* Mismo tamaño que el textarea */
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  padding: 15px 8px 15px 5px; /* Ajustado para alineación */
+  text-align: right;
+  user-select: none;
+  line-height: 1.4; /* Exactamente igual al textarea */
+  white-space: pre;
+  overflow: hidden;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  /* Asegurar que no hay margin/border extra */
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* Estilos base compartidos */
 .code-input, .code-display {
   background: var(--vscode-editor-background);
   color: var(--vscode-foreground);
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   width: 100%;
-  height: calc(100vh - 98px);
-  padding: 15px;
-  border: none;
   font-size: 13px;
   line-height: 1.4;
-  resize: none;
+  border: none;
   box-sizing: border-box;
 }
 
 .code-input {
+  height: calc(100vh - 98px);
+  padding: 15px 15px 15px 10px; /* Padding izquierdo mínimo */
   border-top: 1px solid var(--vscode-input-border);
   outline: none;
+  resize: none;
+  background: transparent;
+  flex: 1;
+  /* Asegurar alineación perfecta */
+  margin: 0;
+  border-left: none;
+  border-bottom: none;
+  border-radius: 0;
 }
 
 #codeBox1 {
@@ -354,7 +391,8 @@ body {
   display: none;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   counter-reset: line-number;
-  padding: 0;
+  padding: 15px 0 15px 0; /* Padding top/bottom para consistencia */
+  height: calc(100vh - 98px);
 }
 
 .code-line {
@@ -371,14 +409,15 @@ body {
   width: 45px;
   text-align: right;
   color: #666;
-  font-size: 12px;
+  font-size: 13px; /* Mismo tamaño que textarea y line-numbers */
   user-select: none;
   padding: 0 8px 0 5px;
   background-color: rgba(0, 0, 0, 0.1);
-  border-right: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
   justify-content: flex-end;
+  box-sizing: border-box;
 }
 
 /* Line content */
