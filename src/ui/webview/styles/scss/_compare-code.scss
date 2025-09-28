@@ -52,8 +52,8 @@
 
 .line-numbers {
   width: 45px;
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #666;
+  background-color: $bg;
+  color: $color-numbers;
   font-size: 13px;
   font-family: $font-family;
   padding: 15px 8px 15px 5px;
@@ -62,7 +62,6 @@
   line-height: 1.4;
   white-space: pre;
   overflow: hidden;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
   margin: 0;
   box-sizing: border-box;
   flex-shrink: 0;
@@ -235,7 +234,7 @@
 .line-number-item {
   display: block;
   text-align: right;
-  color: #666;
+  color: $color-numbers;
   user-select: none;
   /* Height will be calculated dynamically by JavaScript */
 }

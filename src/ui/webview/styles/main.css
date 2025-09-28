@@ -351,8 +351,8 @@ body {
    ========================================== */
 .line-numbers {
   width: 45px;
-  background-color: rgba(0, 0, 0, 0.1);
-  color: #666;
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-editorLineNumber-foreground);
   font-size: 13px;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   padding: 15px 8px 15px 5px;
@@ -361,7 +361,6 @@ body {
   line-height: 1.4;
   white-space: pre;
   overflow: hidden;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
   margin: 0;
   box-sizing: border-box;
   flex-shrink: 0;
@@ -511,7 +510,7 @@ body {
 .line-number-item {
   display: block;
   text-align: right;
-  color: #666;
+  color: var(--vscode-editorLineNumber-foreground);
   user-select: none;
   /* Height will be calculated dynamically by JavaScript */
 }
