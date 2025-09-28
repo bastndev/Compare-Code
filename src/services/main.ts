@@ -1,6 +1,6 @@
 import { initializeUserActions } from './user-actions/user-actions-top';
-import { ComparisonEngine, ComparisonResult } from './diff-code/compare-code';
-import { EditorManager } from './diff-code/ui-compare-code';
+import { ComparisonEngine, ComparisonResult } from './compare-code/compare-code';
+import { EditorManager } from './compare-code/ui-compare-code';
 import { UserInformationManager } from './userShowInformation';
 import { setPlayBtnToEdit, setPlayBtnToCompare } from './user-actions/user-actions-top';
 
