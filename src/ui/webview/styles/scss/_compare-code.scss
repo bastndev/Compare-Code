@@ -1,9 +1,9 @@
 @use 'global' as *;
 
 /* ========================================
-  Editor Panels Content - VS Code Extension | MARK: DIFF CODE
+  Editor Panels Content - VS Code Extension | MARK: COMPARE CODE
   ========================================= */
-.compare-grid {
+.compare-code {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
@@ -14,14 +14,6 @@
   border: 2px solid #ddd;
   border-radius: 6px;
   overflow: hidden;
-}
-
-.panel-header {
-  background: #333;
-  color: white;
-  padding: 10px;
-  font-weight: bold;
-  text-align: center;
 }
 
 .code-input,

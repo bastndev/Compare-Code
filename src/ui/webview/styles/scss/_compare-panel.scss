@@ -1,0 +1,14 @@
+@use 'global' as *;
+
+/* ======================================
+  DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
+  ======================================= */
+.compare-panel {
+  background: #000000;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  height: 30px;
+  width: 100%;
+}
