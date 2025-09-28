@@ -27,6 +27,7 @@ export function compare(): void {
 
   let html1 = '', html2 = '';
 
+  // CODE CSS & SCSS
   for (let i = 0; i < maxLines; i++) {
     const line1 = lines1[i] || '';
     const line2 = lines2[i] || '';
