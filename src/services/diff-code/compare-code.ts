@@ -11,24 +11,23 @@ export function toggle(): void {
 }
 
 export function compare(): void {
-  const code1Element = document.getElementById('codeBox1') as HTMLTextAreaElement;
-  const code2Element = document.getElementById('codeBox2') as HTMLTextAreaElement;
+  const codeBox1Element = document.getElementById('codeBox1') as HTMLTextAreaElement;
+  const codeBox2Element = document.getElementById('codeBox2') as HTMLTextAreaElement;
   
-  if (!code1Element || !code2Element) {
-    console.error('No se encontraron los elementos de código');
+  if (!codeBox1Element || !codeBox2Element) {
     return;
   }
 
-  const code1 = code1Element.value;
-  const code2 = code2Element.value;
+  const codeBox1 = codeBox1Element.value;
+  const codeBox2 = codeBox2Element.value;
 
-  if (!code1.trim() && !code2.trim()) {
+  if (!codeBox1.trim() && !codeBox2.trim()) {
     alert('Please enter code in at least one field');
     return;
   }
 
-  const lines1 = code1.split('\n');
-  const lines2 = code2.split('\n');
+  const lines1 = codeBox1.split('\n');
+  const lines2 = codeBox2.split('\n');
   const maxLines = Math.max(lines1.length, lines2.length);
 
   let html1 = '', html2 = '';
