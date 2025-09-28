@@ -22,7 +22,7 @@ function initializeClearButton(): void {
   const clearBtn = document.querySelector('.clear') as HTMLElement;
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
-      ['code-editor-left', 'code-editor-right'].forEach((id) => {
+      ['codeInput1', 'codeInput2'].forEach((id) => {
         const editor = document.getElementById(id) as HTMLTextAreaElement;
         if (editor) {
           editor.value = '';
@@ -106,7 +106,7 @@ function initializeCopyButtons(): void {
       if (editorPanel) {
         // Determine which editor based on panel class
         const isLeftPanel = editorPanel.classList.contains('editor-panel-left');
-        const editorId = isLeftPanel ? 'code-editor-left' : 'code-editor-right';
+        const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
         const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
         if (editor && editor.value.trim()) {
@@ -145,7 +145,7 @@ function initializeClearCodeButtons(): void {
       if (editorPanel) {
         // Determine which editor based on panel class
         const isLeftPanel = editorPanel.classList.contains('editor-panel-left');
-        const editorId = isLeftPanel ? 'code-editor-left' : 'code-editor-right';
+        const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
         const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
         if (editor) {
