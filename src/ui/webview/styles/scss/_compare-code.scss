@@ -49,45 +49,45 @@
 // CODE TS & JS | MARK:TS
 // ==========================================
 .code-display {
-  overflow-x: auto; /* Cambiado: permitir scroll horizontal */
+  overflow-x: auto;
   overflow-y: auto;
-  white-space: pre; /* Cambiado: mantener espacios y no envolver líneas */
+  white-space: pre; 
   display: none;
   font-family: $font-family;
   counter-reset: line-number;
-  padding: 0; /* Removido padding para evitar doble espaciado */
+  padding: 0; 
 }
 
 .code-line {
-  display: flex; /* Cambiado: usar flexbox para mejor alineación */
+  display: flex; 
   counter-increment: line-number;
   position: relative;
   min-height: 1.4em;
-  padding: 0; /* Removido padding izquierdo */
+  padding: 0;
 }
 
 .code-line::before {
   content: counter(line-number);
-  flex-shrink: 0; /* No se encoge */
-  width: 45px; /* Ancho fijo más amplio */
+  flex-shrink: 0; 
+  width: 45px;
   text-align: right;
   color: #666;
   font-size: 12px;
   user-select: none;
-  padding: 0 8px 0 5px; /* Padding solo horizontal */
-  background-color: rgba(0, 0, 0, 0.1); /* Fondo sutil para separar */
-  border-right: none; /* Removido border */
+  padding: 0 8px 0 5px;
+  background-color: rgba(0, 0, 0, 0.1); 
+  border-right: none; 
   display: flex;
   align-items: center;
   justify-content: flex-end;
 }
 
-/* Contenido de la línea */
+/* Line content */
 .code-line-content {
   flex: 1;
-  padding: 0 10px; /* Padding horizontal para el contenido */
-  overflow-x: auto; /* Scroll horizontal si es necesario */
-  white-space: nowrap; /* No envolver texto */
+  padding: 0 10px; 
+  overflow-x: auto; 
+  white-space: nowrap;
 }
 
 // ==========================================
@@ -100,7 +100,7 @@
 }
 
 .added::before {
-  background-color: $color-numbers; /* Verde suave para números */
+  background-color: $color-numbers;
 }
 
 .removed {
@@ -110,7 +110,7 @@
 }
 
 .removed::before {
-  background-color: rgba(220, 53, 69, 0.1); /* Rojo suave para números */
+  background-color: rgba(220, 53, 69, 0.1);
 }
 
 .modified {
@@ -120,7 +120,7 @@
 }
 
 .modified::before {
-  background-color: rgba(255, 193, 7, 0.1); /* Amarillo suave para números */
+  background-color: rgba(255, 193, 7, 0.1);
 }
 
 .empty-line {
