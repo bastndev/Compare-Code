@@ -18,6 +18,7 @@ export function getWebviewIcons(context: vscode.ExtensionContext, webview: vscod
         // Main icons
         warning: createIconUri('warning'),
         play: createIconUri('play'),
+        stop: createIconUri('stop'),
         panelLeft: createIconUri('panel-left'),
         panelRight: createIconUri('panel-right'),
 
@@ -41,6 +42,7 @@ export function replaceIconsInHtml(html: string, icons: ReturnType<typeof getWeb
     // Main icons
     processedHtml = processedHtml.replace(/\{\{WARNING_ICON\}\}/g, icons.warning);
     processedHtml = processedHtml.replace(/\{\{PLAY_ICON\}\}/g, icons.play);
+    processedHtml = processedHtml.replace(/\{\{STOP_ICON\}\}/g, icons.stop);
     processedHtml = processedHtml.replace(/\{\{PANEL_LEFT_ICON\}\}/g, icons.panelLeft);
     processedHtml = processedHtml.replace(/\{\{PANEL_RIGHT_ICON\}\}/g, icons.panelRight);
 
