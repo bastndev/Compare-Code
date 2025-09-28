@@ -338,6 +338,7 @@ body {
 .code-input {
   border-top: 1px solid var(--vscode-input-border);
   border-right: 1px solid var(--vscode-input-border);
+  outline: none;
 }
 
 .code-display {
