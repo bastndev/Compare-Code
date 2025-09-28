@@ -354,7 +354,6 @@ body {
   display: none;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   counter-reset: line-number;
-  background-color: purple;
 }
 
 .code-line {
@@ -379,27 +378,28 @@ body {
 }
 
 .added {
-  background: #d4edda;
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
   border-left: 3px solid #28a745;
   padding: 2px 5px;
   margin: 1px 0;
 }
 
 .removed {
-  background: #f8d7da;
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
   border-left: 3px solid #dc3545;
   padding: 2px 5px;
   margin: 1px 0;
 }
 
 .modified {
-  background: #fff3cd;
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
   border-left: 3px solid #ffc107;
   padding: 2px 5px;
   margin: 1px 0;
 }
 
 .empty-line {
+  background: rgba(204, 204, 204, 0.03);
   min-height: 1.4em;
   margin: 1px 0;
 }

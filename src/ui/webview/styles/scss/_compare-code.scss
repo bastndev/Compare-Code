@@ -82,24 +82,25 @@
 //  Color  Modify  | MARK: IDENTIFIER
 // ==========================================
 .added {
-  background: #d4edda;
+  background: linear-gradient(90deg, rgba($color-green, 0.2) 0%, rgba($color-green, 0.1) 100%);
   border-left: 3px solid #28a745;
   padding: 2px 5px;
   margin: 1px 0;
 }
 .removed {
-  background: #f8d7da;
+  background: linear-gradient(90deg, rgba($color-red, 0.2) 0%, rgba($color-red, 0.1) 100%);
   border-left: 3px solid #dc3545;
   padding: 2px 5px;
   margin: 1px 0;
 }
 .modified {
-  background: #fff3cd;
+  background: linear-gradient(90deg, rgba($color-orange, 0.2) 0%, rgba($color-orange, 0.1) 100%);
   border-left: 3px solid #ffc107;
   padding: 2px 5px;
   margin: 1px 0;
 }
 .empty-line {
+  background: rgba($color-grey, 0.03);
   min-height: 1.4em;
   margin: 1px 0;
 }
