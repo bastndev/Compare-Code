@@ -5,6 +5,16 @@
 declare const acquireVsCodeApi: any;
 const vscode = acquireVsCodeApi();
 
+// Global variable to store icon URIs received from extension
+let iconUris: { play: string; stop: string } | null = null;
+
+// Listen for messages from extension to set icon URIs
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'setIcons') {
+    iconUris = event.data.icons;
+  }
+});
+
 /* ======================================
    toolbar | MARK: CLEAR  
    ======================================= */
@@ -50,8 +60,8 @@ export function setPlayBtnToEdit(): void {
   if (playBtn) {
     const img = playBtn.querySelector('img') as HTMLImageElement;
     const span = playBtn.querySelector('span') as HTMLSpanElement;
-    if (img) {
-      img.src = 'data:image/svg+xml;base64,' + btoa('<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" class="icon icon-tabler icons-tabler-filled icon-tabler-player-stop"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M17 4h-10a3 3 0 0 0 -3 3v10a3 3 0 0 0 3 3h10a3 3 0 0 0 3 -3v-10a3 3 0 0 0 -3 -3z" fill="white"/></svg>');
+    if (img && iconUris) {
+      img.src = iconUris.stop; // dynamic ICON
     }
     if (span) {
       span.textContent = 'Stop';
@@ -65,8 +75,8 @@ export function setPlayBtnToCompare(): void {
   if (playBtn) {
     const img = playBtn.querySelector('img') as HTMLImageElement;
     const span = playBtn.querySelector('span') as HTMLSpanElement;
-    if (img) {
-      img.src = 'data:image/svg+xml;base64,' + btoa('<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21.4086 9.35258C23.5305 10.5065 23.5305 13.4935 21.4086 14.6474L8.59662 21.6145C6.53435 22.736 4 21.2763 4 18.9671L4 5.0329C4 2.72368 6.53435 1.26402 8.59661 2.38548L21.4086 9.35258Z" fill="white"/></svg>');
+    if (img && iconUris) {
+      img.src = iconUris.play; // dynamic ICON
     }
     if (span) {
       span.textContent = 'Compare';
