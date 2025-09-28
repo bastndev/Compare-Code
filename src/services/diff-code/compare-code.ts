@@ -113,7 +113,9 @@ function showEditMode(): void {
 }
 
 function esc(str: string): string {
-  if (!str) return '';
+  if (!str) {
+    return '';
+  }
   
   const escapeMap: { [key: string]: string } = {
     '&': '&amp;',
