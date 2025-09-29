@@ -839,8 +839,7 @@ body {
   transform: scale(1.05);
 }
 .bbtn:focus {
-  outline: 2px solid #cccccc;
-  outline-offset: 2px;
+  outline: none;
 }
 .bbtn:active {
   transform: scale(0.98);
@@ -953,25 +952,12 @@ body {
 }
 
 .dual-scroll.bbtn.active {
-  background: linear-gradient(135deg, #007acc, #005a9e) !important;
+  background: var(--vscode-button-background);
   transform: scale(1.05);
   box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
 }
 .dual-scroll.bbtn.active .icon {
   filter: brightness(1.2);
-}
-
-@media (prefers-color-scheme: dark) {
-  .dual-scroll.bbtn.active {
-    background: linear-gradient(135deg, #0078d4, #106ebe) !important;
-    box-shadow: 0 0 15px rgba(16, 110, 190, 0.6);
-  }
-}
-@media (prefers-color-scheme: light) {
-  .dual-scroll.bbtn.active {
-    background: linear-gradient(135deg, #0066cc, #004499) !important;
-    box-shadow: 0 0 15px rgba(0, 102, 204, 0.5);
-  }
 }
 
 /*# sourceMappingURL=main.css.map */
