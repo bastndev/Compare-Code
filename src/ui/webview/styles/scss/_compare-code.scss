@@ -242,6 +242,20 @@
   /* Height will be calculated dynamically by JavaScript */
 }
 
+.line-number-item.added {
+  background: rgba($color-green, 0.1);
+  color: $color-green;
+}
+
+.line-number-item.removed {
+  background: rgba($color-red, 0.1);
+  color: $color-red;
+}
+
+.line-number-item.modified {
+  background: rgba($color-orange, 0.1);
+  color: $color-orange;
+}
 /* ==========================================
    SCROLLBAR STYLING
    ========================================== */
