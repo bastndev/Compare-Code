@@ -23,7 +23,7 @@ export interface TokenOperation {
 export interface ComparisonLine {
   content: string;
   type: LineType;
-  htmlContent?: string; // Para contenido con highlighting inline
+  htmlContent?: string;
 }
 
 export interface ComparisonStats {
