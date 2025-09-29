@@ -133,4 +133,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeDualScroll();
   initializeCompareCode();
   (window as any).toggle = toggle;
+  (window as any).clearAll = clearAll;
 });
