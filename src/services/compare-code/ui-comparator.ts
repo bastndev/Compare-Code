@@ -10,6 +10,8 @@ import { ComparisonLine, LineType } from './algorithms';
 export class EditorManager {
   private editor1: EditorInstance;
   private editor2: EditorInstance;
+  private currentLines1: ComparisonLine[] = [];
+  private currentLines2: ComparisonLine[] = [];
   
   constructor() {
     this.editor1 = new EditorInstance('1');
@@ -26,8 +28,17 @@ export class EditorManager {
   }
 
   public setCompareMode(lines1: ComparisonLine[], lines2: ComparisonLine[]): void {
+    this.currentLines1 = lines1;
+    this.currentLines2 = lines2;
     this.editor1.setCompareMode(lines1);
     this.editor2.setCompareMode(lines2);
+  }
+
+  public renderFiltered(filter: (line: ComparisonLine) => boolean): void {
+    const filteredLines1 = this.currentLines1.filter(filter);
+    const filteredLines2 = this.currentLines2.filter(filter);
+    this.editor1.setCompareMode(filteredLines1);
+    this.editor2.setCompareMode(filteredLines2);
   }
 
   public updateLineNumbers(): void {

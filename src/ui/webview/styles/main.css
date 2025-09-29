@@ -1125,4 +1125,13 @@ body {
   filter: brightness(1.2);
 }
 
+.only-code.bbtn.active {
+  background: var(--vscode-button-background);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.5);
+}
+.only-code.bbtn.active .icon {
+  filter: brightness(1.2);
+}
+
 /*# sourceMappingURL=main.css.map */

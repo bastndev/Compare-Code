@@ -275,5 +275,16 @@ $scale-active: 0.98;
   }
 }
 
+// ONLY CODE BUTTON STYLES | MARK: ONLY CODE
+.only-code.bbtn.active {
+  background: $btn-bg;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); // Green glow for modified code
+  
+  .icon {
+    filter: brightness(1.2);
+  }
+}
+
 
 

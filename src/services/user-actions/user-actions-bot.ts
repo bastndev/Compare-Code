@@ -2,8 +2,11 @@
    User action bot | MARK: Dual Scroll
    ======================================= */
 
+import { getEditorManager } from '../main';
+
 let syncScrollEnabled = false;
 let isScrolling = false;
+let onlyModifiedEnabled = false;
 
 export function initializeDualScroll() {
     const dualScrollBtn = document.getElementById('dual-scroll-btn');
@@ -127,4 +130,45 @@ export function isDualScrollActive(): boolean {
 /* ======================================
    User button bot | MARK:CODE MODIFY
    ======================================= */
-   
+
+function toggleOnlyModified() {
+    onlyModifiedEnabled = !onlyModifiedEnabled;
+    const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+    const editorManager = getEditorManager();
+    
+    if (onlyModifiedEnabled) {
+        if (btn) {
+            btn.classList.add('active');
+        }
+        console.log('Only modified mode activated');
+        // Filter out identical lines
+        editorManager.renderFiltered(line => line.type !== 'identical');
+    } else {
+        if (btn) {
+            btn.classList.remove('active');
+        }
+        console.log('Only modified mode deactivated');
+        // Show all lines
+        editorManager.renderFiltered(() => true);
+    }
+}
+
+export function resetOnlyModified() {
+    if (onlyModifiedEnabled) {
+        onlyModifiedEnabled = false;
+        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+        if (btn) {
+            btn.classList.remove('active');
+        }
+    }
+}
+
+export function initializeOnlyCode() {
+    const onlyCodeBtn = document.querySelector('.only-code.bbtn') as HTMLElement;
+    if (!onlyCodeBtn) {
+        console.warn('Only code button not found');
+        return;
+    }
+    
+    onlyCodeBtn.addEventListener('click', toggleOnlyModified);
+}

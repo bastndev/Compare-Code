@@ -1,5 +1,5 @@
 import { initializeUserActions } from './user-actions/user-actions-top';
-import { initializeDualScroll } from './user-actions/user-actions-bot';
+import { initializeDualScroll, initializeOnlyCode, resetOnlyModified } from './user-actions/user-actions-bot';
 import { ComparisonEngine, ComparisonResult } from './compare-code/algorithms';
 import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './userShowInformation';
@@ -79,6 +79,7 @@ export function reset(): void {
     isComparing = false;
     setPlayBtnToCompare();
     UserInformationManager.clearStatsDisplay();
+    resetOnlyModified();
 
   } catch (error) {
     console.error('Reset failed:', error);
@@ -97,6 +98,13 @@ export function clearAll(): void {
       reset();
     }
   }
+}
+
+/**
+ * Get the editor manager instance
+ */
+export function getEditorManager(): EditorManager {
+  return editorManager;
 }
 
 /**
@@ -131,6 +139,7 @@ export function initializeCompareCode(): void {
 document.addEventListener('DOMContentLoaded', () => {
   initializeUserActions();
   initializeDualScroll();
+  initializeOnlyCode();
   initializeCompareCode();
   (window as any).toggle = toggle;
   (window as any).clearAll = clearAll;
