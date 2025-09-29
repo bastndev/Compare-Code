@@ -125,5 +125,6 @@ export function isDualScrollActive(): boolean {
 }
 
 /* ======================================
-   User action bot | MARK: OTHER
+   User button bot | MARK:CODE MODIFY
    ======================================= */
+   
