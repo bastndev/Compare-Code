@@ -39,11 +39,11 @@ function toggleDualScroll() {
     if (syncScrollEnabled) {
         if (indicatorLeft) {
             indicatorLeft.style.display = 'flex';
-            indicatorLeft.textContent = '⚡';
+            indicatorLeft.textContent = '🔗';
         }
         if (indicatorRight) {
             indicatorRight.style.display = 'flex';
-            indicatorRight.textContent = '⚡';
+            indicatorRight.textContent = '🔗';
         }
         if (btn) {
             btn.classList.add('active');
