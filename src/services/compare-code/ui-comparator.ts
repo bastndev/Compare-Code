@@ -382,21 +382,22 @@ export class EditorInstance {
       if (line.htmlContent && line.htmlContent.trim()) {
         lineContent = line.htmlContent;
         hasInlineContent = true;
-      } else if (line.type === 'empty' || !line.content || line.content.trim() === '') {
-        // Format empty lines with visual indicators like in the example
+      } else if (line.type === 'empty') {
+        // Show empty line indicator only for lines explicitly marked as empty by the algorithm
         lineContent = '<span class="empty-line-indicator">...</span><span class="empty-line-text">(empty line)</span>';
       } else {
-        // Always preserve the original content
-        lineContent = this.escapeHtml(line.content);
+        // For all other line types (removed, added, modified, identical), show the actual content
+        lineContent = this.escapeHtml(line.content || '');
       }
       
-      // Add debug logging for problematic cases
-      if (index < 5 || line.content !== lineContent) {
+      // Add debug logging for line 23 and other problematic cases
+      if (index === 22 || index < 5 || line.content !== lineContent) {
         console.log(`🔍 Line ${index + 1} (${this.editorId}):`, {
           original: line.content,
           rendered: lineContent,
           type: line.type,
-          hasHtml: !!line.htmlContent
+          hasHtml: !!line.htmlContent,
+          isEmpty: !line.content || line.content.trim() === ''
         });
       }
       
