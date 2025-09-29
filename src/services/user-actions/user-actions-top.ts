@@ -5,12 +5,24 @@
 declare const acquireVsCodeApi: any;
 const vscode = acquireVsCodeApi();
 
-// CLEAR ALL CODE
+// Global variable to store icon URIs received from extension
+let iconUris: { play: string; stop: string } | null = null;
+
+// Listen for messages from extension to set icon URIs
+window.addEventListener('message', (event) => {
+  if (event.data.type === 'setIcons') {
+    iconUris = event.data.icons;
+  }
+});
+
+/* ======================================
+   toolbar | MARK: CLEAR  
+   ======================================= */
 function initializeClearButton(): void {
   const clearBtn = document.querySelector('.clear') as HTMLElement;
   if (clearBtn) {
     clearBtn.addEventListener('click', () => {
-      ['code-editor-left', 'code-editor-right'].forEach((id) => {
+      ['codeInput1', 'codeInput2'].forEach((id) => {
         const editor = document.getElementById(id) as HTMLTextAreaElement;
         if (editor) {
           editor.value = '';
@@ -41,7 +53,40 @@ function initializePanelRightButton(): void {
 }
 
 /* ======================================
-   Copy & Clear | MARK: diff-panel
+   toolbar | MARK: playBtn
+   ======================================= */
+export function setPlayBtnToEdit(): void {
+  const playBtn = document.getElementById('playBtn') as HTMLElement;
+  if (playBtn) {
+    const img = playBtn.querySelector('img') as HTMLImageElement;
+    const span = playBtn.querySelector('span') as HTMLSpanElement;
+    if (img && iconUris) {
+      img.src = iconUris.stop; // dynamic ICON
+    }
+    if (span) {
+      span.textContent = 'Stop';
+    }
+    playBtn.classList.add('stop');
+  }
+}
+
+export function setPlayBtnToCompare(): void {
+  const playBtn = document.getElementById('playBtn') as HTMLElement;
+  if (playBtn) {
+    const img = playBtn.querySelector('img') as HTMLImageElement;
+    const span = playBtn.querySelector('span') as HTMLSpanElement;
+    if (img && iconUris) {
+      img.src = iconUris.play; // dynamic ICON
+    }
+    if (span) {
+      span.textContent = 'Compare';
+    }
+    playBtn.classList.remove('stop');
+  }
+}
+
+/* ======================================
+   diff-panel| MARK: Copy & Clear  
    ======================================= */
 
 // Handles copy functionality for individual panels
@@ -61,7 +106,7 @@ function initializeCopyButtons(): void {
       if (editorPanel) {
         // Determine which editor based on panel class
         const isLeftPanel = editorPanel.classList.contains('editor-panel-left');
-        const editorId = isLeftPanel ? 'code-editor-left' : 'code-editor-right';
+        const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
         const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
         if (editor && editor.value.trim()) {
@@ -100,7 +145,7 @@ function initializeClearCodeButtons(): void {
       if (editorPanel) {
         // Determine which editor based on panel class
         const isLeftPanel = editorPanel.classList.contains('editor-panel-left');
-        const editorId = isLeftPanel ? 'code-editor-left' : 'code-editor-right';
+        const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
         const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
         if (editor) {
@@ -122,10 +167,6 @@ export function initializeUserActions(): void {
   initializeClearCodeButtons();
   initializePanelLeftButton();
   initializePanelRightButton();
-  // TODO: Add other button handlers here
-  // initializeCompareButton();
-  // initializePanelControls();
-  // initializeBottomBarButtons();
 }
 
 export {};
