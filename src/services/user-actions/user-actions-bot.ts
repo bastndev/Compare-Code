@@ -15,6 +15,17 @@ export function initializeDualScroll() {
     }
      
     dualScrollBtn.addEventListener('click', toggleDualScroll);
+    
+    // Add click listeners to indicators for deactivation
+    const indicatorLeft = document.getElementById('dual-scroll-indicator-left');
+    const indicatorRight = document.getElementById('dual-scroll-indicator-right');
+    
+    if (indicatorLeft) {
+        indicatorLeft.addEventListener('click', toggleDualScroll);
+    }
+    if (indicatorRight) {
+        indicatorRight.addEventListener('click', toggleDualScroll);
+    }
      
     setupScrollListeners();
 }

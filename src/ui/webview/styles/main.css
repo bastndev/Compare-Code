@@ -304,13 +304,13 @@ body {
 }
 
 /* ======================================
-   DUAL SCROLL 2 BUTTON 
+   DUAL SCROLL INDICATOR 
   ======================================= */
 .dual-scroll-indicator {
   position: absolute;
   top: 10px;
   right: 15px;
-  background: linear-gradient(135deg, rgba(0, 122, 204, 0.431372549), rgba(0, 90, 158, 0.2745098039));
+  background-color: #007acc;
   color: white;
   padding: 8px;
   border-radius: 8px;
@@ -326,6 +326,9 @@ body {
   height: 32px;
   align-items: center;
   justify-content: center;
+  opacity: 0.9;
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 @keyframes pulseGlow {
   0% {
@@ -337,45 +340,18 @@ body {
     transform: scale(1.05);
   }
 }
-@media (max-width: 768px) {
-  .dual-scroll-indicator {
-    font-size: 14px;
-    padding: 6px;
-    width: 28px;
-    height: 28px;
-    top: 8px;
-    right: 10px;
-  }
+.dual-scroll-indicator:hover {
+  opacity: 1;
+  background-color: #007acc;
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(0, 122, 204, 0.5);
+  animation: none;
+}
+.dual-scroll-indicator:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(0, 122, 204, 0.4);
 }
 
-@media (prefers-color-scheme: dark) {
-  .dual-scroll-indicator {
-    background: linear-gradient(135deg, #0078d4, #106ebe);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-  }
-  @keyframes pulseGlow {
-    0% {
-      box-shadow: 0 2px 8px rgba(16, 110, 190, 0.4);
-    }
-    100% {
-      box-shadow: 0 2px 12px rgba(16, 110, 190, 0.7);
-    }
-  }
-}
-@media (prefers-color-scheme: light) {
-  .dual-scroll-indicator {
-    background: linear-gradient(135deg, #0066cc, #004499);
-    color: white;
-  }
-  @keyframes pulseGlow {
-    0% {
-      box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
-    }
-    100% {
-      box-shadow: 0 2px 12px rgba(0, 102, 204, 0.6);
-    }
-  }
-}
 /* ========================================
   HYBRID ARCHITECTURE - Compare Code Extension
   ========================================= */
