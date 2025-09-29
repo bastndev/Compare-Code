@@ -199,18 +199,21 @@
 .diff-line.added {
   background: linear-gradient(90deg, rgba($color-green, 0.2) 0%, rgba($color-green, 0.1) 100%);
   border-left: 3px solid $color-green;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
 .diff-line.removed {
   background: linear-gradient(90deg, rgba($color-red, 0.2) 0%, rgba($color-red, 0.1) 100%);
   border-left: 3px solid $color-red;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
 .diff-line.modified {
   background: linear-gradient(90deg, rgba($color-orange, 0.2) 0%, rgba($color-orange, 0.1) 100%);
   border-left: 3px solid $color-orange;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
@@ -221,7 +224,7 @@
 }
 
 .diff-line.identical {
-  background-color: $input-bg;
+  // background-color: $input-bg;
   /* Maintain consistent height even without borders */
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
 }

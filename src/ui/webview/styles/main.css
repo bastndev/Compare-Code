@@ -476,18 +476,21 @@ body {
 .diff-line.added {
   background: linear-gradient(90deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
   border-left: 3px solid #22c55e;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
 .diff-line.removed {
   background: linear-gradient(90deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
   border-left: 3px solid #ef4444;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
 .diff-line.modified {
   background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
   border-left: 3px solid #f59e0b;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
@@ -498,11 +501,9 @@ body {
 }
 
 .diff-line.identical {
-  background: var(--vscode-input-background);
-  /* Default styling - no special highlighting */
+  background-color: var(--vscode-input-background);
   /* Maintain consistent height even without borders */
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
-  border-radius: 8px;
 }
 
 /* ==========================================
