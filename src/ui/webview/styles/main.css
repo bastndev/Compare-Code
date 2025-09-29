@@ -317,18 +317,26 @@ body {
   text-align: right;
 }
 
-.copy-code, .clear-code {
+.copy-code, .clear-code, .download-code {
   background: none;
   cursor: pointer;
   border: none;
 }
 
 .copy-clear {
-  padding: 0 12px 0 15px;
+  margin: 0 12px 0 12px;
 }
 
 .copy-clear img {
   width: 15px;
+}
+
+.options-panel-left button {
+  margin-right: 8px;
+}
+
+.options-panel-right button {
+  margin-left: 8px;
 }
 
 /* ======================================
