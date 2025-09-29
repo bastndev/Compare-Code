@@ -363,6 +363,24 @@ body {
     opacity: 0.6;
   }
 }
+.download-code.downloading img {
+  animation: downloadBounce 0.3s ease-in-out;
+}
+
+@keyframes downloadBounce {
+  0% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+}
 .copy-clear {
   margin: 0 12px 0 12px;
 }
