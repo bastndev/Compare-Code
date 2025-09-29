@@ -112,7 +112,7 @@ function initializeCopyButtons(): void {
             button.classList.add('copying');
             setTimeout(() => {
               button.classList.remove('copying');
-            }, 300);
+            }, 2000);
 
             console.log(
               `Code copied from ${isLeftPanel ? 'left' : 'right'} panel`
