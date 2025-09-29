@@ -268,7 +268,7 @@ $scale-active: 0.98;
 .dual-scroll.bbtn.active {
   background: $btn-bg;
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+  box-shadow: 0 0 15px $btn-bg;
   
   .icon {
     filter: brightness(1.2);
@@ -279,7 +279,7 @@ $scale-active: 0.98;
 .only-code.bbtn.active {
   background: $btn-bg;
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); 
+  box-shadow: 0 0 15px $btn-bg; 
   
   .icon {
     filter: brightness(1.2);

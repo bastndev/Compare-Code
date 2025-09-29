@@ -1119,7 +1119,7 @@ body {
 .dual-scroll.bbtn.active {
   background: var(--vscode-button-background);
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+  box-shadow: 0 0 15px var(--vscode-button-background);
 }
 .dual-scroll.bbtn.active .icon {
   filter: brightness(1.2);
