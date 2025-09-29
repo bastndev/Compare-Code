@@ -18,6 +18,7 @@ export function getWebviewIcons(context: vscode.ExtensionContext, webview: vscod
         // Main icons
         warning: createIconUri('warning'),
         play: createIconUri('play'),
+        stop: createIconUri('stop'),
         panelLeft: createIconUri('panel-left'),
         panelRight: createIconUri('panel-right'),
 
@@ -32,6 +33,7 @@ export function getWebviewIcons(context: vscode.ExtensionContext, webview: vscod
         // Utility icons
         clear: createIconUri('clear'),
         copy: createIconUri('copy'),
+        download: createIconUri('download'),
     };
 }
 
@@ -41,6 +43,7 @@ export function replaceIconsInHtml(html: string, icons: ReturnType<typeof getWeb
     // Main icons
     processedHtml = processedHtml.replace(/\{\{WARNING_ICON\}\}/g, icons.warning);
     processedHtml = processedHtml.replace(/\{\{PLAY_ICON\}\}/g, icons.play);
+    processedHtml = processedHtml.replace(/\{\{STOP_ICON\}\}/g, icons.stop);
     processedHtml = processedHtml.replace(/\{\{PANEL_LEFT_ICON\}\}/g, icons.panelLeft);
     processedHtml = processedHtml.replace(/\{\{PANEL_RIGHT_ICON\}\}/g, icons.panelRight);
 
@@ -57,6 +60,8 @@ export function replaceIconsInHtml(html: string, icons: ReturnType<typeof getWeb
     processedHtml = processedHtml.replace(/\{\{CLEAR_ICON_R\}\}/g, icons.clear);
     processedHtml = processedHtml.replace(/\{\{COPY_ICON_R\}\}/g, icons.copy);
     processedHtml = processedHtml.replace(/\{\{COPY_ICON_L\}\}/g, icons.copy);
+    processedHtml = processedHtml.replace(/\{\{DOWNLOAD_ICON_R\}\}/g, icons.download);
+    processedHtml = processedHtml.replace(/\{\{DOWNLOAD_ICON_L\}\}/g, icons.download);
 
     return processedHtml;
 }

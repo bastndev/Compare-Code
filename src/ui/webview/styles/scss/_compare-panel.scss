@@ -1,0 +1,236 @@
+@use 'global' as *;
+
+/* ======================================
+  DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
+  ======================================= */
+.compare-panel {
+  background-color: $input-bg;
+  color: white;
+  padding: 10px;
+  font-weight: bold;
+  text-align: center;
+  height: 40px;
+  width: 100%;
+  /* position: relative; */
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+}
+
+// BUTTONS LEF  AND RIGHT
+.options-panel-left {
+  // background-color: red;
+  text-align: left;
+}
+
+.test {
+  color: orange;
+}
+
+.options-panel-right {
+  // background-color: blue;
+  text-align: right;
+}
+
+.copy-code, .clear-code, .download-code {
+  background: none;
+  cursor: pointer;
+  border: none;
+    // margin-right:  40px;
+}
+
+// Clear code animation
+.clear-code {
+  &.clearing img {
+    animation: cleanSweep 0.5s ease-in-out;
+    transform-origin: top center;
+  }
+}
+
+@keyframes cleanSweep {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-15deg); }
+  100% { transform: rotate(0deg); }
+}
+
+// Copy code animation
+.copy-code {
+  position: relative;
+  &.copying img {
+    animation: copyPulse 2s ease-in-out;
+  }
+  .copy-message {
+    display: none;
+    position: absolute;
+    bottom: -30px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: $color-green;
+    color: $color-black;
+    font-weight: bold;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+    &::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 5px solid transparent;
+      border-bottom-color: $color-green;
+    }
+  }
+  &.copying .copy-message {
+    display: block;
+    animation: fadeInOut 2s ease-in-out;
+  }
+}
+
+@keyframes copyPulse {
+  0% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(1); opacity: 0.6; }
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(5px); }
+}
+
+// Download code animation
+.download-code {
+  &.downloading img {
+    animation: downloadBounce 0.3s ease-in-out;
+  }
+}
+
+@keyframes downloadBounce {
+  0% { transform: translateY(0); opacity: 0.6; }
+  50% { transform: translateY(-3px); opacity: 1; }
+  100% { transform: translateY(0); opacity: 0.6; }
+}
+
+.copy-clear{
+  margin: 0 12px 0 12px;
+}
+
+.copy-clear img{
+  width: 15px;
+  opacity: 0.6;
+}
+.copy-clear img:hover{
+  opacity: 1;
+}
+
+.options-panel-left button{
+  margin-right: 8px;
+}
+.options-panel-right button{
+  margin-left: 8px;
+}
+
+/* ======================================
+   DUAL SCROLL INDICATOR 
+  ======================================= */
+.dual-scroll-indicator {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background-color: #007acc;
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  display: none;
+  box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+  z-index: 1000;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  // Pulsing glow animation
+  @keyframes pulseGlow {
+    0% {
+      box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+      transform: scale(1);
+    }
+    100% {
+      box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
+      transform: scale(1.05);
+    }
+  }
+
+  // Hover effect - solid background
+  &:hover {
+    opacity: 1;
+    background-color: #007acc;
+    transform: scale(1.1);
+    box-shadow: 0 4px 16px rgba(0, 122, 204, 0.5);
+    animation: none; // Stop pulsing on hover
+  }
+
+  // Active/pressed state
+  &:active {
+    transform: scale(0.95);
+    box-shadow: 0 2px 8px rgba(0, 122, 204, 0.4);
+  }
+}
+
+// ======================================
+// TOOLTIP SYSTEM | MARK: tooltip
+// ======================================
+.clear-code[data-tooltip],
+.copy-code[data-tooltip],
+.download-code[data-tooltip] {
+  position: relative;
+  
+  &:hover::before {
+    content: attr(data-tooltip);    
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 1001;
+    margin-top: 8px;
+    padding: 4px 8px;
+    white-space: nowrap;
+    background-color: $input-bg;
+    color: $fg;
+    border: 1px solid $input-border;
+    border-radius: $border-radius-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    font-size: 11px;
+    font-family: $font-family;
+    
+    // Animation & Transform
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(-50%);
+    animation: tooltipFadeIn 0.3s ease forwards;
+  }
+}
+
+@keyframes tooltipFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}

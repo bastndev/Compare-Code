@@ -128,7 +128,7 @@
 }
 
 // ======================================
-// Primary Compare Button | MARK: play
+// Primary Compare Button | MARK: playBtn
 // ======================================
 .btn-play {
   @include button-base;
@@ -151,6 +151,10 @@
 
   &:hover {
     background-color: $btn-hover;
+  }
+
+  &.stop {
+    background-color: red;
   }
 }
 
@@ -200,6 +204,7 @@
 
 .slash {
   cursor: default;
+  padding-top: 3px;
 }
 
 // --- --- --- -- - TXT - FLOATING MESSAGE

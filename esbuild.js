@@ -44,7 +44,7 @@ async function main() {
 	});
 	const ctx2 = await esbuild.context({
 		entryPoints: [
-			'src/services/compareService.ts'
+			'src/services/main.ts'
 		],
 		bundle: true,
 		format: 'iife',
@@ -52,7 +52,7 @@ async function main() {
 		sourcemap: !production,
 		sourcesContent: false,
 		platform: 'browser',
-		outfile: 'dist/compareService.js',
+		outfile: 'dist/main.js',
 		logLevel: 'silent',
 		plugins: [
 			/* add to the end of plugins array */

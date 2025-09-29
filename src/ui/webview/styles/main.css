@@ -179,6 +179,9 @@ body {
 .btn-play:hover {
   background-color: var(--vscode-button-hoverBackground);
 }
+.btn-play.stop {
+  background-color: red;
+}
 
 .buttons-container {
   display: flex;
@@ -237,6 +240,7 @@ body {
 
 .slash {
   cursor: default;
+  padding-top: 3px;
 }
 
 .btn-panel-left[data-tooltip],
@@ -286,219 +290,638 @@ body {
   }
 }
 /* ======================================
-   DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
-   ======================================= */
-.diff-panel {
-  background-color: var(--vscode-editor-background);
-  display: grid;
-  flex: 1;
-  min-height: 0;
-  grid-template-columns: 1fr 20px 1fr;
-}
-
-.file-info {
+  DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
+  ======================================= */
+.compare-panel {
   background-color: var(--vscode-input-background);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: 35px;
-  border-bottom: 1px solid var(--vscode-input-border);
-}
-
-.file-selector {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-}
-
-.file-icon {
-  width: 16px;
-  height: 16px;
-  background: #f1c40f;
-  border-radius: 2px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
+  color: white;
+  padding: 10px;
   font-weight: bold;
-  color: #000;
+  text-align: center;
+  height: 40px;
+  width: 100%;
+  /* position: relative; */
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
 }
 
-.select {
-  background: var(--vscode-input-background);
-  color: var(--vscode-foreground);
-  border: none;
-  padding: 6px 24px 6px 8px;
-  border-radius: 3px;
-  font-size: var(--vscode-font-size, 13px);
+.options-panel-left {
+  text-align: left;
+}
+
+.test {
+  color: orange;
+}
+
+.options-panel-right {
+  text-align: right;
+}
+
+.copy-code, .clear-code, .download-code {
+  background: none;
   cursor: pointer;
-  transition: border-color 0.2s ease;
-}
-.select:hover {
-  background-color: var(--vscode-dropdown-listBackground, rgba(var(--vscode-input-background), 1.1));
-}
-.select:focus {
-  outline: none;
-  outline-offset: 2px;
+  border: none;
 }
 
-.copy-clear {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding-right: 22px;
+.clear-code.clearing img {
+  animation: cleanSweep 0.5s ease-in-out;
+  transform-origin: top center;
 }
+
+@keyframes cleanSweep {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+.copy-code {
+  position: relative;
+}
+.copy-code.copying img {
+  animation: copyPulse 2s ease-in-out;
+}
+.copy-code .copy-message {
+  display: none;
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #22c55e;
+  color: #000000;
+  font-weight: bold;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+.copy-code .copy-message::after {
+  content: "";
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-bottom-color: #22c55e;
+}
+.copy-code.copying .copy-message {
+  display: block;
+  animation: fadeInOut 2s ease-in-out;
+}
+
+@keyframes copyPulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+}
+.download-code.downloading img {
+  animation: downloadBounce 0.3s ease-in-out;
+}
+
+@keyframes downloadBounce {
+  0% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+  50% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0.6;
+  }
+}
+.copy-clear {
+  margin: 0 12px 0 12px;
+}
+
 .copy-clear img {
   width: 15px;
-  height: 15px;
-  cursor: pointer;
   opacity: 0.6;
-  transition: opacity 0.2s ease;
 }
+
 .copy-clear img:hover {
   opacity: 1;
 }
 
-.copy-clear button {
-  background-color: transparent;
-  border: none;
+.options-panel-left button {
+  margin-right: 8px;
 }
 
+.options-panel-right button {
+  margin-left: 8px;
+}
+
+/* ======================================
+   DUAL SCROLL INDICATOR 
+  ======================================= */
+.dual-scroll-indicator {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background-color: #007acc;
+  color: white;
+  padding: 8px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  display: none;
+  box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+  z-index: 1000;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.9;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+@keyframes pulseGlow {
+  0% {
+    box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+    transform: scale(1);
+  }
+  100% {
+    box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
+    transform: scale(1.05);
+  }
+}
+.dual-scroll-indicator:hover {
+  opacity: 1;
+  background-color: #007acc;
+  transform: scale(1.1);
+  box-shadow: 0 4px 16px rgba(0, 122, 204, 0.5);
+  animation: none;
+}
+.dual-scroll-indicator:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(0, 122, 204, 0.4);
+}
+
+.clear-code[data-tooltip],
 .copy-code[data-tooltip],
-.clear-code[data-tooltip] {
+.download-code[data-tooltip] {
   position: relative;
 }
-
-.copy-code[data-tooltip]:hover::after,
-.clear-code[data-tooltip]:hover::after {
+.clear-code[data-tooltip]:hover::before,
+.copy-code[data-tooltip]:hover::before,
+.download-code[data-tooltip]:hover::before {
   content: attr(data-tooltip);
   position: absolute;
   top: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  z-index: 1001;
+  margin-top: 8px;
+  padding: 4px 8px;
+  white-space: nowrap;
   background-color: var(--vscode-input-background);
   color: var(--vscode-foreground);
-  padding: 6px 10px;
-  border-radius: 6px;
-  font-size: 12px;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
-  white-space: nowrap;
   border: 1px solid var(--vscode-input-border);
-  z-index: 1000;
-  margin-top: 6px;
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 11px;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   opacity: 0;
-  animation: tooltipFadeIn 0.2s ease forwards;
-  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: tooltipFadeIn 0.3s ease forwards;
 }
 
-.on1 {
-  background-color: var(--vscode-input-background);
-  height: 35px;
+@keyframes tooltipFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
 }
-
-.on2 {
-  background-color: var(--vscode-input-background);
-  border-left: 1px solid var(--vscode-input-border);
-  border-right: 1px solid var(--vscode-input-border);
-  height: 100%;
-}
-
 /* ========================================
-  Editor Panels Content - VS Code Extension | MARK: DIFF CODE
+  HYBRID ARCHITECTURE - Compare Code Extension
   ========================================= */
-.editor-panel-left,
-.editor-panel-right {
-  background-color: var(--vscode-editor-background);
+.compare-code {
+  background-color: var(--vscode-input-background);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.code-panel {
+  overflow: hidden;
+  background-color: transparent;
   display: flex;
   flex-direction: column;
-  height: 100%;
-  min-height: 0;
-}
-.editor-panel-left .diff-code,
-.editor-panel-right .diff-code {
-  flex: 1;
   position: relative;
-  overflow: auto;
-  background: var(--bg-primary);
-  border-radius: 8px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  display: flex;
-  flex-direction: row;
-  min-height: 0;
-}
-.editor-panel-left .diff-code .line-numbers,
-.editor-panel-right .diff-code .line-numbers {
-  flex: 0 0 40px;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1.6;
-  padding: 11px 8px 24px 2px;
-  color: var(--vscode-editorLineNumber-foreground);
-  background: var(--bg-primary);
-  overflow-y: auto;
-  overflow-x: hidden;
-  white-space: pre;
-  text-align: right;
-  user-select: none;
-  pointer-events: none;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-}
-.editor-panel-left .diff-code .line-numbers::-webkit-scrollbar,
-.editor-panel-right .diff-code .line-numbers::-webkit-scrollbar {
-  display: none;
-}
-.editor-panel-left .diff-code .code-editor,
-.editor-panel-right .diff-code .code-editor {
-  width: 100%;
-  height: 100%;
-  min-height: 300px;
-  flex: 1;
-  background: transparent;
-  border: none;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
-  font-size: 14px;
-  line-height: 1.6;
-  padding: 11px 0px 24px 8px;
-  resize: none;
-  outline: none;
-  tab-size: 2;
-  font-weight: 400;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-  overflow-y: auto;
-  overflow-x: auto;
-}
-body[data-vscode-theme-kind=vscode-dark] .editor-panel-left .diff-code .code-editor,
-body[data-vscode-theme-kind=vscode-dark] .editor-panel-right .diff-code .code-editor {
-  color: #ebebeb;
-}
-body[data-vscode-theme-kind=vscode-light] .editor-panel-left .diff-code .code-editor,
-body[data-vscode-theme-kind=vscode-light] .editor-panel-right .diff-code .code-editor {
-  color: #000000;
-}
-body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-left .diff-code .code-editor,
-body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code .code-editor {
-  color: var(--vscode-editor-foreground, #ffffff);
-}
-.editor-panel-left .diff-code .code-editor:focus,
-.editor-panel-right .diff-code .code-editor:focus {
-  background: rgba(255, 255, 255, 0.02);
-}
-.editor-panel-left .diff-code .code-editor::placeholder,
-.editor-panel-right .diff-code .code-editor::placeholder {
-  color: var(--vscode-editorLineNumber-foreground);
-  font-style: normal;
-  opacity: 1;
-}
-.editor-panel-left .diff-code .code-editor::selection,
-.editor-panel-right .diff-code .code-editor::selection {
-  background-color: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
 }
 
+/* ==========================================
+   UNIFIED EDITOR CONTAINER
+   ========================================== */
+.unified-editor {
+  position: relative;
+  height: calc(100vh - 98px);
+  background: var(--vscode-editor-background);
+  display: flex;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  font-size: 13px;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+/* Panel-specific borders with rounded corners */
+#editor1 {
+  border-right: 1px solid var(--vscode-input-border);
+  border-top: 1px solid var(--vscode-input-border);
+  border-top-right-radius: 8px;
+  overflow: hidden; /* Ensures content respects the rounded corner */
+}
+
+#editor2 {
+  border-left: 1px solid var(--vscode-input-border);
+  border-top: 1px solid var(--vscode-input-border);
+  border-top-left-radius: 8px;
+  overflow: hidden; /* Ensures content respects the rounded corner */
+}
+
+/* ==========================================
+   LINE NUMBERS - Consistent across modes
+   ========================================== */
+.line-numbers {
+  width: 45px;
+  background-color: var(--vscode-editor-background);
+  color: var(--vscode-editorLineNumber-foreground);
+  font-size: 13px;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  padding: 15px 8px 15px 5px;
+  text-align: right;
+  user-select: none;
+  line-height: 1.4;
+  white-space: pre;
+  overflow: hidden;
+  margin: 0;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  /* Ensure line numbers align exactly with content */
+  vertical-align: top;
+}
+
+/* ==========================================
+   CODE AREA - Container for input/display
+   ========================================== */
+.code-area {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+/* ==========================================
+   TEXTAREA INPUT MODE - WITH WORD WRAP
+   ========================================== */
+.code-input {
+  width: 100%;
+  height: 100%;
+  background: var(--vscode-editor-background);
+  color: var(--vscode-foreground);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 15px 15px 15px 10px; /* PADDING COPY CODE*/
+  margin: 0;
+  border: none;
+  outline: none;
+  resize: none;
+  box-sizing: border-box;
+  /* WORD WRAP CONFIGURATION */
+  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
+  word-wrap: break-word; /* Break long words if necessary */
+  overflow-wrap: break-word; /* Modern browsers */
+  /* SCROLL BEHAVIOR */
+  overflow-x: hidden; /* Hide horizontal scroll */
+  overflow-y: auto; /* Keep vertical scroll */
+}
+.code-input::placeholder {
+  color: #6a737d;
+  font-style: italic;
+}
+.code-input:focus {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* ==========================================
+   DISPLAY MODE - Comparison Results WITH WORD WRAP
+   ========================================== */
+.code-display {
+  width: 100%;
+  height: 100%;
+  background: var(--vscode-editor-background);
+  color: var(--vscode-foreground);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  font-size: 13px;
+  line-height: 1.4;
+  padding: 15px 15px 15px 0px; /* PADDING COMPARE CODE*/
+  margin: 0;
+  box-sizing: border-box;
+  display: none; /* Hidden by default */
+  /* WORD WRAP CONFIGURATION */
+  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
+  word-wrap: break-word; /* Break long words if necessary */
+  overflow-wrap: break-word; /* Modern browsers */
+  /* SCROLL BEHAVIOR */
+  overflow-x: hidden; /* Hide horizontal scroll */
+  overflow-y: auto; /* Keep vertical scroll */
+}
+
+/* ==========================================
+   MODE SWITCHING - Edit vs Compare
+   ========================================== */
+/* Edit Mode Active */
+.mode-edit .code-input, .unified-editor .code-input {
+  display: block;
+}
+.mode-edit .code-display, .unified-editor .code-display {
+  display: none;
+}
+
+/* Compare Mode Active */
+.mode-compare .code-input {
+  display: none;
+}
+.mode-compare .code-display {
+  display: block;
+}
+
+/* Default to edit mode */
+.diff-line {
+  display: block;
+  position: relative;
+  min-height: 1.4em;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  /* WORD WRAP FOR DIFF LINES */
+  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
+  word-wrap: break-word; /* Break long words if necessary */
+  overflow-wrap: break-word; /* Modern browsers */
+  /* Remove fixed height to allow multi-line content */
+  height: auto; /* Changed from fixed 1.4em */
+}
+
+/* Line types */
+.diff-line.added {
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
+  border-left: 3px solid #22c55e;
+  border-radius: 3px 0 0 3px;
+  padding-left: 7px; /* Compensate border */
+}
+
+.diff-line.removed {
+  background: linear-gradient(90deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
+  border-left: 3px solid #ef4444;
+  border-radius: 3px 0 0 3px;
+  padding-left: 7px; /* Compensate border */
+}
+
+.diff-line.modified {
+  background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
+  border-left: 3px solid #f59e0b;
+  border-radius: 3px 0 0 3px;
+  padding-left: 7px; /* Compensate border */
+}
+
+.diff-line.empty {
+  background: rgba(204, 204, 204, 0.03);
+  /* Ensure empty lines have minimum height and are visible */
+  min-height: 1.4em;
+  padding-left: 10px; /* Same as identical lines for consistency */
+  /* Style for empty line indicators */
+}
+.diff-line.empty .empty-line-indicator {
+  color: rgba(204, 204, 204, 0.6);
+  font-weight: normal;
+  margin-right: 8px;
+  font-size: 12px;
+}
+.diff-line.empty .empty-line-text {
+  color: rgba(204, 204, 204, 0.5);
+  font-style: italic;
+  font-size: 11px;
+  float: right;
+  margin-right: 10px;
+}
+.diff-line.empty {
+  /* Remove old before pseudo-element */
+}
+.diff-line.empty::before {
+  display: none;
+}
+
+.diff-line.identical {
+  /* Maintain consistent height even without borders */
+  padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
+  /* Ensure identical lines maintain their content */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Line number positioning for wrapped lines */
+.line-number-item {
+  display: block;
+  text-align: right;
+  color: var(--vscode-editorLineNumber-foreground);
+  user-select: none;
+  /* Height will be calculated dynamically by JavaScript */
+}
+
+.line-number-item.added {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+.line-number-item.removed {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.line-number-item.modified {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
+/* Base styling for highlighted words - OPTIMIZED FOR MINIMAL LAYOUT IMPACT */
+.word-modified, .word-removed, .word-added {
+  padding: 0 1px; /* Minimal padding to reduce width impact */
+  border-radius: 2px;
+  font-weight: 500;
+  margin: 0; /* Remove margins that cause layout shifts */
+  transition: background-color 0.15s ease; /* Only transition background */
+  position: relative;
+  border: none; /* Remove border that adds width */
+  display: inline;
+  box-sizing: border-box;
+  /* Critical: Preserve original text flow and content */
+  line-height: inherit;
+  vertical-align: baseline;
+  white-space: pre-wrap; /* Preserve whitespace in highlighted content */
+  word-wrap: break-word; /* Allow breaking of long highlighted words */
+  overflow-wrap: break-word; /* Modern browsers */
+}
+
+/* Added words - Green highlighting - LAYOUT OPTIMIZED */
+.word-added {
+  background: rgba(34, 197, 94, 0.25); /* Solid color, no gradient */
+  color: #27d563;
+}
+.word-added:hover {
+  background: rgba(34, 197, 94, 0.4);
+}
+
+/* Removed words - Red highlighting with strikethrough - LAYOUT OPTIMIZED */
+.word-removed {
+  background: rgba(239, 68, 68, 0.25); /* Solid color, no gradient */
+  color: #f26464;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px; /* Thinner to avoid height impact */
+}
+.word-removed:hover {
+  background: rgba(239, 68, 68, 0.4);
+  text-decoration-thickness: 1.5px;
+}
+
+/* Modified words - Orange highlighting - LAYOUT OPTIMIZED */
+.word-modified {
+  background: rgba(245, 158, 11, 0.25); /* Solid color, no gradient */
+  color: #f7af2b;
+}
+.word-modified:hover {
+  background: rgba(245, 158, 11, 0.4);
+}
+
+/* ==========================================
+   SCROLLBAR STYLING
+   ========================================== */
+.code-input::-webkit-scrollbar,
+.code-display::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+.code-input::-webkit-scrollbar-track,
+.code-display::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.code-input::-webkit-scrollbar-thumb,
+.code-display::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 6px;
+}
+
+.code-input::-webkit-scrollbar-thumb:hover,
+.code-display::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* ==========================================
+   RESPONSIVE & ACCESSIBILITY
+   ========================================== */
+@media (max-width: 768px) {
+  .compare-code {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .unified-editor {
+    height: calc(50vh - 50px);
+  }
+}
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .diff-line.added {
+    background: rgba(34, 197, 94, 0.4);
+    border-left-width: 4px;
+  }
+  .diff-line.removed {
+    background: rgba(239, 68, 68, 0.4);
+    border-left-width: 4px;
+  }
+  .diff-line.modified {
+    background: rgba(245, 158, 11, 0.4);
+    border-left-width: 4px;
+  }
+  /* Enhanced word highlighting for high contrast mode */
+  .word-added {
+    background: rgba(34, 197, 94, 0.6) !important;
+    border-color: #22c55e !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
+  .word-removed {
+    background: rgba(239, 68, 68, 0.6) !important;
+    border-color: #ef4444 !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+    text-decoration-thickness: 2.5px !important;
+  }
+  .word-modified {
+    background: rgba(245, 158, 11, 0.6) !important;
+    border-color: #f59e0b !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
+}
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .word-added, .word-removed, .word-modified {
+    transition: none;
+  }
+  .word-added:hover,
+  .word-removed:hover,
+  .word-modified:hover {
+    transform: none;
+  }
+}
 /* ======================================
    BOTTOM BAR - VS Code Extension | MARK: BOTTOM BAR
    ======================================= */
@@ -581,8 +1004,7 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   transform: scale(1.05);
 }
 .bbtn:focus {
-  outline: 2px solid #cccccc;
-  outline-offset: 2px;
+  outline: none;
 }
 .bbtn:active {
   transform: scale(0.98);
@@ -692,6 +1114,15 @@ body[data-vscode-theme-kind=vscode-high-contrast] .editor-panel-right .diff-code
   opacity: 0.5;
   cursor: not-allowed;
   pointer-events: none;
+}
+
+.dual-scroll.bbtn.active {
+  background: var(--vscode-button-background);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+}
+.dual-scroll.bbtn.active .icon {
+  filter: brightness(1.2);
 }
 
 /*# sourceMappingURL=main.css.map */

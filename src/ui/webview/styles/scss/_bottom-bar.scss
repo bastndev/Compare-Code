@@ -110,10 +110,9 @@ $scale-active: 0.98;
     transform: scale($scale-hover);
   }
   
-  // Focus state (accessibility)
+  // Focus BORDER (accessibility)
   &:focus {
-    outline: 2px solid $color-grey;
-    outline-offset: 2px;
+    outline: none;
   }
   
   // Active state
@@ -260,3 +259,21 @@ $scale-active: 0.98;
     pointer-events: none;
   }
 }
+
+// ======================================
+// HERE BUTTON TS | MARK: --- -- - 
+// ======================================
+
+// DUAL SCROLL BUTTON STYLES | MARK: DUAL SCROLL 
+.dual-scroll.bbtn.active {
+  background: $btn-bg;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+  
+  .icon {
+    filter: brightness(1.2);
+  }
+}
+
+
+

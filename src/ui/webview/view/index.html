@@ -12,140 +12,129 @@
          ====================================== -->
     <div class="toolbar">
         <!-- Warning container -->
-
+         
         <!-- <div class="warning-container">
             <div class="warning-box">
                 <img class="warning-icon" src="{{WARNING_ICON}}">
                 <span>1 : Changes</span>
             </div>
         </div>  -->
-       
-        <!-- Diff statistics display -->
+
+        <!-- TODO: Diff statistics display -->
         <div class="diff-stats">
             <div class="stat-item">
                 <div class="stat-icon added">+</div>
-                <span>4 lines added</span>
+                <span id="added-count">0 lines added</span>
             </div>
             <div class="stat-item">
                 <div class="stat-icon removed">-</div>
-                <span>2 lines removed</span>
+                <span id="removed-count">0 lines removed</span>
             </div>
             <div class="stat-item">
                 <div class="stat-icon modified">~</div>
-                <span>3 lines modified</span>
+                <span id="modified-count">0 lines modified</span>
             </div>
         </div>
 
-        <!-- Primary compare button | PLAY -->
-        <button class="btn-play">
+        <!-- TODO: Primary compare button | PLAY -->
+        <button class="btn-play" onclick="toggle()" id="playBtn" title="Ctrl + Enter">
             <img src="{{PLAY_ICON}}">
             <span>Compare</span>
         </button>
 
-        <!-- Secondary panel controls | Clear - Close & Open -->
+        <!-- TODO: Secondary panel controls | Clear - Close & Open -->
         <div class="buttons-container">
-            <button class="clear">🗑️ Clear</button>
+            <button class="clear" onclick="clearAll()">🗑️ Clear</button>
             
-            <button class="btn-panel-left" data-tooltip="Close/Open panel LEFT">
+            <button class="btn-panel-left" id="btn-panel-left" data-tooltip="Close/Open panel LEFT">
                 <img src="{{PANEL_LEFT_ICON}}">
             </button>
             <span class="slash">/</span>
-            <button class="btn-panel-right" data-tooltip="Close/Open panel RIGHT">
+            <button class="btn-panel-right" id="btn-panel-right" data-tooltip="Close/Open panel RIGHT">
                 <img src="{{PANEL_RIGHT_ICON}}">
             </button>
         </div>
     </div>
 
-    <!-- ======================================
-         DIFF PANEL - Main comparison interface
-         ====================================== -->
-    <div class="diff-panel">
-        <!-- LEFT - EDITOR PANEL -->
-        <div class="editor-panel-left">
-
-            <div class="file-info">
-                <div class="file-selector">
-                    <div class="file-icon">JS</div>
-                    <select class="select">
-                        <option>modified.js</option>
-                        <option>Astro.js</option>
-                        <option>_diff-panel.scss</option>
-                    </select>
-                </div>
-                <div class="copy-clear">
-                    <button class="copy-code" data-tooltip="Copy code" >
-                        <img src="{{COPY_ICON_L}}">
-                    </button>
-                    <button class="clear-code" data-tooltip="Clear">
-                        <img src="{{CLEAR_ICON_L}}">
-                    </button>
-                </div>
-            </div>
-
-            <!-- Code editor area | MARK: Code L-->
-            <div class="diff-code">
-                <div class="line-numbers" id="line-numbers-left"></div>
-                <div class="diff-gutter"></div>
-                <textarea class="code-editor" id="code-editor-left" placeholder="Paste your modified code here...
-
-// Example:
-function calculateSum(a, b, c = 0) {
-    const sum = a + b + c;
-    return sum;
-}
-
-const result = calculateSum(5, 3, 2);
-console.log('Updated result:', result);
-
-// Enhanced version..."></textarea>
+    <!-- FILE IMPORT | DOWNLOAD - COPY - CLEAR -->
+    <div class="compare-panel">
+        <div class="options-panel-left">
+            <div class="copy-clear">
+                <button class="clear-code" data-tooltip="Clear">
+                    <img src="{{CLEAR_ICON_L}}">
+                </button>
+                <button class="copy-code" data-tooltip="Copy code">
+                    <img src="{{COPY_ICON_L}}">
+                    <div class="copy-message">Copied!</div>
+                </button>
+                <button class="download-code" data-tooltip="Download">
+                    <img src="{{DOWNLOAD_ICON_L}}">
+                </button>
             </div>
         </div>
+    
+        <div class="test"></div>
+    
+        <div class="options-panel-right">
+            <div class="copy-clear">
+                <button class="download-code" data-tooltip="Download">
+                    <img src="{{DOWNLOAD_ICON_R}}">
+                </button>
+                <button class="copy-code" data-tooltip="Copy code">
+                    <img src="{{COPY_ICON_R}}">
+                    <div class="copy-message">Copied!</div>
+                </button>
+                <button class="clear-code" data-tooltip="Clear">
+                    <img src="{{CLEAR_ICON_R}}">
+                </button>
+            </div>
+        </div>
+    </div>
 
-        <!-- Vertical separator -->
-        <div class="separator">
-            <div class="on1"></div>
-            <div class="on2"></div>
-        </div><!--   separator  -->
+    <!-- ======================================
+         Main comparison interface | HYBRID ARCHITECTURE
+         ====================================== -->
 
-        <!-- RIGHT - EDITOR PANEL -->
-        <div class="editor-panel-right">
-            <div class="file-info">
-                <div class="file-selector">
-                    <div class="file-icon">JS</div>
-                    <select class="select">
-                        <option>Astro.js</option>
-                        <option>modified.js</option>
-                        <option>_diff-panel.scss</option>
-                    </select>
-                </div>
-                <div class="copy-clear">
-                    <button class="copy-code" data-tooltip="Copy code" >
-                        <img src="{{COPY_ICON_R}}">
-                    </button>
-                    <button class="clear-code" data-tooltip="Clear">
-                        <img src="{{CLEAR_ICON_R}}">
-                    </button>
+    <div class="compare-code">
+        <div class="code-panel" id="panel1">
+            <!-- Dual scroll -->
+            <div class="dual-scroll-indicator" id="dual-scroll-indicator-left">
+                🔗
+            </div>
+            <!-- Unified Editor Container -->
+            <div class="unified-editor" id="editor1">
+                <div class="line-numbers" id="lineNumbers1">1</div>
+                <div class="code-area">
+                    <!-- Edit Mode: Textarea -->
+                    <textarea 
+                        class="code-input" 
+                        id="codeInput1" 
+                        placeholder="Example One Code here..."
+                        spellcheck="false"></textarea>
+                    <!-- Compare Mode: Rendered Diff -->
+                    <div class="code-display" id="codeDisplay1"></div>
                 </div>
             </div>
-
-            <!-- Code editor area | MARK: Code R-->
-            <div class="diff-code">
-                <div class="line-numbers" id="line-numbers-right"></div>
-                <div class="diff-gutter"></div>
-                <textarea class="code-editor" id="code-editor-right" placeholder="Paste your modified code here...
-
-// Example:
-// calculateSum: sums up to three numbers (third parameter is optional)
-function calculateSum(a, b, c = 0) {
-    const sum = a + b + c;
-    return sum;
-}
-
-// Usage
-const result = calculateSum(5, 3, 2);
-console.log('Result:', result);
-
-// More code here..."></textarea>
+        </div>
+        
+        <div class="code-panel" id="panel2">
+            <!-- Dual scroll -->
+            <div class="dual-scroll-indicator" id="dual-scroll-indicator-right">
+                🔗
+            </div>
+            <!-- Unified Editor Container -->
+            <div class="unified-editor" id="editor2">
+                <div class="line-numbers" id="lineNumbers2">1</div>
+                <div class="code-area">
+                    <!-- Edit Mode: Textarea -->
+                    <textarea 
+                        class="code-input" 
+                        id="codeInput2" 
+                        placeholder="Example Two Code here..."
+                        spellcheck="false"></textarea>
+                    <!-- Compare Mode: Rendered Diff -->
+                    <div class="code-display" id="codeDisplay2"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -156,18 +145,18 @@ console.log('Result:', result);
     <div class="bottom-bar">
         <div class="content">
             <button class="only-code bbtn" data-tooltip="Show modified code">
-                <img class="icon" src="{{ONLY_CODE_ICON}}  ">
-            </button>
-            <button class="dual-scroll bbtn" data-tooltip="Dual scroll">
-                <img class="icon" src="{{DUAL_SCROLL_ICON}}">
+                <img class="icon" src="{{ONLY_CODE_ICON}}">
             </button>
             <button class="switch-on-off bbtn" data-tooltip="Normal/Pro version">
-                <img class="icon" src="{{SWITCH_ON_ICON}}  ">
+                <img class="icon" src="{{SWITCH_ON_ICON}}">
+            </button>
+            <button class="dual-scroll bbtn" id="dual-scroll-btn" data-tooltip="Dual scroll">
+                <img class="icon" src="{{DUAL_SCROLL_ICON}}">
             </button>
             <button class="language bbtn" data-tooltip="Change language">
-                <img class="icon" src="{{LANGUAGE_ICON}}   ">
+                <img class="icon" src="{{LANGUAGE_ICON}}">
             </button>
-            <button class="sponsor bbtn" data-tooltip="Sponsor" >
+            <button class="sponsor bbtn" data-tooltip="Sponsor">
                 <a href="https://github.com/sponsors/bastndev" title="@bastndev">
                     <img class="icon" src="{{EARTH_CODE_ICON}}">
                 </a>
