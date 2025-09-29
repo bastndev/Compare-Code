@@ -98,31 +98,24 @@ function initializeCopyButtons(): void {
 
   copyButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      // Find the closest editor panel to determine which textarea to copy from
-      const editorPanel = button.closest(
-        '.editor-panel-left, .editor-panel-right'
-      );
+      // Determine which panel based on parent container
+      const isLeftPanel = button.closest('.options-panel-left') !== null;
+      const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
+      const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
-      if (editorPanel) {
-        // Determine which editor based on panel class
-        const isLeftPanel = editorPanel.classList.contains('editor-panel-left');
-        const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
-        const editor = document.getElementById(editorId) as HTMLTextAreaElement;
-
-        if (editor && editor.value.trim()) {
-          // Copy to clipboard
-          navigator.clipboard
-            .writeText(editor.value)
-            .then(() => {
-              // Optional: Show feedback (you can add visual feedback later)
-              console.log(
-                `Code copied from ${isLeftPanel ? 'left' : 'right'} panel`
-              );
-            })
-            .catch((err) => {
-              console.error('Failed to copy code:', err);
-            });
-        }
+      if (editor && editor.value.trim()) {
+        // Copy to clipboard
+        navigator.clipboard
+          .writeText(editor.value)
+          .then(() => {
+            // Optional: Show feedback (you can add visual feedback later)
+            console.log(
+              `Code copied from ${isLeftPanel ? 'left' : 'right'} panel`
+            );
+          })
+          .catch((err) => {
+            console.error('Failed to copy code:', err);
+          });
       }
     });
   });
@@ -146,6 +139,12 @@ function initializeClearCodeButtons(): void {
         editor.value = '';
         // Trigger input event to update line numbers
         editor.dispatchEvent(new Event('input'));
+
+        // If in compare mode, reset to edit mode
+        const playBtn = document.getElementById('playBtn') as HTMLElement;
+        if (playBtn && playBtn.classList.contains('stop')) {
+          (window as any).toggle();
+        }
       }
     });
   });
