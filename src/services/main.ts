@@ -1,4 +1,5 @@
 import { initializeUserActions } from './user-actions/user-actions-top';
+import { initializeDualScroll } from './user-actions/user-actions-bot';
 import { ComparisonEngine, ComparisonResult } from './compare-code/algorithms';
 import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './userShowInformation';
@@ -129,6 +130,8 @@ export function initializeCompareCode(): void {
 // INITIALIZE WHEN THE PAGE LOADS
 document.addEventListener('DOMContentLoaded', () => {
   initializeUserActions();
+  initializeDualScroll();
   initializeCompareCode();
   (window as any).toggle = toggle;
+  (window as any).clearAll = clearAll;
 });

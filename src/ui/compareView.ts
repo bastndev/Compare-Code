@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 import * as fs from 'fs';
+import * as os from 'os';
 import {
   getWebviewIcons,
   replaceIconsInHtml,
@@ -46,10 +47,11 @@ export async function createCompareView(
   comparePanel.iconPath = iconUri;
   comparePanel.webview.html = getWebviewContent(context, comparePanel.webview);
 
-  // Close panel Right and Left
+  // Handle messages from webview
   comparePanel.webview.onDidReceiveMessage(async (message) => {
     const config = vscode.workspace.getConfiguration('workbench');
     const location = config.get('sideBar.location');
+    
     switch (message.command) {
       case 'toggleLeftPanel':
         if (location === 'left') {
@@ -64,6 +66,9 @@ export async function createCompareView(
         } else {
           await vscode.commands.executeCommand('workbench.action.toggleSidebarVisibility');
         }
+        break;
+      case 'downloadCode':
+        await handleCodeDownload(message.content, message.panel, message.fileExtension);
         break;
     }
   });
@@ -135,4 +140,49 @@ function getWebviewContent(
   webview.postMessage({ type: 'setIcons', icons: { play: icons.play, stop: icons.stop } });
 
   return html;
+}
+
+// ------------------- ----- DOWNLOAD FILE
+
+/**
+ * Handle code download from webview securely using VS Code API
+ * @param content The code content to download
+ * @param panel Which panel (left/right) 
+ * @param fileExtension File extension (ignored - always saves as .txt)
+ */
+async function handleCodeDownload(content: string, panel: string, fileExtension: string): Promise<void> {
+  try {
+    // Create short date format: YYYY-MM-DD
+    const today = new Date();
+    const dateStr = today.toISOString().split('T')[0]; // Gets YYYY-MM-DD format
+    const filename = `code-${panel}-${dateStr}.txt`;
+
+    // Get user's Downloads folder
+    const downloadsPath = path.join(os.homedir(), 'Downloads');
+    const defaultUri = vscode.Uri.file(path.join(downloadsPath, filename));
+
+    // Show save dialog with Downloads as default location
+    const saveUri = await vscode.window.showSaveDialog({
+      defaultUri: defaultUri,
+      filters: {
+        'Text Files': ['txt'],
+        'All Files': ['*']
+      }
+    });
+
+    if (saveUri) {
+      // Write file using VS Code's secure file system API
+      const buffer = Buffer.from(content, 'utf8');
+      await vscode.workspace.fs.writeFile(saveUri, buffer);
+      
+      // Show success message only
+      vscode.window.showInformationMessage(
+        `Code from ${panel} panel saved to Downloads!`
+      );
+      
+    }
+  } catch (error) {
+    console.error('Download failed:', error);
+    vscode.window.showErrorMessage(`Failed to save code: ${error instanceof Error ? error.message : 'Unknown error'}`);
+  }
 }

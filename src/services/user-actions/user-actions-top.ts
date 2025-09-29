@@ -86,10 +86,10 @@ export function setPlayBtnToCompare(): void {
 }
 
 /* ======================================
-   diff-panel| MARK: Copy & Clear  
+   diff-panel| MARK: Copy/Clear/DW  
    ======================================= */
 
-// Handles copy functionality for individual panels
+// COPY CODE
 function initializeCopyButtons(): void {
   // Get all copy buttons
   const copyButtons = document.querySelectorAll(
@@ -98,37 +98,35 @@ function initializeCopyButtons(): void {
 
   copyButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      // Find the closest editor panel to determine which textarea to copy from
-      const editorPanel = button.closest(
-        '.editor-panel-left, .editor-panel-right'
-      );
+      // Determine which panel based on parent container
+      const isLeftPanel = button.closest('.options-panel-left') !== null;
+      const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
+      const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
-      if (editorPanel) {
-        // Determine which editor based on panel class
-        const isLeftPanel = editorPanel.classList.contains('editor-panel-left');
-        const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
-        const editor = document.getElementById(editorId) as HTMLTextAreaElement;
+      if (editor && editor.value.trim()) {
+        // Copy to clipboard
+        navigator.clipboard
+          .writeText(editor.value)
+          .then(() => {
+            // Add success animation
+            button.classList.add('copying');
+            setTimeout(() => {
+              button.classList.remove('copying');
+            }, 2000);
 
-        if (editor && editor.value.trim()) {
-          // Copy to clipboard
-          navigator.clipboard
-            .writeText(editor.value)
-            .then(() => {
-              // Optional: Show feedback (you can add visual feedback later)
-              console.log(
-                `Code copied from ${isLeftPanel ? 'left' : 'right'} panel`
-              );
-            })
-            .catch((err) => {
-              console.error('Failed to copy code:', err);
-            });
-        }
+            console.log(
+              `Code copied from ${isLeftPanel ? 'left' : 'right'} panel`
+            );
+          })
+          .catch((err) => {
+            console.error('Failed to copy code:', err);
+          });
       }
     });
   });
 }
 
-// Handles clear functionality for individual panels
+// CLEAR - RIGHT & LEFT
 function initializeClearCodeButtons(): void {
   // Get all clear-code buttons
   const clearButtons = document.querySelectorAll(
@@ -137,22 +135,89 @@ function initializeClearCodeButtons(): void {
 
   clearButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      // Find the closest editor panel to determine which textarea to clear
-      const editorPanel = button.closest(
-        '.editor-panel-left, .editor-panel-right'
-      );
+      // Determine which panel based on parent container
+      const isLeftPanel = button.closest('.options-panel-left') !== null;
+      const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
+      const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
-      if (editorPanel) {
-        // Determine which editor based on panel class
-        const isLeftPanel = editorPanel.classList.contains('editor-panel-left');
-        const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
-        const editor = document.getElementById(editorId) as HTMLTextAreaElement;
+      if (editor) {
+        const hasContent = editor.value.trim() !== '';
 
-        if (editor) {
-          editor.value = '';
-          // Trigger input event to update line numbers
-          editor.dispatchEvent(new Event('input'));
+        // Only show animation if there's content to clear
+        if (hasContent) {
+          button.classList.add('clearing');
         }
+
+        editor.value = '';
+        // Trigger input event to update line numbers
+        editor.dispatchEvent(new Event('input'));
+
+        // If in compare mode, reset to edit mode
+        const playBtn = document.getElementById('playBtn') as HTMLElement;
+        if (playBtn && playBtn.classList.contains('stop')) {
+          (window as any).toggle();
+        }
+
+        // Remove animation class after animation completes (only if it was added)
+        if (hasContent) {
+          setTimeout(() => {
+            button.classList.remove('clearing');
+          }, 500);
+        }
+      }
+    });
+  });
+}
+
+// DOWNLOAD CODE - Secure version using VS Code API
+function initializeDownloadButtons(): void {
+  // Get all download buttons
+  const downloadButtons = document.querySelectorAll(
+    '.download-code'
+  ) as NodeListOf<HTMLElement>;
+
+  downloadButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      console.log('Download button clicked'); // Debug log
+      
+      // Determine which panel based on parent container
+      const isLeftPanel = button.closest('.options-panel-left') !== null;
+      const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
+      const editor = document.getElementById(editorId) as HTMLTextAreaElement;
+
+      console.log(`Looking for editor: ${editorId}, found:`, !!editor); // Debug log
+      
+      if (editor) {
+        const content = editor.value.trim();
+        console.log(`Content length: ${content.length}`); // Debug log
+        
+        if (content) {
+          // Send message to extension to handle download securely
+          // Always save as .txt file with today's date
+          vscode.postMessage({
+            command: 'downloadCode',
+            content: content,
+            panel: isLeftPanel ? 'left' : 'right',
+            fileExtension: 'txt' // Always txt format
+          });
+
+          // Add success animation
+          button.classList.add('downloading');
+          setTimeout(() => {
+            button.classList.remove('downloading');
+          }, 500);
+
+          console.log(`Download request sent for ${isLeftPanel ? 'left' : 'right'} panel`);
+        } else {
+          console.log('No content to download');
+          // Visual feedback for empty content
+          button.style.opacity = '0.5';
+          setTimeout(() => {
+            button.style.opacity = '1';
+          }, 300);
+        }
+      } else {
+        console.error(`Editor not found: ${editorId}`);
       }
     });
   });
@@ -164,6 +229,7 @@ function initializeClearCodeButtons(): void {
 export function initializeUserActions(): void {
   initializeClearButton();
   initializeCopyButtons();
+  initializeDownloadButtons();
   initializeClearCodeButtons();
   initializePanelLeftButton();
   initializePanelRightButton();

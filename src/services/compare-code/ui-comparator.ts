@@ -197,8 +197,25 @@ export class EditorInstance {
   }
 
   private updateComparisonLineNumbers(lines: ComparisonLine[]): void {
+    const hasHtmlContent = lines.some(line => !!line.htmlContent);
+    
+    console.log(`🔢 Updating line numbers for editor ${this.editorId}`, {
+      totalLines: lines.length,
+      hasHtmlContent,
+      displayElementWidth: this.displayElement.clientWidth,
+      renderedElements: this.displayElement.querySelectorAll('.diff-line').length
+    });
+    
     // Calculate visual lines for comparison mode
     const visualHeights = this.calculateComparisonVisualLines(lines);
+    
+    // Validation: Check if any line needs multiple visual lines
+    const multiLineCount = visualHeights.filter(h => h > 1).length;
+    console.log(`📊 Visual heights:`, {
+      heights: visualHeights,
+      multiLineCount,
+      maxHeight: Math.max(...visualHeights)
+    });
     
     let numbersHTML = '';
     for (let i = 0; i < lines.length; i++) {
@@ -209,35 +226,108 @@ export class EditorInstance {
     }
     
     this.lineNumbersElement.innerHTML = numbersHTML;
+    
+    console.log(`✅ Line numbers updated for editor ${this.editorId} - ${multiLineCount} multi-line entries`);
   }
 
   private calculateComparisonVisualLines(lines: ComparisonLine[]): number[] {
     const visualHeights: number[] = [];
     
-    // Create a temporary element to measure text wrapping for comparison display
+    // HYBRID APPROACH: Try DOM measurement first, fallback to temporary element
+    const diffLines = this.displayElement.querySelectorAll('.diff-line');
+    
+    if (diffLines.length === lines.length) {
+      // PRIMARY: Use actual DOM elements if available
+      return this.measureFromDOM(diffLines);
+    } else {
+      // FALLBACK: Use temporary element with HTML content measurement
+      return this.measureWithTemporaryElement(lines);
+    }
+  }
+
+  private measureFromDOM(diffLines: NodeListOf<Element>): number[] {
+    const visualHeights: number[] = [];
+    const displayStyles = window.getComputedStyle(this.displayElement);
+    const baseLineHeight = parseFloat(displayStyles.lineHeight);
+    
+    console.log(`🎯 Using DOM measurement for ${diffLines.length} elements (editor ${this.editorId})`);
+    
+    diffLines.forEach((element, index) => {
+      const htmlElement = element as HTMLElement;
+      const actualHeight = htmlElement.offsetHeight;
+      const visualLines = Math.max(1, Math.round(actualHeight / baseLineHeight));
+      
+      if (index === 13 || visualLines > 1) {
+        console.log(`Line ${index + 1} (DOM):`, {
+          actualHeight,
+          baseLineHeight,
+          visualLines,
+          hasSpans: htmlElement.innerHTML.includes('<span')
+        });
+      }
+      
+      visualHeights.push(visualLines);
+    });
+    
+    return visualHeights;
+  }
+
+  private measureWithTemporaryElement(lines: ComparisonLine[]): number[] {
+    const visualHeights: number[] = [];
     const measurer = document.createElement('div');
+    const displayStyles = window.getComputedStyle(this.displayElement);
+    
+    // Copy exact styles from display element
     measurer.style.cssText = `
       position: absolute;
       visibility: hidden;
+      top: -9999px;
       height: auto;
-      width: ${this.displayElement.clientWidth - 10}px;
-      font-family: ${window.getComputedStyle(this.displayElement).fontFamily};
-      font-size: ${window.getComputedStyle(this.displayElement).fontSize};
-      line-height: ${window.getComputedStyle(this.displayElement).lineHeight};
+      width: ${this.displayElement.clientWidth - 15}px;
+      font-family: ${displayStyles.fontFamily};
+      font-size: ${displayStyles.fontSize};
+      line-height: ${displayStyles.lineHeight};
+      font-weight: ${displayStyles.fontWeight};
       white-space: pre-wrap;
       word-wrap: break-word;
       overflow-wrap: break-word;
-      padding: 0;
+      padding: ${displayStyles.padding};
       margin: 0;
       border: 0;
+      box-sizing: border-box;
     `;
+    
+    // Copy CSS classes to include word highlighting styles
+    measurer.className = this.displayElement.className;
     document.body.appendChild(measurer);
 
-    lines.forEach(line => {
-      measurer.textContent = line.content || ' '; // Empty lines need at least a space
-      const height = measurer.offsetHeight;
-      const lineHeight = parseFloat(window.getComputedStyle(this.displayElement).lineHeight);
-      const visualLines = Math.max(1, Math.round(height / lineHeight));
+    const baseLineHeight = parseFloat(displayStyles.lineHeight);
+    
+    console.log(`🔄 Using temporary element measurement (editor ${this.editorId})`);
+    
+    lines.forEach((line, index) => {
+      // CRITICAL: Use HTML content if available (for inline diff)
+      if (line.htmlContent && line.htmlContent.trim()) {
+        measurer.innerHTML = line.htmlContent;
+      } else {
+        measurer.textContent = line.content || ' ';
+      }
+      
+      // Force layout recalculation
+      measurer.offsetHeight;
+      
+      const actualHeight = measurer.offsetHeight;
+      const visualLines = Math.max(1, Math.round(actualHeight / baseLineHeight));
+      
+      if (index === 13 || visualLines > 1) {
+        console.log(`Line ${index + 1} (Temp):`, {
+          actualHeight,
+          baseLineHeight,
+          visualLines,
+          hasHtml: !!line.htmlContent
+        });
+      }
+      
       visualHeights.push(visualLines);
     });
 
@@ -282,13 +372,54 @@ export class EditorInstance {
 
   private renderComparison(lines: ComparisonLine[]): void {
     let html = '';
-    lines.forEach(line => {
+    let hasInlineContent = false;
+    
+    lines.forEach((line, index) => {
       const cssClass = this.getLineCssClass(line.type);
-      html += `<div class="diff-line ${cssClass}">${this.escapeHtml(line.content)}</div>`;
+      
+      // Preserve original content, using htmlContent only when available and valid
+      let lineContent: string;
+      if (line.htmlContent && line.htmlContent.trim()) {
+        lineContent = line.htmlContent;
+        hasInlineContent = true;
+      } else if (line.type === 'empty') {
+        // Show empty line indicator only for lines explicitly marked as empty by the algorithm
+        lineContent = '<span class="empty-line-indicator">...</span><span class="empty-line-text">(empty line)</span>';
+      } else {
+        // For all other line types (removed, added, modified, identical), show the actual content
+        lineContent = this.escapeHtml(line.content || '');
+      }
+      
+      // Add debug logging for line 23 and other problematic cases
+      if (index === 22 || index < 5 || line.content !== lineContent) {
+        console.log(`🔍 Line ${index + 1} (${this.editorId}):`, {
+          original: line.content,
+          rendered: lineContent,
+          type: line.type,
+          hasHtml: !!line.htmlContent,
+          isEmpty: !line.content || line.content.trim() === ''
+        });
+      }
+      
+      html += `<div class="diff-line ${cssClass}">${lineContent}</div>`;
     });
 
     this.displayElement.innerHTML = html;
-    this.updateComparisonLineNumbers(lines);
+    
+    // HYBRID TIMING: Different timing based on content type
+    if (hasInlineContent) {
+      // For inline diff: Wait for proper rendering
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          this.updateComparisonLineNumbers(lines);
+        });
+      });
+    } else {
+      // For simple content: Immediate update
+      requestAnimationFrame(() => {
+        this.updateComparisonLineNumbers(lines);
+      });
+    }
   }
 
   private getLineCssClass(type: LineType): string {

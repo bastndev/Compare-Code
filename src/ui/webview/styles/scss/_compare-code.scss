@@ -35,17 +35,20 @@
   overflow: hidden;
 }
 
-/* Panel-specific borders */
+/* Panel-specific borders with rounded corners */
 #editor1 {
   border-right: 1px solid $input-border;
   border-top: 1px solid $input-border;
+  border-top-right-radius: 8px;
+  overflow: hidden; /* Ensures content respects the rounded corner */
 }
 
 #editor2 {
   border-left: 1px solid $input-border;
   border-top: 1px solid $input-border;
+  border-top-left-radius: 8px;
+  overflow: hidden; /* Ensures content respects the rounded corner */
 }
-
 /* ==========================================
    LINE NUMBERS - Consistent across modes
    ========================================== */
@@ -219,14 +222,41 @@
 
 .diff-line.empty {
   background: rgba($color-grey, 0.03);
-  /* Ensure empty lines have minimum height */
+  /* Ensure empty lines have minimum height and are visible */
   min-height: 1.4em;
+  padding-left: 10px; /* Same as identical lines for consistency */
+  
+  /* Style for empty line indicators */
+  .empty-line-indicator {
+    color: rgba($color-grey, 0.6);
+    font-weight: normal;
+    margin-right: 8px;
+    font-size: 12px;
+  }
+  
+  .empty-line-text {
+    color: rgba($color-grey, 0.5);
+    font-style: italic;
+    font-size: 11px;
+    float: right;
+    margin-right: 10px;
+  }
+  
+  /* Remove old before pseudo-element */
+  &::before {
+    display: none;
+  }
 }
 
 .diff-line.identical {
   // background-color: $input-bg;
   /* Maintain consistent height even without borders */
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
+  
+  /* Ensure identical lines maintain their content */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 // ==========================================
@@ -255,6 +285,66 @@
 .line-number-item.modified {
   background: rgba($color-orange, 0.1);
   color: $color-orange;
+}
+
+// ==========================================
+// WORD HIGHLIGHTING | MARK:INLINE DIFF 
+// ==========================================
+
+/* Base styling for highlighted words - OPTIMIZED FOR MINIMAL LAYOUT IMPACT */
+%word-highlight-base {
+  padding: 0 1px; /* Minimal padding to reduce width impact */
+  border-radius: 2px;
+  font-weight: 500;
+  margin: 0; /* Remove margins that cause layout shifts */
+  transition: background-color 0.15s ease; /* Only transition background */
+  position: relative;
+  border: none; /* Remove border that adds width */
+  display: inline;
+  box-sizing: border-box;
+  
+  /* Critical: Preserve original text flow and content */
+  line-height: inherit;
+  vertical-align: baseline;
+  white-space: pre-wrap; /* Preserve whitespace in highlighted content */
+  word-wrap: break-word; /* Allow breaking of long highlighted words */
+  overflow-wrap: break-word; /* Modern browsers */
+}
+
+/* Added words - Green highlighting - LAYOUT OPTIMIZED */
+.word-added {
+  @extend %word-highlight-base;
+  background: rgba($color-green, 0.25); /* Solid color, no gradient */
+  color: #27d563;
+
+  &:hover {
+    background: rgba($color-green, 0.4);
+  }
+}
+
+/* Removed words - Red highlighting with strikethrough - LAYOUT OPTIMIZED */
+.word-removed {
+  @extend %word-highlight-base;
+  background: rgba($color-red, 0.25); /* Solid color, no gradient */
+  color: #f26464;
+  text-decoration: line-through;
+  text-decoration-thickness: 1px; /* Thinner to avoid height impact */
+
+  &:hover {
+    background: rgba($color-red, 0.4);
+    text-decoration-thickness: 1.5px;
+  }
+}
+
+/* Modified words - Orange highlighting - LAYOUT OPTIMIZED */
+.word-modified {
+  @extend %word-highlight-base;
+  background: rgba($color-orange, 0.25); /* Solid color, no gradient */
+  color: #f7af2b;
+
+  &:hover {
+    background: rgba($color-orange, 0.4);
+  }
 }
 /* ==========================================
    SCROLLBAR STYLING
@@ -312,5 +402,41 @@
   .diff-line.modified {
     background: rgba($color-orange, 0.4);
     border-left-width: 4px;
+  }
+
+  /* Enhanced word highlighting for high contrast mode */
+  .word-added {
+    background: rgba($color-green, 0.6) !important;
+    border-color: $color-green !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
+  
+  .word-removed {
+    background: rgba($color-red, 0.6) !important;
+    border-color: $color-red !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+    text-decoration-thickness: 2.5px !important;
+  }
+  
+  .word-modified {
+    background: rgba($color-orange, 0.6) !important;
+    border-color: $color-orange !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  %word-highlight-base {
+    transition: none;
+  }
+  
+  .word-added:hover,
+  .word-removed:hover,
+  .word-modified:hover {
+    transform: none;
   }
 }

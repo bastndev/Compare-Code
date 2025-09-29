@@ -33,6 +33,7 @@ export function getWebviewIcons(context: vscode.ExtensionContext, webview: vscod
         // Utility icons
         clear: createIconUri('clear'),
         copy: createIconUri('copy'),
+        download: createIconUri('download'),
     };
 }
 
@@ -59,6 +60,8 @@ export function replaceIconsInHtml(html: string, icons: ReturnType<typeof getWeb
     processedHtml = processedHtml.replace(/\{\{CLEAR_ICON_R\}\}/g, icons.clear);
     processedHtml = processedHtml.replace(/\{\{COPY_ICON_R\}\}/g, icons.copy);
     processedHtml = processedHtml.replace(/\{\{COPY_ICON_L\}\}/g, icons.copy);
+    processedHtml = processedHtml.replace(/\{\{DOWNLOAD_ICON_R\}\}/g, icons.download);
+    processedHtml = processedHtml.replace(/\{\{DOWNLOAD_ICON_L\}\}/g, icons.download);
 
     return processedHtml;
 }

@@ -57,7 +57,39 @@
     </div>
 
     <!-- FILE IMPORT | DOWNLOAD - COPY - CLEAR -->
-    <div class="compare-panel">1 Box & 2 Box</div>
+    <div class="compare-panel">
+        <div class="options-panel-left">
+            <div class="copy-clear">
+                <button class="clear-code" data-tooltip="Clear">
+                    <img src="{{CLEAR_ICON_L}}">
+                </button>
+                <button class="copy-code" data-tooltip="Copy code">
+                    <img src="{{COPY_ICON_L}}">
+                    <div class="copy-message">Copied!</div>
+                </button>
+                <button class="download-code" data-tooltip="Download">
+                    <img src="{{DOWNLOAD_ICON_L}}">
+                </button>
+            </div>
+        </div>
+    
+        <div class="test"></div>
+    
+        <div class="options-panel-right">
+            <div class="copy-clear">
+                <button class="download-code" data-tooltip="Download">
+                    <img src="{{DOWNLOAD_ICON_R}}">
+                </button>
+                <button class="copy-code" data-tooltip="Copy code">
+                    <img src="{{COPY_ICON_R}}">
+                    <div class="copy-message">Copied!</div>
+                </button>
+                <button class="clear-code" data-tooltip="Clear">
+                    <img src="{{CLEAR_ICON_R}}">
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- ======================================
          Main comparison interface | HYBRID ARCHITECTURE
@@ -65,6 +97,10 @@
 
     <div class="compare-code">
         <div class="code-panel" id="panel1">
+            <!-- Dual scroll -->
+            <div class="dual-scroll-indicator" id="dual-scroll-indicator-left">
+                🔗
+            </div>
             <!-- Unified Editor Container -->
             <div class="unified-editor" id="editor1">
                 <div class="line-numbers" id="lineNumbers1">1</div>
@@ -82,6 +118,10 @@
         </div>
         
         <div class="code-panel" id="panel2">
+            <!-- Dual scroll -->
+            <div class="dual-scroll-indicator" id="dual-scroll-indicator-right">
+                🔗
+            </div>
             <!-- Unified Editor Container -->
             <div class="unified-editor" id="editor2">
                 <div class="line-numbers" id="lineNumbers2">1</div>
@@ -107,11 +147,11 @@
             <button class="only-code bbtn" data-tooltip="Show modified code">
                 <img class="icon" src="{{ONLY_CODE_ICON}}">
             </button>
-            <button class="dual-scroll bbtn" data-tooltip="Dual scroll">
-                <img class="icon" src="{{DUAL_SCROLL_ICON}}">
-            </button>
             <button class="switch-on-off bbtn" data-tooltip="Normal/Pro version">
                 <img class="icon" src="{{SWITCH_ON_ICON}}">
+            </button>
+            <button class="dual-scroll bbtn" id="dual-scroll-btn" data-tooltip="Dual scroll">
+                <img class="icon" src="{{DUAL_SCROLL_ICON}}">
             </button>
             <button class="language bbtn" data-tooltip="Change language">
                 <img class="icon" src="{{LANGUAGE_ICON}}">
