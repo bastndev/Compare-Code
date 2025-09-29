@@ -35,17 +35,20 @@
   overflow: hidden;
 }
 
-/* Panel-specific borders */
+/* Panel-specific borders with rounded corners */
 #editor1 {
   border-right: 1px solid $input-border;
   border-top: 1px solid $input-border;
+  border-top-right-radius: 8px;
+  overflow: hidden; /* Ensures content respects the rounded corner */
 }
 
 #editor2 {
   border-left: 1px solid $input-border;
   border-top: 1px solid $input-border;
+  border-top-left-radius: 8px;
+  overflow: hidden; /* Ensures content respects the rounded corner */
 }
-
 /* ==========================================
    LINE NUMBERS - Consistent across modes
    ========================================== */
