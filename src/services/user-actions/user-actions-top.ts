@@ -89,7 +89,7 @@ export function setPlayBtnToCompare(): void {
    diff-panel| MARK: Copy/Clear/DW  
    ======================================= */
 
-// Handles copy functionality for individual panels
+// COPY CODE
 function initializeCopyButtons(): void {
   // Get all copy buttons
   const copyButtons = document.querySelectorAll(
@@ -108,7 +108,12 @@ function initializeCopyButtons(): void {
         navigator.clipboard
           .writeText(editor.value)
           .then(() => {
-            // Optional: Show feedback (you can add visual feedback later)
+            // Add success animation
+            button.classList.add('copying');
+            setTimeout(() => {
+              button.classList.remove('copying');
+            }, 300);
+
             console.log(
               `Code copied from ${isLeftPanel ? 'left' : 'right'} panel`
             );
