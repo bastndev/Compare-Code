@@ -11,7 +11,21 @@
   text-align: center;
   height: 40px;
   width: 100%;
-  position: relative;
+  /* position: relative; */
+  display: grid;
+  grid-template-columns: 1fr 50px 1fr;
+}
+
+.options-panel-left {
+  background-color: red;
+}
+
+.test {
+  color: orange;
+}
+
+.options-panel-right {
+  background-color: blue;
 }
 
 /* ======================================
