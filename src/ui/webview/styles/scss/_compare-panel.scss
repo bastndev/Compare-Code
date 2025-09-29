@@ -11,4 +11,109 @@
   text-align: center;
   height: 40px;
   width: 100%;
+  position: relative;
+}
+
+/* ======================================
+  DUAL SCROLL INDICATOR - Connection indicators in each panel
+  ======================================= */
+.dual-scroll-indicator {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  background: linear-gradient(135deg, #007acc, #005a9e);
+  color: white;
+  padding: 8px;
+  border-radius: 8px; // Less circular, more square
+  font-size: 16px;
+  font-weight: 600;
+  display: none; // Hidden by default - only appears when activating dual scroll
+  box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(4px);
+  animation: pulseGlow 2s ease-in-out infinite alternate;
+  z-index: 1000;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+
+  // Pulsing glow animation
+  @keyframes pulseGlow {
+    0% {
+      box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+      transform: scale(1);
+    }
+    100% {
+      box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
+      transform: scale(1.05);
+    }
+  }
+
+  // Responsive for small screens
+  @media (max-width: 768px) {
+    font-size: 14px;
+    padding: 6px;
+    width: 28px;
+    height: 28px;
+    top: 8px;
+    right: 10px;
+  }
+}
+
+/* ======================================
+  DUAL SCROLL BUTTON ACTIVE STATE
+  ======================================= */
+.dual-scroll.bbtn.active {
+  background: linear-gradient(135deg, #007acc, #005a9e) !important;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+  
+  .icon {
+    filter: brightness(1.2);
+  }
+}
+
+// Dark theme - Color adjustments
+@media (prefers-color-scheme: dark) {
+  .dual-scroll-indicator {
+    background: linear-gradient(135deg, #0078d4, #106ebe);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 2px 8px rgba(16, 110, 190, 0.4);
+      }
+      100% {
+        box-shadow: 0 2px 12px rgba(16, 110, 190, 0.7);
+      }
+    }
+  }
+
+  .dual-scroll.bbtn.active {
+    background: linear-gradient(135deg, #0078d4, #106ebe) !important;
+    box-shadow: 0 0 15px rgba(16, 110, 190, 0.6);
+  }
+}
+
+// Light theme - Color adjustments
+@media (prefers-color-scheme: light) {
+  .dual-scroll-indicator {
+    background: linear-gradient(135deg, #0066cc, #004499);
+    color: white;
+    
+    @keyframes pulseGlow {
+      0% {
+        box-shadow: 0 2px 8px rgba(0, 102, 204, 0.3);
+      }
+      100% {
+        box-shadow: 0 2px 12px rgba(0, 102, 204, 0.6);
+      }
+    }
+  }
+
+  .dual-scroll.bbtn.active {
+    background: linear-gradient(135deg, #0066cc, #004499) !important;
+    box-shadow: 0 0 15px rgba(0, 102, 204, 0.5);
+  }
 }
