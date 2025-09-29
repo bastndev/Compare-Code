@@ -86,7 +86,7 @@ export function setPlayBtnToCompare(): void {
 }
 
 /* ======================================
-   diff-panel| MARK: Copy & Clear  
+   diff-panel| MARK: Copy/Clear/DW  
    ======================================= */
 
 // Handles copy functionality for individual panels
@@ -128,7 +128,7 @@ function initializeCopyButtons(): void {
   });
 }
 
-// Handles clear functionality for individual panels
+// CLEAR - RIGHT & LEFT
 function initializeClearCodeButtons(): void {
   // Get all clear-code buttons
   const clearButtons = document.querySelectorAll(
@@ -137,22 +137,15 @@ function initializeClearCodeButtons(): void {
 
   clearButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      // Find the closest editor panel to determine which textarea to clear
-      const editorPanel = button.closest(
-        '.editor-panel-left, .editor-panel-right'
-      );
+      // Determine which panel based on parent container
+      const isLeftPanel = button.closest('.options-panel-left') !== null;
+      const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
+      const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
-      if (editorPanel) {
-        // Determine which editor based on panel class
-        const isLeftPanel = editorPanel.classList.contains('editor-panel-left');
-        const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
-        const editor = document.getElementById(editorId) as HTMLTextAreaElement;
-
-        if (editor) {
-          editor.value = '';
-          // Trigger input event to update line numbers
-          editor.dispatchEvent(new Event('input'));
-        }
+      if (editor) {
+        editor.value = '';
+        // Trigger input event to update line numbers
+        editor.dispatchEvent(new Event('input'));
       }
     });
   });
