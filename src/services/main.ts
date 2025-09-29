@@ -108,6 +108,13 @@ export function getEditorManager(): EditorManager {
 }
 
 /**
+ * Check if currently in comparison mode
+ */
+export function isComparingMode(): boolean {
+  return isComparing;
+}
+
+/**
  * Initialize the complete compare code system
  */
 export function initializeCompareCode(): void {

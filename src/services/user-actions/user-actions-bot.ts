@@ -2,7 +2,7 @@
    User action bot | MARK: Dual Scroll
    ======================================= */
 
-import { getEditorManager } from '../main';
+import { getEditorManager, isComparingMode } from '../main';
 
 let syncScrollEnabled = false;
 let isScrolling = false;
@@ -132,24 +132,36 @@ export function isDualScrollActive(): boolean {
    ======================================= */
 
 function toggleOnlyModified() {
-    onlyModifiedEnabled = !onlyModifiedEnabled;
-    const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+    if (!isComparingMode()) {
+        console.warn('Cannot toggle only modified mode: not in comparison mode');
+        return;
+    }
+
     const editorManager = getEditorManager();
-    
+    const { lines1 } = editorManager.getCurrentLines();
+    const hasModified = lines1.some(line => line.type !== 'identical');
+
     if (onlyModifiedEnabled) {
-        if (btn) {
-            btn.classList.add('active');
-        }
-        console.log('Only modified mode activated');
-        // Filter out identical lines
-        editorManager.renderFiltered(line => line.type !== 'identical');
-    } else {
+        // Deactivating
+        onlyModifiedEnabled = false;
+        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
         if (btn) {
             btn.classList.remove('active');
         }
         console.log('Only modified mode deactivated');
-        // Show all lines
         editorManager.renderFiltered(() => true);
+    } else {
+        // Activating
+        if (!hasModified) {
+            return;
+        }
+        onlyModifiedEnabled = true;
+        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+        if (btn) {
+            btn.classList.add('active');
+        }
+        console.log('Only modified mode activated');
+        editorManager.renderFiltered(line => line.type !== 'identical');
     }
 }
 

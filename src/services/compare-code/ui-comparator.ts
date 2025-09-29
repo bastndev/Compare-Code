@@ -41,6 +41,10 @@ export class EditorManager {
     this.editor2.setCompareMode(filteredLines2);
   }
 
+  public getCurrentLines(): { lines1: ComparisonLine[], lines2: ComparisonLine[] } {
+    return { lines1: this.currentLines1, lines2: this.currentLines2 };
+  }
+
   public updateLineNumbers(): void {
     this.editor1.updateLineNumbers();
     this.editor2.updateLineNumbers();
