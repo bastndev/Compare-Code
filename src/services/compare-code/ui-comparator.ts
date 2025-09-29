@@ -382,9 +382,12 @@ export class EditorInstance {
       if (line.htmlContent && line.htmlContent.trim()) {
         lineContent = line.htmlContent;
         hasInlineContent = true;
+      } else if (line.type === 'empty' || !line.content || line.content.trim() === '') {
+        // Format empty lines with visual indicators like in the example
+        lineContent = '<span class="empty-line-indicator">...</span><span class="empty-line-text">(empty line)</span>';
       } else {
-        // Always preserve the original content, even if empty
-        lineContent = line.content ? this.escapeHtml(line.content) : '&nbsp;';
+        // Always preserve the original content
+        lineContent = this.escapeHtml(line.content);
       }
       
       // Add debug logging for problematic cases

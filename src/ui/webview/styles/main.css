@@ -495,15 +495,27 @@ body {
   background: rgba(204, 204, 204, 0.03);
   /* Ensure empty lines have minimum height and are visible */
   min-height: 1.4em;
-  /* Add subtle indication for empty lines */
+  padding-left: 10px; /* Same as identical lines for consistency */
+  /* Style for empty line indicators */
+}
+.diff-line.empty .empty-line-indicator {
+  color: rgba(204, 204, 204, 0.6);
+  font-weight: normal;
+  margin-right: 8px;
+  font-size: 12px;
+}
+.diff-line.empty .empty-line-text {
+  color: rgba(204, 204, 204, 0.5);
+  font-style: italic;
+  font-size: 11px;
+  float: right;
+  margin-right: 10px;
+}
+.diff-line.empty {
+  /* Remove old before pseudo-element */
 }
 .diff-line.empty::before {
-  content: "";
-  display: inline-block;
-  width: 100%;
-  height: 1px;
-  background: rgba(204, 204, 204, 0.1);
-  margin: 0.7em 0;
+  display: none;
 }
 
 .diff-line.identical {
