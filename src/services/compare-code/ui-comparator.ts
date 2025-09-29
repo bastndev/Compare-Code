@@ -374,13 +374,27 @@ export class EditorInstance {
     let html = '';
     let hasInlineContent = false;
     
-    lines.forEach(line => {
+    lines.forEach((line, index) => {
       const cssClass = this.getLineCssClass(line.type);
       
-      // Use htmlContent for inline diff highlighting if available, otherwise escape content
-      const lineContent = line.htmlContent ? line.htmlContent : this.escapeHtml(line.content);
-      if (line.htmlContent) {
+      // Preserve original content, using htmlContent only when available and valid
+      let lineContent: string;
+      if (line.htmlContent && line.htmlContent.trim()) {
+        lineContent = line.htmlContent;
         hasInlineContent = true;
+      } else {
+        // Always preserve the original content, even if empty
+        lineContent = line.content ? this.escapeHtml(line.content) : '&nbsp;';
+      }
+      
+      // Add debug logging for problematic cases
+      if (index < 5 || line.content !== lineContent) {
+        console.log(`🔍 Line ${index + 1} (${this.editorId}):`, {
+          original: line.content,
+          rendered: lineContent,
+          type: line.type,
+          hasHtml: !!line.htmlContent
+        });
       }
       
       html += `<div class="diff-line ${cssClass}">${lineContent}</div>`;

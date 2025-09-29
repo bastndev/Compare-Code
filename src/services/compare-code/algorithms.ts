@@ -116,12 +116,25 @@ export class ComparisonEngine {
    * @returns HTML string with highlighted differences
    */
   private static generateInlineDiff(currentLine: string, otherLine: string, side: 'left' | 'right'): string {
+    // Handle empty lines
+    if (!currentLine && !otherLine) {
+      return '';
+    }
+    if (!currentLine) {
+      return side === 'right' ? `<span class="word-added">${this.escapeHtml(otherLine)}</span>` : '';
+    }
+    if (!otherLine) {
+      return side === 'left' ? `<span class="word-removed">${this.escapeHtml(currentLine)}</span>` : '';
+    }
+    
     const currentTokens = this.tokenizeLine(currentLine);
     const otherTokens = this.tokenizeLine(otherLine);
     
+    // Generate token differences preserving original content structure
     const operations = this.computeTokenDifferences(currentTokens, otherTokens);
     
-    return this.renderTokenOperations(operations, side);
+    // Render tokens based on the current side and preserve original structure
+    return this.renderTokensForSide(currentTokens, otherTokens, operations, side);
   }
 
   /**
@@ -218,20 +231,75 @@ export class ComparisonEngine {
    * @returns HTML string
    */
   private static renderTokenOperations(operations: TokenOperation[], side: 'left' | 'right'): string {
-    return operations.map(op => {
+    const result: string[] = [];
+    
+    for (const op of operations) {
       const escapedText = this.escapeHtml(op.token.text);
       
       switch (op.type) {
         case 'unchanged':
-          return escapedText;
+          result.push(escapedText);
+          break;
         case 'added':
-          return side === 'right' ? `<span class="word-added">${escapedText}</span>` : '';
+          // Show added content only on the right side (where it was added)
+          // On left side, show as empty to maintain structure
+          if (side === 'right') {
+            result.push(`<span class="word-added">${escapedText}</span>`);
+          }
+          break;
         case 'removed':
-          return side === 'left' ? `<span class="word-removed">${escapedText}</span>` : '';
+          // Show removed content only on the left side (where it was removed from)
+          // On right side, show as empty to maintain structure
+          if (side === 'left') {
+            result.push(`<span class="word-removed">${escapedText}</span>`);
+          }
+          break;
         case 'modified':
-          return `<span class="word-modified">${escapedText}</span>`;
+          result.push(`<span class="word-modified">${escapedText}</span>`);
+          break;
         default:
-          return escapedText;
+          result.push(escapedText);
+          break;
+      }
+    }
+    
+    return result.join('');
+  }
+
+  /**
+   * Render tokens for a specific side while preserving original content
+   * @param currentTokens Tokens from current line
+   * @param otherTokens Tokens from other line  
+   * @param operations Token operations from diff
+   * @param side Which side of comparison
+   * @returns HTML string with proper highlighting
+   */
+  private static renderTokensForSide(
+    currentTokens: Token[], 
+    otherTokens: Token[], 
+    operations: TokenOperation[], 
+    side: 'left' | 'right'
+  ): string {
+    // Instead of using operations, render the actual tokens from the current side
+    // and highlight differences based on what exists in the other side
+    const otherTokenTexts = new Set(otherTokens.map(t => t.text));
+    const currentTokenTexts = new Set(currentTokens.map(t => t.text));
+    
+    return currentTokens.map(token => {
+      const escapedText = this.escapeHtml(token.text);
+      
+      if (otherTokenTexts.has(token.text)) {
+        // Token exists in both sides - unchanged
+        return escapedText;
+      } else {
+        // Token only exists in current side
+        if (side === 'left') {
+          // This token was removed from left
+          return `<span class="word-removed">${escapedText}</span>`;
+        } else {
+          // This token was added to right
+          return `<span class="word-added">${escapedText}</span>`;
+        }
       }
     }).join('');
   }
@@ -284,7 +352,7 @@ export class ComparisonEngine {
   }
 
   /**
-   * Compute line alignment using LCS algorithm to properly align similar lines
+   * Compute line alignment using improved LCS algorithm to properly align similar lines
    * @param lines1 First set of lines
    * @param lines2 Second set of lines
    * @returns Array of line operations showing how lines align
@@ -293,13 +361,34 @@ export class ComparisonEngine {
     const m = lines1.length;
     const n = lines2.length;
     
-    // Create DP table for LCS computation
-    const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+    // Handle empty cases
+    if (m === 0 && n === 0) { return []; }
+    if (m === 0) {
+      return lines2.map(line => ({ type: 'added' as LineOperationType, line2: line }));
+    }
+    if (n === 0) {
+      return lines1.map(line => ({ type: 'removed' as LineOperationType, line1: line }));
+    }
     
-    // Fill DP table - consider lines equal if they're identical
+    // Create DP table for LCS computation with similarity scoring
+    const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+    const similarity: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+    
+    // Pre-calculate similarity scores
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        similarity[i][j] = this.calculateLineSimilarity(lines1[i - 1], lines2[j - 1]);
+      }
+    }
+    
+    // Fill DP table - consider lines equal if they're identical or very similar
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         if (lines1[i - 1] === lines2[j - 1]) {
+          // Identical lines get highest score
+          dp[i][j] = dp[i - 1][j - 1] + 2;
+        } else if (similarity[i][j] > 0.7) {
+          // Similar lines get partial score
           dp[i][j] = dp[i - 1][j - 1] + 1;
         } else {
           dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
@@ -320,8 +409,9 @@ export class ComparisonEngine {
           line2: lines2[j - 1]
         });
         i--; j--;
-      } else if (i > 0 && j > 0 && dp[i - 1][j - 1] >= Math.max(dp[i - 1][j], dp[i][j - 1])) {
-        // Lines are different but both exist - modified
+      } else if (i > 0 && j > 0 && similarity[i][j] > 0.3 && 
+                 dp[i - 1][j - 1] >= Math.max(dp[i - 1][j], dp[i][j - 1])) {
+        // Lines are similar enough to be considered modified
         operations.unshift({
           type: 'modified',
           line1: lines1[i - 1],
@@ -346,5 +436,31 @@ export class ComparisonEngine {
     }
     
     return operations;
+  }
+
+  /**
+   * Calculate similarity score between two lines
+   * @param line1 First line
+   * @param line2 Second line
+   * @returns Similarity score between 0 and 1
+   */
+  private static calculateLineSimilarity(line1: string, line2: string): number {
+    if (line1 === line2) { return 1.0; }
+    if (!line1 || !line2) { return 0.0; }
+    
+    const tokens1 = this.tokenizeLine(line1);
+    const tokens2 = this.tokenizeLine(line2);
+    
+    if (tokens1.length === 0 && tokens2.length === 0) { return 1.0; }
+    if (tokens1.length === 0 || tokens2.length === 0) { return 0.0; }
+    
+    // Count common tokens
+    const set1 = new Set(tokens1.map(t => t.text));
+    const set2 = new Set(tokens2.map(t => t.text));
+    const intersection = new Set([...set1].filter(x => set2.has(x)));
+    const union = new Set([...set1, ...set2]);
+    
+    // Jaccard similarity
+    return intersection.size / union.size;
   }
 }
