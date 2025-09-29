@@ -261,10 +261,10 @@ $scale-active: 0.98;
 }
 
 // ======================================
-// HERE BUTTON TS | MARK: --- -- - 
+// HERE BUTTON TS | MARK: BOX SHADOW
 // ======================================
 
-// DUAL SCROLL BUTTON STYLES | MARK: DUAL SCROLL 
+// DUAL SCROLL
 .dual-scroll.bbtn.active {
   background: $btn-bg;
   transform: scale(1.05);
@@ -275,11 +275,11 @@ $scale-active: 0.98;
   }
 }
 
-// ONLY CODE BUTTON STYLES | MARK: ONLY CODE
+// ONLY CODE EDITH
 .only-code.bbtn.active {
   background: $btn-bg;
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); // Green glow for modified code
+  box-shadow: 0 0 15px rgba(34, 197, 94, 0.5); 
   
   .icon {
     filter: brightness(1.2);
