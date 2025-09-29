@@ -16,8 +16,10 @@
   grid-template-columns: 1fr 50px 1fr;
 }
 
+// BUTTONS LEF  AND RIGHT
 .options-panel-left {
-  background-color: red;
+  // background-color: red;
+  text-align: left;
 }
 
 .test {
@@ -25,9 +27,22 @@
 }
 
 .options-panel-right {
-  background-color: blue;
+  // background-color: blue;
+  text-align: right;
 }
 
+.copy-code, .clear-code {
+  background: none;
+  cursor: pointer;
+  border: none;
+}
+
+.copy-clear{
+  padding: 0 12px 0 15px;
+}
+.copy-clear img{
+  width: 15px;
+}
 /* ======================================
    DUAL SCROLL INDICATOR 
   ======================================= */

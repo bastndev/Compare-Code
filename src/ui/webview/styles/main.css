@@ -306,7 +306,7 @@ body {
 }
 
 .options-panel-left {
-  background-color: red;
+  text-align: left;
 }
 
 .test {
@@ -314,7 +314,21 @@ body {
 }
 
 .options-panel-right {
-  background-color: blue;
+  text-align: right;
+}
+
+.copy-code, .clear-code {
+  background: none;
+  cursor: pointer;
+  border: none;
+}
+
+.copy-clear {
+  padding: 0 12px 0 15px;
+}
+
+.copy-clear img {
+  width: 15px;
 }
 
 /* ======================================
