@@ -354,11 +354,11 @@ body {
 .copy-code .copy-message {
   display: none;
   position: absolute;
-  top: -30px;
+  bottom: -30px;
   left: 50%;
   transform: translateX(-50%);
   background-color: #22c55e;
-  color: #ebebeb;
+  color: #000000;
   font-weight: bold;
   padding: 4px 8px;
   border-radius: 4px;
@@ -371,11 +371,11 @@ body {
 .copy-code .copy-message::after {
   content: "";
   position: absolute;
-  top: 100%;
+  top: -5px;
   left: 50%;
   transform: translateX(-50%);
   border: 5px solid transparent;
-  border-top-color: #22c55e;
+  border-bottom-color: #22c55e;
 }
 .copy-code.copying .copy-message {
   display: block;
@@ -399,7 +399,7 @@ body {
 @keyframes fadeInOut {
   0% {
     opacity: 0;
-    transform: translateX(-50%) translateY(5px);
+    transform: translateX(-50%) translateY(-5px);
   }
   50% {
     opacity: 1;
@@ -407,7 +407,7 @@ body {
   }
   100% {
     opacity: 0;
-    transform: translateX(-50%) translateY(-5px);
+    transform: translateX(-50%) translateY(5px);
   }
 }
 .download-code.downloading img {

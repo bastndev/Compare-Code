@@ -63,7 +63,7 @@
   .copy-message {
     display: none;
     position: absolute;
-    top: -30px;
+    bottom: -30px;
     left: 50%;
     transform: translateX(-50%);
     background-color: $color-green;
@@ -79,11 +79,11 @@
     &::after {
       content: '';
       position: absolute;
-      top: 100%;
+      top: -5px;
       left: 50%;
       transform: translateX(-50%);
       border: 5px solid transparent;
-      border-top-color: $color-green;
+      border-bottom-color: $color-green;
     }
   }
   &.copying .copy-message {
@@ -99,9 +99,9 @@
 }
 
 @keyframes fadeInOut {
-  0% { opacity: 0; transform: translateX(-50%) translateY(5px); }
+  0% { opacity: 0; transform: translateX(-50%) translateY(-5px); }
   50% { opacity: 1; transform: translateX(-50%) translateY(0); }
-  100% { opacity: 0; transform: translateX(-50%) translateY(-5px); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(5px); }
 }
 
 // Download code animation
