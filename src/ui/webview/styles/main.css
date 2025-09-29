@@ -310,7 +310,7 @@ body {
   position: absolute;
   top: 10px;
   right: 15px;
-  background: linear-gradient(135deg, #007acc, #005a9e);
+  background: linear-gradient(135deg, rgba(0, 122, 204, 0.431372549), rgba(0, 90, 158, 0.2745098039));
   color: white;
   padding: 8px;
   border-radius: 8px;

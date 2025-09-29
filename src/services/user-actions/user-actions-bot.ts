@@ -28,9 +28,11 @@ function toggleDualScroll() {
     if (syncScrollEnabled) {
         if (indicatorLeft) {
             indicatorLeft.style.display = 'flex';
+            indicatorLeft.textContent = '⚡';
         }
         if (indicatorRight) {
             indicatorRight.style.display = 'flex';
+            indicatorRight.textContent = '⚡';
         }
         if (btn) {
             btn.classList.add('active');
@@ -50,23 +52,38 @@ function toggleDualScroll() {
     }
 }
 
-/* Main synchronization function */
+/* Main synchronization function - PRECISE SCROLL SYNC */
 function syncScroll(sourceElement: HTMLElement, targetElement: HTMLElement) {
     if (!syncScrollEnabled || isScrolling) {
         return;
     }
          
     isScrolling = true;
-         
-    const scrollPercentage = sourceElement.scrollTop / 
-        (sourceElement.scrollHeight - sourceElement.clientHeight);
-         
-    const targetScrollTop = scrollPercentage * 
-        (targetElement.scrollHeight - targetElement.clientHeight);
-         
-    targetElement.scrollTop = targetScrollTop;
-         
-    setTimeout(() => { isScrolling = false; }, 100);
+    
+    // Calculate precise scroll ratios
+    const sourceMaxScroll = sourceElement.scrollHeight - sourceElement.clientHeight;
+    const targetMaxScroll = targetElement.scrollHeight - targetElement.clientHeight;
+    
+    // Avoid division by zero
+    if (sourceMaxScroll <= 0 || targetMaxScroll <= 0) {
+        isScrolling = false;
+        return;
+    }
+    
+    // Calculate normalized scroll position (0 to 1)
+    const sourceRatio = sourceElement.scrollTop / sourceMaxScroll;
+    
+    // Apply with smooth interpolation to target
+    const targetScrollTop = sourceRatio * targetMaxScroll;
+    
+    // Ensure we don't exceed bounds
+    const clampedScrollTop = Math.max(0, Math.min(targetScrollTop, targetMaxScroll));
+    
+        // Apply scroll with minimal delay for precision
+    targetElement.scrollTop = clampedScrollTop;
+    
+    // Shorter timeout for more responsive sync
+    setTimeout(() => { isScrolling = false; }, 16); // ~60fps
 }
 
 /* Set up scroll event listeners for all elements */
