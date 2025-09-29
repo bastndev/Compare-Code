@@ -126,6 +126,49 @@ function initializeCopyButtons(): void {
   });
 }
 
+// CLEAR - RIGHT & LEFT
+function initializeClearCodeButtons(): void {
+  // Get all clear-code buttons
+  const clearButtons = document.querySelectorAll(
+    '.clear-code'
+  ) as NodeListOf<HTMLElement>;
+
+  clearButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      // Determine which panel based on parent container
+      const isLeftPanel = button.closest('.options-panel-left') !== null;
+      const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
+      const editor = document.getElementById(editorId) as HTMLTextAreaElement;
+
+      if (editor) {
+        const hasContent = editor.value.trim() !== '';
+
+        // Only show animation if there's content to clear
+        if (hasContent) {
+          button.classList.add('clearing');
+        }
+
+        editor.value = '';
+        // Trigger input event to update line numbers
+        editor.dispatchEvent(new Event('input'));
+
+        // If in compare mode, reset to edit mode
+        const playBtn = document.getElementById('playBtn') as HTMLElement;
+        if (playBtn && playBtn.classList.contains('stop')) {
+          (window as any).toggle();
+        }
+
+        // Remove animation class after animation completes (only if it was added)
+        if (hasContent) {
+          setTimeout(() => {
+            button.classList.remove('clearing');
+          }, 500);
+        }
+      }
+    });
+  });
+}
+
 // DOWNLOAD CODE - Secure version using VS Code API
 function initializeDownloadButtons(): void {
   // Get all download buttons
@@ -175,49 +218,6 @@ function initializeDownloadButtons(): void {
         }
       } else {
         console.error(`Editor not found: ${editorId}`);
-      }
-    });
-  });
-}
-
-// CLEAR - RIGHT & LEFT
-function initializeClearCodeButtons(): void {
-  // Get all clear-code buttons
-  const clearButtons = document.querySelectorAll(
-    '.clear-code'
-  ) as NodeListOf<HTMLElement>;
-
-  clearButtons.forEach((button) => {
-    button.addEventListener('click', () => {
-      // Determine which panel based on parent container
-      const isLeftPanel = button.closest('.options-panel-left') !== null;
-      const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
-      const editor = document.getElementById(editorId) as HTMLTextAreaElement;
-
-      if (editor) {
-        const hasContent = editor.value.trim() !== '';
-
-        // Only show animation if there's content to clear
-        if (hasContent) {
-          button.classList.add('clearing');
-        }
-
-        editor.value = '';
-        // Trigger input event to update line numbers
-        editor.dispatchEvent(new Event('input'));
-
-        // If in compare mode, reset to edit mode
-        const playBtn = document.getElementById('playBtn') as HTMLElement;
-        if (playBtn && playBtn.classList.contains('stop')) {
-          (window as any).toggle();
-        }
-
-        // Remove animation class after animation completes (only if it was added)
-        if (hasContent) {
-          setTimeout(() => {
-            button.classList.remove('clearing');
-          }, 500);
-        }
       }
     });
   });
