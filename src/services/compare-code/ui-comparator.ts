@@ -185,14 +185,15 @@ export class EditorInstance {
     return visualHeights;
   }
 
-  private createLineNumberElement(lineNumber: number, visualLines: number): string {
+  private createLineNumberElement(lineNumber: number, visualLines: number, className?: string): string {
     const lineHeight = 1.4; // em units
     const totalHeight = visualLines * lineHeight;
     
     // Center the line number vertically if the content spans multiple visual lines
     const centerOffset = visualLines > 1 ? (totalHeight - lineHeight) / 2 : 0;
     
-    return `<div class="line-number-item" style="height: ${totalHeight}em; line-height: ${lineHeight}em; padding-top: ${centerOffset}em;">${lineNumber}</div>`;
+    const classAttr = className ? ` class="line-number-item ${className}"` : ' class="line-number-item"';
+    return `<div${classAttr} style="height: ${totalHeight}em; line-height: ${lineHeight}em; padding-top: ${centerOffset}em;">${lineNumber}</div>`;
   }
 
   private updateComparisonLineNumbers(lines: ComparisonLine[]): void {
@@ -203,7 +204,8 @@ export class EditorInstance {
     for (let i = 0; i < lines.length; i++) {
       const logicalLineNumber = i + 1;
       const visualLines = visualHeights[i];
-      numbersHTML += this.createLineNumberElement(logicalLineNumber, visualLines);
+      const className = this.getLineCssClass(lines[i].type);
+      numbersHTML += this.createLineNumberElement(logicalLineNumber, visualLines, className);
     }
     
     this.lineNumbersElement.innerHTML = numbersHTML;

@@ -174,9 +174,9 @@
   @extend .mode-edit;
 }
 
-/* ==========================================
-   COMPARISON LINES - Diff highlighting WITH WORD WRAP
-   ========================================== */
+// ==========================================
+// COMPARISON LINES - | MARK: Lines color
+// ==========================================
 
 .diff-line {
   display: block;
@@ -198,19 +198,22 @@
 /* Line types */
 .diff-line.added {
   background: linear-gradient(90deg, rgba($color-green, 0.2) 0%, rgba($color-green, 0.1) 100%);
-  border-left: 3px solid #28a745;
+  border-left: 3px solid $color-green;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
 .diff-line.removed {
   background: linear-gradient(90deg, rgba($color-red, 0.2) 0%, rgba($color-red, 0.1) 100%);
-  border-left: 3px solid #dc3545;
+  border-left: 3px solid $color-red;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
 .diff-line.modified {
   background: linear-gradient(90deg, rgba($color-orange, 0.2) 0%, rgba($color-orange, 0.1) 100%);
-  border-left: 3px solid #ffc107;
+  border-left: 3px solid $color-orange;
+  border-radius: 3px 0 0 3px;
   padding-left: 7px; /* Compensate border */
 }
 
@@ -221,14 +224,14 @@
 }
 
 .diff-line.identical {
-  /* Default styling - no special highlighting */
+  // background-color: $input-bg;
   /* Maintain consistent height even without borders */
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
 }
 
-/* ==========================================
-   LINE NUMBERS FOR WRAPPED CONTENT
-   ========================================== */
+// ==========================================
+// FOR WRAPPED CONTENT | MARK: Numbers
+// ========================================== 
 
 /* Line number positioning for wrapped lines */
 .line-number-item {
@@ -239,6 +242,20 @@
   /* Height will be calculated dynamically by JavaScript */
 }
 
+.line-number-item.added {
+  background: rgba($color-green, 0.1);
+  color: $color-green;
+}
+
+.line-number-item.removed {
+  background: rgba($color-red, 0.1);
+  color: $color-red;
+}
+
+.line-number-item.modified {
+  background: rgba($color-orange, 0.1);
+  color: $color-orange;
+}
 /* ==========================================
    SCROLLBAR STYLING
    ========================================== */
