@@ -234,7 +234,8 @@ export class EditorInstance {
     
     let numbersHTML = '';
     for (let i = 0; i < lines.length; i++) {
-      const logicalLineNumber = i + 1;
+      // Use original line number if available, otherwise fall back to sequential
+      const logicalLineNumber = lines[i].originalLineNumber || (i + 1);
       const visualLines = visualHeights[i];
       const className = this.getLineCssClass(lines[i].type);
       numbersHTML += this.createLineNumberElement(logicalLineNumber, visualLines, className);
