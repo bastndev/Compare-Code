@@ -5,6 +5,7 @@
 export type LineType = 'identical' | 'added' | 'removed' | 'modified' | 'empty';
 export type TokenType = 'word' | 'whitespace' | 'punctuation' | 'operator' | 'number';
 export type DiffOperationType = 'unchanged' | 'added' | 'removed' | 'modified';
+export type LineOperationType = 'identical' | 'added' | 'removed' | 'modified';
 
 export interface Token {
   text: string;
@@ -31,6 +32,12 @@ export interface ComparisonStats {
   modified: number;
 }
 
+export interface LineOperation {
+  type: LineOperationType;
+  line1?: string;
+  line2?: string;
+}
+
 export interface ComparisonResult {
   lines1: ComparisonLine[];
   lines2: ComparisonLine[];
@@ -50,50 +57,51 @@ export class ComparisonEngine {
   public static compare(text1: string, text2: string): ComparisonResult {
     const lines1 = text1.split('\n');
     const lines2 = text2.split('\n');
-    const maxLines = Math.max(lines1.length, lines2.length);
 
+    // Use LCS to find the optimal alignment between lines
+    const alignment = this.computeLineAlignment(lines1, lines2);
+    
     const result1: ComparisonLine[] = [];
     const result2: ComparisonLine[] = [];
     const stats: ComparisonStats = { added: 0, removed: 0, modified: 0 };
 
-    for (let i = 0; i < maxLines; i++) {
-      const line1 = lines1[i] !== undefined ? lines1[i] : '';
-      const line2 = lines2[i] !== undefined ? lines2[i] : '';
-
-      if (line1 === line2) {
-        // Identical lines
-        result1.push({ content: line1, type: 'identical' });
-        result2.push({ content: line2, type: 'identical' });
-      } else {
-        // Different lines
-        if (line1 !== '' && line2 === '') {
-          // Removed line (only exists in code 1)
-          result1.push({ content: line1, type: 'removed' });
-          result2.push({ content: '', type: 'empty' });
-          stats.removed++;
-        } else if (line1 === '' && line2 !== '') {
-          // Added line (only exists in code 2)
-          result1.push({ content: '', type: 'empty' });
-          result2.push({ content: line2, type: 'added' });
-          stats.added++;
-        } else {
-          // Modified lines (both exist but are different)
+    // Process the aligned lines
+    for (const operation of alignment) {
+      switch (operation.type) {
+        case 'identical':
+          result1.push({ content: operation.line1!, type: 'identical' });
+          result2.push({ content: operation.line2!, type: 'identical' });
+          break;
+          
+        case 'modified':
           // Generate inline diff highlighting for modified lines
-          const inlineDiff1 = this.generateInlineDiff(line1, line2, 'left');
-          const inlineDiff2 = this.generateInlineDiff(line2, line1, 'right');
+          const inlineDiff1 = this.generateInlineDiff(operation.line1!, operation.line2!, 'left');
+          const inlineDiff2 = this.generateInlineDiff(operation.line2!, operation.line1!, 'right');
           
           result1.push({ 
-            content: line1, 
+            content: operation.line1!, 
             type: 'modified',
             htmlContent: inlineDiff1
           });
           result2.push({ 
-            content: line2, 
+            content: operation.line2!, 
             type: 'modified',
             htmlContent: inlineDiff2
           });
           stats.modified++;
-        }
+          break;
+          
+        case 'removed':
+          result1.push({ content: operation.line1!, type: 'removed' });
+          result2.push({ content: '', type: 'empty' });
+          stats.removed++;
+          break;
+          
+        case 'added':
+          result1.push({ content: '', type: 'empty' });
+          result2.push({ content: operation.line2!, type: 'added' });
+          stats.added++;
+          break;
       }
     }
 
@@ -123,7 +131,8 @@ export class ComparisonEngine {
    */
   private static tokenizeLine(line: string): Token[] {
     const tokens: Token[] = [];
-    const regex = /(\s+|[{}()\[\],.;:!?+\-*/=<>|&^%~`@#$\\"']|\w+|\d+|[^\s\w\d{}()\[\],.;:!?+\-*/=<>|&^%~`@#$\\"'])/g;
+    // Improved regex to better handle programming constructs
+    const regex = /(\s+|\/\/.*|\/\*[\s\S]*?\*\/|"(?:[^"\\]|\\[\s\S])*"|'(?:[^'\\]|\\[\s\S])*'|`(?:[^`\\]|\\[\s\S])*`|\w+|\d+(?:\.\d+)?|[{}()\[\],.;:!?+\-*/=<>|&^%~@#$\\]|[^\s\w\d{}()\[\],.;:!?+\-*/=<>|&^%~@#$\\]+)/g;
     let match;
 
     while ((match = regex.exec(line)) !== null) {
@@ -145,9 +154,11 @@ export class ComparisonEngine {
    */
   private static getTokenType(text: string): TokenType {
     if (/^\s+$/.test(text)) { return 'whitespace'; }
-    if (/^\d+$/.test(text)) { return 'number'; }
+    if (/^\d+(\.\d+)?$/.test(text)) { return 'number'; }
     if (/^[{}()\[\],.;:!?]$/.test(text)) { return 'punctuation'; }
-    if (/^[+\-*/=<>|&^%~`@#$\\"']$/.test(text)) { return 'operator'; }
+    if (/^[+\-*/=<>|&^%~@#$\\]$/.test(text)) { return 'operator'; }
+    if (/^["'`]/.test(text)) { return 'word'; } // String literals
+    if (/^\/[/*]/.test(text)) { return 'word'; } // Comments
     return 'word';
   }
 
@@ -158,44 +169,13 @@ export class ComparisonEngine {
    * @returns Array of token operations
    */
   private static computeTokenDifferences(tokens1: Token[], tokens2: Token[]): TokenOperation[] {
-    const lcs = this.computeLCS(tokens1, tokens2);
-    const operations: TokenOperation[] = [];
-    
-    let i = 0, j = 0, k = 0;
-    
-    while (i < tokens1.length || j < tokens2.length) {
-      if (k < lcs.length && i < tokens1.length && j < tokens2.length && 
-          tokens1[i].text === tokens2[j].text && tokens1[i].text === lcs[k].text) {
-        // Unchanged token
-        operations.push({ type: 'unchanged', token: tokens1[i] });
-        i++; j++; k++;
-      } else if (i < tokens1.length && (j >= tokens2.length || 
-          (k < lcs.length && tokens1[i].text !== lcs[k].text))) {
-        // Removed token
-        operations.push({ type: 'removed', token: tokens1[i] });
-        i++;
-      } else if (j < tokens2.length) {
-        // Added token
-        operations.push({ type: 'added', token: tokens2[j] });
-        j++;
-      }
-    }
-    
-    return operations;
-  }
-
-  /**
-   * Compute Longest Common Subsequence of tokens
-   * @param tokens1 First token array
-   * @param tokens2 Second token array
-   * @returns LCS token array
-   */
-  private static computeLCS(tokens1: Token[], tokens2: Token[]): Token[] {
     const m = tokens1.length;
     const n = tokens2.length;
+    
+    // Create DP table for LCS computation
     const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
     
-    // Fill DP table
+    // Fill DP table - tokens are equal if their text and type match
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         if (tokens1[i - 1].text === tokens2[j - 1].text) {
@@ -206,22 +186,30 @@ export class ComparisonEngine {
       }
     }
     
-    // Reconstruct LCS
-    const lcs: Token[] = [];
+    // Backtrack to find the actual token operations
+    const operations: TokenOperation[] = [];
     let i = m, j = n;
-    while (i > 0 && j > 0) {
-      if (tokens1[i - 1].text === tokens2[j - 1].text) {
-        lcs.unshift(tokens1[i - 1]);
+    
+    while (i > 0 || j > 0) {
+      if (i > 0 && j > 0 && tokens1[i - 1].text === tokens2[j - 1].text) {
+        // Tokens are identical
+        operations.unshift({ type: 'unchanged', token: tokens1[i - 1] });
         i--; j--;
-      } else if (dp[i - 1][j] > dp[i][j - 1]) {
+      } else if (i > 0 && (j === 0 || dp[i - 1][j] >= dp[i][j - 1])) {
+        // Token exists in left but not in right - removed
+        operations.unshift({ type: 'removed', token: tokens1[i - 1] });
         i--;
       } else {
+        // Token exists in right but not in left - added
+        operations.unshift({ type: 'added', token: tokens2[j - 1] });
         j--;
       }
     }
     
-    return lcs;
+    return operations;
   }
+
+
 
   /**
    * Render token operations as HTML
@@ -293,5 +281,70 @@ export class ComparisonEngine {
    */
   public static hasDifferences(stats: ComparisonStats): boolean {
     return stats.added > 0 || stats.removed > 0 || stats.modified > 0;
+  }
+
+  /**
+   * Compute line alignment using LCS algorithm to properly align similar lines
+   * @param lines1 First set of lines
+   * @param lines2 Second set of lines
+   * @returns Array of line operations showing how lines align
+   */
+  private static computeLineAlignment(lines1: string[], lines2: string[]): LineOperation[] {
+    const m = lines1.length;
+    const n = lines2.length;
+    
+    // Create DP table for LCS computation
+    const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+    
+    // Fill DP table - consider lines equal if they're identical
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (lines1[i - 1] === lines2[j - 1]) {
+          dp[i][j] = dp[i - 1][j - 1] + 1;
+        } else {
+          dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        }
+      }
+    }
+    
+    // Backtrack to find the actual alignment
+    const operations: LineOperation[] = [];
+    let i = m, j = n;
+    
+    while (i > 0 || j > 0) {
+      if (i > 0 && j > 0 && lines1[i - 1] === lines2[j - 1]) {
+        // Lines are identical
+        operations.unshift({
+          type: 'identical',
+          line1: lines1[i - 1],
+          line2: lines2[j - 1]
+        });
+        i--; j--;
+      } else if (i > 0 && j > 0 && dp[i - 1][j - 1] >= Math.max(dp[i - 1][j], dp[i][j - 1])) {
+        // Lines are different but both exist - modified
+        operations.unshift({
+          type: 'modified',
+          line1: lines1[i - 1],
+          line2: lines2[j - 1]
+        });
+        i--; j--;
+      } else if (i > 0 && (j === 0 || dp[i - 1][j] >= dp[i][j - 1])) {
+        // Line exists in left but not in right - removed
+        operations.unshift({
+          type: 'removed',
+          line1: lines1[i - 1]
+        });
+        i--;
+      } else {
+        // Line exists in right but not in left - added
+        operations.unshift({
+          type: 'added',
+          line2: lines2[j - 1]
+        });
+        j--;
+      }
+    }
+    
+    return operations;
   }
 }
