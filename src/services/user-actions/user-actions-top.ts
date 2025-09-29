@@ -130,15 +130,19 @@ function initializeClearCodeButtons(): void {
 
   clearButtons.forEach((button) => {
     button.addEventListener('click', () => {
-      // Add clearing animation class
-      button.classList.add('clearing');
-
       // Determine which panel based on parent container
       const isLeftPanel = button.closest('.options-panel-left') !== null;
       const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
       const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
       if (editor) {
+        const hasContent = editor.value.trim() !== '';
+
+        // Only show animation if there's content to clear
+        if (hasContent) {
+          button.classList.add('clearing');
+        }
+
         editor.value = '';
         // Trigger input event to update line numbers
         editor.dispatchEvent(new Event('input'));
@@ -148,12 +152,14 @@ function initializeClearCodeButtons(): void {
         if (playBtn && playBtn.classList.contains('stop')) {
           (window as any).toggle();
         }
-      }
 
-      // Remove animation class after animation completes
-      setTimeout(() => {
-        button.classList.remove('clearing');
-      }, 500);
+        // Remove animation class after animation completes (only if it was added)
+        if (hasContent) {
+          setTimeout(() => {
+            button.classList.remove('clearing');
+          }, 500);
+        }
+      }
     });
   });
 }
