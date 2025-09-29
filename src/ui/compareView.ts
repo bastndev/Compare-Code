@@ -175,13 +175,10 @@ async function handleCodeDownload(content: string, panel: string, fileExtension:
       const buffer = Buffer.from(content, 'utf8');
       await vscode.workspace.fs.writeFile(saveUri, buffer);
       
-      // Show success message and automatically open the file
+      // Show success message only
       vscode.window.showInformationMessage(
         `Code from ${panel} panel saved to Downloads!`
       );
-      
-      // Automatically open the saved file
-      await vscode.window.showTextDocument(saveUri);
       
     }
   } catch (error) {
