@@ -38,6 +38,22 @@
     // margin-right:  40px;
 }
 
+// Clear code animation
+.clear-code {
+  &.clearing img {
+    animation: cleanSweep 0.5s ease-in-out;
+    transform-origin: top center;
+  }
+}
+
+@keyframes cleanSweep {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(15deg); }
+  50% { transform: rotate(0deg); }
+  75% { transform: rotate(-15deg); }
+  100% { transform: rotate(0deg); }
+}
+
 .copy-clear{
   margin: 0 12px 0 12px;
 }

@@ -130,6 +130,9 @@ function initializeClearCodeButtons(): void {
 
   clearButtons.forEach((button) => {
     button.addEventListener('click', () => {
+      // Add clearing animation class
+      button.classList.add('clearing');
+
       // Determine which panel based on parent container
       const isLeftPanel = button.closest('.options-panel-left') !== null;
       const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
@@ -146,6 +149,11 @@ function initializeClearCodeButtons(): void {
           (window as any).toggle();
         }
       }
+
+      // Remove animation class after animation completes
+      setTimeout(() => {
+        button.classList.remove('clearing');
+      }, 500);
     });
   });
 }
