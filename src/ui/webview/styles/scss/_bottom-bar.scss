@@ -260,3 +260,36 @@ $scale-active: 0.98;
     pointer-events: none;
   }
 }
+
+// ======================================
+// HERE BUTTON TS | MARK: --- -- - 
+// ======================================
+
+// DUAL SCROLL BUTTON STYLES | MARK: DUAL SCROLL 
+.dual-scroll.bbtn.active {
+  background: linear-gradient(135deg, #007acc, #005a9e) !important;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+  
+  .icon {
+    filter: brightness(1.2);
+  }
+}
+
+// Dark theme - Dual scroll button adjustments
+@media (prefers-color-scheme: dark) {
+  .dual-scroll.bbtn.active {
+    background: linear-gradient(135deg, #0078d4, #106ebe) !important;
+    box-shadow: 0 0 15px rgba(16, 110, 190, 0.6);
+  }
+}
+
+// Light theme - Dual scroll button adjustments
+@media (prefers-color-scheme: light) {
+  .dual-scroll.bbtn.active {
+    background: linear-gradient(135deg, #0066cc, #004499) !important;
+    box-shadow: 0 0 15px rgba(0, 102, 204, 0.5);
+  }
+}
+
+
