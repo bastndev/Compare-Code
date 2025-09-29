@@ -454,9 +454,6 @@ body {
 }
 
 /* Default to edit mode */
-/* ==========================================
-   COMPARISON LINES - Diff highlighting WITH WORD WRAP
-   ========================================== */
 .diff-line {
   display: block;
   position: relative;
@@ -505,9 +502,6 @@ body {
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
 }
 
-/* ==========================================
-   LINE NUMBERS FOR WRAPPED CONTENT
-   ========================================== */
 /* Line number positioning for wrapped lines */
 .line-number-item {
   display: block;

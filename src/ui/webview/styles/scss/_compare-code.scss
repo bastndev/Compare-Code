@@ -174,9 +174,9 @@
   @extend .mode-edit;
 }
 
-/* ==========================================
-   COMPARISON LINES - | MARK: Lines color
-   ========================================== */
+// ==========================================
+// COMPARISON LINES - | MARK: Lines color
+// ==========================================
 
 .diff-line {
   display: block;
@@ -229,9 +229,9 @@
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
 }
 
-/* ==========================================
-   LINE NUMBERS FOR WRAPPED CONTENT | MARK: Numbers
-   ========================================== */
+// ==========================================
+// FOR WRAPPED CONTENT | MARK: Numbers
+// ========================================== 
 
 /* Line number positioning for wrapped lines */
 .line-number-item {
