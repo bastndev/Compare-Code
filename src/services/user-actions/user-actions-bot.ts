@@ -1,5 +1,5 @@
 /* ======================================
-   User action bot | MARK: Bottom-Bar
+   User action bot | MARK: Dual Scroll
    ======================================= */
 
 let syncScrollEnabled = false;
