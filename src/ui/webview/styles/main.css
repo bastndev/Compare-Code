@@ -498,6 +498,45 @@ body {
   box-shadow: 0 2px 8px rgba(0, 122, 204, 0.4);
 }
 
+.clear-code[data-tooltip],
+.copy-code[data-tooltip],
+.download-code[data-tooltip] {
+  position: relative;
+}
+.clear-code[data-tooltip]:hover::before,
+.copy-code[data-tooltip]:hover::before,
+.download-code[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  z-index: 1001;
+  margin-top: 8px;
+  padding: 4px 8px;
+  white-space: nowrap;
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-size: 11px;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: tooltipFadeIn 0.3s ease forwards;
+}
+
+@keyframes tooltipFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
 /* ========================================
   HYBRID ARCHITECTURE - Compare Code Extension
   ========================================= */
