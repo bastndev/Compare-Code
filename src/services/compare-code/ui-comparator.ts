@@ -284,7 +284,11 @@ export class EditorInstance {
     let html = '';
     lines.forEach(line => {
       const cssClass = this.getLineCssClass(line.type);
-      html += `<div class="diff-line ${cssClass}">${this.escapeHtml(line.content)}</div>`;
+      
+      // Use htmlContent for inline diff highlighting if available, otherwise escape content
+      const lineContent = line.htmlContent ? line.htmlContent : this.escapeHtml(line.content);
+      
+      html += `<div class="diff-line ${cssClass}">${lineContent}</div>`;
     });
 
     this.displayElement.innerHTML = html;

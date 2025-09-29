@@ -256,6 +256,69 @@
   background: rgba($color-orange, 0.1);
   color: $color-orange;
 }
+
+// ==========================================
+// INLINE DIFF - WORD HIGHLIGHTING
+// ==========================================
+
+/* Base styling for highlighted words */
+%word-highlight-base {
+  padding: 1px 3px;
+  border-radius: 3px;
+  font-weight: 500;
+  margin: 0 1px;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  border: 1px solid transparent;
+  display: inline;
+  
+  /* Ensure word highlighting doesn't affect line height */
+  line-height: inherit;
+  vertical-align: baseline;
+}
+
+/* Added words - Green highlighting */
+.word-added {
+  @extend %word-highlight-base;
+  background: linear-gradient(135deg, rgba($color-green, 0.35) 0%, rgba($color-green, 0.2) 100%);
+  border-color: rgba($color-green, 0.4);
+  color: #27d563; // Equivalent to lighten($color-green, 5%)
+
+  &:hover {
+    background: linear-gradient(135deg, rgba($color-green, 0.45) 0%, rgba($color-green, 0.3) 100%);
+    transform: scale(1.02);
+  }
+}
+
+/* Removed words - Red highlighting with strikethrough */
+.word-removed {
+  @extend %word-highlight-base;
+  background: linear-gradient(135deg, rgba($color-red, 0.35) 0%, rgba($color-red, 0.2) 100%);
+  border-color: rgba($color-red, 0.4);
+  color: #f26464; // Equivalent to lighten($color-red, 5%)
+  text-decoration: line-through;
+  text-decoration-thickness: 1.5px;
+  text-decoration-color: rgba($color-red, 0.8);
+
+  &:hover {
+    background: linear-gradient(135deg, rgba($color-red, 0.45) 0%, rgba($color-red, 0.3) 100%);
+    transform: scale(1.02);
+  }
+}
+
+/* Modified words - Orange highlighting */
+.word-modified {
+  @extend %word-highlight-base;
+  background: linear-gradient(135deg, rgba($color-orange, 0.35) 0%, rgba($color-orange, 0.2) 100%);
+  border-color: rgba($color-orange, 0.4);
+  color: #f7af2b; // Equivalent to lighten($color-orange, 5%)
+
+  &:hover {
+    background: linear-gradient(135deg, rgba($color-orange, 0.45) 0%, rgba($color-orange, 0.3) 100%);
+    transform: scale(1.02);
+  }
+}
 /* ==========================================
    SCROLLBAR STYLING
    ========================================== */
@@ -312,5 +375,41 @@
   .diff-line.modified {
     background: rgba($color-orange, 0.4);
     border-left-width: 4px;
+  }
+
+  /* Enhanced word highlighting for high contrast mode */
+  .word-added {
+    background: rgba($color-green, 0.6) !important;
+    border-color: $color-green !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
+  
+  .word-removed {
+    background: rgba($color-red, 0.6) !important;
+    border-color: $color-red !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+    text-decoration-thickness: 2.5px !important;
+  }
+  
+  .word-modified {
+    background: rgba($color-orange, 0.6) !important;
+    border-color: $color-orange !important;
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  %word-highlight-base {
+    transition: none;
+  }
+  
+  .word-added:hover,
+  .word-removed:hover,
+  .word-modified:hover {
+    transform: none;
   }
 }

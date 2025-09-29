@@ -3,10 +3,26 @@
 // ==========================================
 
 export type LineType = 'identical' | 'added' | 'removed' | 'modified' | 'empty';
+export type TokenType = 'word' | 'whitespace' | 'punctuation' | 'operator' | 'number';
+export type DiffOperationType = 'unchanged' | 'added' | 'removed' | 'modified';
+
+export interface Token {
+  text: string;
+  type: TokenType;
+  start: number;
+  end: number;
+}
+
+export interface TokenOperation {
+  type: DiffOperationType;
+  token: Token;
+  oldToken?: Token;
+}
 
 export interface ComparisonLine {
   content: string;
   type: LineType;
+  htmlContent?: string; // Para contenido con highlighting inline
 }
 
 export interface ComparisonStats {
@@ -26,7 +42,7 @@ export interface ComparisonResult {
  */
 export class ComparisonEngine {
   /**
-   * Compare two text strings line by line
+   * Compare two text strings line by line with inline diff support
    * @param text1 First text to compare
    * @param text2 Second text to compare
    * @returns Comparison result with line-by-line differences and statistics
@@ -62,14 +78,193 @@ export class ComparisonEngine {
           stats.added++;
         } else {
           // Modified lines (both exist but are different)
-          result1.push({ content: line1, type: 'modified' });
-          result2.push({ content: line2, type: 'modified' });
+          // Generate inline diff highlighting for modified lines
+          const inlineDiff1 = this.generateInlineDiff(line1, line2, 'left');
+          const inlineDiff2 = this.generateInlineDiff(line2, line1, 'right');
+          
+          result1.push({ 
+            content: line1, 
+            type: 'modified',
+            htmlContent: inlineDiff1
+          });
+          result2.push({ 
+            content: line2, 
+            type: 'modified',
+            htmlContent: inlineDiff2
+          });
           stats.modified++;
         }
       }
     }
 
     return { lines1: result1, lines2: result2, stats };
+  }
+
+  /**
+   * Generate inline diff highlighting for modified lines
+   * @param currentLine The line to highlight
+   * @param otherLine The line to compare against
+   * @param side Which side of the comparison ('left' or 'right')
+   * @returns HTML string with highlighted differences
+   */
+  private static generateInlineDiff(currentLine: string, otherLine: string, side: 'left' | 'right'): string {
+    const currentTokens = this.tokenizeLine(currentLine);
+    const otherTokens = this.tokenizeLine(otherLine);
+    
+    const operations = this.computeTokenDifferences(currentTokens, otherTokens);
+    
+    return this.renderTokenOperations(operations, side);
+  }
+
+  /**
+   * Tokenize a line into meaningful chunks for comparison
+   * @param line The line to tokenize
+   * @returns Array of tokens
+   */
+  private static tokenizeLine(line: string): Token[] {
+    const tokens: Token[] = [];
+    const regex = /(\s+|[{}()\[\],.;:!?+\-*/=<>|&^%~`@#$\\"']|\w+|\d+|[^\s\w\d{}()\[\],.;:!?+\-*/=<>|&^%~`@#$\\"'])/g;
+    let match;
+
+    while ((match = regex.exec(line)) !== null) {
+      tokens.push({
+        text: match[0],
+        type: this.getTokenType(match[0]),
+        start: match.index,
+        end: match.index + match[0].length,
+      });
+    }
+
+    return tokens;
+  }
+
+  /**
+   * Determine the type of a token
+   * @param text The token text
+   * @returns The token type
+   */
+  private static getTokenType(text: string): TokenType {
+    if (/^\s+$/.test(text)) { return 'whitespace'; }
+    if (/^\d+$/.test(text)) { return 'number'; }
+    if (/^[{}()\[\],.;:!?]$/.test(text)) { return 'punctuation'; }
+    if (/^[+\-*/=<>|&^%~`@#$\\"']$/.test(text)) { return 'operator'; }
+    return 'word';
+  }
+
+  /**
+   * Compute differences between two token arrays using LCS algorithm
+   * @param tokens1 First token array
+   * @param tokens2 Second token array
+   * @returns Array of token operations
+   */
+  private static computeTokenDifferences(tokens1: Token[], tokens2: Token[]): TokenOperation[] {
+    const lcs = this.computeLCS(tokens1, tokens2);
+    const operations: TokenOperation[] = [];
+    
+    let i = 0, j = 0, k = 0;
+    
+    while (i < tokens1.length || j < tokens2.length) {
+      if (k < lcs.length && i < tokens1.length && j < tokens2.length && 
+          tokens1[i].text === tokens2[j].text && tokens1[i].text === lcs[k].text) {
+        // Unchanged token
+        operations.push({ type: 'unchanged', token: tokens1[i] });
+        i++; j++; k++;
+      } else if (i < tokens1.length && (j >= tokens2.length || 
+          (k < lcs.length && tokens1[i].text !== lcs[k].text))) {
+        // Removed token
+        operations.push({ type: 'removed', token: tokens1[i] });
+        i++;
+      } else if (j < tokens2.length) {
+        // Added token
+        operations.push({ type: 'added', token: tokens2[j] });
+        j++;
+      }
+    }
+    
+    return operations;
+  }
+
+  /**
+   * Compute Longest Common Subsequence of tokens
+   * @param tokens1 First token array
+   * @param tokens2 Second token array
+   * @returns LCS token array
+   */
+  private static computeLCS(tokens1: Token[], tokens2: Token[]): Token[] {
+    const m = tokens1.length;
+    const n = tokens2.length;
+    const dp: number[][] = Array(m + 1).fill(null).map(() => Array(n + 1).fill(0));
+    
+    // Fill DP table
+    for (let i = 1; i <= m; i++) {
+      for (let j = 1; j <= n; j++) {
+        if (tokens1[i - 1].text === tokens2[j - 1].text) {
+          dp[i][j] = dp[i - 1][j - 1] + 1;
+        } else {
+          dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+        }
+      }
+    }
+    
+    // Reconstruct LCS
+    const lcs: Token[] = [];
+    let i = m, j = n;
+    while (i > 0 && j > 0) {
+      if (tokens1[i - 1].text === tokens2[j - 1].text) {
+        lcs.unshift(tokens1[i - 1]);
+        i--; j--;
+      } else if (dp[i - 1][j] > dp[i][j - 1]) {
+        i--;
+      } else {
+        j--;
+      }
+    }
+    
+    return lcs;
+  }
+
+  /**
+   * Render token operations as HTML
+   * @param operations Array of token operations
+   * @param side Which side of the comparison
+   * @returns HTML string
+   */
+  private static renderTokenOperations(operations: TokenOperation[], side: 'left' | 'right'): string {
+    return operations.map(op => {
+      const escapedText = this.escapeHtml(op.token.text);
+      
+      switch (op.type) {
+        case 'unchanged':
+          return escapedText;
+        case 'added':
+          return side === 'right' ? `<span class="word-added">${escapedText}</span>` : '';
+        case 'removed':
+          return side === 'left' ? `<span class="word-removed">${escapedText}</span>` : '';
+        case 'modified':
+          return `<span class="word-modified">${escapedText}</span>`;
+        default:
+          return escapedText;
+      }
+    }).join('');
+  }
+
+  /**
+   * Escape HTML characters
+   * @param text Text to escape
+   * @returns Escaped text
+   */
+  private static escapeHtml(text: string): string {
+    if (!text) { return ''; }
+    
+    const escapeMap: { [key: string]: string } = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#039;'
+    };
+    
+    return text.replace(/[&<>"']/g, (match) => escapeMap[match]);
   }
 
   /**
