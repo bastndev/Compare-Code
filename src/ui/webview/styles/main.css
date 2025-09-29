@@ -351,6 +351,11 @@ body {
 
 .copy-clear img {
   width: 15px;
+  opacity: 0.6;
+}
+
+.copy-clear img:hover {
+  opacity: 1;
 }
 
 .options-panel-left button {
