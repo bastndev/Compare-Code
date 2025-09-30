@@ -180,6 +180,7 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   justify-content: flex-start;
 }
 
@@ -209,13 +210,6 @@ body {
   color: inherit;
 }
 
-.slash-l {
-  font-size: 16px;
-  font-weight: 700;
-  color: #555;
-  cursor: default;
-}
-
 .match-score {
   font-size: 14px;
   font-weight: 600;
@@ -226,8 +220,16 @@ body {
   cursor: default;
 }
 
-.normal-stats, .pro-stats {
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+.slash-l,
+.slash-r {
+  font-size: 16px;
+  font-weight: 700;
+  color: #555;
+  cursor: default;
+}
+
+.slash-r {
+  padding-top: 3px;
 }
 
 .pro-stats {
@@ -238,6 +240,7 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   gap: clamp(16px, 2vw, 24px);
   padding: 0 8px;
 }
@@ -263,7 +266,6 @@ body {
   justify-content: center;
   font-size: 11px;
   color: #ebebeb;
-  opacity: none;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -376,12 +378,6 @@ body {
 .btn-panel-left img {
   width: 20px;
   height: 20px;
-}
-
-.slash-r {
-  cursor: default;
-  color: #555;
-  padding-top: 3px;
 }
 
 /* ======================================
