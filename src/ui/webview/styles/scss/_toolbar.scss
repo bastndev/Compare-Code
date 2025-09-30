@@ -67,6 +67,23 @@
   font-size: $font-size;
   color: inherit;
 }
+.slash-left {
+  font-size: 16px;
+  font-weight: 700;
+  color: #555;
+  cursor: default;
+}
+
+.match-score {
+  font-size: 14px;
+  font-weight: 600;
+  color: $fg;
+  // background-color: #e8f0fe;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: default;
+}
 
 // DIFF STAT-ITEMS| MARK: stat-item
 .diff-stats {

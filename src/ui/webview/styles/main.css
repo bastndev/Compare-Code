@@ -95,6 +95,23 @@ body {
   color: inherit;
 }
 
+.slash-left {
+  font-size: 16px;
+  font-weight: 700;
+  color: #555;
+  cursor: default;
+}
+
+.match-score {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vscode-foreground);
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: default;
+}
+
 .diff-stats {
   display: flex;
   align-items: center;
@@ -758,7 +775,7 @@ body {
 }
 
 .diff-line.identical {
-  background: rgba(34, 197, 94, 0.01);
+  background: rgba(34, 197, 94, 0.02);
   /* Maintain consistent height even without borders */
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
   /* Ensure identical lines maintain their content */

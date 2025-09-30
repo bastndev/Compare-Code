@@ -13,15 +13,19 @@
     <div class="toolbar">
         <!-- Warning container -->
          
-        <!-- <div class="warning-container">
+        <div class="warning-container">
             <div class="warning-box">
                 <img class="warning-icon" src="{{WARNING_ICON}}">
                 <span>1 : Changes</span>
             </div>
-        </div>  -->
+            <span class="slash-left">/</span>
+            <div>
+                <span class="match-score">78% : Similar</span>
+            </div>
+        </div> 
 
         <!-- TODO: Diff statistics display -->
-        <div class="diff-stats">
+        <!-- <div class="diff-stats">
             <div class="stat-item">
                 <div class="stat-icon added">+</div>
                 <span id="added-count">0 lines added</span>
@@ -34,7 +38,7 @@
                 <div class="stat-icon modified">~</div>
                 <span id="modified-count">0 lines modified</span>
             </div>
-        </div>
+        </div> -->
 
         <!-- TODO: Primary compare button | PLAY -->
         <button class="btn-play" onclick="toggle()" id="playBtn" title="Ctrl + Enter">
