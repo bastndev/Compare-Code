@@ -51,8 +51,8 @@ export function replaceIconsInHtml(html: string, icons: ReturnType<typeof getWeb
     processedHtml = processedHtml.replace(/\{\{DUAL_SCROLL_ICON\}\}/g, icons.dualScroll);
     processedHtml = processedHtml.replace(/\{\{LANGUAGE_ICON\}\}/g, icons.language);
     processedHtml = processedHtml.replace(/\{\{ONLY_CODE_ICON\}\}/g, icons.onlyCode);
-    processedHtml = processedHtml.replace(/\{\{SWITCH_OFF_ICON\}\}/g, icons.switchOff);
     processedHtml = processedHtml.replace(/\{\{SWITCH_ON_ICON\}\}/g, icons.switchOn);
+    processedHtml = processedHtml.replace(/\{\{SWITCH_OFF_ICON\}\}/g, icons.switchOff);
     processedHtml = processedHtml.replace(/\{\{EARTH_CODE_ICON\}\}/g, icons.earthCode);
 
     // Utility icons (may appear multiple times)
