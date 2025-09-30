@@ -1,4 +1,4 @@
-import { ComparisonLine, LineType } from './algorithms';
+import { ComparisonLine, LineType } from '../../utils/types';
 
 // ==========================================
 // UI MANAGEMENT & DOM MANIPULATION
