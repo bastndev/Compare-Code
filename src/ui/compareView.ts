@@ -137,7 +137,7 @@ function getWebviewContent(
   html = replaceIconsInHtml(html, icons);
 
   // Dynamic ICONS - Play & Stop | MARK: ICONS
-  webview.postMessage({ type: 'setIcons', icons: { play: icons.play, stop: icons.stop } });
+  webview.postMessage({ type: 'setIcons', icons: { play: icons.play, stop: icons.stop, switchOn: icons.switchOn, switchOff: icons.switchOff } });
 
   return html;
 }

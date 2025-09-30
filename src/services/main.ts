@@ -11,6 +11,9 @@ import { setPlayBtnToEdit, setPlayBtnToCompare } from './user-actions/user-actio
 
 let isComparing: boolean = false;
 let editorManager: EditorManager;
+let switchOnUri: string;
+let switchOffUri: string;
+let isProMode: boolean = false;
 
 // ==========================================
 // PUBLIC API - Main Functions
@@ -116,6 +119,21 @@ export function isComparingMode(): boolean {
 }
 
 /**
+ * Toggle between Normal and Pro mode
+ */
+export function toggleSwitchMode(): void {
+  isProMode = !isProMode;
+  const icon = document.querySelector('.switch-on-off .icon') as HTMLImageElement;
+  if (icon) {
+    icon.style.opacity = '0';
+    setTimeout(() => {
+      icon.src = isProMode ? switchOffUri : switchOnUri;
+      icon.style.opacity = '1';
+    }, 150);
+  }
+}
+
+/**
  * Initialize the complete compare code system
  */
 export function initializeCompareCode(): void {
@@ -136,6 +154,15 @@ export function initializeCompareCode(): void {
       }
     });
 
+    // Message listener for icons
+    window.addEventListener('message', (event) => {
+      const message = event.data;
+      if (message.type === 'setIcons') {
+        switchOnUri = message.icons.switchOn;
+        switchOffUri = message.icons.switchOff;
+      }
+    });
+
     console.log('Compare Code initialized successfully');
     
   } catch (error) {
@@ -151,4 +178,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeCompareCode();
   (window as any).toggle = toggle;
   (window as any).clearAll = clearAll;
+  (window as any).toggleSwitchMode = toggleSwitchMode;
 });

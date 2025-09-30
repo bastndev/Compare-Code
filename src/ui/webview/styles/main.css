@@ -1050,6 +1050,7 @@ body {
   height: 30px;
   pointer-events: none;
   display: block;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .bbtn[data-tooltip] {

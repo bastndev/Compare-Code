@@ -147,6 +147,7 @@ $scale-active: 0.98;
   height: $icon-size;
   pointer-events: none;
   display: block;
+  transition: opacity 0.3s ease-in-out;
 }
 
 // ======================================
