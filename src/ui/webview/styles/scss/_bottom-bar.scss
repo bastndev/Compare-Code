@@ -10,7 +10,7 @@ $bottom-bar-content-width-mobile: 280px;
 $button-size: 40px;
 $icon-size: 30px;
 $separator-offset: calc($spacing-lg / 2);
-$tooltip-offset: 8px;
+
 $hover-lift: -4px;
 $scale-hover: 1.05;
 $scale-active: 0.98;
@@ -29,16 +29,7 @@ $scale-active: 0.98;
   }
 }
 
-@keyframes tooltipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
+
 
 // Bottom Bar Container
 .bottom-bar {
@@ -150,36 +141,7 @@ $scale-active: 0.98;
   transition: opacity 0.3s ease-in-out;
 }
 
-// ======================================
-// TOOLTIP SYSTEM | MARK: tooltip
-// ======================================
-.bbtn[data-tooltip] {
-  position: relative;
-  
-  &:hover::before {
-    content: attr(data-tooltip);    
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    z-index: 1001;
-    margin-bottom: $tooltip-offset;
-    padding: $spacing-sm 12px;
-    white-space: nowrap;
-    background-color: $input-bg;
-    color: $fg;
-    border: 1px solid $input-border;
-    border-radius: $border-radius-md;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-size: 12px;
-    font-family: $font-family;
-    
-    // Animation & Transform
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-50%);
-    animation: tooltipFadeIn 0.3s ease forwards;
-  }
-}
+
 
 // SPONSOR BUTTON - special styling
 .sponsor {
@@ -226,10 +188,7 @@ $scale-active: 0.98;
     }
   }
   
-  .bbtn[data-tooltip]:hover::before {
-    animation: none;
-    opacity: 1;
-  }
+
 }
 
 // States & Modifiers

@@ -191,45 +191,6 @@
   }
 }
 
-// ======================================
-// TOOLTIP SYSTEM | MARK: tooltip
-// ======================================
-.clear-code[data-tooltip],
-.download-code[data-tooltip] {
-  position: relative;
-  
-  &:hover::before {
-    content: attr(data-tooltip);    
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    z-index: 1001;
-    margin-top: 8px;
-    padding: 4px 8px;
-    white-space: nowrap;
-    background-color: $input-bg;
-    color: $fg;
-    border: 1px solid $input-border;
-    border-radius: $border-radius-md;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-size: 11px;
-    font-family: $font-family;
-    
-    // Animation & Transform
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-50%);
-    animation: tooltipFadeIn 0.3s ease forwards;
-  }
-}
 
-@keyframes tooltipFadeIn {
-  0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-5px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
+
+
