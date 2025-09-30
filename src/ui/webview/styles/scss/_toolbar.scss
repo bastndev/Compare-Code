@@ -3,7 +3,7 @@
 /* ======================================
    TOOLBAR - VS Code Extension | MARK: TOOLBAR
    ======================================= */
-@mixin button-base {
+@mixin button-mixin {
   border: none;
   cursor: pointer;
   display: flex;
@@ -19,7 +19,7 @@
   }
 }
 
-@mixin stats-base {
+@mixin stats-mixin {
   position: absolute;
   top: 0;
   left: 0;
@@ -57,7 +57,7 @@
 // Normal Stats | MARK: normal
 // ======================================
 .normal-stats {
-  @include stats-base;
+  @include stats-mixin;
   justify-content: flex-start;
 }
 
@@ -114,7 +114,7 @@
 // Pro Stats | MARK: pro
 // ======================================
 .pro-stats {
-  @include stats-base;
+  @include stats-mixin;
   gap: clamp($spacing-md, 2vw, $spacing-lg);
   padding: 0 $spacing-sm;
 }
@@ -173,7 +173,7 @@
 // Primary Compare Button | MARK: playBtn
 // ======================================
 .btn-play {
-  @include button-base;
+  @include button-mixin;
   @include button-hover-scale;
   background-color: $btn-bg;
   padding: 6px 14px;
@@ -212,7 +212,7 @@
 }
 
 .clear {
-  @include button-base;
+  @include button-mixin;
   @include button-hover-scale;
   background-color: var(--vscode-button-secondaryBackground, #5f6a79);
   color: var(--vscode-button-secondaryForeground, #{$fg});
@@ -230,7 +230,7 @@
 // Panel Control Buttons
 .btn-panel-right,
 .btn-panel-left {
-  @include button-base;
+  @include button-mixin;
   background-color: transparent;
   padding: 6px;
 
