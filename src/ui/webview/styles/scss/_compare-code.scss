@@ -40,14 +40,14 @@
   border-right: 1px solid $input-border;
   border-top: 1px solid $input-border;
   border-top-right-radius: 8px;
-  overflow: hidden; /* Ensures content respects the rounded corner */
+  overflow: auto; /* Allow scrollbars while maintaining rounded corners */
 }
 
 #editor2 {
   border-left: 1px solid $input-border;
   border-top: 1px solid $input-border;
   border-top-left-radius: 8px;
-  overflow: hidden; /* Ensures content respects the rounded corner */
+  overflow: auto; /* Allow scrollbars while maintaining rounded corners */
 }
 /* ==========================================
    LINE NUMBERS - Consistent across modes
@@ -347,32 +347,6 @@
     background: rgba($color-orange, 0.4);
   }
 }
-/* ==========================================
-   SCROLLBAR STYLING
-   ========================================== */
-
-.code-input::-webkit-scrollbar,
-.code-display::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-.code-input::-webkit-scrollbar-track,
-.code-display::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.code-input::-webkit-scrollbar-thumb,
-.code-display::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-}
-
-.code-input::-webkit-scrollbar-thumb:hover,
-.code-display::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
 /* ==========================================
    RESPONSIVE & ACCESSIBILITY
    ========================================== */

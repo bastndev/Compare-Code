@@ -20,21 +20,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::-webkit-scrollbar {
-  width: 14px;
+*::-webkit-scrollbar {
+  width: auto;
+  height: auto;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--vscode-editor-background);
+*::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: var(--vscode-widget-border);
-  border-radius: 0;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -609,14 +605,14 @@ body {
   border-right: 1px solid var(--vscode-input-border);
   border-top: 1px solid var(--vscode-input-border);
   border-top-right-radius: 8px;
-  overflow: hidden; /* Ensures content respects the rounded corner */
+  overflow: auto; /* Allow scrollbars while maintaining rounded corners */
 }
 
 #editor2 {
   border-left: 1px solid var(--vscode-input-border);
   border-top: 1px solid var(--vscode-input-border);
   border-top-left-radius: 8px;
-  overflow: hidden; /* Ensures content respects the rounded corner */
+  overflow: auto; /* Allow scrollbars while maintaining rounded corners */
 }
 
 /* ==========================================
@@ -872,31 +868,6 @@ body {
 }
 .word-modified:hover {
   background: rgba(245, 158, 11, 0.4);
-}
-
-/* ==========================================
-   SCROLLBAR STYLING
-   ========================================== */
-.code-input::-webkit-scrollbar,
-.code-display::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-.code-input::-webkit-scrollbar-track,
-.code-display::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.code-input::-webkit-scrollbar-thumb,
-.code-display::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-}
-
-.code-input::-webkit-scrollbar-thumb:hover,
-.code-display::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
 }
 
 /* ==========================================
