@@ -9,241 +9,342 @@ let isScrolling = false;
 let onlyModifiedEnabled = false;
 
 export function initializeDualScroll() {
-    const dualScrollBtn = document.getElementById('dual-scroll-btn');
-    const indicator = document.getElementById('dual-scroll-indicator');
-         
-    if (!dualScrollBtn) {
-        console.warn('Dual scroll button not found');
-        return;
-    }
-     
-    dualScrollBtn.addEventListener('click', toggleDualScroll);
-    
-    // Add click listeners to indicators for deactivation
-    const indicatorLeft = document.getElementById('dual-scroll-indicator-left');
-    const indicatorRight = document.getElementById('dual-scroll-indicator-right');
-    
-    if (indicatorLeft) {
-        indicatorLeft.addEventListener('click', toggleDualScroll);
-    }
-    if (indicatorRight) {
-        indicatorRight.addEventListener('click', toggleDualScroll);
-    }
-     
-    setupScrollListeners();
+  const dualScrollBtn = document.getElementById('dual-scroll-btn');
+  const indicator = document.getElementById('dual-scroll-indicator');
+
+  if (!dualScrollBtn) {
+    console.warn('Dual scroll button not found');
+    return;
+  }
+
+  dualScrollBtn.addEventListener('click', toggleDualScroll);
+
+  // Add click listeners to indicators for deactivation
+  const indicatorLeft = document.getElementById('dual-scroll-indicator-left');
+  const indicatorRight = document.getElementById('dual-scroll-indicator-right');
+
+  if (indicatorLeft) {
+    indicatorLeft.addEventListener('click', toggleDualScroll);
+  }
+  if (indicatorRight) {
+    indicatorRight.addEventListener('click', toggleDualScroll);
+  }
+
+  setupScrollListeners();
 }
 
 function toggleDualScroll() {
-    syncScrollEnabled = !syncScrollEnabled;
-    const indicatorLeft = document.getElementById('dual-scroll-indicator-left');
-    const indicatorRight = document.getElementById('dual-scroll-indicator-right');
-    const btn = document.getElementById('dual-scroll-btn');
-         
-    if (syncScrollEnabled) {
-        if (indicatorLeft) {
-            indicatorLeft.style.display = 'flex';
-            indicatorLeft.textContent = '🔗';
-        }
-        if (indicatorRight) {
-            indicatorRight.style.display = 'flex';
-            indicatorRight.textContent = '🔗';
-        }
-        if (btn) {
-            btn.classList.add('active');
-        }
-        console.log('Dual scroll activated');
-    } else {
-        if (indicatorLeft) {
-            indicatorLeft.style.display = 'none';
-        }
-        if (indicatorRight) {
-            indicatorRight.style.display = 'none';
-        }
-        if (btn) {
-            btn.classList.remove('active');
-        }
-        console.log('Dual scroll deactivated');
+  syncScrollEnabled = !syncScrollEnabled;
+  const indicatorLeft = document.getElementById('dual-scroll-indicator-left');
+  const indicatorRight = document.getElementById('dual-scroll-indicator-right');
+  const btn = document.getElementById('dual-scroll-btn');
+
+  if (syncScrollEnabled) {
+    if (indicatorLeft) {
+      indicatorLeft.style.display = 'flex';
+      indicatorLeft.textContent = '🔗';
     }
+    if (indicatorRight) {
+      indicatorRight.style.display = 'flex';
+      indicatorRight.textContent = '🔗';
+    }
+    if (btn) {
+      btn.classList.add('active');
+    }
+    console.log('Dual scroll activated');
+  } else {
+    if (indicatorLeft) {
+      indicatorLeft.style.display = 'none';
+    }
+    if (indicatorRight) {
+      indicatorRight.style.display = 'none';
+    }
+    if (btn) {
+      btn.classList.remove('active');
+    }
+    console.log('Dual scroll deactivated');
+  }
 }
 
 /* Main synchronization function - PRECISE SCROLL SYNC */
 function syncScroll(sourceElement: HTMLElement, targetElement: HTMLElement) {
-    if (!syncScrollEnabled || isScrolling) {
-        return;
-    }
-         
-    isScrolling = true;
-    
-    // Calculate precise scroll ratios
-    const sourceMaxScroll = sourceElement.scrollHeight - sourceElement.clientHeight;
-    const targetMaxScroll = targetElement.scrollHeight - targetElement.clientHeight;
-    
-    // Avoid division by zero
-    if (sourceMaxScroll <= 0 || targetMaxScroll <= 0) {
-        isScrolling = false;
-        return;
-    }
-    
-    // Calculate normalized scroll position (0 to 1)
-    const sourceRatio = sourceElement.scrollTop / sourceMaxScroll;
-    
-    // Apply with smooth interpolation to target
-    const targetScrollTop = sourceRatio * targetMaxScroll;
-    
-    // Ensure we don't exceed bounds
-    const clampedScrollTop = Math.max(0, Math.min(targetScrollTop, targetMaxScroll));
-    
-        // Apply scroll with minimal delay for precision
-    targetElement.scrollTop = clampedScrollTop;
-    
-    // Shorter timeout for more responsive sync
-    setTimeout(() => { isScrolling = false; }, 16); // ~60fps
+  if (!syncScrollEnabled || isScrolling) {
+    return;
+  }
+
+  isScrolling = true;
+
+  // Calculate precise scroll ratios
+  const sourceMaxScroll =
+    sourceElement.scrollHeight - sourceElement.clientHeight;
+  const targetMaxScroll =
+    targetElement.scrollHeight - targetElement.clientHeight;
+
+  // Avoid division by zero
+  if (sourceMaxScroll <= 0 || targetMaxScroll <= 0) {
+    isScrolling = false;
+    return;
+  }
+
+  // Calculate normalized scroll position (0 to 1)
+  const sourceRatio = sourceElement.scrollTop / sourceMaxScroll;
+
+  // Apply with smooth interpolation to target
+  const targetScrollTop = sourceRatio * targetMaxScroll;
+
+  // Ensure we don't exceed bounds
+  const clampedScrollTop = Math.max(
+    0,
+    Math.min(targetScrollTop, targetMaxScroll)
+  );
+
+  // Apply scroll with minimal delay for precision
+  targetElement.scrollTop = clampedScrollTop;
+
+  // Shorter timeout for more responsive sync
+  setTimeout(() => {
+    isScrolling = false;
+  }, 16); // ~60fps
 }
 
 /* Set up scroll event listeners for all elements */
 function setupScrollListeners() {
-    const codeInput1 = document.getElementById('codeInput1') as HTMLTextAreaElement;
-    const codeInput2 = document.getElementById('codeInput2') as HTMLTextAreaElement;
-         
-    const codeDisplay1 = document.getElementById('codeDisplay1') as HTMLElement;
-    const codeDisplay2 = document.getElementById('codeDisplay2') as HTMLElement;
+  const codeInput1 = document.getElementById(
+    'codeInput1'
+  ) as HTMLTextAreaElement;
+  const codeInput2 = document.getElementById(
+    'codeInput2'
+  ) as HTMLTextAreaElement;
 
-    if (codeInput1 && codeInput2) {
-        codeInput1.addEventListener('scroll', () => syncScroll(codeInput1, codeInput2));
-        codeInput2.addEventListener('scroll', () => syncScroll(codeInput2, codeInput1));
-    }
+  const codeDisplay1 = document.getElementById('codeDisplay1') as HTMLElement;
+  const codeDisplay2 = document.getElementById('codeDisplay2') as HTMLElement;
 
-    if (codeDisplay1 && codeDisplay2) {
-        codeDisplay1.addEventListener('scroll', () => syncScroll(codeDisplay1, codeDisplay2));
-        codeDisplay2.addEventListener('scroll', () => syncScroll(codeDisplay2, codeDisplay1));
-    }
+  if (codeInput1 && codeInput2) {
+    codeInput1.addEventListener('scroll', () =>
+      syncScroll(codeInput1, codeInput2)
+    );
+    codeInput2.addEventListener('scroll', () =>
+      syncScroll(codeInput2, codeInput1)
+    );
+  }
+
+  if (codeDisplay1 && codeDisplay2) {
+    codeDisplay1.addEventListener('scroll', () =>
+      syncScroll(codeDisplay1, codeDisplay2)
+    );
+    codeDisplay2.addEventListener('scroll', () =>
+      syncScroll(codeDisplay2, codeDisplay1)
+    );
+  }
 }
 
 export function refreshScrollSync() {
-    setupScrollListeners();
+  setupScrollListeners();
 }
 
 export function isDualScrollActive(): boolean {
-    return syncScrollEnabled;
+  return syncScrollEnabled;
 }
 
 /* ======================================
-   User button bot | MARK:CODE MODIFY
+   User button bar | MARK:CODE MODIFY
    ======================================= */
 
 function toggleOnlyModified() {
-    if (!isComparingMode()) {
-        console.warn('Cannot toggle only modified mode: not in comparison mode');
-        return;
-    }
+  if (!isComparingMode()) {
+    console.warn('Cannot toggle only modified mode: not in comparison mode');
+    return;
+  }
 
-    const editorManager = getEditorManager();
-    const { lines1 } = editorManager.getCurrentLines();
-    const hasModified = lines1.some(line => line.type !== 'identical');
+  const editorManager = getEditorManager();
+  const { lines1 } = editorManager.getCurrentLines();
+  const hasModified = lines1.some((line) => line.type !== 'identical');
 
-    if (onlyModifiedEnabled) {
-        // Deactivating
-        onlyModifiedEnabled = false;
-        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
-        if (btn) {
-            btn.classList.remove('active');
-        }
-        console.log('Only modified mode deactivated');
-        editorManager.renderFiltered(() => true);
-    } else {
-        // Activating
-        if (!hasModified) {
-            return;
-        }
-        onlyModifiedEnabled = true;
-        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
-        if (btn) {
-            btn.classList.add('active');
-        }
-        console.log('Only modified mode activated');
-        editorManager.renderFiltered(line => line.type !== 'identical');
+  if (onlyModifiedEnabled) {
+    // Deactivating
+    onlyModifiedEnabled = false;
+    const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+    if (btn) {
+      btn.classList.remove('active');
     }
+    console.log('Only modified mode deactivated');
+    editorManager.renderFiltered(() => true);
+  } else {
+    // Activating
+    if (!hasModified) {
+      return;
+    }
+    onlyModifiedEnabled = true;
+    const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+    if (btn) {
+      btn.classList.add('active');
+    }
+    console.log('Only modified mode activated');
+    editorManager.renderFiltered((line) => line.type !== 'identical');
+  }
 }
 
 export function resetOnlyModified() {
-    if (onlyModifiedEnabled) {
-        onlyModifiedEnabled = false;
-        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
-        if (btn) {
-            btn.classList.remove('active');
-        }
+  if (onlyModifiedEnabled) {
+    onlyModifiedEnabled = false;
+    const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+    if (btn) {
+      btn.classList.remove('active');
     }
+  }
 }
 
 export function initializeOnlyCode() {
-    const onlyCodeBtn = document.querySelector('.only-code.bbtn') as HTMLElement;
-    if (!onlyCodeBtn) {
-        console.warn('Only code button not found');
-        return;
-    }
-    
-    onlyCodeBtn.addEventListener('click', toggleOnlyModified);
+  const onlyCodeBtn = document.querySelector('.only-code.bbtn') as HTMLElement;
+  if (!onlyCodeBtn) {
+    console.warn('Only code button not found');
+    return;
+  }
+
+  onlyCodeBtn.addEventListener('click', toggleOnlyModified);
 }
 
 /* ======================================
-   User actions - toolbar | MARK:NORMAL/PRO
+   User actions - button bar | MARK:NORMAL/PRO
    ======================================= */
 let isProMode: boolean = false;
 let switchOnUri: string;
 let switchOffUri: string;
 
 export function initializeSwitchMode() {
-    // Message listener for switch icons
-    window.addEventListener('message', (event) => {
-        const message = event.data;
-        if (message.type === 'setIcons') {
-            switchOnUri = message.icons.switchOn;
-            switchOffUri = message.icons.switchOff;
-        }
-    });
+  // Message listener for switch icons
+  window.addEventListener('message', (event) => {
+    const message = event.data;
+    if (message.type === 'setIcons') {
+      switchOnUri = message.icons.switchOn;
+      switchOffUri = message.icons.switchOff;
+    }
+  });
 
-    // Initial state: show normal stats, hide pro stats
-    const normalStats = document.getElementById('normal-stats');
-    const proStats = document.getElementById('pro-stats');
-    if (normalStats) {
-        normalStats.style.opacity = '1';
-        normalStats.style.visibility = 'visible';
-    }
-    if (proStats) {
-        proStats.style.opacity = '0';
-        proStats.style.visibility = 'hidden';
-    }
+  // Initial state: show normal stats, hide pro stats
+  const normalStats = document.getElementById('normal-stats');
+  const proStats = document.getElementById('pro-stats');
+  if (normalStats) {
+    normalStats.style.opacity = '1';
+    normalStats.style.visibility = 'visible';
+  }
+  if (proStats) {
+    proStats.style.opacity = '0';
+    proStats.style.visibility = 'hidden';
+  }
 }
 
 export function toggleSwitchMode(): void {
-    isProMode = !isProMode;
-    const icon = document.querySelector('.switch-on-off .icon') as HTMLImageElement;
-    if (icon) {
-        icon.style.opacity = '0';
-        setTimeout(() => {
-            icon.src = isProMode ? switchOffUri : switchOnUri;
-            icon.style.opacity = '1';
-        }, 150);
-    }
+  isProMode = !isProMode;
+  const icon = document.querySelector(
+    '.switch-on-off .icon'
+  ) as HTMLImageElement;
+  if (icon) {
+    icon.style.opacity = '0';
+    setTimeout(() => {
+      icon.src = isProMode ? switchOffUri : switchOnUri;
+      icon.style.opacity = '1';
+    }, 150);
+  }
 
-    // Toggle stats display
-    const normalStats = document.getElementById('normal-stats');
-    const proStats = document.getElementById('pro-stats');
-    if (normalStats && proStats) {
-        if (isProMode) {
-            normalStats.style.opacity = '0';
-            setTimeout(() => {
-                normalStats.style.visibility = 'hidden';
-                proStats.style.opacity = '1';
-                proStats.style.visibility = 'visible';
-            }, 250); // Half of transition time
-        } else {
-            proStats.style.opacity = '0';
-            setTimeout(() => {
-                proStats.style.visibility = 'hidden';
-                normalStats.style.opacity = '1';
-                normalStats.style.visibility = 'visible';
-            }, 250);
-        }
+  // Toggle stats display
+  const normalStats = document.getElementById('normal-stats');
+  const proStats = document.getElementById('pro-stats');
+  if (normalStats && proStats) {
+    if (isProMode) {
+      normalStats.style.opacity = '0';
+      setTimeout(() => {
+        normalStats.style.visibility = 'hidden';
+        proStats.style.opacity = '1';
+        proStats.style.visibility = 'visible';
+      }, 250); // Half of transition time
+    } else {
+      proStats.style.opacity = '0';
+      setTimeout(() => {
+        proStats.style.visibility = 'hidden';
+        normalStats.style.opacity = '1';
+        normalStats.style.visibility = 'visible';
+      }, 250);
     }
+  }
+}
+
+/* ==========================================
+   User actions - button bar | MARK: LANGUAGE 
+   ========================================== */
+
+// Helper function to get i18n service from global scope
+function getI18n(): any {
+  return (window as any).i18n;
+}
+
+// Helper to get vscode API
+declare const acquireVsCodeApi: any;
+const vscode = acquireVsCodeApi();
+
+// LANGUAGE SELECTOR
+function initializeLanguageSelector(): void {
+  const languageBtn = document.querySelector('.language') as HTMLElement;
+  if (languageBtn) {
+    // Create language dropdown menu
+    const dropdown = createLanguageDropdown();
+    languageBtn.appendChild(dropdown);
+
+    languageBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      dropdown.classList.toggle('show');
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', () => {
+      dropdown.classList.remove('show');
+    });
+  }
+}
+
+function createLanguageDropdown(): HTMLElement {
+  const dropdown = document.createElement('div');
+  dropdown.className = 'language-dropdown';
+
+  const languages = [
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'es', name: 'Español', flag: '🇪🇸' },
+    { code: 'pt', name: 'Português', flag: '🇧🇷' },
+    { code: 'zh', name: '中文', flag: '🇨🇳' },
+  ];
+
+  languages.forEach((lang) => {
+    const option = document.createElement('div');
+    option.className = 'language-option';
+    option.innerHTML = `${lang.flag} ${lang.name}`;
+    option.dataset.lang = lang.code;
+
+    option.addEventListener('click', (e) => {
+      e.stopPropagation();
+      changeLanguage(lang.code);
+      dropdown.classList.remove('show');
+    });
+
+    dropdown.appendChild(option);
+  });
+
+  return dropdown;
+}
+
+function changeLanguage(langCode: string): void {
+  const i18n = getI18n();
+  if (i18n) {
+    i18n.setLanguage(langCode);
+    console.log(`Language changed to: ${langCode}`);
+
+    // Notify extension about language change
+    vscode.postMessage({
+      command: 'changeLanguage',
+      language: langCode,
+    });
+  }
+}
+
+export function initializeLanguageMenu(): void {
+  initializeLanguageSelector();
 }

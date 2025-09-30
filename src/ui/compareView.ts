@@ -7,6 +7,32 @@ import {
   replaceIconsInHtml,
 } from './webview/view/webviewIcons';
 
+/**
+ * Convert TypeScript to JavaScript for webview (basic conversion)
+ * @param tsContent TypeScript content
+ * @returns JavaScript content
+ */
+function convertTStoJS(tsContent: string): string {
+  return tsContent
+    // Remove TypeScript imports/exports
+    .replace(/import\s+.*?from\s+['"][^'"]*['"];?\s*/g, '')
+    .replace(/export\s+\{[^}]*\};\s*/g, '')
+    .replace(/export\s+type\s+.*?;\s*/g, '')
+    .replace(/export\s+/g, '')
+    
+    // Remove TypeScript type annotations
+    .replace(/:\s*[A-Za-z][A-Za-z0-9<>[\]|&\s]*(?=\s*[=,;)])/g, '')
+    .replace(/interface\s+\w+\s*\{[^}]*\}/g, '')
+    .replace(/type\s+\w+\s*=\s*[^;]+;/g, '')
+    
+    // Remove generic type parameters
+    .replace(/<[^>]*>/g, '')
+    
+    // Clean up extra whitespace
+    .replace(/\n\s*\n\s*\n/g, '\n\n')
+    .trim();
+}
+
 let comparePanel: vscode.WebviewPanel | undefined;
 
 // Creates or shows the compare view
@@ -70,6 +96,10 @@ export async function createCompareView(
       case 'downloadCode':
         await handleCodeDownload(message.content, message.panel, message.fileExtension);
         break;
+      case 'changeLanguage':
+        // Handle language change if needed (currently handled in webview)
+        console.log(`Language changed to: ${message.language}`);
+        break;
     }
   });
 
@@ -115,6 +145,25 @@ function getWebviewContent(
   );
   const scriptUri = webview.asWebviewUri(scriptPath);
 
+  // Read the i18n TypeScript file and embed it
+  const i18nPath = path.join(
+    context.extensionPath,
+    'src',
+    'ui',
+    'webview',
+    'l10n',
+    'i18n.ts'
+  );
+  let i18nScript = '';
+  try {
+    const i18nContent = fs.readFileSync(i18nPath, 'utf8');
+    // Convert TypeScript to JavaScript (basic conversion for webview)
+    i18nScript = convertTStoJS(i18nContent);
+  } catch (error) {
+    console.warn('Could not load i18n script:', error);
+    i18nScript = '// i18n not available';
+  }
+
   // Get icons from webviewIcons service
   const icons = getWebviewIcons(context, webview);
 
@@ -132,6 +181,10 @@ function getWebviewContent(
   // Replace CSS and Script URIs
   html = html.replace('{{CSS_URI}}', cssUri.toString());
   html = html.replace('{{SCRIPT_URI}}', scriptUri.toString());
+
+  // Replace i18n script placeholder with initialization
+  const i18nWithInit = `${i18nScript}\n\n// Initialize i18n when DOM is ready\nif (typeof i18n !== 'undefined') { i18n.init(); }`;
+  html = html.replace('{{I18N_SCRIPT}}', i18nWithInit);
 
   // ICONS - webviewIcons
   html = replaceIconsInHtml(html, icons);

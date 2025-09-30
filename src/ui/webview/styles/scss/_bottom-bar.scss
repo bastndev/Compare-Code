@@ -287,5 +287,61 @@ $scale-active: 0.98;
   }
 }
 
+// ======================================
+// LANGUAGE SELECTOR | MARK: LANGUAGE DROPDOWN
+// ======================================
+.language.bbtn {
+  position: relative;
+  
+  .language-dropdown {
+    position: absolute;
+    bottom: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 8px;
+    background-color: $input-bg;
+    border: 1px solid $input-border;
+    border-radius: $border-radius-md;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    min-width: 140px;
+    z-index: 1002;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(-50%) translateY(4px);
+    transition: all 0.2s ease;
+    
+    &.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(0);
+    }
+    
+    .language-option {
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 13px;
+      font-family: $font-family;
+      color: $fg;
+      transition: background-color 0.2s ease;
+      
+      &:first-child {
+        border-radius: $border-radius-md $border-radius-md 0 0;
+      }
+      
+      &:last-child {
+        border-radius: 0 0 $border-radius-md $border-radius-md;
+      }
+      
+      &:hover {
+        background-color: $list-hover-bg;
+      }
+      
+      &:active {
+        background-color: $btn-bg;
+      }
+    }
+  }
+}
+
 
 

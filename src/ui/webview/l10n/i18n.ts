@@ -266,7 +266,7 @@ class I18nService {
       
       for (const key of keys) {
         value = value?.[key];
-        if (value === undefined) break;
+        if (value === undefined) {break;}
       }
 
       if (typeof value !== 'string') {

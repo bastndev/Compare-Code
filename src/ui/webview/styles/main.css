@@ -1170,4 +1170,50 @@ body {
   filter: brightness(1.2);
 }
 
+.language.bbtn {
+  position: relative;
+}
+.language.bbtn .language-dropdown {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  background-color: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  min-width: 140px;
+  z-index: 1002;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(4px);
+  transition: all 0.2s ease;
+}
+.language.bbtn .language-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.language.bbtn .language-dropdown .language-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  color: var(--vscode-foreground);
+  transition: background-color 0.2s ease;
+}
+.language.bbtn .language-dropdown .language-option:first-child {
+  border-radius: 6px 6px 0 0;
+}
+.language.bbtn .language-dropdown .language-option:last-child {
+  border-radius: 0 0 6px 6px;
+}
+.language.bbtn .language-dropdown .language-option:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+.language.bbtn .language-dropdown .language-option:active {
+  background-color: var(--vscode-button-background);
+}
+
 /*# sourceMappingURL=main.css.map */

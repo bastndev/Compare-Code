@@ -1,5 +1,5 @@
 import { initializeUserActions } from './user-actions/user-actions-top';
-import { initializeDualScroll, initializeOnlyCode, resetOnlyModified, initializeSwitchMode, toggleSwitchMode } from './user-actions/user-actions-bot';
+import { initializeDualScroll, initializeOnlyCode, resetOnlyModified, initializeSwitchMode, toggleSwitchMode, initializeLanguageMenu } from './user-actions/user-actions-bot';
 import { ComparisonEngine, ComparisonResult } from './compare-code/algorithms';
 import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './userShowInformation';
@@ -149,6 +149,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initializeDualScroll();
   initializeOnlyCode();
   initializeSwitchMode();
+  initializeLanguageMenu();
   initializeCompareCode();
   (window as any).toggle = toggle;
   (window as any).clearAll = clearAll;
