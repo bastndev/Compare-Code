@@ -1,4 +1,4 @@
-import { ComparisonStats } from './compare-code/algorithms';
+import { ComparisonStats } from '../compare-code/algorithms';
 
 // ==========================================
 // USER INFORMATION & STATISTICS DISPLAY

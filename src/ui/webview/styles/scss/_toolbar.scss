@@ -3,7 +3,7 @@
 /* ======================================
    TOOLBAR - VS Code Extension | MARK: TOOLBAR
    ======================================= */
- @mixin button-base {
+@mixin button-mixin {
   border: none;
   cursor: pointer;
   display: flex;
@@ -19,7 +19,22 @@
   }
 }
 
-// Main
+@mixin stats-mixin {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+@mixin icon-gradient($color-start, $color-end) {
+  background: linear-gradient(135deg, $color-start, $color-end);
+}
+
+// ======== Main Toolbar =========
 .toolbar {
   background-color: $bg;
   align-items: center;
@@ -39,16 +54,10 @@
 }
 
 // ======================================
-// NORMAL STATS MARK: normal
+// Normal Stats | MARK: normal
 // ======================================
 .normal-stats {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
+  @include stats-mixin;
   justify-content: flex-start;
 }
 
@@ -77,37 +86,35 @@
   font-size: $font-size;
   color: inherit;
 }
-.slash-l {
+
+.match-score {
+  font-size: 14px;
+  font-weight: 600;
+  color: $fg;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: default;
+}
+
+// Slash separators
+.slash-l,
+.slash-r {
   font-size: 16px;
   font-weight: 700;
   color: #555;
   cursor: default;
 }
 
-.match-score {
-  font-size: 14px;
-  font-weight: 600;
-  color: $fg;
-  // background-color: #e8f0fe;
-  padding: 6px 12px;
-  border-radius: 8px;
-  transition: background-color 0.2s ease;
-  cursor: default;
-}
-// ===============  TRANSITIONS SWAP ============
-.normal-stats, .pro-stats {
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+.slash-r {
+  padding-top: 3px;
 }
 
-// PRO STATS MARK: pro
+// ======================================
+// Pro Stats | MARK: pro
+// ======================================
 .pro-stats {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
+  @include stats-mixin;
   gap: clamp($spacing-md, 2vw, $spacing-lg);
   padding: 0 $spacing-sm;
 }
@@ -133,22 +140,21 @@
   justify-content: center;
   font-size: 11px;
   color: $color-white;
-  opacity: none;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   
   &.added {
-    background: linear-gradient(135deg, $color-green, #16a34a);
+    @include icon-gradient($color-green, #16a34a);
   }
   
   &.removed {
-    background: linear-gradient(135deg, $color-red, #dc2626);
+    @include icon-gradient($color-red, #dc2626);
   }
   
   &.modified {
-    background: linear-gradient(135deg, $color-orange, #d97706);
+    @include icon-gradient($color-orange, #d97706);
   }
 
   &:hover {
@@ -157,7 +163,7 @@
   }
 }
 
-.stat-item span{
+.stat-item span {
   font-size: 11px;
   color: $fg;
   opacity: 0.8;
@@ -167,7 +173,7 @@
 // Primary Compare Button | MARK: playBtn
 // ======================================
 .btn-play {
-  @include button-base;
+  @include button-mixin;
   @include button-hover-scale;
   background-color: $btn-bg;
   padding: 6px 14px;
@@ -206,7 +212,7 @@
 }
 
 .clear {
-  @include button-base;
+  @include button-mixin;
   @include button-hover-scale;
   background-color: var(--vscode-button-secondaryBackground, #5f6a79);
   color: var(--vscode-button-secondaryForeground, #{$fg});
@@ -221,10 +227,10 @@
   }
 }
 
-// ---- --- -- - PANEL CONTROL BUTTONS
+// Panel Control Buttons
 .btn-panel-right,
 .btn-panel-left {
-  @include button-base;
+  @include button-mixin;
   background-color: transparent;
   padding: 6px;
 
@@ -235,60 +241,5 @@
   img {
     width: 20px;
     height: 20px;
-  }
-}
-
-.slash-r {
-  cursor: default;
-  color: #555;
-  padding-top: 3px;
-}
-
-// --- --- --- -- - TXT - FLOATING MESSAGE
-.btn-panel-left[data-tooltip],
-.btn-panel-right[data-tooltip] {
-  position: relative;
-}
-
-.btn-panel-left[data-tooltip]:hover::after,
-.btn-panel-right[data-tooltip]:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: $input-bg;
-  color: $fg;
-  padding: 6px 10px;
-  border-radius: $fifty-fifty;
-  font-size: 12px;
-  // font-family: $font-family;
-  white-space: nowrap;
-  border: 1px solid $input-border;
-  z-index: 1000;
-  margin-top: 6px;
-  opacity: 0;
-  animation: tooltipFadeIn 0.2s ease forwards;
-  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
-}
-
-// Position floating message 
-.btn-panel-left[data-tooltip]:hover::after {
-  left: 13px;
-  transform: translateX(10%);
-}
-.btn-panel-right[data-tooltip]:hover::after {
-  left: -30px;
-  transform: translateX(10%);
-}
-
-@keyframes tooltipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
   }
 }

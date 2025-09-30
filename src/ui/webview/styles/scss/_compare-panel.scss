@@ -1,8 +1,25 @@
 @use 'global' as *;
 
-/* ======================================
-  DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
-  ======================================= */
+/* ===================================================
+  DIFF PANEL - VS Code Extension | MARK: COMPARE PANEL
+  ==================================================== */
+@mixin button-icon-mixin {
+  background: none;
+  cursor: pointer;
+  border: none;
+  
+  img {
+    width: 15px;
+    opacity: 0.6;
+    transition: opacity 0.2s ease;
+    
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
+
+// ============= Main Panel =============
 .compare-panel {
   background-color: $input-bg;
   color: white;
@@ -11,34 +28,44 @@
   text-align: center;
   height: 40px;
   width: 100%;
-  /* position: relative; */
   display: grid;
   grid-template-columns: 1fr 50px 1fr;
 }
 
-// BUTTONS LEF  AND RIGHT
+// Panel Sections
 .options-panel-left {
-  // background-color: red;
   text-align: left;
-}
-
-.test {
-  color: orange;
+  
+  button {
+    margin-right: 8px;
+  }
 }
 
 .options-panel-right {
-  // background-color: blue;
   text-align: right;
+  
+  button {
+    margin-left: 8px;
+  }
 }
 
-.copy-code, .clear-code, .download-code {
-  background: none;
-  cursor: pointer;
-  border: none;
-    // margin-right:  40px;
+// ======================================
+// Action Buttons | MARK: buttons
+// ======================================
+.copy-code,
+.clear-code,
+.download-code {
+  @include button-icon-mixin;
 }
 
-// Clear code animation
+.copy-clear {
+  @include button-icon-mixin;
+  margin: 0 12px;
+}
+
+// =========== Button Animations ================
+
+// Clear Animation
 .clear-code {
   &.clearing img {
     animation: cleanSweep 0.5s ease-in-out;
@@ -54,12 +81,14 @@
   100% { transform: rotate(0deg); }
 }
 
-// Copy code animation
+// Copy Animation & Message
 .copy-code {
   position: relative;
+  
   &.copying img {
     animation: copyPulse 2s ease-in-out;
   }
+  
   .copy-message {
     display: none;
     position: absolute;
@@ -68,14 +97,14 @@
     transform: translateX(-50%);
     background-color: $color-green;
     color: $color-black;
-    font-weight: bold;
+    font-weight: 500;
     padding: 3px 8px;
     border-radius: 4px;
     font-size: 12px;
-    font-weight: 500;
     white-space: nowrap;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
     z-index: 10;
+    
     &::after {
       content: '';
       position: absolute;
@@ -86,6 +115,7 @@
       border-bottom-color: $color-green;
     }
   }
+  
   &.copying .copy-message {
     display: block;
     animation: fadeInOut 2s ease-in-out;
@@ -104,7 +134,7 @@
   100% { opacity: 0; transform: translateX(-50%) translateY(5px); }
 }
 
-// Download code animation
+// Download Animation
 .download-code {
   &.downloading img {
     animation: downloadBounce 0.3s ease-in-out;
@@ -117,28 +147,9 @@
   100% { transform: translateY(0); opacity: 0.6; }
 }
 
-.copy-clear{
-  margin: 0 12px 0 12px;
-}
-
-.copy-clear img{
-  width: 15px;
-  opacity: 0.6;
-}
-.copy-clear img:hover{
-  opacity: 1;
-}
-
-.options-panel-left button{
-  margin-right: 8px;
-}
-.options-panel-right button{
-  margin-left: 8px;
-}
-
-/* ======================================
-   DUAL SCROLL INDICATOR 
-  ======================================= */
+// ==========================================
+// Dual Scroll Indicator | MARK: DUAL SCROLL
+// =========================================
 .dual-scroll-indicator {
   position: absolute;
   top: 10px;
@@ -163,73 +174,27 @@
   cursor: pointer;
   transition: all 0.2s ease;
 
-  // Pulsing glow animation
-  @keyframes pulseGlow {
-    0% {
-      box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
-      transform: scale(1);
-    }
-    100% {
-      box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
-      transform: scale(1.05);
-    }
-  }
-
-  // Hover effect - solid background
   &:hover {
     opacity: 1;
     background-color: #007acc;
     transform: scale(1.1);
     box-shadow: 0 4px 16px rgba(0, 122, 204, 0.5);
-    animation: none; // Stop pulsing on hover
+    animation: none;
   }
 
-  // Active/pressed state
   &:active {
     transform: scale(0.95);
     box-shadow: 0 2px 8px rgba(0, 122, 204, 0.4);
   }
 }
 
-// ======================================
-// TOOLTIP SYSTEM | MARK: tooltip
-// ======================================
-.clear-code[data-tooltip],
-.download-code[data-tooltip] {
-  position: relative;
-  
-  &:hover::before {
-    content: attr(data-tooltip);    
-    position: absolute;
-    top: 100%;
-    left: 50%;
-    z-index: 1001;
-    margin-top: 8px;
-    padding: 4px 8px;
-    white-space: nowrap;
-    background-color: $input-bg;
-    color: $fg;
-    border: 1px solid $input-border;
-    border-radius: $border-radius-md;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-size: 11px;
-    font-family: $font-family;
-    
-    // Animation & Transform
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-50%);
-    animation: tooltipFadeIn 0.3s ease forwards;
-  }
-}
-
-@keyframes tooltipFadeIn {
+@keyframes pulseGlow {
   0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-5px);
+    box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+    transform: scale(1);
   }
   100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
+    transform: scale(1.05);
   }
 }
