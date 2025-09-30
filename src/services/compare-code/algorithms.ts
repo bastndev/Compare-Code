@@ -24,6 +24,7 @@ export interface ComparisonLine {
   content: string;
   type: LineType;
   htmlContent?: string;
+  originalLineNumber?: number;
 }
 
 export interface ComparisonStats {
@@ -42,6 +43,7 @@ export interface ComparisonResult {
   lines1: ComparisonLine[];
   lines2: ComparisonLine[];
   stats: ComparisonStats;
+  similarity: number;
 }
 
 /**
@@ -65,12 +67,30 @@ export class ComparisonEngine {
     const result2: ComparisonLine[] = [];
     const stats: ComparisonStats = { added: 0, removed: 0, modified: 0 };
 
+    // Counters for similarity calculation
+    let identicalCount = 0;
+    let modifiedCount = 0;
+
     // Process the aligned lines
+    let lineNumber1 = 1;
+    let lineNumber2 = 1;
+    
     for (const operation of alignment) {
       switch (operation.type) {
         case 'identical':
-          result1.push({ content: operation.line1!, type: 'identical' });
-          result2.push({ content: operation.line2!, type: 'identical' });
+          result1.push({ 
+            content: operation.line1!, 
+            type: 'identical',
+            originalLineNumber: lineNumber1
+          });
+          result2.push({ 
+            content: operation.line2!, 
+            type: 'identical',
+            originalLineNumber: lineNumber2
+          });
+          identicalCount++;
+          lineNumber1++;
+          lineNumber2++;
           break;
           
         case 'modified':
@@ -81,31 +101,58 @@ export class ComparisonEngine {
           result1.push({ 
             content: operation.line1!, 
             type: 'modified',
-            htmlContent: inlineDiff1
+            htmlContent: inlineDiff1,
+            originalLineNumber: lineNumber1
           });
           result2.push({ 
             content: operation.line2!, 
             type: 'modified',
-            htmlContent: inlineDiff2
+            htmlContent: inlineDiff2,
+            originalLineNumber: lineNumber2
           });
           stats.modified++;
+          modifiedCount++;
+          lineNumber1++;
+          lineNumber2++;
           break;
           
         case 'removed':
-          result1.push({ content: operation.line1!, type: 'removed' });
-          result2.push({ content: '', type: 'empty' });
+          result1.push({ 
+            content: operation.line1!, 
+            type: 'removed',
+            originalLineNumber: lineNumber1
+          });
+          result2.push({ 
+            content: '', 
+            type: 'empty',
+            originalLineNumber: lineNumber2
+          });
           stats.removed++;
+          lineNumber1++;
           break;
           
         case 'added':
-          result1.push({ content: '', type: 'empty' });
-          result2.push({ content: operation.line2!, type: 'added' });
+          result1.push({ 
+            content: '', 
+            type: 'empty',
+            originalLineNumber: lineNumber1
+          });
+          result2.push({ 
+            content: operation.line2!, 
+            type: 'added',
+            originalLineNumber: lineNumber2
+          });
           stats.added++;
+          lineNumber2++;
           break;
       }
     }
 
-    return { lines1: result1, lines2: result2, stats };
+    // Calculate overall similarity percentage
+    const totalLines = Math.max(result1.length, result2.length);
+    const similarity = totalLines > 0 ? Math.round(((identicalCount + modifiedCount) / totalLines) * 100) : 100;
+
+    return { lines1: result1, lines2: result2, stats, similarity };
   }
 
   /**

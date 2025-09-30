@@ -82,6 +82,10 @@ export class UserInformationManager {
     }
   }
 
+// ==========================================
+// USER INFORMATION | MARK: ITEM A-R-M
+// ==========================================
+
   /**
    * Validate user input and show appropriate messages
    * @param text1 First text input
@@ -161,5 +165,29 @@ export class UserInformationManager {
   public static showPerformanceMetrics(startTime: number, endTime: number): void {
     const duration = endTime - startTime;
     console.log(`Comparison completed in ${duration.toFixed(2)}ms`);
+  }
+
+
+// ==========================================
+// USER INFORMATION | MARK: NORMAL
+// ==========================================
+
+  /**
+   * Update the normal stats container with changes count and similarity score
+   * @param stats Comparison statistics
+   * @param similarity Similarity percentage
+   */
+  public static updateNormalStats(stats: ComparisonStats, similarity: number): void {
+    const warningBox = document.querySelector('.warning-box span');
+    const matchScore = document.querySelector('.match-score');
+    
+    if (warningBox) {
+      const totalChanges = stats.added + stats.removed + stats.modified;
+      warningBox.textContent = `${totalChanges} : Changes`;
+    }
+    
+    if (matchScore) {
+      matchScore.textContent = `${similarity}% : Similar`;
+    }
   }
 }

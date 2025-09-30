@@ -1,5 +1,5 @@
 import { initializeUserActions } from './user-actions/user-actions-top';
-import { initializeDualScroll } from './user-actions/user-actions-bot';
+import { initializeDualScroll, initializeOnlyCode, resetOnlyModified, initializeSwitchMode, toggleSwitchMode } from './user-actions/user-actions-bot';
 import { ComparisonEngine, ComparisonResult } from './compare-code/algorithms';
 import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './userShowInformation';
@@ -55,6 +55,7 @@ export function compare(): void {
     isComparing = true;
     setPlayBtnToEdit();
     UserInformationManager.updateStatsDisplay(comparison.stats);
+    UserInformationManager.updateNormalStats(comparison.stats, comparison.similarity);
 
   } catch (error) {
     console.error('Comparison failed:', error);
@@ -79,6 +80,7 @@ export function reset(): void {
     isComparing = false;
     setPlayBtnToCompare();
     UserInformationManager.clearStatsDisplay();
+    resetOnlyModified();
 
   } catch (error) {
     console.error('Reset failed:', error);
@@ -97,6 +99,20 @@ export function clearAll(): void {
       reset();
     }
   }
+}
+
+/**
+ * Get the editor manager instance
+ */
+export function getEditorManager(): EditorManager {
+  return editorManager;
+}
+
+/**
+ * Check if currently in comparison mode
+ */
+export function isComparingMode(): boolean {
+  return isComparing;
 }
 
 /**
@@ -131,7 +147,10 @@ export function initializeCompareCode(): void {
 document.addEventListener('DOMContentLoaded', () => {
   initializeUserActions();
   initializeDualScroll();
+  initializeOnlyCode();
+  initializeSwitchMode();
   initializeCompareCode();
   (window as any).toggle = toggle;
   (window as any).clearAll = clearAll;
+  (window as any).toggleSwitchMode = toggleSwitchMode;
 });

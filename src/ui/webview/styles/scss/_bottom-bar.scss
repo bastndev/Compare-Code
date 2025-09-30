@@ -147,6 +147,7 @@ $scale-active: 0.98;
   height: $icon-size;
   pointer-events: none;
   display: block;
+  transition: opacity 0.3s ease-in-out;
 }
 
 // ======================================
@@ -261,14 +262,25 @@ $scale-active: 0.98;
 }
 
 // ======================================
-// HERE BUTTON TS | MARK: --- -- - 
+// HERE BUTTON TS | MARK: BOX SHADOW
 // ======================================
 
-// DUAL SCROLL BUTTON STYLES | MARK: DUAL SCROLL 
+// DUAL SCROLL
 .dual-scroll.bbtn.active {
   background: $btn-bg;
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+  box-shadow: 0 0 15px $btn-bg;
+  
+  .icon {
+    filter: brightness(1.2);
+  }
+}
+
+// ONLY CODE EDITH
+.only-code.bbtn.active {
+  background: $btn-bg;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px $btn-bg; 
   
   .icon {
     filter: brightness(1.2);

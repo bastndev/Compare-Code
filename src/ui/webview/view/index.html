@@ -8,62 +8,69 @@
 </head>
 <body>
     <!-- ======================================
-         TOOLBAR - Top navigation and controls
+          Top navigation and controls MARK:TOOLBAR 
          ====================================== -->
     <div class="toolbar">
-        <!-- Warning container -->
-         
-        <!-- <div class="warning-container">
-            <div class="warning-box">
-                <img class="warning-icon" src="{{WARNING_ICON}}">
-                <span>1 : Changes</span>
-            </div>
-        </div>  -->
+        <div class="stats-container">
+            <!-- Warning & Similar | NORMAL -->
+            <div class="normal-stats" id="normal-stats">
+                <div class="warning-box">
+                    <img class="warning-icon" src="{{WARNING_ICON}}">
+                    <span>0 : Changes</span>
+                </div>
+                <span class="slash-l">/</span>
+                <div>
+                    <span class="match-score">00% : Similar</span>
+                </div>
+            </div> 
 
-        <!-- TODO: Diff statistics display -->
-        <div class="diff-stats">
-            <div class="stat-item">
-                <div class="stat-icon added">+</div>
-                <span id="added-count">0 lines added</span>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon removed">-</div>
-                <span id="removed-count">0 lines removed</span>
-            </div>
-            <div class="stat-item">
-                <div class="stat-icon modified">~</div>
-                <span id="modified-count">0 lines modified</span>
+            <!-- Diff statistics | PRO -->
+            <div class="pro-stats" id="pro-stats">
+                <div class="stat-item">
+                    <div class="stat-icon added">+</div>
+                    <span id="added-count">0 lines added</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon removed">-</div>
+                    <span id="removed-count">0 lines removed</span>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon modified">~</div>
+                    <span id="modified-count">0 lines modified</span>
+                </div>
             </div>
         </div>
 
-        <!-- TODO: Primary compare button | PLAY -->
+        <!-- Primary compare button | PLAY -->
         <button class="btn-play" onclick="toggle()" id="playBtn" title="Ctrl + Enter">
             <img src="{{PLAY_ICON}}">
             <span>Compare</span>
         </button>
 
-        <!-- TODO: Secondary panel controls | Clear - Close & Open -->
+        <!-- Secondary panel controls | Clear - Close & Open -->
         <div class="buttons-container">
             <button class="clear" onclick="clearAll()">🗑️ Clear</button>
             
             <button class="btn-panel-left" id="btn-panel-left" data-tooltip="Close/Open panel LEFT">
                 <img src="{{PANEL_LEFT_ICON}}">
             </button>
-            <span class="slash">/</span>
+            <span class="slash-r">/</span>
             <button class="btn-panel-right" id="btn-panel-right" data-tooltip="Close/Open panel RIGHT">
                 <img src="{{PANEL_RIGHT_ICON}}">
             </button>
         </div>
     </div>
 
-    <!-- FILE IMPORT | DOWNLOAD - COPY - CLEAR -->
+    <!-- ======================================
+        TODO: DOWNLOAD - COPY - CLEAR| MARK: COMPARE CODE
+        ====================================== -->
     <div class="compare-panel">
         <div class="options-panel-left">
             <div class="copy-clear">
                 <button class="clear-code" data-tooltip="Clear">
                     <img src="{{CLEAR_ICON_L}}">
                 </button>
-                <button class="copy-code" data-tooltip="Copy code">
+                <button class="copy-code">
                     <img src="{{COPY_ICON_L}}">
                     <div class="copy-message">Copied!</div>
                 </button>
@@ -80,7 +87,7 @@
                 <button class="download-code" data-tooltip="Download">
                     <img src="{{DOWNLOAD_ICON_R}}">
                 </button>
-                <button class="copy-code" data-tooltip="Copy code">
+                <button class="copy-code">
                     <img src="{{COPY_ICON_R}}">
                     <div class="copy-message">Copied!</div>
                 </button>
@@ -92,7 +99,7 @@
     </div>
 
     <!-- ======================================
-         Main comparison interface | HYBRID ARCHITECTURE
+         TODO: Main comparison interface | MARK: CODE
          ====================================== -->
 
     <div class="compare-code">
@@ -140,14 +147,14 @@
     </div>
 
     <!-- ======================================
-         BOTTOM BAR - Floating tool controls
+         TODO: Floating tool controls | MARK: BOTTOM BAR
          ====================================== -->
     <div class="bottom-bar">
         <div class="content">
             <button class="only-code bbtn" data-tooltip="Show modified code">
                 <img class="icon" src="{{ONLY_CODE_ICON}}">
             </button>
-            <button class="switch-on-off bbtn" data-tooltip="Normal/Pro version">
+            <button class="switch-on-off bbtn" data-tooltip="Normal/Pro" onclick="toggleSwitchMode()">
                 <img class="icon" src="{{SWITCH_ON_ICON}}">
             </button>
             <button class="dual-scroll bbtn" id="dual-scroll-btn" data-tooltip="Dual scroll">

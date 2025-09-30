@@ -2,8 +2,11 @@
    User action bot | MARK: Dual Scroll
    ======================================= */
 
+import { getEditorManager, isComparingMode } from '../main';
+
 let syncScrollEnabled = false;
 let isScrolling = false;
+let onlyModifiedEnabled = false;
 
 export function initializeDualScroll() {
     const dualScrollBtn = document.getElementById('dual-scroll-btn');
@@ -127,4 +130,120 @@ export function isDualScrollActive(): boolean {
 /* ======================================
    User button bot | MARK:CODE MODIFY
    ======================================= */
-   
+
+function toggleOnlyModified() {
+    if (!isComparingMode()) {
+        console.warn('Cannot toggle only modified mode: not in comparison mode');
+        return;
+    }
+
+    const editorManager = getEditorManager();
+    const { lines1 } = editorManager.getCurrentLines();
+    const hasModified = lines1.some(line => line.type !== 'identical');
+
+    if (onlyModifiedEnabled) {
+        // Deactivating
+        onlyModifiedEnabled = false;
+        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+        if (btn) {
+            btn.classList.remove('active');
+        }
+        console.log('Only modified mode deactivated');
+        editorManager.renderFiltered(() => true);
+    } else {
+        // Activating
+        if (!hasModified) {
+            return;
+        }
+        onlyModifiedEnabled = true;
+        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+        if (btn) {
+            btn.classList.add('active');
+        }
+        console.log('Only modified mode activated');
+        editorManager.renderFiltered(line => line.type !== 'identical');
+    }
+}
+
+export function resetOnlyModified() {
+    if (onlyModifiedEnabled) {
+        onlyModifiedEnabled = false;
+        const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
+        if (btn) {
+            btn.classList.remove('active');
+        }
+    }
+}
+
+export function initializeOnlyCode() {
+    const onlyCodeBtn = document.querySelector('.only-code.bbtn') as HTMLElement;
+    if (!onlyCodeBtn) {
+        console.warn('Only code button not found');
+        return;
+    }
+    
+    onlyCodeBtn.addEventListener('click', toggleOnlyModified);
+}
+
+/* ======================================
+   User actions - toolbar | MARK:NORMAL/PRO
+   ======================================= */
+let isProMode: boolean = false;
+let switchOnUri: string;
+let switchOffUri: string;
+
+export function initializeSwitchMode() {
+    // Message listener for switch icons
+    window.addEventListener('message', (event) => {
+        const message = event.data;
+        if (message.type === 'setIcons') {
+            switchOnUri = message.icons.switchOn;
+            switchOffUri = message.icons.switchOff;
+        }
+    });
+
+    // Initial state: show normal stats, hide pro stats
+    const normalStats = document.getElementById('normal-stats');
+    const proStats = document.getElementById('pro-stats');
+    if (normalStats) {
+        normalStats.style.opacity = '1';
+        normalStats.style.visibility = 'visible';
+    }
+    if (proStats) {
+        proStats.style.opacity = '0';
+        proStats.style.visibility = 'hidden';
+    }
+}
+
+export function toggleSwitchMode(): void {
+    isProMode = !isProMode;
+    const icon = document.querySelector('.switch-on-off .icon') as HTMLImageElement;
+    if (icon) {
+        icon.style.opacity = '0';
+        setTimeout(() => {
+            icon.src = isProMode ? switchOffUri : switchOnUri;
+            icon.style.opacity = '1';
+        }, 150);
+    }
+
+    // Toggle stats display
+    const normalStats = document.getElementById('normal-stats');
+    const proStats = document.getElementById('pro-stats');
+    if (normalStats && proStats) {
+        if (isProMode) {
+            normalStats.style.opacity = '0';
+            setTimeout(() => {
+                normalStats.style.visibility = 'hidden';
+                proStats.style.opacity = '1';
+                proStats.style.visibility = 'visible';
+            }, 250); // Half of transition time
+        } else {
+            proStats.style.opacity = '0';
+            setTimeout(() => {
+                proStats.style.visibility = 'hidden';
+                normalStats.style.opacity = '1';
+                normalStats.style.visibility = 'visible';
+            }, 250);
+        }
+    }
+}
