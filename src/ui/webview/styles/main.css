@@ -30,7 +30,7 @@ body {
 
 ::-webkit-scrollbar-thumb {
   background: var(--vscode-widget-border);
-  border-radius: 6px;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {

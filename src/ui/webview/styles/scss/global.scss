@@ -7,7 +7,7 @@ $fg-muted: var(--vscode-descriptionForeground);
 $border: var(--vscode-widget-border);
 
 // Typography
-$font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+$font-family: var(--vscode-editor-font-family,'JetBrains Mono','Consolas','Monaco','Courier New',sans-serif);
 $font-size: var(--vscode-font-size, 13px);
 
 // Interactive elements
@@ -29,9 +29,9 @@ $scrollbar-track-bg: $bg;
 $scrollbar-thumb-bg: $border;
 $scrollbar-thumb-hover: var(--vscode-scrollbarSlider-hoverBackground, #555555);
 
-// USER-CODE / USER-CODE / USER-CODE 
-$primary-bg:var(--bg-primary);
-$selection-bg: var(--vscode-editor-selectionBackground, rgba(173, 214, 255, 0.3));
+// USER-CODE / USER-CODE / USER-CODE
+$primary-bg: var(--bg-primary);
+$selection-bg: var(--vscode-editor-selectionBackground,rgba(173, 214, 255, 0.3));
 $contrast: var(--vscode-editor-foreground, #ffffff);
 
 // ======================================
@@ -76,23 +76,23 @@ $spacing-xl: 32px;
 *,
 *::before,
 *::after {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    background-color: $bg;
-    color: $fg;
-    display: flex;
-    flex-direction: column;
-    font-family: $font-family;
-    font-size: $font-size;
-    height: 100vh;
-    line-height: 1.4;
-    margin: 0;
-    overflow: hidden;
-    -webkit-font-smoothing: antialiased;
+  background-color: $bg;
+  color: $fg;
+  display: flex;
+  flex-direction: column;
+  font-family: $font-family;
+  font-size: $font-size;
+  height: 100vh;
+  line-height: 1.4;
+  margin: 0;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
 }
 
 // ======================================
@@ -100,20 +100,20 @@ body {
 // ======================================
 
 ::-webkit-scrollbar {
-    width: $scrollbar-width;
+  width: $scrollbar-width;
 }
 
 ::-webkit-scrollbar-track {
-    background: $scrollbar-track-bg;
+  background: $scrollbar-track-bg;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: $scrollbar-thumb-bg;
-    border-radius: 6px;
+  background: $scrollbar-thumb-bg;
+  border-radius: 0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: $scrollbar-thumb-hover;
+  background: $scrollbar-thumb-hover;
 }
 
 // ==============================================
@@ -121,12 +121,12 @@ body {
 // ==============================================
 
 @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
