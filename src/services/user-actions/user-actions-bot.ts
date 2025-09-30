@@ -250,19 +250,27 @@ export function toggleSwitchMode(): void {
     const currentSrc = icon.src;
     console.log('Current icon src:', currentSrc);
 
-    // Check if we have the dynamic URIs
-    if (!switchOnUri || !switchOffUri) {
-      console.warn('Switch icon URIs not available yet, keeping current icon');
-      // Don't return here, still need to toggle stats
-    } else {
-      icon.style.opacity = '0';
-      setTimeout(() => {
-        const newSrc = isProMode ? switchOffUri : switchOnUri;
-        console.log('Setting new icon src:', newSrc);
-        icon.src = newSrc;
-        icon.style.opacity = '1';
-      }, 150);
+    // Try to get icon URIs from the received message first
+    let onUri = switchOnUri;
+    let offUri = switchOffUri;
+    
+    // If URIs are not available from message, try to construct them from current src
+    if (!onUri || !offUri) {
+      console.log('Constructing icon URIs from current src...');
+      const baseSrc = currentSrc.replace(/switch-(on|off)\.svg.*$/, '');
+      onUri = baseSrc + 'switch-on.svg';
+      offUri = baseSrc + 'switch-off.svg';
+      console.log('Constructed URIs:', { onUri, offUri });
     }
+    
+    // Change icon with animation
+    icon.style.opacity = '0';
+    setTimeout(() => {
+      const newSrc = isProMode ? offUri : onUri;
+      console.log('Setting new icon src:', newSrc);
+      icon.src = newSrc;
+      icon.style.opacity = '1';
+    }, 150);
   } else {
     console.error('Switch icon element not found');
   }
