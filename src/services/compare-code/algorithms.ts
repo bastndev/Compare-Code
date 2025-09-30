@@ -43,6 +43,7 @@ export interface ComparisonResult {
   lines1: ComparisonLine[];
   lines2: ComparisonLine[];
   stats: ComparisonStats;
+  similarity: number;
 }
 
 /**
@@ -66,6 +67,10 @@ export class ComparisonEngine {
     const result2: ComparisonLine[] = [];
     const stats: ComparisonStats = { added: 0, removed: 0, modified: 0 };
 
+    // Counters for similarity calculation
+    let identicalCount = 0;
+    let modifiedCount = 0;
+
     // Process the aligned lines
     let lineNumber1 = 1;
     let lineNumber2 = 1;
@@ -83,6 +88,7 @@ export class ComparisonEngine {
             type: 'identical',
             originalLineNumber: lineNumber2
           });
+          identicalCount++;
           lineNumber1++;
           lineNumber2++;
           break;
@@ -105,6 +111,7 @@ export class ComparisonEngine {
             originalLineNumber: lineNumber2
           });
           stats.modified++;
+          modifiedCount++;
           lineNumber1++;
           lineNumber2++;
           break;
@@ -141,7 +148,11 @@ export class ComparisonEngine {
       }
     }
 
-    return { lines1: result1, lines2: result2, stats };
+    // Calculate overall similarity percentage
+    const totalLines = Math.max(result1.length, result2.length);
+    const similarity = totalLines > 0 ? Math.round(((identicalCount + modifiedCount) / totalLines) * 100) : 100;
+
+    return { lines1: result1, lines2: result2, stats, similarity };
   }
 
   /**
