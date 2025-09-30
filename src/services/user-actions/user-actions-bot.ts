@@ -206,10 +206,12 @@ export function initializeSwitchMode() {
     const normalStats = document.getElementById('normal-stats');
     const proStats = document.getElementById('pro-stats');
     if (normalStats) {
-        normalStats.style.display = 'flex';
+        normalStats.style.opacity = '1';
+        normalStats.style.visibility = 'visible';
     }
     if (proStats) {
-        proStats.style.display = 'none';
+        proStats.style.opacity = '0';
+        proStats.style.visibility = 'hidden';
     }
 }
 
@@ -229,11 +231,19 @@ export function toggleSwitchMode(): void {
     const proStats = document.getElementById('pro-stats');
     if (normalStats && proStats) {
         if (isProMode) {
-            normalStats.style.display = 'none';
-            proStats.style.display = 'flex';
+            normalStats.style.opacity = '0';
+            setTimeout(() => {
+                normalStats.style.visibility = 'hidden';
+                proStats.style.opacity = '1';
+                proStats.style.visibility = 'visible';
+            }, 250); // Half of transition time
         } else {
-            normalStats.style.display = 'flex';
-            proStats.style.display = 'none';
+            proStats.style.opacity = '0';
+            setTimeout(() => {
+                proStats.style.visibility = 'hidden';
+                normalStats.style.opacity = '1';
+                normalStats.style.visibility = 'visible';
+            }, 250);
         }
     }
 }

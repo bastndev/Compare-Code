@@ -61,7 +61,16 @@ body {
   border-bottom: 5px dashed var(--vscode-sideBar-border);
 }
 
+.stats-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 .warning-container {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -112,7 +121,16 @@ body {
   cursor: default;
 }
 
+.warning-container, .diff-stats {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
 .diff-stats {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   gap: clamp(16px, 2vw, 24px);
