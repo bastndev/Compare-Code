@@ -61,7 +61,16 @@ body {
   border-bottom: 5px dashed var(--vscode-sideBar-border);
 }
 
-.warning-container {
+.stats-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.normal-stats {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -95,7 +104,33 @@ body {
   color: inherit;
 }
 
-.diff-stats {
+.slash-l {
+  font-size: 16px;
+  font-weight: 700;
+  color: #555;
+  cursor: default;
+}
+
+.match-score {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--vscode-foreground);
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: default;
+}
+
+.normal-stats, .pro-stats {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+.pro-stats {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   gap: clamp(16px, 2vw, 24px);
@@ -238,8 +273,9 @@ body {
   height: 20px;
 }
 
-.slash {
+.slash-r {
   cursor: default;
+  color: #555;
   padding-top: 3px;
 }
 
@@ -499,12 +535,10 @@ body {
 }
 
 .clear-code[data-tooltip],
-.copy-code[data-tooltip],
 .download-code[data-tooltip] {
   position: relative;
 }
 .clear-code[data-tooltip]:hover::before,
-.copy-code[data-tooltip]:hover::before,
 .download-code[data-tooltip]:hover::before {
   content: attr(data-tooltip);
   position: absolute;
@@ -758,6 +792,7 @@ body {
 }
 
 .diff-line.identical {
+  background: rgba(34, 197, 94, 0.02);
   /* Maintain consistent height even without borders */
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
   /* Ensure identical lines maintain their content */
@@ -1031,6 +1066,7 @@ body {
   height: 30px;
   pointer-events: none;
   display: block;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .bbtn[data-tooltip] {
@@ -1119,10 +1155,65 @@ body {
 .dual-scroll.bbtn.active {
   background: var(--vscode-button-background);
   transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(0, 122, 204, 0.5);
+  box-shadow: 0 0 15px var(--vscode-button-background);
 }
 .dual-scroll.bbtn.active .icon {
   filter: brightness(1.2);
+}
+
+.only-code.bbtn.active {
+  background: var(--vscode-button-background);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--vscode-button-background);
+}
+.only-code.bbtn.active .icon {
+  filter: brightness(1.2);
+}
+
+.language.bbtn {
+  position: relative;
+}
+.language.bbtn .language-dropdown {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: 8px;
+  background-color: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  min-width: 140px;
+  z-index: 1002;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateX(-50%) translateY(4px);
+  transition: all 0.2s ease;
+}
+.language.bbtn .language-dropdown.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateX(-50%) translateY(0);
+}
+.language.bbtn .language-dropdown .language-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  color: var(--vscode-foreground);
+  transition: background-color 0.2s ease;
+}
+.language.bbtn .language-dropdown .language-option:first-child {
+  border-radius: 6px 6px 0 0;
+}
+.language.bbtn .language-dropdown .language-option:last-child {
+  border-radius: 0 0 6px 6px;
+}
+.language.bbtn .language-dropdown .language-option:hover {
+  background-color: var(--vscode-list-hoverBackground);
+}
+.language.bbtn .language-dropdown .language-option:active {
+  background-color: var(--vscode-button-background);
 }
 
 /*# sourceMappingURL=main.css.map */

@@ -4,6 +4,11 @@ import { ComparisonStats } from './compare-code/algorithms';
 // USER INFORMATION & STATISTICS DISPLAY
 // ==========================================
 
+// Helper function to get i18n service from global scope
+function getI18n(): any {
+  return (window as any).i18n;
+}
+
 /**
  * Manages the display of comparison statistics and user information
  */
@@ -17,15 +22,19 @@ export class UserInformationManager {
     const addedElement = document.getElementById('added-count');
     const removedElement = document.getElementById('removed-count');
     const modifiedElement = document.getElementById('modified-count');
+    const i18n = getI18n();
     
     if (addedElement) {
-      addedElement.textContent = `${stats.added} lines added`;
+      const linesAddedText = i18n ? i18n.t('stats.linesAdded') : 'lines added';
+      addedElement.innerHTML = `${stats.added} <span data-i18n="stats.linesAdded">${linesAddedText}</span>`;
     }
     if (removedElement) {
-      removedElement.textContent = `${stats.removed} lines removed`;
+      const linesRemovedText = i18n ? i18n.t('stats.linesRemoved') : 'lines removed';
+      removedElement.innerHTML = `${stats.removed} <span data-i18n="stats.linesRemoved">${linesRemovedText}</span>`;
     }
     if (modifiedElement) {
-      modifiedElement.textContent = `${stats.modified} lines modified`;
+      const linesModifiedText = i18n ? i18n.t('stats.linesModified') : 'lines modified';
+      modifiedElement.innerHTML = `${stats.modified} <span data-i18n="stats.linesModified">${linesModifiedText}</span>`;
     }
   }
 
@@ -36,15 +45,19 @@ export class UserInformationManager {
     const addedElement = document.getElementById('added-count');
     const removedElement = document.getElementById('removed-count');
     const modifiedElement = document.getElementById('modified-count');
+    const i18n = getI18n();
     
     if (addedElement) {
-      addedElement.textContent = '0 lines added';
+      const linesAddedText = i18n ? i18n.t('stats.linesAdded') : 'lines added';
+      addedElement.innerHTML = `0 <span data-i18n="stats.linesAdded">${linesAddedText}</span>`;
     }
     if (removedElement) {
-      removedElement.textContent = '0 lines removed';
+      const linesRemovedText = i18n ? i18n.t('stats.linesRemoved') : 'lines removed';
+      removedElement.innerHTML = `0 <span data-i18n="stats.linesRemoved">${linesRemovedText}</span>`;
     }
     if (modifiedElement) {
-      modifiedElement.textContent = '0 lines modified';
+      const linesModifiedText = i18n ? i18n.t('stats.linesModified') : 'lines modified';
+      modifiedElement.innerHTML = `0 <span data-i18n="stats.linesModified">${linesModifiedText}</span>`;
     }
   }
 
@@ -54,11 +67,14 @@ export class UserInformationManager {
    */
   public static showComparisonSummary(stats: ComparisonStats): void {
     const totalChanges = stats.added + stats.removed + stats.modified;
+    const i18n = getI18n();
     
     if (totalChanges === 0) {
-      console.log('No differences found between the two code blocks');
+      const message = i18n ? i18n.t('messages.noChangesFound') : 'No differences found between the two code blocks';
+      console.log(message);
     } else {
-      console.log(`Comparison completed: ${totalChanges} total changes found`);
+      const message = i18n ? i18n.t('messages.comparisonCompleted', totalChanges.toString()) : `Comparison completed: ${totalChanges} total changes found`;
+      console.log(message);
     }
   }
 
@@ -82,6 +98,10 @@ export class UserInformationManager {
     }
   }
 
+// ==========================================
+// USER INFORMATION | MARK: ITEM A-R-M
+// ==========================================
+
   /**
    * Validate user input and show appropriate messages
    * @param text1 First text input
@@ -90,7 +110,9 @@ export class UserInformationManager {
    */
   public static validateInput(text1: string, text2: string): boolean {
     if (!text1.trim() && !text2.trim()) {
-      this.showNotification('Please enter code in at least one field', 'warning');
+      const i18n = getI18n();
+      const message = i18n ? i18n.t('messages.pleaseEnterCode') : 'Please enter code in at least one field';
+      this.showNotification(message, 'warning');
       return false;
     }
     
@@ -161,5 +183,32 @@ export class UserInformationManager {
   public static showPerformanceMetrics(startTime: number, endTime: number): void {
     const duration = endTime - startTime;
     console.log(`Comparison completed in ${duration.toFixed(2)}ms`);
+  }
+
+
+// ==========================================
+// USER INFORMATION | MARK: NORMAL
+// ==========================================
+
+  /**
+   * Update the normal stats container with changes count and similarity score
+   * @param stats Comparison statistics
+   * @param similarity Similarity percentage
+   */
+  public static updateNormalStats(stats: ComparisonStats, similarity: number): void {
+    const warningBox = document.querySelector('.warning-box span');
+    const matchScore = document.querySelector('.match-score');
+    const i18n = getI18n();
+    
+    if (warningBox) {
+      const totalChanges = stats.added + stats.removed + stats.modified;
+      const changesText = i18n ? i18n.t('stats.changes') : 'Changes';
+      warningBox.innerHTML = `${totalChanges} : <span data-i18n="stats.changes">${changesText}</span>`;
+    }
+    
+    if (matchScore) {
+      const similarText = i18n ? i18n.t('stats.similar') : 'Similar';
+      matchScore.innerHTML = `${similarity}% : <span data-i18n="stats.similar">${similarText}</span>`;
+    }
   }
 }

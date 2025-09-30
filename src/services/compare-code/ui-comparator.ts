@@ -10,6 +10,8 @@ import { ComparisonLine, LineType } from './algorithms';
 export class EditorManager {
   private editor1: EditorInstance;
   private editor2: EditorInstance;
+  private currentLines1: ComparisonLine[] = [];
+  private currentLines2: ComparisonLine[] = [];
   
   constructor() {
     this.editor1 = new EditorInstance('1');
@@ -26,8 +28,21 @@ export class EditorManager {
   }
 
   public setCompareMode(lines1: ComparisonLine[], lines2: ComparisonLine[]): void {
+    this.currentLines1 = lines1;
+    this.currentLines2 = lines2;
     this.editor1.setCompareMode(lines1);
     this.editor2.setCompareMode(lines2);
+  }
+
+  public renderFiltered(filter: (line: ComparisonLine) => boolean): void {
+    const filteredLines1 = this.currentLines1.filter(filter);
+    const filteredLines2 = this.currentLines2.filter(filter);
+    this.editor1.setCompareMode(filteredLines1);
+    this.editor2.setCompareMode(filteredLines2);
+  }
+
+  public getCurrentLines(): { lines1: ComparisonLine[], lines2: ComparisonLine[] } {
+    return { lines1: this.currentLines1, lines2: this.currentLines2 };
   }
 
   public updateLineNumbers(): void {
@@ -219,7 +234,8 @@ export class EditorInstance {
     
     let numbersHTML = '';
     for (let i = 0; i < lines.length; i++) {
-      const logicalLineNumber = i + 1;
+      // Use original line number if available, otherwise fall back to sequential
+      const logicalLineNumber = lines[i].originalLineNumber || (i + 1);
       const visualLines = visualHeights[i];
       const className = this.getLineCssClass(lines[i].type);
       numbersHTML += this.createLineNumberElement(logicalLineNumber, visualLines, className);

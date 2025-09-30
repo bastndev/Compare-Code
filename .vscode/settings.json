@@ -14,8 +14,10 @@
         "**/main.css.map",
         "bbtn",
         "EAGI",
+        "Español",
         "Jaccard",
         "Kiro",
+        "Português",
         "scrollbars"
     ],
     // Auto-run watch task when workspace opens

@@ -31,10 +31,20 @@
   border-bottom: 5px dashed var(--vscode-sideBar-border);
 }
 
+// Stats Container
+.stats-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
 // ======================================
-// WARNING (added - removed - modified) MARK: warning
+// NORMAL STATS MARK: normal
 // ======================================
-.warning-container {
+.normal-stats {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -67,9 +77,35 @@
   font-size: $font-size;
   color: inherit;
 }
+.slash-l {
+  font-size: 16px;
+  font-weight: 700;
+  color: #555;
+  cursor: default;
+}
 
-// DIFF STAT-ITEMS| MARK: stat-item
-.diff-stats {
+.match-score {
+  font-size: 14px;
+  font-weight: 600;
+  color: $fg;
+  // background-color: #e8f0fe;
+  padding: 6px 12px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+  cursor: default;
+}
+// ===============  TRANSITIONS SWAP ============
+.normal-stats, .pro-stats {
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+// PRO STATS MARK: pro
+.pro-stats {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   gap: clamp($spacing-md, 2vw, $spacing-lg);
@@ -202,8 +238,9 @@
   }
 }
 
-.slash {
+.slash-r {
   cursor: default;
+  color: #555;
   padding-top: 3px;
 }
 

@@ -5,6 +5,11 @@
 declare const acquireVsCodeApi: any;
 const vscode = acquireVsCodeApi();
 
+// Helper function to get i18n service from global scope
+function getI18n(): any {
+  return (window as any).i18n;
+}
+
 // Global variable to store icon URIs received from extension
 let iconUris: { play: string; stop: string } | null = null;
 
@@ -33,7 +38,7 @@ function initializeClearButton(): void {
   }
 }
 
- // CLOSE PANEL RIGHT AND LEFT
+// CLOSE PANEL RIGHT AND LEFT
 function initializePanelLeftButton(): void {
   const btn = document.getElementById('btn-panel-left') as HTMLElement;
   if (btn) {
@@ -179,18 +184,18 @@ function initializeDownloadButtons(): void {
   downloadButtons.forEach((button) => {
     button.addEventListener('click', () => {
       console.log('Download button clicked'); // Debug log
-      
+
       // Determine which panel based on parent container
       const isLeftPanel = button.closest('.options-panel-left') !== null;
       const editorId = isLeftPanel ? 'codeInput1' : 'codeInput2';
       const editor = document.getElementById(editorId) as HTMLTextAreaElement;
 
       console.log(`Looking for editor: ${editorId}, found:`, !!editor); // Debug log
-      
+
       if (editor) {
         const content = editor.value.trim();
         console.log(`Content length: ${content.length}`); // Debug log
-        
+
         if (content) {
           // Send message to extension to handle download securely
           // Always save as .txt file with today's date
@@ -198,7 +203,7 @@ function initializeDownloadButtons(): void {
             command: 'downloadCode',
             content: content,
             panel: isLeftPanel ? 'left' : 'right',
-            fileExtension: 'txt' // Always txt format
+            fileExtension: 'txt', // Always txt format
           });
 
           // Add success animation
@@ -207,7 +212,9 @@ function initializeDownloadButtons(): void {
             button.classList.remove('downloading');
           }, 500);
 
-          console.log(`Download request sent for ${isLeftPanel ? 'left' : 'right'} panel`);
+          console.log(
+            `Download request sent for ${isLeftPanel ? 'left' : 'right'} panel`
+          );
         } else {
           console.log('No content to download');
           // Visual feedback for empty content
@@ -223,16 +230,29 @@ function initializeDownloadButtons(): void {
   });
 }
 
+
+
 /**
  * Initialize all user action handlers
  */
 export function initializeUserActions(): void {
+  console.log('  - Initializing clear button...');
   initializeClearButton();
+  
+  console.log('  - Initializing copy buttons...');
   initializeCopyButtons();
+  
+  console.log('  - Initializing download buttons...');
   initializeDownloadButtons();
+  
+  console.log('  - Initializing clear code buttons...');
   initializeClearCodeButtons();
+  
+  console.log('  - Initializing panel buttons...');
   initializePanelLeftButton();
   initializePanelRightButton();
+  
+  console.log('  - User actions initialized successfully!');
 }
 
 export {};

@@ -249,6 +249,7 @@
 }
 
 .diff-line.identical {
+  background: rgba($color-green, 0.02);
   // background-color: $input-bg;
   /* Maintain consistent height even without borders */
   padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
