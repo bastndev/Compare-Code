@@ -1,21 +1,21 @@
 import { initializeUserActions } from './user-actions/user-actions-top';
-import { initializeDualScroll, initializeOnlyCode, resetOnlyModified, initializeSwitchMode, toggleSwitchMode, initializeLanguageMenu } from './user-actions/user-actions-bot';
 import { ComparisonEngine } from './compare-code/algorithms';
 import { ComparisonResult } from '../utils/types';
 import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './display/user-view-info';
-import { setPlayBtnToEdit, setPlayBtnToCompare } from './user-actions/user-actions-top';
+import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
+import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
 
-// ==========================================
-// MAIN APPLICATION STATE  
-// ==========================================
+// ======================================
+// MAIN APPLICATION | MARK: MAIN
+// ======================================
 
 let isComparing: boolean = false;
 let editorManager: EditorManager;
 
-// ==========================================
-// PUBLIC API - Main Functions
-// ==========================================
+// ======================================
+// CORE FUNCTIONS | MARK: CORE
+// ======================================
 
 /**
  * Toggle between edit and compare modes
@@ -46,18 +46,17 @@ export function compare(): void {
       return;
     }
 
-    // Perform comparison
     const comparison: ComparisonResult = ComparisonEngine.compare(text1, text2);
-    
-    // Switch to compare mode
+
     editorManager.setCompareMode(comparison.lines1, comparison.lines2);
 
-    // Update UI state
     isComparing = true;
     setPlayBtnToEdit();
     UserInformationManager.updateStatsDisplay(comparison.stats);
-    UserInformationManager.updateNormalStats(comparison.stats, comparison.similarity);
-
+    UserInformationManager.updateNormalStats(
+      comparison.stats,
+      comparison.similarity
+    );
   } catch (error) {
     console.error('Comparison failed:', error);
     alert('An error occurred during comparison. Please try again.');
@@ -74,15 +73,12 @@ export function reset(): void {
       return;
     }
 
-    // Return to edit mode
     editorManager.setEditMode();
 
-    // Update UI state
     isComparing = false;
     setPlayBtnToCompare();
     UserInformationManager.clearStatsDisplay();
     resetOnlyModified();
-
   } catch (error) {
     console.error('Reset failed:', error);
   }
@@ -94,13 +90,16 @@ export function reset(): void {
 export function clearAll(): void {
   if (editorManager) {
     editorManager.clearAll();
-    
-    // Reset to edit mode if in comparison
+
     if (isComparing) {
       reset();
     }
   }
 }
+
+// ======================================
+// PUBLIC API | MARK: API
+// ======================================
 
 /**
  * Get the editor manager instance
@@ -116,63 +115,49 @@ export function isComparingMode(): boolean {
   return isComparing;
 }
 
+// ======================================
+// INITIALIZATION | MARK: INIT
+// ======================================
+
 /**
  * Initialize the complete compare code system
  */
 export function initializeCompareCode(): void {
   try {
-    // Initialize editor manager
     editorManager = new EditorManager();
 
-    // Global keyboard shortcuts
     document.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.ctrlKey && e.key === 'Enter') {
         e.preventDefault();
         toggle();
       }
-      
+
       if (e.key === 'Escape') {
         e.preventDefault();
         reset();
       }
     });
-
-    console.log('Compare Code initialized successfully');
-    
   } catch (error) {
     console.error('Failed to initialize Compare Code:', error);
   }
 }
 
-// INITIALIZE WHEN THE PAGE LOADS
+// ======================================
+// APPLICATION STARTUP | MARK: STARTUP
+// ======================================
+
 document.addEventListener('DOMContentLoaded', () => {
-  console.log('DOM Content Loaded - Starting initialization...');
-  
-  // Add small delay to ensure HTML is fully rendered
   setTimeout(() => {
-    console.log('Initializing user actions...');
     initializeUserActions();
-    
-    console.log('Initializing dual scroll...');
     initializeDualScroll();
-    
-    console.log('Initializing only code...');
     initializeOnlyCode();
-    
-    console.log('Initializing switch mode...');
     initializeSwitchMode();
-    
-    console.log('Initializing language menu...');
     initializeLanguageMenu();
-    
-    console.log('Initializing compare code...');
     initializeCompareCode();
-    
+
     // Global functions
     (window as any).toggle = toggle;
     (window as any).clearAll = clearAll;
     (window as any).toggleSwitchMode = toggleSwitchMode;
-    
-    console.log('All initialization completed!');
-  }, 100); // Small delay to ensure DOM is ready
+  }, 100);
 });
