@@ -535,12 +535,10 @@ body {
 }
 
 .clear-code[data-tooltip],
-.copy-code[data-tooltip],
 .download-code[data-tooltip] {
   position: relative;
 }
 .clear-code[data-tooltip]:hover::before,
-.copy-code[data-tooltip]:hover::before,
 .download-code[data-tooltip]:hover::before {
   content: attr(data-tooltip);
   position: absolute;
