@@ -184,3 +184,56 @@ export function initializeOnlyCode() {
     
     onlyCodeBtn.addEventListener('click', toggleOnlyModified);
 }
+
+/* ======================================
+   User actions - toolbar | MARK:NORMAL/PRO
+   ======================================= */
+let isProMode: boolean = false;
+let switchOnUri: string;
+let switchOffUri: string;
+
+export function initializeSwitchMode() {
+    // Message listener for switch icons
+    window.addEventListener('message', (event) => {
+        const message = event.data;
+        if (message.type === 'setIcons') {
+            switchOnUri = message.icons.switchOn;
+            switchOffUri = message.icons.switchOff;
+        }
+    });
+
+    // Initial state: show normal stats, hide pro stats
+    const normalStats = document.getElementById('normal-stats');
+    const proStats = document.getElementById('pro-stats');
+    if (normalStats) {
+        normalStats.style.display = 'flex';
+    }
+    if (proStats) {
+        proStats.style.display = 'none';
+    }
+}
+
+export function toggleSwitchMode(): void {
+    isProMode = !isProMode;
+    const icon = document.querySelector('.switch-on-off .icon') as HTMLImageElement;
+    if (icon) {
+        icon.style.opacity = '0';
+        setTimeout(() => {
+            icon.src = isProMode ? switchOffUri : switchOnUri;
+            icon.style.opacity = '1';
+        }, 150);
+    }
+
+    // Toggle stats display
+    const normalStats = document.getElementById('normal-stats');
+    const proStats = document.getElementById('pro-stats');
+    if (normalStats && proStats) {
+        if (isProMode) {
+            normalStats.style.display = 'none';
+            proStats.style.display = 'flex';
+        } else {
+            normalStats.style.display = 'flex';
+            proStats.style.display = 'none';
+        }
+    }
+}
