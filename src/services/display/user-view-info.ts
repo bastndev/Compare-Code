@@ -1,10 +1,9 @@
 import { ComparisonStats } from '../../utils/types';
 
-// ==========================================
-// USER INFORMATION & STATISTICS DISPLAY
-// ==========================================
+// ======================================
+// USER INFORMATION MANAGER | MARK: MANAGER
+// ======================================
 
-// Helper function to get i18n service from global scope
 function getI18n(): any {
   return (window as any).i18n;
 }
@@ -13,27 +12,33 @@ function getI18n(): any {
  * Manages the display of comparison statistics and user information
  */
 export class UserInformationManager {
-  
+  // ======================================
+  // STATISTICS DISPLAY | MARK: STATS
+  // ======================================
+
   /**
    * Update the statistics display in the toolbar
-   * @param stats Comparison statistics to display
    */
   public static updateStatsDisplay(stats: ComparisonStats): void {
     const addedElement = document.getElementById('added-count');
     const removedElement = document.getElementById('removed-count');
     const modifiedElement = document.getElementById('modified-count');
     const i18n = getI18n();
-    
+
     if (addedElement) {
       const linesAddedText = i18n ? i18n.t('stats.linesAdded') : 'lines added';
       addedElement.innerHTML = `${stats.added} <span data-i18n="stats.linesAdded">${linesAddedText}</span>`;
     }
     if (removedElement) {
-      const linesRemovedText = i18n ? i18n.t('stats.linesRemoved') : 'lines removed';
+      const linesRemovedText = i18n
+        ? i18n.t('stats.linesRemoved')
+        : 'lines removed';
       removedElement.innerHTML = `${stats.removed} <span data-i18n="stats.linesRemoved">${linesRemovedText}</span>`;
     }
     if (modifiedElement) {
-      const linesModifiedText = i18n ? i18n.t('stats.linesModified') : 'lines modified';
+      const linesModifiedText = i18n
+        ? i18n.t('stats.linesModified')
+        : 'lines modified';
       modifiedElement.innerHTML = `${stats.modified} <span data-i18n="stats.linesModified">${linesModifiedText}</span>`;
     }
   }
@@ -46,45 +51,79 @@ export class UserInformationManager {
     const removedElement = document.getElementById('removed-count');
     const modifiedElement = document.getElementById('modified-count');
     const i18n = getI18n();
-    
+
     if (addedElement) {
       const linesAddedText = i18n ? i18n.t('stats.linesAdded') : 'lines added';
       addedElement.innerHTML = `0 <span data-i18n="stats.linesAdded">${linesAddedText}</span>`;
     }
     if (removedElement) {
-      const linesRemovedText = i18n ? i18n.t('stats.linesRemoved') : 'lines removed';
+      const linesRemovedText = i18n
+        ? i18n.t('stats.linesRemoved')
+        : 'lines removed';
       removedElement.innerHTML = `0 <span data-i18n="stats.linesRemoved">${linesRemovedText}</span>`;
     }
     if (modifiedElement) {
-      const linesModifiedText = i18n ? i18n.t('stats.linesModified') : 'lines modified';
+      const linesModifiedText = i18n
+        ? i18n.t('stats.linesModified')
+        : 'lines modified';
       modifiedElement.innerHTML = `0 <span data-i18n="stats.linesModified">${linesModifiedText}</span>`;
     }
   }
 
   /**
+   * Update the normal stats container with changes count and similarity score
+   */
+  public static updateNormalStats(
+    stats: ComparisonStats,
+    similarity: number
+  ): void {
+    const warningBox = document.querySelector('.warning-box span');
+    const matchScore = document.querySelector('.match-score');
+    const i18n = getI18n();
+
+    if (warningBox) {
+      const totalChanges = stats.added + stats.removed + stats.modified;
+      const changesText = i18n ? i18n.t('stats.changes') : 'Changes';
+      warningBox.innerHTML = `${totalChanges} : <span data-i18n="stats.changes">${changesText}</span>`;
+    }
+
+    if (matchScore) {
+      const similarText = i18n ? i18n.t('stats.similar') : 'Similar';
+      matchScore.innerHTML = `${similarity}% : <span data-i18n="stats.similar">${similarText}</span>`;
+    }
+  }
+
+  // ======================================
+  // NOTIFICATIONS | MARK: NOTIFICATIONS
+  // ======================================
+
+  /**
    * Show comparison summary information
-   * @param stats Comparison statistics
    */
   public static showComparisonSummary(stats: ComparisonStats): void {
     const totalChanges = stats.added + stats.removed + stats.modified;
     const i18n = getI18n();
-    
+
     if (totalChanges === 0) {
-      const message = i18n ? i18n.t('messages.noChangesFound') : 'No differences found between the two code blocks';
+      const message = i18n
+        ? i18n.t('messages.noChangesFound')
+        : 'No differences found between the two code blocks';
       console.log(message);
     } else {
-      const message = i18n ? i18n.t('messages.comparisonCompleted', totalChanges.toString()) : `Comparison completed: ${totalChanges} total changes found`;
+      const message = i18n
+        ? i18n.t('messages.comparisonCompleted', totalChanges.toString())
+        : `Comparison completed: ${totalChanges} total changes found`;
       console.log(message);
     }
   }
 
   /**
    * Display user notifications or alerts
-   * @param message Message to display
-   * @param type Type of notification (info, warning, error)
    */
-  public static showNotification(message: string, type: 'info' | 'warning' | 'error' = 'info'): void {
-    // For now using alert, can be enhanced with custom notifications later
+  public static showNotification(
+    message: string,
+    type: 'info' | 'warning' | 'error' = 'info'
+  ): void {
     switch (type) {
       case 'error':
         alert(`Error: ${message}`);
@@ -98,30 +137,28 @@ export class UserInformationManager {
     }
   }
 
-// ==========================================
-// USER INFORMATION | MARK: ITEM A-R-M
-// ==========================================
+  // ======================================
+  // UI CONTROLS | MARK: CONTROLS
+  // ======================================
 
   /**
    * Validate user input and show appropriate messages
-   * @param text1 First text input
-   * @param text2 Second text input
-   * @returns True if validation passes
    */
   public static validateInput(text1: string, text2: string): boolean {
     if (!text1.trim() && !text2.trim()) {
       const i18n = getI18n();
-      const message = i18n ? i18n.t('messages.pleaseEnterCode') : 'Please enter code in at least one field';
+      const message = i18n
+        ? i18n.t('messages.pleaseEnterCode')
+        : 'Please enter code in at least one field';
       this.showNotification(message, 'warning');
       return false;
     }
-    
+
     return true;
   }
 
   /**
    * Show loading state for long operations
-   * @param isLoading Whether to show or hide loading state
    */
   public static showLoadingState(isLoading: boolean): void {
     const playButton = document.getElementById('playBtn');
@@ -138,16 +175,19 @@ export class UserInformationManager {
 
   /**
    * Update button text based on current mode
-   * @param isComparing Whether currently in comparison mode
    */
   public static updateButtonText(isComparing: boolean): void {
     const playButton = document.getElementById('playBtn');
     const buttonText = playButton?.querySelector('span');
-    
+
     if (buttonText) {
       buttonText.textContent = isComparing ? 'Stop' : 'Compare';
     }
   }
+
+  // ======================================
+  // UTILITIES | MARK: UTILS
+  // ======================================
 
   /**
    * Show keyboard shortcuts information
@@ -156,59 +196,33 @@ export class UserInformationManager {
     const shortcuts = [
       'Ctrl + Enter: Toggle comparison',
       'Escape: Return to edit mode',
-      'Tab: Insert indentation'
+      'Tab: Insert indentation',
     ];
-    
+
     console.log('Keyboard Shortcuts:', shortcuts.join(', '));
   }
 
   /**
    * Format file size or line count for display
-   * @param count Number to format
-   * @param unit Unit type (lines, chars, bytes)
-   * @returns Formatted string
    */
-  public static formatCount(count: number, unit: 'lines' | 'chars' | 'bytes'): string {
+  public static formatCount(
+    count: number,
+    unit: 'lines' | 'chars' | 'bytes'
+  ): string {
     if (count === 1) {
-      return `1 ${unit.slice(0, -1)}`; // Remove 's' for singular
+      return `1 ${unit.slice(0, -1)}`;
     }
     return `${count.toLocaleString()} ${unit}`;
   }
 
   /**
    * Calculate and display performance metrics
-   * @param startTime Start time of operation
-   * @param endTime End time of operation
    */
-  public static showPerformanceMetrics(startTime: number, endTime: number): void {
+  public static showPerformanceMetrics(
+    startTime: number,
+    endTime: number
+  ): void {
     const duration = endTime - startTime;
     console.log(`Comparison completed in ${duration.toFixed(2)}ms`);
-  }
-
-
-// ==========================================
-// USER INFORMATION | MARK: NORMAL
-// ==========================================
-
-  /**
-   * Update the normal stats container with changes count and similarity score
-   * @param stats Comparison statistics
-   * @param similarity Similarity percentage
-   */
-  public static updateNormalStats(stats: ComparisonStats, similarity: number): void {
-    const warningBox = document.querySelector('.warning-box span');
-    const matchScore = document.querySelector('.match-score');
-    const i18n = getI18n();
-    
-    if (warningBox) {
-      const totalChanges = stats.added + stats.removed + stats.modified;
-      const changesText = i18n ? i18n.t('stats.changes') : 'Changes';
-      warningBox.innerHTML = `${totalChanges} : <span data-i18n="stats.changes">${changesText}</span>`;
-    }
-    
-    if (matchScore) {
-      const similarText = i18n ? i18n.t('stats.similar') : 'Similar';
-      matchScore.innerHTML = `${similarity}% : <span data-i18n="stats.similar">${similarText}</span>`;
-    }
   }
 }
