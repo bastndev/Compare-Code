@@ -128,7 +128,7 @@ body {
   }
 }
 
-// MIXIN - Base styles
+// Base Mixin
 @mixin tooltip-mixin {
   content: attr(data-tooltip);
   position: absolute;
@@ -148,7 +148,7 @@ body {
   animation: tooltipFadeIn 0.3s ease forwards;
 }
 
-//-------- TOOLBAR ---------------- Close & Open - PANEL
+// ============ Toolbar =============== (Close & Open)
 .btn-panel-left[data-tooltip],
 .btn-panel-right[data-tooltip] {
   position: relative;
@@ -156,7 +156,7 @@ body {
 
 .btn-panel-left[data-tooltip]:hover::after,
 .btn-panel-right[data-tooltip]:hover::after {
-  @include tooltip-mixin; 
+  @include tooltip-mixin;
   
   top: 100%;
   left: 50%;
@@ -169,7 +169,7 @@ body {
   animation: tooltipFadeIn 0.2s ease forwards;
 }
 
-// Position adjustments
+// Position Adjustments
 .btn-panel-left[data-tooltip]:hover::after {
   left: 13px;
   transform: translateX(10%);
@@ -180,7 +180,7 @@ body {
   transform: translateX(10%);
 }
 
-//---------- HEADER PANEL ------------- COPY - DOWNLOAD - CLEAR
+//  ============ HEADER PANEL ============ (Copy, Download, Clear)
 .clear-code[data-tooltip],
 .download-code[data-tooltip] {
   position: relative;
@@ -196,7 +196,7 @@ body {
   }
 }
 
-//----------- BOT ------------------ | BUTTONS
+// =============== BOT =============== (Buttons Bar)
 .bbtn[data-tooltip] {
   position: relative;
   
