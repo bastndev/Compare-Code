@@ -67,7 +67,7 @@
   font-size: $font-size;
   color: inherit;
 }
-.slash-left {
+.slash-l {
   font-size: 16px;
   font-weight: 700;
   color: #555;
@@ -219,8 +219,9 @@
   }
 }
 
-.slash {
+.slash-r {
   cursor: default;
+  color: #555;
   padding-top: 3px;
 }
 
