@@ -67,7 +67,7 @@ body {
   height: 100%;
 }
 
-.warning-container {
+.normal-stats {
   position: absolute;
   top: 0;
   left: 0;
@@ -121,11 +121,11 @@ body {
   cursor: default;
 }
 
-.warning-container, .diff-stats {
+.normal-stats, .pro-stats {
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
-.diff-stats {
+.pro-stats {
   position: absolute;
   top: 0;
   left: 0;

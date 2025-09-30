@@ -39,9 +39,9 @@
 }
 
 // ======================================
-// WARNING (added - removed - modified) MARK: warning
+// NORMAL STATS MARK: normal
 // ======================================
-.warning-container {
+.normal-stats {
   position: absolute;
   top: 0;
   left: 0;
@@ -95,13 +95,13 @@
   cursor: default;
 }
 // ===============  TRANSITIONS SWAP ============
-.warning-container, .diff-stats {
+.normal-stats, .pro-stats {
   transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
 }
 
 
-// DIFF STAT-ITEMS| MARK: stat-item
-.diff-stats {
+// PRO STATS MARK: pro
+.pro-stats {
   position: absolute;
   top: 0;
   left: 0;

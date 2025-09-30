@@ -169,15 +169,15 @@ export class UserInformationManager {
 
 
 // ==========================================
-// USER INFORMATION | MARK: WARNING
+// USER INFORMATION | MARK: NORMAL
 // ==========================================
 
   /**
-   * Update the warning container with changes count and similarity score
+   * Update the normal stats container with changes count and similarity score
    * @param stats Comparison statistics
    * @param similarity Similarity percentage
    */
-  public static updateWarningContainer(stats: ComparisonStats, similarity: number): void {
+  public static updateNormalStats(stats: ComparisonStats, similarity: number): void {
     const warningBox = document.querySelector('.warning-box span');
     const matchScore = document.querySelector('.match-score');
     

@@ -55,7 +55,7 @@ export function compare(): void {
     isComparing = true;
     setPlayBtnToEdit();
     UserInformationManager.updateStatsDisplay(comparison.stats);
-    UserInformationManager.updateWarningContainer(comparison.stats, comparison.similarity);
+    UserInformationManager.updateNormalStats(comparison.stats, comparison.similarity);
 
   } catch (error) {
     console.error('Comparison failed:', error);
