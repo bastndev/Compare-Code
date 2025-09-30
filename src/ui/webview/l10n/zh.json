@@ -1,0 +1,31 @@
+{
+  "stats": {
+    "changes": "更改",
+    "similar": "相似",
+    "linesAdded": "行已添加",
+    "linesRemoved": "行已删除",
+    "linesModified": "行已修改"
+  },
+  "buttons": {
+    "clear": "清除",
+    "copied": "已复制！",
+    "download": "下载"
+  },
+  "tooltips": {
+    "closePanelLeft": "关闭/打开左侧面板",
+    "closePanelRight": "关闭/打开右侧面板",
+    "showModifiedCode": "显示修改的代码",
+    "normalPro": "普通/专业",
+    "dualScroll": "双重滚动",
+    "changeLanguage": "更改语言",
+    "sponsor": "赞助"
+  },
+  "messages": {
+    "noChangesFound": "两个代码块之间未发现差异",
+    "comparisonCompleted": "比较完成：发现 {0} 个总更改",
+    "pleaseEnterCode": "请在至少一个字段中输入代码",
+    "codeSaved": "{0} 面板的代码已保存到下载文件夹！",
+    "saveFailed": "保存代码失败：{0}",
+    "editorNotInitialized": "编辑器管理器未初始化"
+  }
+}

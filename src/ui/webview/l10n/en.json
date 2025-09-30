@@ -1,0 +1,31 @@
+{
+  "stats": {
+    "changes": "Changes",
+    "similar": "Similar",
+    "linesAdded": "lines added",
+    "linesRemoved": "lines removed",
+    "linesModified": "lines modified"
+  },
+  "buttons": {
+    "clear": "Clear",
+    "copied": "Copied!",
+    "download": "Download"
+  },
+  "tooltips": {
+    "closePanelLeft": "Close/Open panel LEFT",
+    "closePanelRight": "Close/Open panel RIGHT",
+    "showModifiedCode": "Show modified code",
+    "normalPro": "Normal/Pro",
+    "dualScroll": "Dual scroll",
+    "changeLanguage": "Change language",
+    "sponsor": "Sponsor"
+  },
+  "messages": {
+    "noChangesFound": "No differences found between the two code blocks",
+    "comparisonCompleted": "Comparison completed: {0} total changes found",
+    "pleaseEnterCode": "Please enter code in at least one field",
+    "codeSaved": "Code from {0} panel saved to Downloads!",
+    "saveFailed": "Failed to save code: {0}",
+    "editorNotInitialized": "Editor manager not initialized"
+  }
+}
