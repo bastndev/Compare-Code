@@ -132,10 +132,11 @@ body {
 @mixin tooltip-mixin {
   content: attr(data-tooltip);
   position: absolute;
-  z-index: 1001;
+  z-index: 1000;
   white-space: nowrap;
   background-color: $input-bg;
   color: $fg;
+  font-size: 12px;
   border: 1px solid $input-border;
   border-radius: $border-radius-md;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -148,7 +149,7 @@ body {
   animation: tooltipFadeIn 0.3s ease forwards;
 }
 
-// ============ Toolbar =============== (Close & Open)
+// ============ TOOLBAR =============== (Close & Open)
 .btn-panel-left[data-tooltip],
 .btn-panel-right[data-tooltip] {
   position: relative;
@@ -163,9 +164,6 @@ body {
   margin-top: 6px;
   padding: 6px 10px;
   border-radius: $fifty-fifty;
-  font-size: 12px;
-  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
-  z-index: 1000;
   animation: tooltipFadeIn 0.2s ease forwards;
 }
 
@@ -207,7 +205,6 @@ body {
     left: 50%;
     margin-bottom: 8px;
     padding: $spacing-sm 12px;
-    font-size: 12px;
   }
 }
 
