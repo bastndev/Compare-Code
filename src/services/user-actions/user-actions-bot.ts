@@ -1,12 +1,16 @@
-/* ======================================
-   User action bot | MARK: Dual Scroll
-   ======================================= */
+// ======================================
+// USER ACTIONS BOT | MARK: BOT
+// ======================================
 
 import { getEditorManager, isComparingMode } from '../main';
 
 let syncScrollEnabled = false;
 let isScrolling = false;
 let onlyModifiedEnabled = false;
+
+// ======================================
+// DUAL SCROLL | MARK: SCROLL
+// ======================================
 
 export function initializeDualScroll() {
   const dualScrollBtn = document.getElementById('dual-scroll-btn');
@@ -18,7 +22,6 @@ export function initializeDualScroll() {
 
   dualScrollBtn.addEventListener('click', toggleDualScroll);
 
-  // Add click listeners to indicators for deactivation
   const indicatorLeft = document.getElementById('dual-scroll-indicator-left');
   const indicatorRight = document.getElementById('dual-scroll-indicator-right');
 
@@ -50,7 +53,6 @@ function toggleDualScroll() {
     if (btn) {
       btn.classList.add('active');
     }
-    console.log('Dual scroll activated');
   } else {
     if (indicatorLeft) {
       indicatorLeft.style.display = 'none';
@@ -61,11 +63,9 @@ function toggleDualScroll() {
     if (btn) {
       btn.classList.remove('active');
     }
-    console.log('Dual scroll deactivated');
   }
 }
 
-/* Main synchronization function - PRECISE SCROLL SYNC */
 function syncScroll(sourceElement: HTMLElement, targetElement: HTMLElement) {
   if (!syncScrollEnabled || isScrolling) {
     return;
@@ -73,40 +73,30 @@ function syncScroll(sourceElement: HTMLElement, targetElement: HTMLElement) {
 
   isScrolling = true;
 
-  // Calculate precise scroll ratios
   const sourceMaxScroll =
     sourceElement.scrollHeight - sourceElement.clientHeight;
   const targetMaxScroll =
     targetElement.scrollHeight - targetElement.clientHeight;
 
-  // Avoid division by zero
   if (sourceMaxScroll <= 0 || targetMaxScroll <= 0) {
     isScrolling = false;
     return;
   }
 
-  // Calculate normalized scroll position (0 to 1)
   const sourceRatio = sourceElement.scrollTop / sourceMaxScroll;
-
-  // Apply with smooth interpolation to target
   const targetScrollTop = sourceRatio * targetMaxScroll;
-
-  // Ensure we don't exceed bounds
   const clampedScrollTop = Math.max(
     0,
     Math.min(targetScrollTop, targetMaxScroll)
   );
 
-  // Apply scroll with minimal delay for precision
   targetElement.scrollTop = clampedScrollTop;
 
-  // Shorter timeout for more responsive sync
   setTimeout(() => {
     isScrolling = false;
-  }, 16); // ~60fps
+  }, 16);
 }
 
-/* Set up scroll event listeners for all elements */
 function setupScrollListeners() {
   const codeInput1 = document.getElementById(
     'codeInput1'
@@ -114,7 +104,6 @@ function setupScrollListeners() {
   const codeInput2 = document.getElementById(
     'codeInput2'
   ) as HTMLTextAreaElement;
-
   const codeDisplay1 = document.getElementById('codeDisplay1') as HTMLElement;
   const codeDisplay2 = document.getElementById('codeDisplay2') as HTMLElement;
 
@@ -145,13 +134,12 @@ export function isDualScrollActive(): boolean {
   return syncScrollEnabled;
 }
 
-/* ======================================
-   User button bar | MARK:CODE MODIFY
-   ======================================= */
+// ======================================
+// ONLY MODIFIED | MARK: FILTER
+// ======================================
 
 function toggleOnlyModified() {
   if (!isComparingMode()) {
-    console.warn('Cannot toggle only modified mode: not in comparison mode');
     return;
   }
 
@@ -160,16 +148,13 @@ function toggleOnlyModified() {
   const hasModified = lines1.some((line) => line.type !== 'identical');
 
   if (onlyModifiedEnabled) {
-    // Deactivating
     onlyModifiedEnabled = false;
     const btn = document.querySelector('.only-code.bbtn') as HTMLElement;
     if (btn) {
       btn.classList.remove('active');
     }
-    console.log('Only modified mode deactivated');
     editorManager.renderFiltered(() => true);
   } else {
-    // Activating
     if (!hasModified) {
       return;
     }
@@ -178,7 +163,6 @@ function toggleOnlyModified() {
     if (btn) {
       btn.classList.add('active');
     }
-    console.log('Only modified mode activated');
     editorManager.renderFiltered((line) => line.type !== 'identical');
   }
 }
@@ -203,27 +187,23 @@ export function initializeOnlyCode() {
   onlyCodeBtn.addEventListener('click', toggleOnlyModified);
 }
 
-/* ======================================
-   User actions - button bar | MARK:NORMAL/PRO
-   ======================================= */
+// ======================================
+// SWITCH MODE | MARK: SWITCH
+// ======================================
+
 let isProMode: boolean = false;
 let switchOnUri: string;
 let switchOffUri: string;
 
 export function initializeSwitchMode() {
-  console.log('  - Initializing switch mode...');
-
-  // Message listener for switch icons
   window.addEventListener('message', (event) => {
     const message = event.data;
     if (message.type === 'setIcons') {
       switchOnUri = message.icons.switchOn;
       switchOffUri = message.icons.switchOff;
-      console.log('  - Switch icons received:', { switchOnUri, switchOffUri });
     }
   });
 
-  // Initial state: show normal stats, hide pro stats
   const normalStats = document.getElementById('normal-stats');
   const proStats = document.getElementById('pro-stats');
   if (normalStats) {
@@ -234,13 +214,10 @@ export function initializeSwitchMode() {
     proStats.style.opacity = '0';
     proStats.style.visibility = 'hidden';
   }
-
-  console.log('  - Switch mode initialized successfully!');
 }
 
 export function toggleSwitchMode(): void {
   isProMode = !isProMode;
-  console.log('Toggle switch mode:', { isProMode, switchOnUri, switchOffUri });
 
   const icon = document.querySelector(
     '.switch-on-off .icon'
@@ -248,34 +225,23 @@ export function toggleSwitchMode(): void {
 
   if (icon) {
     const currentSrc = icon.src;
-    console.log('Current icon src:', currentSrc);
-
-    // Try to get icon URIs from the received message first
     let onUri = switchOnUri;
     let offUri = switchOffUri;
-    
-    // If URIs are not available from message, try to construct them from current src
+
     if (!onUri || !offUri) {
-      console.log('Constructing icon URIs from current src...');
       const baseSrc = currentSrc.replace(/switch-(on|off)\.svg.*$/, '');
       onUri = baseSrc + 'switch-on.svg';
       offUri = baseSrc + 'switch-off.svg';
-      console.log('Constructed URIs:', { onUri, offUri });
     }
-    
-    // Change icon with animation
+
     icon.style.opacity = '0';
     setTimeout(() => {
       const newSrc = isProMode ? offUri : onUri;
-      console.log('Setting new icon src:', newSrc);
       icon.src = newSrc;
       icon.style.opacity = '1';
     }, 150);
-  } else {
-    console.error('Switch icon element not found');
   }
 
-  // Toggle stats display
   const normalStats = document.getElementById('normal-stats');
   const proStats = document.getElementById('pro-stats');
   if (normalStats && proStats) {
@@ -285,7 +251,7 @@ export function toggleSwitchMode(): void {
         normalStats.style.visibility = 'hidden';
         proStats.style.opacity = '1';
         proStats.style.visibility = 'visible';
-      }, 250); // Half of transition time
+      }, 250);
     } else {
       proStats.style.opacity = '0';
       setTimeout(() => {
@@ -297,23 +263,19 @@ export function toggleSwitchMode(): void {
   }
 }
 
-/* ==========================================
-   User actions - button bar | MARK: LANGUAGE 
-   ========================================== */
+// ======================================
+// LANGUAGE SELECTOR | MARK: LANGUAGE
+// ======================================
 
-// Helper function to get i18n service from global scope
 function getI18n(): any {
   return (window as any).i18n;
 }
 
-// Use the global vscode API (declared in user-actions-top.ts)
 declare const vscode: any;
 
-// LANGUAGE SELECTOR
 function initializeLanguageSelector(): void {
   const languageBtn = document.querySelector('.language') as HTMLElement;
   if (languageBtn) {
-    // Create language dropdown menu
     const dropdown = createLanguageDropdown();
     languageBtn.appendChild(dropdown);
 
@@ -322,7 +284,6 @@ function initializeLanguageSelector(): void {
       dropdown.classList.toggle('show');
     });
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', () => {
       dropdown.classList.remove('show');
     });
@@ -362,9 +323,7 @@ function changeLanguage(langCode: string): void {
   const i18n = getI18n();
   if (i18n) {
     i18n.setLanguage(langCode);
-    console.log(`Language changed to: ${langCode}`);
 
-    // Notify extension about language change
     vscode.postMessage({
       command: 'changeLanguage',
       language: langCode,
