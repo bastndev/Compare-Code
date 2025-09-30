@@ -615,9 +615,6 @@ body {
   position: relative;
 }
 
-/* ==========================================
-   UNIFIED EDITOR CONTAINER
-   ========================================== */
 .unified-editor {
   position: relative;
   height: calc(100vh - 98px);
@@ -629,24 +626,20 @@ body {
   overflow: hidden;
 }
 
-/* Panel-specific borders with rounded corners */
 #editor1 {
   border-right: 1px solid var(--vscode-input-border);
   border-top: 1px solid var(--vscode-input-border);
   border-top-right-radius: 8px;
-  overflow: auto; /* Allow scrollbars while maintaining rounded corners */
+  overflow: auto;
 }
 
 #editor2 {
   border-left: 1px solid var(--vscode-input-border);
   border-top: 1px solid var(--vscode-input-border);
   border-top-left-radius: 8px;
-  overflow: auto; /* Allow scrollbars while maintaining rounded corners */
+  overflow: auto;
 }
 
-/* ==========================================
-   LINE NUMBERS - Consistent across modes
-   ========================================== */
 .line-numbers {
   width: 45px;
   background-color: var(--vscode-editor-background);
@@ -662,22 +655,34 @@ body {
   margin: 0;
   box-sizing: border-box;
   flex-shrink: 0;
-  /* Ensure line numbers align exactly with content */
   vertical-align: top;
 }
 
-/* ==========================================
-   CODE AREA - Container for input/display
-   ========================================== */
+.line-number-item {
+  display: block;
+  text-align: right;
+  color: var(--vscode-editorLineNumber-foreground);
+  user-select: none;
+}
+.line-number-item.added {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+.line-number-item.removed {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+.line-number-item.modified {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
 .code-area {
   flex: 1;
   position: relative;
   overflow: hidden;
 }
 
-/* ==========================================
-   TEXTAREA INPUT MODE - WITH WORD WRAP
-   ========================================== */
 .code-input {
   width: 100%;
   height: 100%;
@@ -686,19 +691,17 @@ body {
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 13px;
   line-height: 1.4;
-  padding: 15px 15px 15px 10px; /* PADDING COPY CODE*/
+  padding: 15px 15px 15px 10px;
   margin: 0;
   border: none;
   outline: none;
   resize: none;
   box-sizing: border-box;
-  /* WORD WRAP CONFIGURATION */
-  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
-  word-wrap: break-word; /* Break long words if necessary */
-  overflow-wrap: break-word; /* Modern browsers */
-  /* SCROLL BEHAVIOR */
-  overflow-x: hidden; /* Hide horizontal scroll */
-  overflow-y: auto; /* Keep vertical scroll */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .code-input::placeholder {
   color: #6a737d;
@@ -708,9 +711,6 @@ body {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* ==========================================
-   DISPLAY MODE - Comparison Results WITH WORD WRAP
-   ========================================== */
 .code-display {
   width: 100%;
   height: 100%;
@@ -719,23 +719,17 @@ body {
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 13px;
   line-height: 1.4;
-  padding: 15px 15px 15px 0px; /* PADDING COMPARE CODE*/
+  padding: 15px 15px 15px 0;
   margin: 0;
   box-sizing: border-box;
-  display: none; /* Hidden by default */
-  /* WORD WRAP CONFIGURATION */
-  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
-  word-wrap: break-word; /* Break long words if necessary */
-  overflow-wrap: break-word; /* Modern browsers */
-  /* SCROLL BEHAVIOR */
-  overflow-x: hidden; /* Hide horizontal scroll */
-  overflow-y: auto; /* Keep vertical scroll */
+  display: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* ==========================================
-   MODE SWITCHING - Edit vs Compare
-   ========================================== */
-/* Edit Mode Active */
 .mode-edit .code-input, .unified-editor .code-input {
   display: block;
 }
@@ -743,7 +737,6 @@ body {
   display: none;
 }
 
-/* Compare Mode Active */
 .mode-compare .code-input {
   display: none;
 }
@@ -751,7 +744,6 @@ body {
   display: block;
 }
 
-/* Default to edit mode */
 .diff-line {
   display: block;
   position: relative;
@@ -759,42 +751,33 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* WORD WRAP FOR DIFF LINES */
-  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
-  word-wrap: break-word; /* Break long words if necessary */
-  overflow-wrap: break-word; /* Modern browsers */
-  /* Remove fixed height to allow multi-line content */
-  height: auto; /* Changed from fixed 1.4em */
+  height: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
-
-/* Line types */
 .diff-line.added {
   background: linear-gradient(90deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
   border-left: 3px solid #22c55e;
   border-radius: 3px 0 0 3px;
-  padding-left: 7px; /* Compensate border */
+  padding-left: 7px;
 }
-
 .diff-line.removed {
   background: linear-gradient(90deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
   border-left: 3px solid #ef4444;
   border-radius: 3px 0 0 3px;
-  padding-left: 7px; /* Compensate border */
+  padding-left: 7px;
 }
-
 .diff-line.modified {
   background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
   border-left: 3px solid #f59e0b;
   border-radius: 3px 0 0 3px;
-  padding-left: 7px; /* Compensate border */
+  padding-left: 7px;
 }
-
 .diff-line.empty {
   background: rgba(204, 204, 204, 0.03);
-  /* Ensure empty lines have minimum height and are visible */
   min-height: 1.4em;
-  padding-left: 10px; /* Same as identical lines for consistency */
-  /* Style for empty line indicators */
+  padding-left: 10px;
 }
 .diff-line.empty .empty-line-indicator {
   color: rgba(204, 204, 204, 0.6);
@@ -809,99 +792,65 @@ body {
   float: right;
   margin-right: 10px;
 }
-.diff-line.empty {
-  /* Remove old before pseudo-element */
-}
 .diff-line.empty::before {
   display: none;
 }
-
 .diff-line.identical {
   background: rgba(34, 197, 94, 0.02);
-  /* Maintain consistent height even without borders */
-  padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
-  /* Ensure identical lines maintain their content */
+  padding-left: 10px;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-/* Line number positioning for wrapped lines */
-.line-number-item {
-  display: block;
-  text-align: right;
-  color: var(--vscode-editorLineNumber-foreground);
-  user-select: none;
-  /* Height will be calculated dynamically by JavaScript */
-}
-
-.line-number-item.added {
-  background: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
-}
-
-.line-number-item.removed {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-}
-
-.line-number-item.modified {
-  background: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
-}
-
-/* Base styling for highlighted words - OPTIMIZED FOR MINIMAL LAYOUT IMPACT */
 .word-modified, .word-removed, .word-added {
-  padding: 0 1px; /* Minimal padding to reduce width impact */
+  padding: 0 1px;
   border-radius: 2px;
   font-weight: 500;
-  margin: 0; /* Remove margins that cause layout shifts */
-  transition: background-color 0.15s ease; /* Only transition background */
+  margin: 0;
+  transition: background-color 0.15s ease;
   position: relative;
-  border: none; /* Remove border that adds width */
+  border: none;
   display: inline;
   box-sizing: border-box;
-  /* Critical: Preserve original text flow and content */
   line-height: inherit;
   vertical-align: baseline;
-  white-space: pre-wrap; /* Preserve whitespace in highlighted content */
-  word-wrap: break-word; /* Allow breaking of long highlighted words */
-  overflow-wrap: break-word; /* Modern browsers */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-/* Added words - Green highlighting - LAYOUT OPTIMIZED */
 .word-added {
-  background: rgba(34, 197, 94, 0.25); /* Solid color, no gradient */
+  background: rgba(34, 197, 94, 0.25);
   color: #27d563;
 }
 .word-added:hover {
   background: rgba(34, 197, 94, 0.4);
 }
 
-/* Removed words - Red highlighting with strikethrough - LAYOUT OPTIMIZED */
 .word-removed {
-  background: rgba(239, 68, 68, 0.25); /* Solid color, no gradient */
+  background: rgba(239, 68, 68, 0.25);
   color: #f26464;
-  text-decoration: line-through;
-  text-decoration-thickness: 1px; /* Thinner to avoid height impact */
 }
 .word-removed:hover {
   background: rgba(239, 68, 68, 0.4);
+}
+.word-removed {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+.word-removed:hover {
   text-decoration-thickness: 1.5px;
 }
 
-/* Modified words - Orange highlighting - LAYOUT OPTIMIZED */
 .word-modified {
-  background: rgba(245, 158, 11, 0.25); /* Solid color, no gradient */
+  background: rgba(245, 158, 11, 0.25);
   color: #f7af2b;
 }
 .word-modified:hover {
   background: rgba(245, 158, 11, 0.4);
 }
 
-/* ==========================================
-   RESPONSIVE & ACCESSIBILITY
-   ========================================== */
 @media (max-width: 768px) {
   .compare-code {
     grid-template-columns: 1fr;
@@ -911,42 +860,39 @@ body {
     height: calc(50vh - 50px);
   }
 }
-/* High contrast mode support */
 @media (prefers-contrast: high) {
+  .diff-line.added, .diff-line.removed, .diff-line.modified {
+    border-left-width: 4px;
+  }
   .diff-line.added {
     background: rgba(34, 197, 94, 0.4);
-    border-left-width: 4px;
   }
   .diff-line.removed {
     background: rgba(239, 68, 68, 0.4);
-    border-left-width: 4px;
   }
   .diff-line.modified {
     background: rgba(245, 158, 11, 0.4);
-    border-left-width: 4px;
   }
-  /* Enhanced word highlighting for high contrast mode */
+  .word-added,
+  .word-removed,
+  .word-modified {
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
   .word-added {
     background: rgba(34, 197, 94, 0.6) !important;
     border-color: #22c55e !important;
-    border-width: 2px !important;
-    font-weight: 600 !important;
   }
   .word-removed {
     background: rgba(239, 68, 68, 0.6) !important;
     border-color: #ef4444 !important;
-    border-width: 2px !important;
-    font-weight: 600 !important;
     text-decoration-thickness: 2.5px !important;
   }
   .word-modified {
     background: rgba(245, 158, 11, 0.6) !important;
     border-color: #f59e0b !important;
-    border-width: 2px !important;
-    font-weight: 600 !important;
   }
 }
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .word-added, .word-removed, .word-modified {
     transition: none;
