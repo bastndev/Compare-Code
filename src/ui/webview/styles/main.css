@@ -20,23 +20,128 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::-webkit-scrollbar {
-  width: 14px;
+*::-webkit-scrollbar {
+  width: auto;
+  height: auto;
 }
 
-::-webkit-scrollbar-track {
-  background: var(--vscode-editor-background);
+*::-webkit-scrollbar-track {
+  background: transparent;
 }
 
-::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background: var(--vscode-widget-border);
+}
+
+@keyframes tooltipFadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+.btn-panel-left[data-tooltip],
+.btn-panel-right[data-tooltip] {
+  position: relative;
+}
+
+.btn-panel-left[data-tooltip]:hover::after,
+.btn-panel-right[data-tooltip]:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  z-index: 1000;
+  white-space: nowrap;
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  font-size: 12px;
+  border: 1px solid var(--vscode-input-border);
   border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: tooltipFadeIn 0.3s ease forwards;
+  top: 100%;
+  left: 50%;
+  margin-top: 6px;
+  padding: 6px 10px;
+  border-radius: 50px;
+  animation: tooltipFadeIn 0.2s ease forwards;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: var(--vscode-scrollbarSlider-hoverBackground, #555555);
+.btn-panel-left[data-tooltip]:hover::after {
+  left: 13px;
+  transform: translateX(10%);
 }
 
+.btn-panel-right[data-tooltip]:hover::after {
+  left: -30px;
+  transform: translateX(10%);
+}
+
+.clear-code[data-tooltip],
+.download-code[data-tooltip] {
+  position: relative;
+}
+.clear-code[data-tooltip]:hover::before,
+.download-code[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  z-index: 1000;
+  white-space: nowrap;
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  font-size: 12px;
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: tooltipFadeIn 0.3s ease forwards;
+  top: 100%;
+  left: 50%;
+  margin-top: 8px;
+  padding: 4px 8px;
+  font-size: 11px;
+}
+
+.bbtn[data-tooltip] {
+  position: relative;
+}
+.bbtn[data-tooltip]:hover::before {
+  content: attr(data-tooltip);
+  position: absolute;
+  z-index: 1000;
+  white-space: nowrap;
+  background-color: var(--vscode-input-background);
+  color: var(--vscode-foreground);
+  font-size: 12px;
+  border: 1px solid var(--vscode-input-border);
+  border-radius: 6px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(-50%);
+  animation: tooltipFadeIn 0.3s ease forwards;
+  bottom: 100%;
+  left: 50%;
+  margin-bottom: 8px;
+  padding: 8px 12px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bbtn[data-tooltip]:hover::before {
+    animation: none;
+    opacity: 1;
+  }
+}
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -75,6 +180,7 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   justify-content: flex-start;
 }
 
@@ -104,13 +210,6 @@ body {
   color: inherit;
 }
 
-.slash-l {
-  font-size: 16px;
-  font-weight: 700;
-  color: #555;
-  cursor: default;
-}
-
 .match-score {
   font-size: 14px;
   font-weight: 600;
@@ -121,8 +220,16 @@ body {
   cursor: default;
 }
 
-.normal-stats, .pro-stats {
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+.slash-l,
+.slash-r {
+  font-size: 16px;
+  font-weight: 700;
+  color: #555;
+  cursor: default;
+}
+
+.slash-r {
+  padding-top: 3px;
 }
 
 .pro-stats {
@@ -133,6 +240,7 @@ body {
   height: 100%;
   display: flex;
   align-items: center;
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
   gap: clamp(16px, 2vw, 24px);
   padding: 0 8px;
 }
@@ -158,7 +266,6 @@ body {
   justify-content: center;
   font-size: 11px;
   color: #ebebeb;
-  opacity: none;
   font-weight: 700;
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
@@ -273,61 +380,9 @@ body {
   height: 20px;
 }
 
-.slash-r {
-  cursor: default;
-  color: #555;
-  padding-top: 3px;
-}
-
-.btn-panel-left[data-tooltip],
-.btn-panel-right[data-tooltip] {
-  position: relative;
-}
-
-.btn-panel-left[data-tooltip]:hover::after,
-.btn-panel-right[data-tooltip]:hover::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: var(--vscode-input-background);
-  color: var(--vscode-foreground);
-  padding: 6px 10px;
-  border-radius: 50px;
-  font-size: 12px;
-  white-space: nowrap;
-  border: 1px solid var(--vscode-input-border);
-  z-index: 1000;
-  margin-top: 6px;
-  opacity: 0;
-  animation: tooltipFadeIn 0.2s ease forwards;
-  box-shadow: 0 2px 8px rgba(145, 145, 145, 0.15);
-}
-
-.btn-panel-left[data-tooltip]:hover::after {
-  left: 13px;
-  transform: translateX(10%);
-}
-
-.btn-panel-right[data-tooltip]:hover::after {
-  left: -30px;
-  transform: translateX(10%);
-}
-
-@keyframes tooltipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-/* ======================================
-  DIFF PANEL - VS Code Extension | MARK: DIFF PANEL
-  ======================================= */
+/* ===================================================
+  DIFF PANEL - VS Code Extension | MARK: COMPARE PANEL
+  ==================================================== */
 .compare-panel {
   background-color: var(--vscode-input-background);
   color: white;
@@ -336,7 +391,6 @@ body {
   text-align: center;
   height: 40px;
   width: 100%;
-  /* position: relative; */
   display: grid;
   grid-template-columns: 1fr 50px 1fr;
 }
@@ -344,19 +398,52 @@ body {
 .options-panel-left {
   text-align: left;
 }
-
-.test {
-  color: orange;
+.options-panel-left button {
+  margin-right: 8px;
 }
 
 .options-panel-right {
   text-align: right;
 }
+.options-panel-right button {
+  margin-left: 8px;
+}
 
-.copy-code, .clear-code, .download-code {
+.copy-code,
+.clear-code,
+.download-code {
   background: none;
   cursor: pointer;
   border: none;
+}
+.copy-code img,
+.clear-code img,
+.download-code img {
+  width: 15px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+.copy-code img:hover,
+.clear-code img:hover,
+.download-code img:hover {
+  opacity: 1;
+}
+
+.copy-clear {
+  background: none;
+  cursor: pointer;
+  border: none;
+}
+.copy-clear img {
+  width: 15px;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+.copy-clear img:hover {
+  opacity: 1;
+}
+.copy-clear {
+  margin: 0 12px;
 }
 
 .clear-code.clearing img {
@@ -395,11 +482,10 @@ body {
   transform: translateX(-50%);
   background-color: #22c55e;
   color: #000000;
-  font-weight: bold;
+  font-weight: 500;
   padding: 3px 8px;
   border-radius: 4px;
   font-size: 12px;
-  font-weight: 500;
   white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
   z-index: 10;
@@ -464,30 +550,6 @@ body {
     opacity: 0.6;
   }
 }
-.copy-clear {
-  margin: 0 12px 0 12px;
-}
-
-.copy-clear img {
-  width: 15px;
-  opacity: 0.6;
-}
-
-.copy-clear img:hover {
-  opacity: 1;
-}
-
-.options-panel-left button {
-  margin-right: 8px;
-}
-
-.options-panel-right button {
-  margin-left: 8px;
-}
-
-/* ======================================
-   DUAL SCROLL INDICATOR 
-  ======================================= */
 .dual-scroll-indicator {
   position: absolute;
   top: 10px;
@@ -512,16 +574,6 @@ body {
   cursor: pointer;
   transition: all 0.2s ease;
 }
-@keyframes pulseGlow {
-  0% {
-    box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
-    transform: scale(1);
-  }
-  100% {
-    box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
-    transform: scale(1.05);
-  }
-}
 .dual-scroll-indicator:hover {
   opacity: 1;
   background-color: #007acc;
@@ -534,41 +586,14 @@ body {
   box-shadow: 0 2px 8px rgba(0, 122, 204, 0.4);
 }
 
-.clear-code[data-tooltip],
-.download-code[data-tooltip] {
-  position: relative;
-}
-.clear-code[data-tooltip]:hover::before,
-.download-code[data-tooltip]:hover::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  z-index: 1001;
-  margin-top: 8px;
-  padding: 4px 8px;
-  white-space: nowrap;
-  background-color: var(--vscode-input-background);
-  color: var(--vscode-foreground);
-  border: 1px solid var(--vscode-input-border);
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-size: 11px;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-50%);
-  animation: tooltipFadeIn 0.3s ease forwards;
-}
-
-@keyframes tooltipFadeIn {
+@keyframes pulseGlow {
   0% {
-    opacity: 0;
-    transform: translateX(-50%) translateY(-5px);
+    box-shadow: 0 2px 8px rgba(0, 122, 204, 0.3);
+    transform: scale(1);
   }
   100% {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
+    box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
+    transform: scale(1.05);
   }
 }
 /* ========================================
@@ -590,9 +615,6 @@ body {
   position: relative;
 }
 
-/* ==========================================
-   UNIFIED EDITOR CONTAINER
-   ========================================== */
 .unified-editor {
   position: relative;
   height: calc(100vh - 98px);
@@ -604,24 +626,20 @@ body {
   overflow: hidden;
 }
 
-/* Panel-specific borders with rounded corners */
 #editor1 {
   border-right: 1px solid var(--vscode-input-border);
   border-top: 1px solid var(--vscode-input-border);
   border-top-right-radius: 8px;
-  overflow: hidden; /* Ensures content respects the rounded corner */
+  overflow: auto;
 }
 
 #editor2 {
   border-left: 1px solid var(--vscode-input-border);
   border-top: 1px solid var(--vscode-input-border);
   border-top-left-radius: 8px;
-  overflow: hidden; /* Ensures content respects the rounded corner */
+  overflow: auto;
 }
 
-/* ==========================================
-   LINE NUMBERS - Consistent across modes
-   ========================================== */
 .line-numbers {
   width: 45px;
   background-color: var(--vscode-editor-background);
@@ -637,22 +655,34 @@ body {
   margin: 0;
   box-sizing: border-box;
   flex-shrink: 0;
-  /* Ensure line numbers align exactly with content */
   vertical-align: top;
 }
 
-/* ==========================================
-   CODE AREA - Container for input/display
-   ========================================== */
+.line-number-item {
+  display: block;
+  text-align: right;
+  color: var(--vscode-editorLineNumber-foreground);
+  user-select: none;
+}
+.line-number-item.added {
+  background: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+.line-number-item.removed {
+  background: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+.line-number-item.modified {
+  background: rgba(245, 158, 11, 0.1);
+  color: #f59e0b;
+}
+
 .code-area {
   flex: 1;
   position: relative;
   overflow: hidden;
 }
 
-/* ==========================================
-   TEXTAREA INPUT MODE - WITH WORD WRAP
-   ========================================== */
 .code-input {
   width: 100%;
   height: 100%;
@@ -661,19 +691,17 @@ body {
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 13px;
   line-height: 1.4;
-  padding: 15px 15px 15px 10px; /* PADDING COPY CODE*/
+  padding: 15px 15px 15px 10px;
   margin: 0;
   border: none;
   outline: none;
   resize: none;
   box-sizing: border-box;
-  /* WORD WRAP CONFIGURATION */
-  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
-  word-wrap: break-word; /* Break long words if necessary */
-  overflow-wrap: break-word; /* Modern browsers */
-  /* SCROLL BEHAVIOR */
-  overflow-x: hidden; /* Hide horizontal scroll */
-  overflow-y: auto; /* Keep vertical scroll */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 .code-input::placeholder {
   color: #6a737d;
@@ -683,9 +711,6 @@ body {
   background-color: rgba(255, 255, 255, 0.02);
 }
 
-/* ==========================================
-   DISPLAY MODE - Comparison Results WITH WORD WRAP
-   ========================================== */
 .code-display {
   width: 100%;
   height: 100%;
@@ -694,23 +719,17 @@ body {
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 13px;
   line-height: 1.4;
-  padding: 15px 15px 15px 0px; /* PADDING COMPARE CODE*/
+  padding: 15px 15px 15px 0;
   margin: 0;
   box-sizing: border-box;
-  display: none; /* Hidden by default */
-  /* WORD WRAP CONFIGURATION */
-  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
-  word-wrap: break-word; /* Break long words if necessary */
-  overflow-wrap: break-word; /* Modern browsers */
-  /* SCROLL BEHAVIOR */
-  overflow-x: hidden; /* Hide horizontal scroll */
-  overflow-y: auto; /* Keep vertical scroll */
+  display: none;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
-/* ==========================================
-   MODE SWITCHING - Edit vs Compare
-   ========================================== */
-/* Edit Mode Active */
 .mode-edit .code-input, .unified-editor .code-input {
   display: block;
 }
@@ -718,7 +737,6 @@ body {
   display: none;
 }
 
-/* Compare Mode Active */
 .mode-compare .code-input {
   display: none;
 }
@@ -726,7 +744,6 @@ body {
   display: block;
 }
 
-/* Default to edit mode */
 .diff-line {
   display: block;
   position: relative;
@@ -734,42 +751,33 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  /* WORD WRAP FOR DIFF LINES */
-  white-space: pre-wrap; /* Preserve whitespace but allow wrapping */
-  word-wrap: break-word; /* Break long words if necessary */
-  overflow-wrap: break-word; /* Modern browsers */
-  /* Remove fixed height to allow multi-line content */
-  height: auto; /* Changed from fixed 1.4em */
+  height: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
-
-/* Line types */
 .diff-line.added {
   background: linear-gradient(90deg, rgba(34, 197, 94, 0.2) 0%, rgba(34, 197, 94, 0.1) 100%);
   border-left: 3px solid #22c55e;
   border-radius: 3px 0 0 3px;
-  padding-left: 7px; /* Compensate border */
+  padding-left: 7px;
 }
-
 .diff-line.removed {
   background: linear-gradient(90deg, rgba(239, 68, 68, 0.2) 0%, rgba(239, 68, 68, 0.1) 100%);
   border-left: 3px solid #ef4444;
   border-radius: 3px 0 0 3px;
-  padding-left: 7px; /* Compensate border */
+  padding-left: 7px;
 }
-
 .diff-line.modified {
   background: linear-gradient(90deg, rgba(245, 158, 11, 0.2) 0%, rgba(245, 158, 11, 0.1) 100%);
   border-left: 3px solid #f59e0b;
   border-radius: 3px 0 0 3px;
-  padding-left: 7px; /* Compensate border */
+  padding-left: 7px;
 }
-
 .diff-line.empty {
   background: rgba(204, 204, 204, 0.03);
-  /* Ensure empty lines have minimum height and are visible */
   min-height: 1.4em;
-  padding-left: 10px; /* Same as identical lines for consistency */
-  /* Style for empty line indicators */
+  padding-left: 10px;
 }
 .diff-line.empty .empty-line-indicator {
   color: rgba(204, 204, 204, 0.6);
@@ -784,124 +792,65 @@ body {
   float: right;
   margin-right: 10px;
 }
-.diff-line.empty {
-  /* Remove old before pseudo-element */
-}
 .diff-line.empty::before {
   display: none;
 }
-
 .diff-line.identical {
   background: rgba(34, 197, 94, 0.02);
-  /* Maintain consistent height even without borders */
-  padding-left: 10px; /* Padding whit border & lines (7px border + 3px extra) */
-  /* Ensure identical lines maintain their content */
+  padding-left: 10px;
   white-space: pre-wrap;
   word-wrap: break-word;
   overflow-wrap: break-word;
 }
 
-/* Line number positioning for wrapped lines */
-.line-number-item {
-  display: block;
-  text-align: right;
-  color: var(--vscode-editorLineNumber-foreground);
-  user-select: none;
-  /* Height will be calculated dynamically by JavaScript */
-}
-
-.line-number-item.added {
-  background: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
-}
-
-.line-number-item.removed {
-  background: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-}
-
-.line-number-item.modified {
-  background: rgba(245, 158, 11, 0.1);
-  color: #f59e0b;
-}
-
-/* Base styling for highlighted words - OPTIMIZED FOR MINIMAL LAYOUT IMPACT */
 .word-modified, .word-removed, .word-added {
-  padding: 0 1px; /* Minimal padding to reduce width impact */
+  padding: 0 1px;
   border-radius: 2px;
   font-weight: 500;
-  margin: 0; /* Remove margins that cause layout shifts */
-  transition: background-color 0.15s ease; /* Only transition background */
+  margin: 0;
+  transition: background-color 0.15s ease;
   position: relative;
-  border: none; /* Remove border that adds width */
+  border: none;
   display: inline;
   box-sizing: border-box;
-  /* Critical: Preserve original text flow and content */
   line-height: inherit;
   vertical-align: baseline;
-  white-space: pre-wrap; /* Preserve whitespace in highlighted content */
-  word-wrap: break-word; /* Allow breaking of long highlighted words */
-  overflow-wrap: break-word; /* Modern browsers */
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
-/* Added words - Green highlighting - LAYOUT OPTIMIZED */
 .word-added {
-  background: rgba(34, 197, 94, 0.25); /* Solid color, no gradient */
+  background: rgba(34, 197, 94, 0.25);
   color: #27d563;
 }
 .word-added:hover {
   background: rgba(34, 197, 94, 0.4);
 }
 
-/* Removed words - Red highlighting with strikethrough - LAYOUT OPTIMIZED */
 .word-removed {
-  background: rgba(239, 68, 68, 0.25); /* Solid color, no gradient */
+  background: rgba(239, 68, 68, 0.25);
   color: #f26464;
-  text-decoration: line-through;
-  text-decoration-thickness: 1px; /* Thinner to avoid height impact */
 }
 .word-removed:hover {
   background: rgba(239, 68, 68, 0.4);
+}
+.word-removed {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+}
+.word-removed:hover {
   text-decoration-thickness: 1.5px;
 }
 
-/* Modified words - Orange highlighting - LAYOUT OPTIMIZED */
 .word-modified {
-  background: rgba(245, 158, 11, 0.25); /* Solid color, no gradient */
+  background: rgba(245, 158, 11, 0.25);
   color: #f7af2b;
 }
 .word-modified:hover {
   background: rgba(245, 158, 11, 0.4);
 }
 
-/* ==========================================
-   SCROLLBAR STYLING
-   ========================================== */
-.code-input::-webkit-scrollbar,
-.code-display::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
-
-.code-input::-webkit-scrollbar-track,
-.code-display::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.1);
-}
-
-.code-input::-webkit-scrollbar-thumb,
-.code-display::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 6px;
-}
-
-.code-input::-webkit-scrollbar-thumb:hover,
-.code-display::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.3);
-}
-
-/* ==========================================
-   RESPONSIVE & ACCESSIBILITY
-   ========================================== */
 @media (max-width: 768px) {
   .compare-code {
     grid-template-columns: 1fr;
@@ -911,42 +860,39 @@ body {
     height: calc(50vh - 50px);
   }
 }
-/* High contrast mode support */
 @media (prefers-contrast: high) {
+  .diff-line.added, .diff-line.removed, .diff-line.modified {
+    border-left-width: 4px;
+  }
   .diff-line.added {
     background: rgba(34, 197, 94, 0.4);
-    border-left-width: 4px;
   }
   .diff-line.removed {
     background: rgba(239, 68, 68, 0.4);
-    border-left-width: 4px;
   }
   .diff-line.modified {
     background: rgba(245, 158, 11, 0.4);
-    border-left-width: 4px;
   }
-  /* Enhanced word highlighting for high contrast mode */
+  .word-added,
+  .word-removed,
+  .word-modified {
+    border-width: 2px !important;
+    font-weight: 600 !important;
+  }
   .word-added {
     background: rgba(34, 197, 94, 0.6) !important;
     border-color: #22c55e !important;
-    border-width: 2px !important;
-    font-weight: 600 !important;
   }
   .word-removed {
     background: rgba(239, 68, 68, 0.6) !important;
     border-color: #ef4444 !important;
-    border-width: 2px !important;
-    font-weight: 600 !important;
     text-decoration-thickness: 2.5px !important;
   }
   .word-modified {
     background: rgba(245, 158, 11, 0.6) !important;
     border-color: #f59e0b !important;
-    border-width: 2px !important;
-    font-weight: 600 !important;
   }
 }
-/* Reduced motion support */
 @media (prefers-reduced-motion: reduce) {
   .word-added, .word-removed, .word-modified {
     transition: none;
@@ -970,16 +916,6 @@ body {
     opacity: 0.3;
   }
 }
-@keyframes tooltipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
 .bottom-bar {
   position: fixed;
   bottom: 0;
@@ -998,6 +934,13 @@ body {
   transform: translateX(-50%) translateY(-4px);
   opacity: 1;
   animation: none;
+}
+.bottom-bar--hidden {
+  display: none;
+}
+.bottom-bar--disabled {
+  pointer-events: none;
+  opacity: 0.5;
 }
 
 .content {
@@ -1060,6 +1003,18 @@ body {
 .bbtn:hover::after {
   opacity: 0.5;
 }
+.bbtn--active {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+.bbtn--active:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+.bbtn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 .icon {
   width: 30px;
@@ -1069,29 +1024,15 @@ body {
   transition: opacity 0.3s ease-in-out;
 }
 
-.bbtn[data-tooltip] {
-  position: relative;
+.dual-scroll.bbtn.active,
+.only-code.bbtn.active {
+  background: var(--vscode-button-background);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--vscode-button-background);
 }
-.bbtn[data-tooltip]:hover::before {
-  content: attr(data-tooltip);
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  z-index: 1001;
-  margin-bottom: 8px;
-  padding: 8px 12px;
-  white-space: nowrap;
-  background-color: var(--vscode-input-background);
-  color: var(--vscode-foreground);
-  border: 1px solid var(--vscode-input-border);
-  border-radius: 6px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  font-size: 12px;
-  font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
-  opacity: 0;
-  pointer-events: none;
-  transform: translateX(-50%);
-  animation: tooltipFadeIn 0.3s ease forwards;
+.dual-scroll.bbtn.active .icon,
+.only-code.bbtn.active .icon {
+  filter: brightness(1.2);
 }
 
 .sponsor:hover {
@@ -1110,64 +1051,6 @@ body {
 }
 .sponsor a:focus {
   outline: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bottom-bar {
-    animation: none;
-    transition: none;
-  }
-  .bbtn {
-    transition: background-color 0.1s ease;
-  }
-  .bbtn:hover {
-    transform: none;
-  }
-  .bbtn:active {
-    transform: none;
-  }
-  .bbtn[data-tooltip]:hover::before {
-    animation: none;
-    opacity: 1;
-  }
-}
-.bottom-bar--hidden {
-  display: none;
-}
-.bottom-bar--disabled {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.bbtn--active {
-  background-color: var(--vscode-button-background);
-  color: var(--vscode-button-foreground);
-}
-.bbtn--active:hover {
-  background-color: var(--vscode-button-hoverBackground);
-}
-.bbtn--disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.dual-scroll.bbtn.active {
-  background: var(--vscode-button-background);
-  transform: scale(1.05);
-  box-shadow: 0 0 15px var(--vscode-button-background);
-}
-.dual-scroll.bbtn.active .icon {
-  filter: brightness(1.2);
-}
-
-.only-code.bbtn.active {
-  background: var(--vscode-button-background);
-  transform: scale(1.05);
-  box-shadow: 0 0 15px var(--vscode-button-background);
-}
-.only-code.bbtn.active .icon {
-  filter: brightness(1.2);
 }
 
 .language.bbtn {
@@ -1214,6 +1097,19 @@ body {
 }
 .language.bbtn .language-dropdown .language-option:active {
   background-color: var(--vscode-button-background);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar {
+    animation: none;
+    transition: none;
+  }
+  .bbtn {
+    transition: background-color 0.1s ease;
+  }
+  .bbtn:hover, .bbtn:active {
+    transform: none;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */

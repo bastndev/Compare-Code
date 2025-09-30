@@ -10,10 +10,21 @@ $bottom-bar-content-width-mobile: 280px;
 $button-size: 40px;
 $icon-size: 30px;
 $separator-offset: calc($spacing-lg / 2);
-$tooltip-offset: 8px;
+
 $hover-lift: -4px;
 $scale-hover: 1.05;
 $scale-active: 0.98;
+
+// ========= Mixins =========
+@mixin button-active-glow-mixin {
+  background: $btn-bg;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px $btn-bg;
+  
+  .icon {
+    filter: brightness(1.2);
+  }
+}
 
 // ======================================
 // Keyframe Animations | MARK: animation
@@ -24,23 +35,12 @@ $scale-active: 0.98;
     opacity: 1;
   }
   to {
-    transform: translateX(-50%) translateY(calc(100% - 4px)); // HIDE BOT
-    opacity: 0.3; // OPACITY
+    transform: translateX(-50%) translateY(calc(100% - 4px));
+    opacity: 0.3;
   }
 }
 
-@keyframes tooltipFadeIn {
-  from {
-    opacity: 0;
-    transform: translateX(-50%) translateY(4px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-  }
-}
-
-// Bottom Bar Container
+// ========== Bottom Bar Container ==========
 .bottom-bar {
   position: fixed;
   bottom: 0;
@@ -55,11 +55,19 @@ $scale-active: 0.98;
   animation: slideDown 0.5s ease-in-out 1s forwards;
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
   
-  // Hover state
   &:hover {
     transform: translateX(-50%) translateY($hover-lift);
     opacity: 1;
     animation: none;
+  }
+  
+  &--hidden {
+    display: none;
+  }
+  
+  &--disabled {
+    pointer-events: none;
+    opacity: 0.5;
   }
 }
 
@@ -77,7 +85,6 @@ $scale-active: 0.98;
   border-radius: $border-radius;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
   
-  // Responsive design
   @media (max-width: 400px) {
     width: $bottom-bar-content-width-mobile;
     gap: $spacing-md;
@@ -85,7 +92,7 @@ $scale-active: 0.98;
 }
 
 // ======================================
-// BUTTON BASE STYLE (.bbtn) MARK: button style
+// Button Base Style (.bbtn) | MARK: button style
 // ======================================
 .bbtn {
   background-color: transparent;
@@ -103,24 +110,20 @@ $scale-active: 0.98;
     transform 0.1s ease,
     border-radius 0.2s ease;
   
-  // Hover state
   &:hover {
     background-color: $list-hover-bg;
     border-radius: $border-radius-md;
     transform: scale($scale-hover);
   }
   
-  // Focus BORDER (accessibility)
   &:focus {
     outline: none;
   }
   
-  // Active state
   &:active {
     transform: scale($scale-active);
   }
   
-  // Separator line between buttons
   &:not(:last-child)::after {
     content: '';
     position: absolute;
@@ -135,13 +138,27 @@ $scale-active: 0.98;
     z-index: 1;
   }
   
-  // Hide separator on hover for cleaner look
   &:hover::after {
     opacity: 0.5;
   }
+  
+  &--active {
+    background-color: $btn-bg;
+    color: $btn-fg;
+    
+    &:hover {
+      background-color: $btn-hover;
+    }
+  }
+  
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
 
-// Button Icon Styles
+// Button Icon
 .icon {
   width: $icon-size;
   height: $icon-size;
@@ -151,37 +168,16 @@ $scale-active: 0.98;
 }
 
 // ======================================
-// TOOLTIP SYSTEM | MARK: tooltip
+// Active Button States | MARK: BOX SHADOW
 // ======================================
-.bbtn[data-tooltip] {
-  position: relative;
-  
-  &:hover::before {
-    content: attr(data-tooltip);    
-    position: absolute;
-    bottom: 100%;
-    left: 50%;
-    z-index: 1001;
-    margin-bottom: $tooltip-offset;
-    padding: $spacing-sm 12px;
-    white-space: nowrap;
-    background-color: $input-bg;
-    color: $fg;
-    border: 1px solid $input-border;
-    border-radius: $border-radius-md;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    font-size: 12px;
-    font-family: $font-family;
-    
-    // Animation & Transform
-    opacity: 0;
-    pointer-events: none;
-    transform: translateX(-50%);
-    animation: tooltipFadeIn 0.3s ease forwards;
-  }
+.dual-scroll.bbtn.active,
+.only-code.bbtn.active {
+  @include button-active-glow-mixin;
 }
 
-// SPONSOR BUTTON - special styling
+// ======================================
+// Sponsor Button
+// ======================================
 .sponsor {
   &:hover {
     background-color: rgba(46, 160, 67, 0.1);
@@ -200,96 +196,14 @@ $scale-active: 0.98;
     text-decoration: none;
     
     &:focus {
-      outline: none; // Yellow box - none
+      outline: none;
     }
   }
 }
 
-// ======================================
-// Accessibility & Motion MARK:Accessibility
-// ======================================
-@media (prefers-reduced-motion: reduce) {
-  .bottom-bar {
-    animation: none;
-    transition: none;
-  }
-  
-  .bbtn {
-    transition: background-color 0.1s ease;
-    
-    &:hover {
-      transform: none;
-    }
-    
-    &:active {
-      transform: none;
-    }
-  }
-  
-  .bbtn[data-tooltip]:hover::before {
-    animation: none;
-    opacity: 1;
-  }
-}
-
-// States & Modifiers
-.bottom-bar {
-  &--hidden {
-    display: none;
-  }
-  
-  &--disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-}
-
-.bbtn {
-  &--active {
-    background-color: $btn-bg;
-    color: $btn-fg;
-    
-    &:hover {
-      background-color: $btn-hover;
-    }
-  }
-  
-  &--disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-    pointer-events: none;
-  }
-}
-
-// ======================================
-// HERE BUTTON TS | MARK: BOX SHADOW
-// ======================================
-
-// DUAL SCROLL
-.dual-scroll.bbtn.active {
-  background: $btn-bg;
-  transform: scale(1.05);
-  box-shadow: 0 0 15px $btn-bg;
-  
-  .icon {
-    filter: brightness(1.2);
-  }
-}
-
-// ONLY CODE EDITH
-.only-code.bbtn.active {
-  background: $btn-bg;
-  transform: scale(1.05);
-  box-shadow: 0 0 15px $btn-bg; 
-  
-  .icon {
-    filter: brightness(1.2);
-  }
-}
-
-// ======================================
-// LANGUAGE SELECTOR | MARK: LANGUAGE DROPDOWN
-// ======================================
+// ============================================
+// Language Selector | MARK: LANGUAGE DROPDOWN
+// ============================================
 .language.bbtn {
   position: relative;
   
@@ -343,5 +257,21 @@ $scale-active: 0.98;
   }
 }
 
-
-
+// =============================================
+// Accessibility & Motion | MARK: Accessibility
+// =============================================
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar {
+    animation: none;
+    transition: none;
+  }
+  
+  .bbtn {
+    transition: background-color 0.1s ease;
+    
+    &:hover,
+    &:active {
+      transform: none;
+    }
+  }
+}

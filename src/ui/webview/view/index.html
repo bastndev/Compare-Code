@@ -4,16 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{CSS_URI}}">
-    <script>
-        // I18n initialization placeholder - will be replaced by compareView.ts
-        {{I18N_SCRIPT}}
-    </script>
+    <script>{{I18N_SCRIPT}}</script>
     <script src="{{SCRIPT_URI}}" defer></script>
 </head>
 <body>
-    <!-- ======================================
-          Top navigation and controls MARK:TOOLBAR 
-         ====================================== -->
+    <!-- ==========================================
+         Top navigation and controls | MARK:TOOLBAR 
+         ========================================== -->
     <div class="toolbar">
         <div class="stats-container">
             <!-- Warning & Similar | NORMAL -->
@@ -45,13 +42,13 @@
             </div>
         </div>
 
-        <!-- Primary compare button | PLAY -->
+        <!-- Compare button | PLAY -->
         <button class="btn-play" onclick="toggle()" id="playBtn" title="Ctrl + Enter">
             <img src="{{PLAY_ICON}}">
             <span>Compare</span>
         </button>
 
-        <!-- Secondary panel controls | Clear - Close & Open -->
+        <!-- Toolbar | Clear - Close & Open -->
         <div class="buttons-container">
             <button class="clear" onclick="clearAll()">🗑️ <span data-i18n="buttons.clear">Clear</span></button>
             
@@ -65,9 +62,9 @@
         </div>
     </div>
 
-    <!-- ======================================
-        TODO: DOWNLOAD - COPY - CLEAR| MARK: COMPARE CODE
-        ====================================== -->
+    <!-- =================================================
+        TODO: Secondary panel header | MARK: COMPARE CODE
+        ================================================== -->
     <div class="compare-panel">
         <div class="options-panel-left">
             <div class="copy-clear">
@@ -103,7 +100,7 @@
     </div>
 
     <!-- ======================================
-         TODO: Main comparison interface | MARK: CODE
+         TODO: Main - compare code | MARK: CODE
          ====================================== -->
 
     <div class="compare-code">
@@ -150,9 +147,9 @@
         </div>
     </div>
 
-    <!-- ======================================
+    <!-- ================================================
          TODO: Floating tool controls | MARK: BOTTOM BAR
-         ====================================== -->
+         =============================================== -->
     <div class="bottom-bar">
         <div class="content">
             <button class="only-code bbtn" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.showModifiedCode">
