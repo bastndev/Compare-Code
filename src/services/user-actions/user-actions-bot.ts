@@ -10,7 +10,6 @@ let onlyModifiedEnabled = false;
 
 export function initializeDualScroll() {
   const dualScrollBtn = document.getElementById('dual-scroll-btn');
-  const indicator = document.getElementById('dual-scroll-indicator');
 
   if (!dualScrollBtn) {
     console.warn('Dual scroll button not found');
@@ -278,9 +277,8 @@ function getI18n(): any {
   return (window as any).i18n;
 }
 
-// Helper to get vscode API
-declare const acquireVsCodeApi: any;
-const vscode = acquireVsCodeApi();
+// Use the global vscode API (declared in user-actions-top.ts)
+declare const vscode: any;
 
 // LANGUAGE SELECTOR
 function initializeLanguageSelector(): void {

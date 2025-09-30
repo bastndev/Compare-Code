@@ -145,13 +145,33 @@ export function initializeCompareCode(): void {
 
 // INITIALIZE WHEN THE PAGE LOADS
 document.addEventListener('DOMContentLoaded', () => {
-  initializeUserActions();
-  initializeDualScroll();
-  initializeOnlyCode();
-  initializeSwitchMode();
-  initializeLanguageMenu();
-  initializeCompareCode();
-  (window as any).toggle = toggle;
-  (window as any).clearAll = clearAll;
-  (window as any).toggleSwitchMode = toggleSwitchMode;
+  console.log('DOM Content Loaded - Starting initialization...');
+  
+  // Add small delay to ensure HTML is fully rendered
+  setTimeout(() => {
+    console.log('Initializing user actions...');
+    initializeUserActions();
+    
+    console.log('Initializing dual scroll...');
+    initializeDualScroll();
+    
+    console.log('Initializing only code...');
+    initializeOnlyCode();
+    
+    console.log('Initializing switch mode...');
+    initializeSwitchMode();
+    
+    console.log('Initializing language menu...');
+    initializeLanguageMenu();
+    
+    console.log('Initializing compare code...');
+    initializeCompareCode();
+    
+    // Global functions
+    (window as any).toggle = toggle;
+    (window as any).clearAll = clearAll;
+    (window as any).toggleSwitchMode = toggleSwitchMode;
+    
+    console.log('All initialization completed!');
+  }, 100); // Small delay to ensure DOM is ready
 });

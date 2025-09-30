@@ -236,12 +236,23 @@ function initializeDownloadButtons(): void {
  * Initialize all user action handlers
  */
 export function initializeUserActions(): void {
+  console.log('  - Initializing clear button...');
   initializeClearButton();
+  
+  console.log('  - Initializing copy buttons...');
   initializeCopyButtons();
+  
+  console.log('  - Initializing download buttons...');
   initializeDownloadButtons();
+  
+  console.log('  - Initializing clear code buttons...');
   initializeClearCodeButtons();
+  
+  console.log('  - Initializing panel buttons...');
   initializePanelLeftButton();
   initializePanelRightButton();
+  
+  console.log('  - User actions initialized successfully!');
 }
 
 export {};
