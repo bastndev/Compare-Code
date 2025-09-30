@@ -989,6 +989,13 @@ body {
   opacity: 1;
   animation: none;
 }
+.bottom-bar--hidden {
+  display: none;
+}
+.bottom-bar--disabled {
+  pointer-events: none;
+  opacity: 0.5;
+}
 
 .content {
   display: flex;
@@ -1050,6 +1057,18 @@ body {
 .bbtn:hover::after {
   opacity: 0.5;
 }
+.bbtn--active {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+}
+.bbtn--active:hover {
+  background-color: var(--vscode-button-hoverBackground);
+}
+.bbtn--disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 
 .icon {
   width: 30px;
@@ -1057,6 +1076,17 @@ body {
   pointer-events: none;
   display: block;
   transition: opacity 0.3s ease-in-out;
+}
+
+.dual-scroll.bbtn.active,
+.only-code.bbtn.active {
+  background: var(--vscode-button-background);
+  transform: scale(1.05);
+  box-shadow: 0 0 15px var(--vscode-button-background);
+}
+.dual-scroll.bbtn.active .icon,
+.only-code.bbtn.active .icon {
+  filter: brightness(1.2);
 }
 
 .sponsor:hover {
@@ -1075,60 +1105,6 @@ body {
 }
 .sponsor a:focus {
   outline: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .bottom-bar {
-    animation: none;
-    transition: none;
-  }
-  .bbtn {
-    transition: background-color 0.1s ease;
-  }
-  .bbtn:hover {
-    transform: none;
-  }
-  .bbtn:active {
-    transform: none;
-  }
-}
-.bottom-bar--hidden {
-  display: none;
-}
-.bottom-bar--disabled {
-  pointer-events: none;
-  opacity: 0.5;
-}
-
-.bbtn--active {
-  background-color: var(--vscode-button-background);
-  color: var(--vscode-button-foreground);
-}
-.bbtn--active:hover {
-  background-color: var(--vscode-button-hoverBackground);
-}
-.bbtn--disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.dual-scroll.bbtn.active {
-  background: var(--vscode-button-background);
-  transform: scale(1.05);
-  box-shadow: 0 0 15px var(--vscode-button-background);
-}
-.dual-scroll.bbtn.active .icon {
-  filter: brightness(1.2);
-}
-
-.only-code.bbtn.active {
-  background: var(--vscode-button-background);
-  transform: scale(1.05);
-  box-shadow: 0 0 15px var(--vscode-button-background);
-}
-.only-code.bbtn.active .icon {
-  filter: brightness(1.2);
 }
 
 .language.bbtn {
@@ -1175,6 +1151,19 @@ body {
 }
 .language.bbtn .language-dropdown .language-option:active {
   background-color: var(--vscode-button-background);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bottom-bar {
+    animation: none;
+    transition: none;
+  }
+  .bbtn {
+    transition: background-color 0.1s ease;
+  }
+  .bbtn:hover, .bbtn:active {
+    transform: none;
+  }
 }
 
 /*# sourceMappingURL=main.css.map */
