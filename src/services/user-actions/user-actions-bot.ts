@@ -211,12 +211,15 @@ let switchOnUri: string;
 let switchOffUri: string;
 
 export function initializeSwitchMode() {
+  console.log('  - Initializing switch mode...');
+
   // Message listener for switch icons
   window.addEventListener('message', (event) => {
     const message = event.data;
     if (message.type === 'setIcons') {
       switchOnUri = message.icons.switchOn;
       switchOffUri = message.icons.switchOff;
+      console.log('  - Switch icons received:', { switchOnUri, switchOffUri });
     }
   });
 
@@ -231,19 +234,37 @@ export function initializeSwitchMode() {
     proStats.style.opacity = '0';
     proStats.style.visibility = 'hidden';
   }
+
+  console.log('  - Switch mode initialized successfully!');
 }
 
 export function toggleSwitchMode(): void {
   isProMode = !isProMode;
+  console.log('Toggle switch mode:', { isProMode, switchOnUri, switchOffUri });
+
   const icon = document.querySelector(
     '.switch-on-off .icon'
   ) as HTMLImageElement;
+
   if (icon) {
-    icon.style.opacity = '0';
-    setTimeout(() => {
-      icon.src = isProMode ? switchOffUri : switchOnUri;
-      icon.style.opacity = '1';
-    }, 150);
+    const currentSrc = icon.src;
+    console.log('Current icon src:', currentSrc);
+
+    // Check if we have the dynamic URIs
+    if (!switchOnUri || !switchOffUri) {
+      console.warn('Switch icon URIs not available yet, keeping current icon');
+      // Don't return here, still need to toggle stats
+    } else {
+      icon.style.opacity = '0';
+      setTimeout(() => {
+        const newSrc = isProMode ? switchOffUri : switchOnUri;
+        console.log('Setting new icon src:', newSrc);
+        icon.src = newSrc;
+        icon.style.opacity = '1';
+      }, 150);
+    }
+  } else {
+    console.error('Switch icon element not found');
   }
 
   // Toggle stats display

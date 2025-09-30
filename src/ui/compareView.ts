@@ -8,29 +8,167 @@ import {
 } from './webview/view/webviewIcons';
 
 /**
- * Convert TypeScript to JavaScript for webview (basic conversion)
- * @param tsContent TypeScript content
- * @returns JavaScript content
+ * Load all translation files
+ * @param extensionPath Path to the extension
+ * @returns Object with all translations
  */
-function convertTStoJS(tsContent: string): string {
-  return tsContent
-    // Remove TypeScript imports/exports
-    .replace(/import\s+.*?from\s+['"][^'"]*['"];?\s*/g, '')
-    .replace(/export\s+\{[^}]*\};\s*/g, '')
-    .replace(/export\s+type\s+.*?;\s*/g, '')
-    .replace(/export\s+/g, '')
+function loadTranslations(extensionPath: string): Record<string, any> {
+  const translations: Record<string, any> = {};
+  const languages = ['en', 'es', 'pt', 'zh'];
+  
+  for (const lang of languages) {
+    try {
+      const translationPath = path.join(extensionPath, 'src', 'ui', 'webview', 'l10n', `${lang}.json`);
+      const content = fs.readFileSync(translationPath, 'utf8');
+      translations[lang] = JSON.parse(content);
+    } catch (error) {
+      console.warn(`Failed to load ${lang} translations:`, error);
+    }
+  }
+  
+  return translations;
+}
+
+/**
+ * Create a simple i18n JavaScript script
+ * @param translations All translations
+ * @returns JavaScript code as string
+ */
+function createI18nScript(translations: Record<string, any>): string {
+  return `
+// Simple i18n service for webview
+(function() {
+  const translations = ${JSON.stringify(translations, null, 2)};
+  let currentLanguage = 'en';
+  
+  // Detect language from VS Code or browser
+  function detectLanguage() {
+    try {
+      const vscodeLocale = window.vscode?.env?.language;
+      if (vscodeLocale) {
+        return mapLanguageCode(vscodeLocale);
+      }
+      const browserLang = navigator.language || navigator.languages?.[0] || 'en';
+      return mapLanguageCode(browserLang);
+    } catch (error) {
+      console.warn('Could not detect language:', error);
+      return 'en';
+    }
+  }
+  
+  function mapLanguageCode(langCode) {
+    const code = langCode.toLowerCase().split('-')[0];
+    switch (code) {
+      case 'es': return 'es';
+      case 'pt': return 'pt';
+      case 'zh': return 'zh';
+      case 'en':
+      default: return 'en';
+    }
+  }
+  
+  function t(keyPath, ...args) {
+    try {
+      const keys = keyPath.split('.');
+      let value = translations[currentLanguage];
+      
+      for (const key of keys) {
+        value = value?.[key];
+        if (value === undefined) break;
+      }
+      
+      if (typeof value !== 'string') {
+        console.warn('Translation not found for key:', keyPath);
+        return keyPath;
+      }
+      
+      // Replace placeholders {0}, {1}, etc.
+      return value.replace(/\\{(\\d+)\\}/g, (match, index) => {
+        const argIndex = parseInt(index, 10);
+        return args[argIndex] !== undefined ? args[argIndex] : match;
+      });
+    } catch (error) {
+      console.error('Error getting translation for', keyPath, ':', error);
+      return keyPath;
+    }
+  }
+  
+  function setLanguage(language) {
+    if (translations[language]) {
+      currentLanguage = language;
+      updateUI();
+      try {
+        localStorage.setItem('compareCode.language', language);
+      } catch (error) {
+        console.warn('Could not save language preference:', error);
+      }
+    }
+  }
+  
+  function getCurrentLanguage() {
+    return currentLanguage;
+  }
+  
+  function updateUI() {
+    // Update all elements with data-i18n attributes
+    const elements = document.querySelectorAll('[data-i18n]');
+    elements.forEach(element => {
+      const key = element.getAttribute('data-i18n');
+      if (key) {
+        const translatedText = t(key);
+        
+        // Update text content or specific attributes
+        const attr = element.getAttribute('data-i18n-attr');
+        if (attr) {
+          element.setAttribute(attr, translatedText);
+        } else {
+          element.textContent = translatedText;
+        }
+      }
+    });
     
-    // Remove TypeScript type annotations
-    .replace(/:\s*[A-Za-z][A-Za-z0-9<>[\]|&\s]*(?=\s*[=,;)])/g, '')
-    .replace(/interface\s+\w+\s*\{[^}]*\}/g, '')
-    .replace(/type\s+\w+\s*=\s*[^;]+;/g, '')
+    // Trigger custom event
+    window.dispatchEvent(new CustomEvent('languageChanged', {
+      detail: { language: currentLanguage }
+    }));
+  }
+  
+  function init() {
+    // Load saved language preference
+    try {
+      const savedLang = localStorage.getItem('compareCode.language');
+      if (savedLang && translations[savedLang]) {
+        currentLanguage = savedLang;
+      } else {
+        currentLanguage = detectLanguage();
+      }
+    } catch (error) {
+      console.warn('Could not load language preference:', error);
+      currentLanguage = detectLanguage();
+    }
     
-    // Remove generic type parameters
-    .replace(/<[^>]*>/g, '')
-    
-    // Clean up extra whitespace
-    .replace(/\n\s*\n\s*\n/g, '\n\n')
-    .trim();
+    // Update UI when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', updateUI);
+    } else {
+      updateUI();
+    }
+  }
+  
+  // Create global i18n object
+  window.i18n = {
+    t: t,
+    setLanguage: setLanguage,
+    getCurrentLanguage: getCurrentLanguage,
+    init: init
+  };
+  
+  // Initialize immediately
+  init();
+  
+  console.log('i18n service initialized with languages:', Object.keys(translations));
+})();
+`;
 }
 
 let comparePanel: vscode.WebviewPanel | undefined;
@@ -145,22 +283,13 @@ function getWebviewContent(
   );
   const scriptUri = webview.asWebviewUri(scriptPath);
 
-  // Read the i18n TypeScript file and embed it
-  const i18nPath = path.join(
-    context.extensionPath,
-    'src',
-    'ui',
-    'webview',
-    'l10n',
-    'i18n.ts'
-  );
+  // Load translation files and create i18n script
   let i18nScript = '';
   try {
-    const i18nContent = fs.readFileSync(i18nPath, 'utf8');
-    // Convert TypeScript to JavaScript (basic conversion for webview)
-    i18nScript = convertTStoJS(i18nContent);
+    const translations = loadTranslations(context.extensionPath);
+    i18nScript = createI18nScript(translations);
   } catch (error) {
-    console.warn('Could not load i18n script:', error);
+    console.warn('Could not load translations:', error);
     i18nScript = '// i18n not available';
   }
 
@@ -190,7 +319,9 @@ function getWebviewContent(
   html = replaceIconsInHtml(html, icons);
 
   // Dynamic ICONS - Play & Stop | MARK: ICONS
-  webview.postMessage({ type: 'setIcons', icons: { play: icons.play, stop: icons.stop, switchOn: icons.switchOn, switchOff: icons.switchOff } });
+  const iconMessage = { type: 'setIcons', icons: { play: icons.play, stop: icons.stop, switchOn: icons.switchOn, switchOff: icons.switchOff } };
+  console.log('Sending icons to webview:', iconMessage);
+  webview.postMessage(iconMessage);
 
   return html;
 }
