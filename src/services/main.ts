@@ -1,5 +1,5 @@
 import { initializeUserActions } from './user-actions/user-actions-top';
-import { initializeDualScroll, initializeOnlyCode, resetOnlyModified, initializeSwitchMode, toggleSwitchMode } from './user-actions/user-actions-bot';
+import { initializeDualScroll, initializeOnlyCode, resetOnlyModified, initializeSwitchMode, toggleSwitchMode, initializeLanguageMenu } from './user-actions/user-actions-bot';
 import { ComparisonEngine, ComparisonResult } from './compare-code/algorithms';
 import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './userShowInformation';
@@ -145,12 +145,33 @@ export function initializeCompareCode(): void {
 
 // INITIALIZE WHEN THE PAGE LOADS
 document.addEventListener('DOMContentLoaded', () => {
-  initializeUserActions();
-  initializeDualScroll();
-  initializeOnlyCode();
-  initializeSwitchMode();
-  initializeCompareCode();
-  (window as any).toggle = toggle;
-  (window as any).clearAll = clearAll;
-  (window as any).toggleSwitchMode = toggleSwitchMode;
+  console.log('DOM Content Loaded - Starting initialization...');
+  
+  // Add small delay to ensure HTML is fully rendered
+  setTimeout(() => {
+    console.log('Initializing user actions...');
+    initializeUserActions();
+    
+    console.log('Initializing dual scroll...');
+    initializeDualScroll();
+    
+    console.log('Initializing only code...');
+    initializeOnlyCode();
+    
+    console.log('Initializing switch mode...');
+    initializeSwitchMode();
+    
+    console.log('Initializing language menu...');
+    initializeLanguageMenu();
+    
+    console.log('Initializing compare code...');
+    initializeCompareCode();
+    
+    // Global functions
+    (window as any).toggle = toggle;
+    (window as any).clearAll = clearAll;
+    (window as any).toggleSwitchMode = toggleSwitchMode;
+    
+    console.log('All initialization completed!');
+  }, 100); // Small delay to ensure DOM is ready
 });

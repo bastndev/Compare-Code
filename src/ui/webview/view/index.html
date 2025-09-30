@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{CSS_URI}}">
+    <script>
+        // I18n initialization placeholder - will be replaced by compareView.ts
+        {{I18N_SCRIPT}}
+    </script>
     <script src="{{SCRIPT_URI}}" defer></script>
 </head>
 <body>
@@ -16,11 +20,11 @@
             <div class="normal-stats" id="normal-stats">
                 <div class="warning-box">
                     <img class="warning-icon" src="{{WARNING_ICON}}">
-                    <span>0 : Changes</span>
+                    <span>0 : <span data-i18n="stats.changes">Changes</span></span>
                 </div>
                 <span class="slash-l">/</span>
                 <div>
-                    <span class="match-score">00% : Similar</span>
+                    <span class="match-score">00% : <span data-i18n="stats.similar">Similar</span></span>
                 </div>
             </div> 
 
@@ -28,15 +32,15 @@
             <div class="pro-stats" id="pro-stats">
                 <div class="stat-item">
                     <div class="stat-icon added">+</div>
-                    <span id="added-count">0 lines added</span>
+                    <span id="added-count">0 <span data-i18n="stats.linesAdded">lines added</span></span>
                 </div>
                 <div class="stat-item">
                     <div class="stat-icon removed">-</div>
-                    <span id="removed-count">0 lines removed</span>
+                    <span id="removed-count">0 <span data-i18n="stats.linesRemoved">lines removed</span></span>
                 </div>
                 <div class="stat-item">
                     <div class="stat-icon modified">~</div>
-                    <span id="modified-count">0 lines modified</span>
+                    <span id="modified-count">0 <span data-i18n="stats.linesModified">lines modified</span></span>
                 </div>
             </div>
         </div>
@@ -49,13 +53,13 @@
 
         <!-- Secondary panel controls | Clear - Close & Open -->
         <div class="buttons-container">
-            <button class="clear" onclick="clearAll()">🗑️ Clear</button>
+            <button class="clear" onclick="clearAll()">🗑️ <span data-i18n="buttons.clear">Clear</span></button>
             
-            <button class="btn-panel-left" id="btn-panel-left" data-tooltip="Close/Open panel LEFT">
+            <button class="btn-panel-left" id="btn-panel-left" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.closePanelLeft">
                 <img src="{{PANEL_LEFT_ICON}}">
             </button>
             <span class="slash-r">/</span>
-            <button class="btn-panel-right" id="btn-panel-right" data-tooltip="Close/Open panel RIGHT">
+            <button class="btn-panel-right" id="btn-panel-right" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.closePanelRight">
                 <img src="{{PANEL_RIGHT_ICON}}">
             </button>
         </div>
@@ -67,14 +71,14 @@
     <div class="compare-panel">
         <div class="options-panel-left">
             <div class="copy-clear">
-                <button class="clear-code" data-tooltip="Clear">
+                <button class="clear-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="buttons.clear">
                     <img src="{{CLEAR_ICON_L}}">
                 </button>
                 <button class="copy-code">
                     <img src="{{COPY_ICON_L}}">
-                    <div class="copy-message">Copied!</div>
+                    <div class="copy-message" data-i18n="buttons.copied">Copied!</div>
                 </button>
-                <button class="download-code" data-tooltip="Download">
+                <button class="download-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="buttons.download">
                     <img src="{{DOWNLOAD_ICON_L}}">
                 </button>
             </div>
@@ -84,14 +88,14 @@
     
         <div class="options-panel-right">
             <div class="copy-clear">
-                <button class="download-code" data-tooltip="Download">
+                <button class="download-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="buttons.download">
                     <img src="{{DOWNLOAD_ICON_R}}">
                 </button>
                 <button class="copy-code">
                     <img src="{{COPY_ICON_R}}">
-                    <div class="copy-message">Copied!</div>
+                    <div class="copy-message" data-i18n="buttons.copied">Copied!</div>
                 </button>
-                <button class="clear-code" data-tooltip="Clear">
+                <button class="clear-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="buttons.clear">
                     <img src="{{CLEAR_ICON_R}}">
                 </button>
             </div>
@@ -151,19 +155,19 @@
          ====================================== -->
     <div class="bottom-bar">
         <div class="content">
-            <button class="only-code bbtn" data-tooltip="Show modified code">
+            <button class="only-code bbtn" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.showModifiedCode">
                 <img class="icon" src="{{ONLY_CODE_ICON}}">
             </button>
-            <button class="switch-on-off bbtn" data-tooltip="Normal/Pro" onclick="toggleSwitchMode()">
+            <button class="switch-on-off bbtn" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.normalPro" onclick="toggleSwitchMode()">
                 <img class="icon" src="{{SWITCH_ON_ICON}}">
             </button>
-            <button class="dual-scroll bbtn" id="dual-scroll-btn" data-tooltip="Dual scroll">
+            <button class="dual-scroll bbtn" id="dual-scroll-btn" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.dualScroll">
                 <img class="icon" src="{{DUAL_SCROLL_ICON}}">
             </button>
-            <button class="language bbtn" data-tooltip="Change language">
+            <button class="language bbtn" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.changeLanguage">
                 <img class="icon" src="{{LANGUAGE_ICON}}">
             </button>
-            <button class="sponsor bbtn" data-tooltip="Sponsor">
+            <button class="sponsor bbtn" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.sponsor">
                 <a href="https://github.com/sponsors/bastndev" title="@bastndev">
                     <img class="icon" src="{{EARTH_CODE_ICON}}">
                 </a>

@@ -1,0 +1,31 @@
+{
+  "stats": {
+    "changes": "Alterações",
+    "similar": "Similar",
+    "linesAdded": "linhas adicionadas",
+    "linesRemoved": "linhas removidas",
+    "linesModified": "linhas modificadas"
+  },
+  "buttons": {
+    "clear": "Limpar",
+    "copied": "Copiado!",
+    "download": "Baixar"
+  },
+  "tooltips": {
+    "closePanelLeft": "Fechar/Abrir painel ESQUERDO",
+    "closePanelRight": "Fechar/Abrir painel DIREITO",
+    "showModifiedCode": "Mostrar código modificado",
+    "normalPro": "Normal/Pro",
+    "dualScroll": "Rolagem dupla",
+    "changeLanguage": "Alterar idioma",
+    "sponsor": "Patrocinar"
+  },
+  "messages": {
+    "noChangesFound": "Nenhuma diferença encontrada entre os dois blocos de código",
+    "comparisonCompleted": "Comparação concluída: {0} alterações totais encontradas",
+    "pleaseEnterCode": "Por favor, insira código em pelo menos um campo",
+    "codeSaved": "Código do painel {0} salvo em Downloads!",
+    "saveFailed": "Falha ao salvar código: {0}",
+    "editorNotInitialized": "Editor não inicializado"
+  }
+}
