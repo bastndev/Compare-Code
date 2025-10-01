@@ -167,6 +167,12 @@ body {
   animation: tooltipFadeIn 0.2s ease forwards;
 }
 
+// Hide tooltip when clicked
+.btn-panel-left[data-tooltip].tooltip-disabled:hover::after,
+.btn-panel-right[data-tooltip].tooltip-disabled:hover::after {
+  display: none;
+}
+
 // Position Adjustments
 .btn-panel-left[data-tooltip]:hover::after {
   left: 13px;
@@ -192,6 +198,11 @@ body {
     padding: 4px 8px;
     font-size: 11px;
   }
+  
+  // Hide tooltip when clicked
+  &.tooltip-disabled:hover::before {
+    display: none;
+  }
 }
 
 // =============== BOT =============== (Buttons Bar)
@@ -205,6 +216,11 @@ body {
     left: 50%;
     margin-bottom: 8px;
     padding: $spacing-sm 12px;
+  }
+  
+  // Hide tooltip when clicked
+  &.tooltip-disabled:hover::before {
+    display: none;
   }
 }
 

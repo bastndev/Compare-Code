@@ -73,6 +73,11 @@ body {
   animation: tooltipFadeIn 0.2s ease forwards;
 }
 
+.btn-panel-left[data-tooltip].tooltip-disabled:hover::after,
+.btn-panel-right[data-tooltip].tooltip-disabled:hover::after {
+  display: none;
+}
+
 .btn-panel-left[data-tooltip]:hover::after {
   left: 13px;
   transform: translateX(10%);
@@ -110,6 +115,10 @@ body {
   padding: 4px 8px;
   font-size: 11px;
 }
+.clear-code[data-tooltip].tooltip-disabled:hover::before,
+.download-code[data-tooltip].tooltip-disabled:hover::before {
+  display: none;
+}
 
 .bbtn[data-tooltip] {
   position: relative;
@@ -134,6 +143,9 @@ body {
   left: 50%;
   margin-bottom: 8px;
   padding: 8px 12px;
+}
+.bbtn[data-tooltip].tooltip-disabled:hover::before {
+  display: none;
 }
 
 @media (prefers-reduced-motion: reduce) {

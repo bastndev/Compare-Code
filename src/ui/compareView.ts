@@ -216,6 +216,18 @@ function getWebviewContent(
   );
   const iconUpdaterUri = webview.asWebviewUri(iconUpdaterPath);
 
+  const tooltipManagerPath = vscode.Uri.file(
+    path.join(
+      context.extensionPath,
+      'src',
+      'ui',
+      'webview',
+      'scripts',
+      'tooltipManager.js'
+    )
+  );
+  const tooltipManagerUri = webview.asWebviewUri(tooltipManagerPath);
+
   const i18nPath = vscode.Uri.file(
     path.join(
       context.extensionPath,
@@ -252,6 +264,7 @@ function getWebviewContent(
   html = html.replace('{{CSS_URI}}', cssUri.toString());
   html = html.replace('{{SCRIPT_URI}}', scriptUri.toString());
   html = html.replace('{{ICON_UPDATER_URI}}', iconUpdaterUri.toString());
+  html = html.replace('{{TOOLTIP_MANAGER_URI}}', tooltipManagerUri.toString());
   html = html.replace('{{I18N_URI}}', i18nUri.toString());
   html = html.replace('{{I18N_SCRIPT}}', i18nInitScript);
   html = replaceIconsInHtml(html, icons);
