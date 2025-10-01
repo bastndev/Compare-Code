@@ -151,14 +151,12 @@ body {
 
 // ============ TOOLBAR =============== (Close & Open)
 .btn-panel-left[data-tooltip],
-.btn-panel-right[data-tooltip],
-.btn-play[data-tooltip] {
+.btn-panel-right[data-tooltip] {
   position: relative;
 }
 
 .btn-panel-left[data-tooltip]:hover::after,
-.btn-panel-right[data-tooltip]:hover::after,
-.btn-play[data-tooltip]:hover::after {
+.btn-panel-right[data-tooltip]:hover::after {
   @include tooltip-mixin;
   
   top: 100%;

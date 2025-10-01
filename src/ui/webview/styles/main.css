@@ -44,14 +44,12 @@ body {
   }
 }
 .btn-panel-left[data-tooltip],
-.btn-panel-right[data-tooltip],
-.btn-play[data-tooltip] {
+.btn-panel-right[data-tooltip] {
   position: relative;
 }
 
 .btn-panel-left[data-tooltip]:hover::after,
-.btn-panel-right[data-tooltip]:hover::after,
-.btn-play[data-tooltip]:hover::after {
+.btn-panel-right[data-tooltip]:hover::after {
   content: attr(data-tooltip);
   position: absolute;
   z-index: 1000;

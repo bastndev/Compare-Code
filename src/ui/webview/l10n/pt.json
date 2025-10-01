@@ -20,8 +20,7 @@
     "normalPro": "Normal/Pro",
     "dualScroll": "Rolagem dupla",
     "changeLanguage": "Alterar idioma",
-    "sponsor": "Patrocinar",
-    "compareShortcut": "Ctrl + Enter"
+    "sponsor": "Patrocinar"
   },
   "messages": {
     "noChangesFound": "Nenhuma diferença encontrada entre os dois blocos de código",
