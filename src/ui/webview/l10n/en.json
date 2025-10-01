@@ -27,6 +27,6 @@
     "codeSaved": "Code from {0} panel saved to Downloads!",
     "saveFailed": "Failed to save code: {0}",
     "editorNotInitialized": "Editor manager not initialized",
-    "codeSimilar": "Your code looks similar 🎉!"
+    "similar": "Your code looks similar 🎉!"
   }
 }

@@ -27,6 +27,6 @@
     "codeSaved": "Código do painel {0} salvo em Downloads!",
     "saveFailed": "Falha ao salvar código: {0}",
     "editorNotInitialized": "Editor não inicializado",
-    "codeSimilar": "Seu código parece similar 🎉!"
+    "similar": "Seu código parece similar 🎉!"
   }
 }

@@ -27,6 +27,6 @@
     "codeSaved": "¡Código del panel {0} guardado en Descargas!",
     "saveFailed": "Error al guardar código: {0}",
     "editorNotInitialized": "Editor no inicializado",
-    "codeSimilar": "¡Tu código se ve similar 🎉!"
+    "similar": "¡Tu código se ve similar 🎉!"
   }
 }

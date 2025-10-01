@@ -27,6 +27,6 @@
     "codeSaved": "{0} 面板的代码已保存到下载文件夹！",
     "saveFailed": "保存代码失败：{0}",
     "editorNotInitialized": "编辑器管理器未初始化",
-    "codeSimilar": "您的代码看起来很相似 🎉！"
+    "similar": "您的代码看起来很相似 🎉！"
   }
 }
