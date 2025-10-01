@@ -5,6 +5,8 @@ import * as os from 'os';
 import {
   getWebviewIcons,
   replaceIconsInHtml,
+  createDynamicIconManager,
+  DynamicIconManager,
 } from './webview/view/webviewIcons';
 
 // ======================================
@@ -12,6 +14,7 @@ import {
 // ======================================
 
 let comparePanel: vscode.WebviewPanel | undefined;
+let iconManager: DynamicIconManager | undefined;
 
 // ======================================
 // TRANSLATIONS | MARK: I18N
@@ -217,6 +220,9 @@ export async function createCompareView(
   comparePanel.iconPath = iconUri;
   comparePanel.webview.html = getWebviewContent(context, comparePanel.webview);
 
+  // Crear el manager de iconos dinámicos
+  iconManager = createDynamicIconManager(context, comparePanel.webview);
+
   comparePanel.webview.onDidReceiveMessage(async (message) => {
     const config = vscode.workspace.getConfiguration('workbench');
     const location = config.get('sideBar.location');
@@ -254,6 +260,10 @@ export async function createCompareView(
   });
 
   comparePanel.onDidDispose(() => {
+    if (iconManager) {
+      iconManager.dispose();
+      iconManager = undefined;
+    }
     comparePanel = undefined;
   });
 }
@@ -265,6 +275,10 @@ export async function closeCompareView(): Promise<void> {
   if (comparePanel) {
     comparePanel.dispose();
     comparePanel = undefined;
+  }
+  if (iconManager) {
+    iconManager.dispose();
+    iconManager = undefined;
   }
 }
 
@@ -303,6 +317,11 @@ function getWebviewContent(
   );
   const scriptUri = webview.asWebviewUri(scriptPath);
 
+  const iconUpdaterPath = vscode.Uri.file(
+    path.join(context.extensionPath, 'src', 'ui', 'webview', 'scripts', 'iconUpdater.js')
+  );
+  const iconUpdaterUri = webview.asWebviewUri(iconUpdaterPath);
+
   let i18nScript = '';
   try {
     const translations = loadTranslations(context.extensionPath);
@@ -326,6 +345,7 @@ function getWebviewContent(
 
   html = html.replace('{{CSS_URI}}', cssUri.toString());
   html = html.replace('{{SCRIPT_URI}}', scriptUri.toString());
+  html = html.replace('{{ICON_UPDATER_URI}}', iconUpdaterUri.toString());
   html = html.replace('{{I18N_SCRIPT}}', i18nScript);
   html = replaceIconsInHtml(html, icons);
 
