@@ -46,7 +46,7 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
 | :-------------------------------------------------------------------------------: |
 |                 **[Gohit Bastian](https://github.com/bastndev)**                  |
 
-## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png?token=GHSAT0AAAAAADABDK4QA2QMHUDXLENBGDJK2G5XZNQ" width="20" height="20"/>
+## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png?token=GHSAT0AAAAAADABDK4QA2QMHUDXLENBGDJK2G5XZNQ" width="20"/>
 
 
 ## About Me
