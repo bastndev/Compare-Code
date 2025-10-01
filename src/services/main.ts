@@ -156,6 +156,11 @@ export function initializeCompareCode(): void {
         e.preventDefault();
         reset();
       }
+
+      if (e.shiftKey && e.altKey && e.key === 'Backspace') {
+        e.preventDefault();
+        clearAll();
+      }
     });
   } catch (error) {
     console.error('Failed to initialize Compare Code:', error);
