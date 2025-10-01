@@ -203,17 +203,6 @@ export function initializeSwitchMode() {
       switchOffUri = message.icons.switchOff;
     }
   });
-
-  const normalStats = document.getElementById('normal-stats');
-  const proStats = document.getElementById('pro-stats');
-  if (normalStats) {
-    normalStats.style.opacity = '1';
-    normalStats.style.visibility = 'visible';
-  }
-  if (proStats) {
-    proStats.style.opacity = '0';
-    proStats.style.visibility = 'hidden';
-  }
 }
 
 export function toggleSwitchMode(): void {

@@ -59,6 +59,8 @@
 .normal-stats {
   @include stats-mixin;
   justify-content: flex-start;
+  opacity: 1;
+  visibility: visible;
 }
 
 .warning-box {
@@ -116,6 +118,8 @@
   @include stats-mixin;
   gap: clamp($spacing-md, 2vw, $spacing-lg);
   padding: 0 $spacing-sm;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .stat-item {
