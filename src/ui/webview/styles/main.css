@@ -207,7 +207,6 @@ body {
 .warning-box {
   display: flex;
   align-items: center;
-  background-color: var(--vscode-editor-background);
   color: var(--vscode-foreground);
   border: none;
   padding: 6px 12px;
