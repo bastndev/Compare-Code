@@ -23,9 +23,9 @@ Following VS Code best practices, Compare Code uses semantic versioning for all 
 
 ### 🎉 Initial Release
 
-- ✨ First version of Compare Code
-- 🔧 Basic command for comparing files (`compare-code.compareFiles`)
-- ⌨️ Configured keyboard shortcut (`Alt+Shift+\`)
-- 🎨 Initial user interface for code comparison
-- 📱 Integration with editor title bar
-- 🚀 Support for multiple editors (VS Code, Cursor, Windsurf, Trae.ai, Kiro)
+-  First version of Compare Code
+-  Basic command for comparing files (`compare-code.compareFiles`)
+-  Configured keyboard shortcut (`Alt+Shift+\`)
+-  Initial user interface for code comparison
+-  Integration with editor title bar
+-  Support for multiple editors (VS Code, Cursor, Windsurf, Trae.ai, Kiro)
