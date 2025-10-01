@@ -606,11 +606,10 @@ body {
   }
 }
 .similar-message {
-  background-color: rgba(0, 255, 0, 0.15);
-  border: 2px solid rgba(0, 255, 0, 0.3);
-  border-radius: 8px;
-  padding: 12px 20px;
-  margin: 10px 0;
+  background-color: rgba(0, 255, 0, 0.08);
+  border: 1px solid rgba(0, 255, 0, 0.2);
+  border-radius: 6px;
+  padding: 1px 2px;
   text-align: center;
   font-weight: 600;
   color: #00ff00;
@@ -619,7 +618,7 @@ body {
   transform: scale(0.9);
   transition: all 0.3s ease;
   width: auto;
-  min-height: 44px;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1), inset 0 0 15px rgba(0, 255, 0, 0.05);
 }
 .similar-message.visible {
   visibility: visible;
