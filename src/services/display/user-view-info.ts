@@ -68,6 +68,9 @@ export class UserInformationManager {
         : 'lines modified';
       modifiedElement.innerHTML = `0 <span data-i18n="stats.linesModified">${linesModifiedText}</span>`;
     }
+
+    // Also hide the similar message when clearing stats
+    this.hideSimilarMessage();
   }
 
   /**
@@ -90,6 +93,30 @@ export class UserInformationManager {
     if (matchScore) {
       const similarText = i18n ? i18n.t('stats.similar') : 'Similar';
       matchScore.innerHTML = `${similarity}% : <span data-i18n="stats.similar">${similarText}</span>`;
+    }
+  }
+
+  //  ===========================================================
+  //  Show similar message  (100% identical code)  MARK: message
+  //  =========================================================
+  public static showSimilarMessage(): void {
+    const similarMessage = document.getElementById('similarMessage');
+    if (similarMessage) {
+      similarMessage.classList.add('visible');
+      
+      // Add a nice fade-in animation
+      similarMessage.style.animation = 'fadeInScale 0.5s ease-out';
+    }
+  }
+
+  /**
+   * Hide similar message when code is not identical
+   */
+  public static hideSimilarMessage(): void {
+    const similarMessage = document.getElementById('similarMessage');
+    if (similarMessage) {
+      similarMessage.classList.remove('visible');
+      similarMessage.style.animation = '';
     }
   }
 

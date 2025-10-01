@@ -9,7 +9,9 @@
   "buttons": {
     "clear": "Clear",
     "copied": "Copied!",
-    "download": "Download"
+    "download": "Download",
+    "compare": "Compare",
+    "stop": "Stop"
   },
   "tooltips": {
     "closePanelLeft": "Close/Open panel LEFT",
@@ -18,7 +20,13 @@
     "normalPro": "Normal/Pro",
     "dualScroll": "Dual scroll",
     "changeLanguage": "Change language",
-    "sponsor": "Sponsor"
+    "sponsor": "Sponsor",
+    "compareShortcut": "Ctrl + Enter",
+    "copy": "Copy"
+  },
+  "placeholders": {
+    "codeLeft": "// Example: Paste your original code here...",
+    "codeRight": "// Paste your modified code here..."
   },
   "messages": {
     "noChangesFound": "No differences found between the two code blocks",
@@ -26,6 +34,7 @@
     "pleaseEnterCode": "Please enter code in at least one field",
     "codeSaved": "Code from {0} panel saved to Downloads!",
     "saveFailed": "Failed to save code: {0}",
-    "editorNotInitialized": "Editor manager not initialized"
+    "editorNotInitialized": "Editor manager not initialized",
+    "similar": "Your code looks similar 🎉!"
   }
 }

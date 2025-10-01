@@ -9,7 +9,9 @@
   "buttons": {
     "clear": "Limpiar",
     "copied": "¡Copiado!",
-    "download": "Descargar"
+    "download": "Descargar",
+    "compare": "Comparar",
+    "stop": "Detener"
   },
   "tooltips": {
     "closePanelLeft": "Cerrar/Abrir panel IZQUIERDO",
@@ -18,7 +20,13 @@
     "normalPro": "Normal/Pro",
     "dualScroll": "Desplazamiento dual",
     "changeLanguage": "Cambiar idioma",
-    "sponsor": "Patrocinar"
+    "sponsor": "Patrocinar",
+    "compareShortcut": "Ctrl + Enter",
+    "copy": "Copiar"
+  },
+  "placeholders": {
+    "codeLeft": "// Ejemplo: Pega tu código original aquí...",
+    "codeRight": "// Pega tu código modificado aquí..."
   },
   "messages": {
     "noChangesFound": "No se encontraron diferencias entre los dos bloques de código",
@@ -26,6 +34,7 @@
     "pleaseEnterCode": "Por favor ingresa código en al menos un campo",
     "codeSaved": "¡Código del panel {0} guardado en Descargas!",
     "saveFailed": "Error al guardar código: {0}",
-    "editorNotInitialized": "Editor no inicializado"
+    "editorNotInitialized": "Editor no inicializado",
+    "similar": "¡Tu código se ve similar 🎉!"
   }
 }

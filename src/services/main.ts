@@ -5,6 +5,7 @@ import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './display/user-view-info';
 import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
+import { initializeConfetti, triggerPerfectMatchConfetti } from './display/animations';
 
 // ======================================
 // MAIN APPLICATION | MARK: MAIN
@@ -57,6 +58,25 @@ export function compare(): void {
       comparison.stats,
       comparison.similarity
     );
+
+    // Check for perfect match (100% similarity AND no differences)
+    const isPerfectMatch = comparison.similarity === 100 && 
+                          comparison.stats.added === 0 && 
+                          comparison.stats.removed === 0 && 
+                          comparison.stats.modified === 0;
+    
+    if (isPerfectMatch) {
+      // Show similar message and trigger confetti for perfect matches
+      UserInformationManager.showSimilarMessage();
+      
+      // Small delay to ensure UI updates are complete
+      setTimeout(() => {
+        triggerPerfectMatchConfetti();
+      }, 150);
+    } else {
+      // Hide similar message if code is not identical
+      UserInformationManager.hideSimilarMessage();
+    }
   } catch (error) {
     console.error('Comparison failed:', error);
     alert('An error occurred during comparison. Please try again.');
@@ -136,6 +156,11 @@ export function initializeCompareCode(): void {
         e.preventDefault();
         reset();
       }
+
+      if (e.shiftKey && e.altKey && e.key === 'Backspace') {
+        e.preventDefault();
+        clearAll();
+      }
     });
   } catch (error) {
     console.error('Failed to initialize Compare Code:', error);
@@ -154,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSwitchMode();
     initializeLanguageMenu();
     initializeCompareCode();
+    initializeConfetti();
 
     // Global functions
     (window as any).toggle = toggle;

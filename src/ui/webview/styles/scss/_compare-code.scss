@@ -61,6 +61,24 @@ $line-padding-no-border: 10px;
   display: flex;
   flex-direction: column;
   position: relative;
+  
+  // Subtle entrance animation
+  opacity: 0;
+  transform: translateY(8px);
+  animation: fadeInUp 0.6s ease-out forwards;
+  
+  // Stagger the right panel slightly
+  &#panel2 {
+    animation-delay: 0.1s;
+  }
+}
+
+// Smooth fade-in from bottom animation
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 // ======================================
@@ -117,6 +135,12 @@ $line-padding-no-border: 10px;
   text-align: right;
   color: $color-numbers;
   user-select: none;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  
+  &:hover {
+    opacity: 1;
+  }
   
   &.added {
     @include line-number-bg-mixin($color-green);
@@ -149,20 +173,49 @@ $line-padding-no-border: 10px;
   line-height: 1.4;
   padding: 15px 15px 15px 10px;
   margin: 0;
-  border: none;
-  outline: none;
+  border: none !important;
+  outline: none !important;
   resize: none;
   box-sizing: border-box;
   @include word-wrap-config;
   @include scroll-config;
+  
+  // Remove all possible borders and outlines
+  box-shadow: none !important;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  
+  // Smooth transitions
+  transition: background-color 0.2s ease;
 
   &::placeholder {
     color: #6a737d;
     font-style: italic;
+    transition: opacity 0.2s ease;
   }
 
   &:focus {
-    background-color: rgba(255, 255, 255, 0.02);
+    background-color: rgba(255, 255, 255, 0.03);
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+    
+    &::placeholder {
+      opacity: 0.6;
+    }
+  }
+  
+  &:hover {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
+  }
+  
+  &:active {
+    border: none !important;
+    outline: none !important;
+    box-shadow: none !important;
   }
 }
 
@@ -181,6 +234,27 @@ $line-padding-no-border: 10px;
   display: none;
   @include word-wrap-config;
   @include scroll-config;
+  
+  // For very large files, use a simpler animation
+  &.large-file {
+    .diff-line {
+      animation: waveIn 0.6s ease-out forwards;
+      
+      // Reduced stagger for performance
+      @for $i from 1 through 50 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{$i * 0.008}s;
+        }
+      }
+      
+      // After 50 lines, use a different pattern
+      @for $i from 51 through 100 {
+        &:nth-child(#{$i}) {
+          animation-delay: #{0.4 + (($i - 50) * 0.005)}s;
+        }
+      }
+    }
+  }
 }
 
 // =========== Mode Switching ===========
@@ -218,6 +292,18 @@ $line-padding-no-border: 10px;
   box-sizing: border-box;
   height: auto;
   @include word-wrap-config;
+  
+  // Subtle animation when diff lines appear
+  opacity: 0;
+  transform: translateX(-10px);
+  animation: slideInDiffLine 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  
+  // Extended stagger animation for many lines using nth-child
+  @for $i from 1 through 100 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.015}s;
+    }
+  }
   
   &.added {
     @include diff-line-border-mixin($color-green); // LINE ADDED
@@ -364,7 +450,61 @@ $line-padding-no-border: 10px;
   }
 }
 
+// ======================================
+// Animations | MARK: Animations
+// ======================================
+
+// Keyframe for line slide-in animation
+@keyframes slideInDiffLine {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+// Alternative wave animation for very long files
+@keyframes waveIn {
+  0% {
+    opacity: 0;
+    transform: translateY(5px) scale(0.98);
+  }
+  60% {
+    opacity: 0.8;
+    transform: translateY(-1px) scale(1.01);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// ======================================
+// Accessibility & Reduced Motion | MARK: Accessibility
+// ======================================
 @media (prefers-reduced-motion: reduce) {
+  .code-panel {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+  
+  .diff-line {
+    animation: none !important;
+    opacity: 1 !important;
+  }
+  
+  .code-input {
+    transition: none !important;
+  }
+  
+  .line-number-item {
+    transition: none !important;
+  }
+  
   %word-highlight-base {
     transition: none;
   }

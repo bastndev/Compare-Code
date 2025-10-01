@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{CSS_URI}}">
+    <script src="{{I18N_URI}}"></script>
     <script>{{I18N_SCRIPT}}</script>
+    <script src="{{ICON_UPDATER_URI}}" defer></script>
+    <script src="{{TOOLTIP_MANAGER_URI}}" defer></script>
     <script src="{{SCRIPT_URI}}" defer></script>
 </head>
 <body>
@@ -45,12 +48,12 @@
         <!-- Compare button | PLAY -->
         <button class="btn-play" onclick="toggle()" id="playBtn" title="Ctrl + Enter">
             <img src="{{PLAY_ICON}}">
-            <span>Compare</span>
+            <span data-i18n="buttons.compare">Compare</span>
         </button>
 
         <!-- Toolbar | Clear - Close & Open -->
         <div class="buttons-container">
-            <button class="clear" onclick="clearAll()">🗑️ <span data-i18n="buttons.clear">Clear</span></button>
+            <button class="clear" onclick="clearAll()" title="Shift + Alt + ←">🗑️ <span data-i18n="buttons.clear">Clear</span></button>
             
             <button class="btn-panel-left" id="btn-panel-left" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.closePanelLeft">
                 <img src="{{PANEL_LEFT_ICON}}">
@@ -71,7 +74,7 @@
                 <button class="clear-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="buttons.clear">
                     <img src="{{CLEAR_ICON_L}}">
                 </button>
-                <button class="copy-code">
+                <button class="copy-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.copy">
                     <img src="{{COPY_ICON_L}}">
                     <div class="copy-message" data-i18n="buttons.copied">Copied!</div>
                 </button>
@@ -81,14 +84,14 @@
             </div>
         </div>
     
-        <div class="test"></div>
+        <div class="similar-message" id="similarMessage"><span data-i18n="messages.similar">Your code looks similar 🎉!</span></div>
     
         <div class="options-panel-right">
             <div class="copy-clear">
                 <button class="download-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="buttons.download">
                     <img src="{{DOWNLOAD_ICON_R}}">
                 </button>
-                <button class="copy-code">
+                <button class="copy-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.copy">
                     <img src="{{COPY_ICON_R}}">
                     <div class="copy-message" data-i18n="buttons.copied">Copied!</div>
                 </button>
@@ -117,7 +120,8 @@
                     <textarea 
                         class="code-input" 
                         id="codeInput1" 
-                        placeholder="Example One Code here..."
+                        placeholder="// Example: Paste your original code here..."
+                        data-i18n-placeholder="placeholders.codeLeft"
                         spellcheck="false"></textarea>
                     <!-- Compare Mode: Rendered Diff -->
                     <div class="code-display" id="codeDisplay1"></div>
@@ -138,7 +142,8 @@
                     <textarea 
                         class="code-input" 
                         id="codeInput2" 
-                        placeholder="Example Two Code here..."
+                        placeholder="// Paste your modified code here..."
+                        data-i18n-placeholder="placeholders.codeRight"
                         spellcheck="false"></textarea>
                     <!-- Compare Mode: Rendered Diff -->
                     <div class="code-display" id="codeDisplay2"></div>

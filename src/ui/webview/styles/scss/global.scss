@@ -167,6 +167,12 @@ body {
   animation: tooltipFadeIn 0.2s ease forwards;
 }
 
+// Hide tooltip when clicked
+.btn-panel-left[data-tooltip].tooltip-disabled:hover::after,
+.btn-panel-right[data-tooltip].tooltip-disabled:hover::after {
+  display: none;
+}
+
 // Position Adjustments
 .btn-panel-left[data-tooltip]:hover::after {
   left: 13px;
@@ -180,6 +186,7 @@ body {
 
 //  ============ HEADER PANEL ============ (Copy, Download, Clear)
 .clear-code[data-tooltip],
+.copy-code[data-tooltip],
 .download-code[data-tooltip] {
   position: relative;
   
@@ -191,6 +198,11 @@ body {
     margin-top: 8px;
     padding: 4px 8px;
     font-size: 11px;
+  }
+  
+  // Hide tooltip when clicked
+  &.tooltip-disabled:hover::before {
+    display: none;
   }
 }
 
@@ -205,6 +217,11 @@ body {
     left: 50%;
     margin-bottom: 8px;
     padding: $spacing-sm 12px;
+  }
+  
+  // Hide tooltip when clicked
+  &.tooltip-disabled:hover::before {
+    display: none;
   }
 }
 
@@ -228,5 +245,10 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  
+  // Disable confetti for users who prefer reduced motion
+  .confetti {
+    display: none !important;
   }
 }
