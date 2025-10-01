@@ -378,6 +378,14 @@ export class EditorInstance {
     let html = '';
     let hasInlineContent = false;
 
+    // Detect large files and apply appropriate class
+    const isLargeFile = lines.length > 50;
+    if (isLargeFile) {
+      this.displayElement.classList.add('large-file');
+    } else {
+      this.displayElement.classList.remove('large-file');
+    }
+
     lines.forEach((line) => {
       const cssClass = this.getLineCssClass(line.type);
       let lineContent: string;
