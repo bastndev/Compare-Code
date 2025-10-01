@@ -77,6 +77,7 @@ export class EditorInstance {
   private displayElement: HTMLElement;
   private lineNumbersElement: HTMLElement;
   private unifiedEditor: HTMLElement;
+  private savedScrollPosition: number = 0;
 
   constructor(id: string) {
     this.editorId = id;
@@ -361,13 +362,28 @@ export class EditorInstance {
     this.unifiedEditor.classList.remove('mode-compare');
     this.unifiedEditor.classList.add('mode-edit');
     this.updateLineNumbers();
+    
+    // Restore saved scroll position when returning to edit mode
+    requestAnimationFrame(() => {
+      this.textareaElement.scrollTop = this.savedScrollPosition;
+      this.lineNumbersElement.scrollTop = this.savedScrollPosition;
+    });
   }
 
   public setCompareMode(lines: ComparisonLine[]): void {
+    // Save current scroll position before switching to compare mode
+    this.savedScrollPosition = this.textareaElement.scrollTop;
+    
     this.unifiedEditor.classList.remove('mode-edit');
     this.unifiedEditor.classList.add('mode-compare');
     this.renderComparison(lines);
     this.syncCompareScroll();
+    
+    // Fix: Force immediate line numbers sync when switching to compare mode
+    requestAnimationFrame(() => {
+      this.displayElement.scrollTop = 0; // Reset scroll to top
+      this.lineNumbersElement.scrollTop = 0; // Sync line numbers immediately
+    });
   }
 
   // ======================================
@@ -409,11 +425,15 @@ export class EditorInstance {
       requestAnimationFrame(() => {
         requestAnimationFrame(() => {
           this.updateComparisonLineNumbers(lines);
+          // Ensure line numbers are synced after update
+          this.lineNumbersElement.scrollTop = this.displayElement.scrollTop;
         });
       });
     } else {
       requestAnimationFrame(() => {
         this.updateComparisonLineNumbers(lines);
+        // Ensure line numbers are synced after update
+        this.lineNumbersElement.scrollTop = this.displayElement.scrollTop;
       });
     }
   }
