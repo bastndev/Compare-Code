@@ -1,22 +1,27 @@
 import * as vscode from 'vscode';
 import * as path from 'path';
 
-// Interface para el manager de iconos dinámicos
+/* ======================================
+   WEBVIEW ICONS - VS Code Extension | MARK: ICONS
+   ======================================= */
+
 export interface DynamicIconManager {
   updateIcons(): void;
   dispose(): void;
 }
 
+// ======================================
+// Icon Generation | MARK: GENERATION
+// ======================================
+
 export function getWebviewIcons(
   context: vscode.ExtensionContext,
   webview: vscode.Webview
 ) {
-  // Detect the current VSCode theme
   const theme = vscode.window.activeColorTheme;
   const themeFolder =
     theme.kind === vscode.ColorThemeKind.Light ? 'light' : 'dark';
 
-  // Helper function to create icon URIs based on the theme
   const createIconUri = (iconName: string) => {
     const iconPath = vscode.Uri.file(
       path.join(
@@ -31,31 +36,27 @@ export function getWebviewIcons(
   };
 
   return {
-    // Main icons
     warning: createIconUri('warning'),
     play: createIconUri('play'),
     stop: createIconUri('stop'),
     panelLeft: createIconUri('panel-left'),
     panelRight: createIconUri('panel-right'),
-
-    // Bottom bar icons
     dualScroll: createIconUri('dual-scroll'),
     earthCode: createIconUri('earth-code'),
     language: createIconUri('language'),
     onlyCode: createIconUri('only-code'),
     switchOff: createIconUri('switch-off'),
     switchOn: createIconUri('switch-on'),
-
-    // Utility icons
     clear: createIconUri('clear'),
     copy: createIconUri('copy'),
     download: createIconUri('download'),
   };
 }
 
-/**
- * Crea un manager para iconos dinámicos que se actualizan automáticamente con el tema
- */
+// ======================================
+// Dynamic Icon Manager | MARK: MANAGER
+// ======================================
+
 export function createDynamicIconManager(
   context: vscode.ExtensionContext,
   webview: vscode.Webview
@@ -64,15 +65,12 @@ export function createDynamicIconManager(
 
   const updateIcons = () => {
     const icons = getWebviewIcons(context, webview);
-
-    // Enviar los nuevos iconos al webview
     webview.postMessage({
       command: 'updateIcons',
       icons: icons,
     });
   };
 
-  // Escuchar cambios de tema
   themeChangeListener = vscode.window.onDidChangeActiveColorTheme(() => {
     updateIcons();
   });
@@ -88,13 +86,16 @@ export function createDynamicIconManager(
   };
 }
 
+// ======================================
+// HTML Processing | MARK: HTML
+// ======================================
+
 export function replaceIconsInHtml(
   html: string,
   icons: ReturnType<typeof getWebviewIcons>
 ): string {
   let processedHtml = html;
 
-  // Main icons
   processedHtml = processedHtml.replace(/\{\{WARNING_ICON\}\}/g, icons.warning);
   processedHtml = processedHtml.replace(/\{\{PLAY_ICON\}\}/g, icons.play);
   processedHtml = processedHtml.replace(/\{\{STOP_ICON\}\}/g, icons.stop);
@@ -106,8 +107,6 @@ export function replaceIconsInHtml(
     /\{\{PANEL_RIGHT_ICON\}\}/g,
     icons.panelRight
   );
-
-  // Bottom bar icons
   processedHtml = processedHtml.replace(
     /\{\{DUAL_SCROLL_ICON\}\}/g,
     icons.dualScroll
@@ -132,8 +131,6 @@ export function replaceIconsInHtml(
     /\{\{EARTH_CODE_ICON\}\}/g,
     icons.earthCode
   );
-
-  // Utility icons (may appear multiple times)
   processedHtml = processedHtml.replace(/\{\{CLEAR_ICON_L\}\}/g, icons.clear);
   processedHtml = processedHtml.replace(/\{\{CLEAR_ICON_R\}\}/g, icons.clear);
   processedHtml = processedHtml.replace(/\{\{COPY_ICON_R\}\}/g, icons.copy);
@@ -150,7 +147,10 @@ export function replaceIconsInHtml(
   return processedHtml;
 }
 
-// Optional function to get current theme information
+// ======================================
+// Theme Utilities | MARK: THEME
+// ======================================
+
 export function getThemeInfo(): { kind: vscode.ColorThemeKind; name: string } {
   const theme = vscode.window.activeColorTheme;
   return {
