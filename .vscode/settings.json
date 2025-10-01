@@ -18,7 +18,8 @@
         "Jaccard",
         "Kiro",
         "Português",
-        "scrollbars"
+        "scrollbars",
+        "Trae"
     ],
     // Auto-run watch task when workspace opens
     "task.autoDetect": "on",
