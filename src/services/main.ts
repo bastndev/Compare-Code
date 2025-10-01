@@ -5,6 +5,7 @@ import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './display/user-view-info';
 import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
+import { initializeConfetti } from './display/animations';
 
 // ======================================
 // MAIN APPLICATION | MARK: MAIN
@@ -154,6 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSwitchMode();
     initializeLanguageMenu();
     initializeCompareCode();
+    initializeConfetti();
 
     // Global functions
     (window as any).toggle = toggle;
