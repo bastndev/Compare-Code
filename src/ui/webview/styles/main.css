@@ -1798,31 +1798,47 @@ body {
   position: absolute;
   bottom: 100%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%) translateY(8px);
   margin-bottom: 8px;
   background-color: var(--vscode-input-background);
   border: 1px solid var(--vscode-input-border);
   border-radius: 6px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   min-width: 140px;
+  max-height: 0;
+  overflow: hidden;
   z-index: 1002;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(4px);
-  transition: all 0.2s ease;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.3s ease, visibility 0s linear 0.25s;
 }
 .language.bbtn .language-dropdown.show {
   opacity: 1;
   visibility: visible;
+  pointer-events: auto;
+  max-height: 300px;
   transform: translateX(-50%) translateY(0);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.3s ease, visibility 0s linear 0s;
+}
+.language.bbtn .language-dropdown.closing {
+  opacity: 0;
+  transform: translateX(-50%) translateY(8px);
+  max-height: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), max-height 0.25s ease 0.05s, visibility 0s linear 0.2s;
 }
 .language.bbtn .language-dropdown .language-option {
-  padding: 8px 12px;
+  padding: 10px 14px;
   cursor: pointer;
   font-size: 13px;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   color: var(--vscode-foreground);
-  transition: background-color 0.2s ease;
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
 }
 .language.bbtn .language-dropdown .language-option:first-child {
   border-radius: 6px 6px 0 0;
@@ -1832,9 +1848,21 @@ body {
 }
 .language.bbtn .language-dropdown .language-option:hover {
   background-color: var(--vscode-list-hoverBackground);
+  transform: translateX(2px);
 }
 .language.bbtn .language-dropdown .language-option:active {
   background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  transform: scale(0.98);
+}
+.language.bbtn .language-dropdown .language-option.selected {
+  background-color: var(--vscode-button-background);
+  color: var(--vscode-button-foreground);
+  font-weight: 600;
+}
+.language.bbtn .language-dropdown .language-option.selected:hover {
+  background-color: var(--vscode-button-background);
+  transform: translateX(0);
 }
 
 @media (prefers-reduced-motion: reduce) {
