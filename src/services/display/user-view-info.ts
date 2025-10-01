@@ -96,9 +96,9 @@ export class UserInformationManager {
     }
   }
 
-  /**
-   * Show similar message for perfect matches (100% identical code)
-   */
+  //  ===========================================================
+  //  Show similar message  (100% identical code)  MARK: message
+  //  =========================================================
   public static showSimilarMessage(): void {
     const similarMessage = document.getElementById('similarMessage');
     if (similarMessage) {
