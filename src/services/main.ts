@@ -5,7 +5,7 @@ import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './display/user-view-info';
 import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
-import { initializeConfetti } from './display/animations';
+import { initializeConfetti, triggerPerfectMatchConfetti } from './display/animations';
 
 // ======================================
 // MAIN APPLICATION | MARK: MAIN
@@ -58,6 +58,19 @@ export function compare(): void {
       comparison.stats,
       comparison.similarity
     );
+
+    // Trigger confetti animation ONLY for perfect matches (100% similarity AND no differences)
+    const isPerfectMatch = comparison.similarity === 100 && 
+                          comparison.stats.added === 0 && 
+                          comparison.stats.removed === 0 && 
+                          comparison.stats.modified === 0;
+    
+    if (isPerfectMatch) {
+      // Small delay to ensure UI updates are complete
+      setTimeout(() => {
+        triggerPerfectMatchConfetti();
+      }, 150);
+    }
   } catch (error) {
     console.error('Comparison failed:', error);
     alert('An error occurred during comparison. Please try again.');

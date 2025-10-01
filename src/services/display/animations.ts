@@ -55,7 +55,7 @@ function createConfettiElement(
  */
 function animateConfetti(
     confetti: HTMLDivElement,
-    startX: number,
+    _startX: number,
     startY: number
 ): void {
     const physics = initializePhysics();
@@ -179,9 +179,9 @@ function getButtonCenter(button: HTMLElement): { x: number; y: number } {
 }
 
 /**
- * Initialize confetti animation for play button
+ * Trigger confetti animation for perfect match
  */
-export function initializeConfetti(): void {
+export function triggerPerfectMatchConfetti(): void {
     const btn = document.getElementById('playBtn');
 
     if (!btn) {
@@ -189,9 +189,14 @@ export function initializeConfetti(): void {
         return;
     }
 
-    // Use capture phase to execute BEFORE the onclick handler
-    btn.addEventListener('click', (e: MouseEvent) => {
-        const center = getButtonCenter(btn);
-        launchConfetti(center.x, center.y);
-    }, { capture: true });
+    const center = getButtonCenter(btn);
+    launchConfetti(center.x, center.y);
+}
+
+/**
+ * Initialize confetti animation system (no automatic triggers)
+ */
+export function initializeConfetti(): void {
+    // Confetti is now triggered manually via triggerPerfectMatchConfetti()
+    // when comparison shows 100% similarity
 }
