@@ -83,14 +83,14 @@ function animateConfetti(
  * Initialize physics properties for confetti
  */
 function initializePhysics() {
-    const angle = -Math.PI / 2 + (Math.random() - 0.5) * 0.8;
-    const velocity = Math.random() * 5 + 7;
+    const angle = Math.PI / 2 + (Math.random() - 0.5) * 1.4;
+    const velocity = Math.random() * 3 + 4;
 
     return {
-        vx: Math.cos(angle) * velocity * 0.4,
+        vx: Math.cos(angle) * velocity * 0.7,
         vy: Math.sin(angle) * velocity,
         rotationSpeed: (Math.random() - 0.5) * 15,
-        gravity: 0.35,
+        gravity: 0.2,
         friction: 0.98,
         airResistance: 0.995,
     };
