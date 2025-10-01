@@ -81,10 +81,10 @@ export async function createCompareView(
 
   const iconUri = {
     light: vscode.Uri.file(
-      path.join(context.extensionPath, 'assets', 'images', 'cc-black.svg')
+      path.join(context.extensionPath, 'assets', 'icons', 'light', 'cc.svg')
     ),
     dark: vscode.Uri.file(
-      path.join(context.extensionPath, 'assets', 'images', 'cc.svg')
+      path.join(context.extensionPath, 'assets', 'icons', 'dark', 'cc.svg')
     ),
   };
 
