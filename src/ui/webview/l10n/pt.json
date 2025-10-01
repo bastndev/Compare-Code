@@ -26,6 +26,7 @@
     "pleaseEnterCode": "Por favor, insira código em pelo menos um campo",
     "codeSaved": "Código do painel {0} salvo em Downloads!",
     "saveFailed": "Falha ao salvar código: {0}",
-    "editorNotInitialized": "Editor não inicializado"
+    "editorNotInitialized": "Editor não inicializado",
+    "codeSimilar": "Seu código parece similar 🎉!"
   }
 }
