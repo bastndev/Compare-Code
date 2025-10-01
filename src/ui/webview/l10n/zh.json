@@ -9,7 +9,9 @@
   "buttons": {
     "clear": "清除",
     "copied": "已复制！",
-    "download": "下载"
+    "download": "下载",
+    "compare": "比较",
+    "stop": "停止"
   },
   "tooltips": {
     "closePanelLeft": "关闭/打开左侧面板",
@@ -18,7 +20,12 @@
     "normalPro": "普通/专业",
     "dualScroll": "双重滚动",
     "changeLanguage": "更改语言",
-    "sponsor": "赞助"
+    "sponsor": "赞助",
+    "compareShortcut": "Ctrl + Enter"
+  },
+  "placeholders": {
+    "codeLeft": "// 示例：在此粘贴您的原始代码...",
+    "codeRight": "// 在此粘贴您修改的代码..."
   },
   "messages": {
     "noChangesFound": "两个代码块之间未发现差异",
@@ -26,6 +33,7 @@
     "pleaseEnterCode": "请在至少一个字段中输入代码",
     "codeSaved": "{0} 面板的代码已保存到下载文件夹！",
     "saveFailed": "保存代码失败：{0}",
-    "editorNotInitialized": "编辑器管理器未初始化"
+    "editorNotInitialized": "编辑器管理器未初始化",
+    "similar": "您的代码看起来很相似 🎉！"
   }
 }

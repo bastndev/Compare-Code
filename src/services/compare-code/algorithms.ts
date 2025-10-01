@@ -119,10 +119,18 @@ export class ComparisonEngine {
     }
 
     const totalLines = Math.max(result1.length, result2.length);
-    const similarity =
-      totalLines > 0
-        ? Math.round(((identicalCount + modifiedCount) / totalLines) * 100)
-        : 100;
+    
+    // Calculate similarity: 100% only if NO differences exist | CONFETTI
+    let similarity: number;
+    if (totalLines === 0) {
+      similarity = 100;
+    } else if (stats.added === 0 && stats.removed === 0 && stats.modified === 0) {
+      // Perfect match: no differences at all
+      similarity = 100;
+    } else {
+      // Has differences: calculate based on identical lines only
+      similarity = Math.round((identicalCount / totalLines) * 100);
+    }
 
     return { lines1: result1, lines2: result2, stats, similarity };
   }

@@ -59,6 +59,8 @@
 .normal-stats {
   @include stats-mixin;
   justify-content: flex-start;
+  opacity: 1;
+  visibility: visible;
 }
 
 .warning-box {
@@ -71,7 +73,6 @@
   border-radius: $border-radius;
   font-size: $font-size;
   font-weight: 500;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
   transition: background-color 0.2s ease;
   cursor: default;
 }
@@ -117,6 +118,8 @@
   @include stats-mixin;
   gap: clamp($spacing-md, 2vw, $spacing-lg);
   padding: 0 $spacing-sm;
+  opacity: 0;
+  visibility: hidden;
 }
 
 .stat-item {
@@ -198,6 +201,14 @@
   &.stop {
     background-color: red;
   }
+}
+
+// ---- --- -- - Confetti  Animation
+.confetti {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  will-change: transform, opacity;
 }
 
 // ======================================

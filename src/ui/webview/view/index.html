@@ -4,7 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{{CSS_URI}}">
+    <script src="{{I18N_URI}}"></script>
     <script>{{I18N_SCRIPT}}</script>
+    <script src="{{ICON_UPDATER_URI}}" defer></script>
     <script src="{{SCRIPT_URI}}" defer></script>
 </head>
 <body>
@@ -45,7 +47,7 @@
         <!-- Compare button | PLAY -->
         <button class="btn-play" onclick="toggle()" id="playBtn" title="Ctrl + Enter">
             <img src="{{PLAY_ICON}}">
-            <span>Compare</span>
+            <span data-i18n="buttons.compare">Compare</span>
         </button>
 
         <!-- Toolbar | Clear - Close & Open -->
@@ -81,7 +83,7 @@
             </div>
         </div>
     
-        <div class="test"></div>
+        <div class="similar-message" id="similarMessage"><span data-i18n="messages.similar">Your code looks similar 🎉!</span></div>
     
         <div class="options-panel-right">
             <div class="copy-clear">
@@ -117,7 +119,8 @@
                     <textarea 
                         class="code-input" 
                         id="codeInput1" 
-                        placeholder="Example One Code here..."
+                        placeholder="// Example: Paste your original code here..."
+                        data-i18n-placeholder="placeholders.codeLeft"
                         spellcheck="false"></textarea>
                     <!-- Compare Mode: Rendered Diff -->
                     <div class="code-display" id="codeDisplay1"></div>
@@ -138,7 +141,8 @@
                     <textarea 
                         class="code-input" 
                         id="codeInput2" 
-                        placeholder="Example Two Code here..."
+                        placeholder="// Paste your modified code here..."
+                        data-i18n-placeholder="placeholders.codeRight"
                         spellcheck="false"></textarea>
                     <!-- Compare Mode: Rendered Diff -->
                     <div class="code-display" id="codeDisplay2"></div>
