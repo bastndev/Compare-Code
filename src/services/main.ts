@@ -59,17 +59,23 @@ export function compare(): void {
       comparison.similarity
     );
 
-    // Trigger confetti animation ONLY for perfect matches (100% similarity AND no differences)
+    // Check for perfect match (100% similarity AND no differences)
     const isPerfectMatch = comparison.similarity === 100 && 
                           comparison.stats.added === 0 && 
                           comparison.stats.removed === 0 && 
                           comparison.stats.modified === 0;
     
     if (isPerfectMatch) {
+      // Show similar message and trigger confetti for perfect matches
+      UserInformationManager.showSimilarMessage();
+      
       // Small delay to ensure UI updates are complete
       setTimeout(() => {
         triggerPerfectMatchConfetti();
       }, 150);
+    } else {
+      // Hide similar message if code is not identical
+      UserInformationManager.hideSimilarMessage();
     }
   } catch (error) {
     console.error('Comparison failed:', error);

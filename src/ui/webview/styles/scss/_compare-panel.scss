@@ -200,9 +200,50 @@
 }
 
 // ======================================
-// Message Equal | MARK: message .txt
+// Similar message  | MARK: message .txt
 // ======================================
-.equal{
-  background-color: rgba(0, 0, 255, 0.185);
+.similar-message {
+  background-color: rgba(0, 255, 0, 0.15);
+  border: 2px solid rgba(0, 255, 0, 0.3);
+  border-radius: 8px;
+  padding: 12px 20px;
+  margin: 10px 0;
+  text-align: center;
+  font-weight: 600;
+  color: #00ff00;
+  visibility: hidden;
+  opacity: 0;
+  transform: scale(0.9);
+  transition: all 0.3s ease;
   width: auto;
+  min-height: 44px; // Reserve space to prevent layout shift
+  
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+    transform: scale(1);
+  }
+  
+  span {
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}
+
+// Animation for perfect match message
+@keyframes fadeInScale {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-10px);
+  }
+  50% {
+    transform: scale(1.05) translateY(-5px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
 }
