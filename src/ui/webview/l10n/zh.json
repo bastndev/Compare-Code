@@ -9,7 +9,9 @@
   "buttons": {
     "clear": "清除",
     "copied": "已复制！",
-    "download": "下载"
+    "download": "下载",
+    "compare": "比较",
+    "stop": "停止"
   },
   "tooltips": {
     "closePanelLeft": "关闭/打开左侧面板",
@@ -18,7 +20,8 @@
     "normalPro": "普通/专业",
     "dualScroll": "双重滚动",
     "changeLanguage": "更改语言",
-    "sponsor": "赞助"
+    "sponsor": "赞助",
+    "compareShortcut": "Ctrl + Enter"
   },
   "messages": {
     "noChangesFound": "两个代码块之间未发现差异",

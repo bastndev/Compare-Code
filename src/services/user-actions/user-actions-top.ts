@@ -63,7 +63,7 @@ export function setPlayBtnToEdit(): void {
       img.src = iconUris.stop;
     }
     if (span) {
-      span.textContent = 'Stop';
+      span.textContent = (window as any).i18n?.t('buttons.stop') || 'Stop';
     }
     playBtn.classList.add('stop');
   }
@@ -78,7 +78,7 @@ export function setPlayBtnToCompare(): void {
       img.src = iconUris.play;
     }
     if (span) {
-      span.textContent = 'Compare';
+      span.textContent = (window as any).i18n?.t('buttons.compare') || 'Compare';
     }
     playBtn.classList.remove('stop');
   }

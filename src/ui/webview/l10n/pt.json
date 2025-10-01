@@ -9,7 +9,9 @@
   "buttons": {
     "clear": "Limpar",
     "copied": "Copiado!",
-    "download": "Baixar"
+    "download": "Baixar",
+    "compare": "Comparar",
+    "stop": "Parar"
   },
   "tooltips": {
     "closePanelLeft": "Fechar/Abrir painel ESQUERDO",
@@ -18,7 +20,8 @@
     "normalPro": "Normal/Pro",
     "dualScroll": "Rolagem dupla",
     "changeLanguage": "Alterar idioma",
-    "sponsor": "Patrocinar"
+    "sponsor": "Patrocinar",
+    "compareShortcut": "Ctrl + Enter"
   },
   "messages": {
     "noChangesFound": "Nenhuma diferença encontrada entre os dois blocos de código",

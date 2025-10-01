@@ -9,7 +9,9 @@
   "buttons": {
     "clear": "Clear",
     "copied": "Copied!",
-    "download": "Download"
+    "download": "Download",
+    "compare": "Compare",
+    "stop": "Stop"
   },
   "tooltips": {
     "closePanelLeft": "Close/Open panel LEFT",
@@ -18,7 +20,8 @@
     "normalPro": "Normal/Pro",
     "dualScroll": "Dual scroll",
     "changeLanguage": "Change language",
-    "sponsor": "Sponsor"
+    "sponsor": "Sponsor",
+    "compareShortcut": "Ctrl + Enter"
   },
   "messages": {
     "noChangesFound": "No differences found between the two code blocks",
