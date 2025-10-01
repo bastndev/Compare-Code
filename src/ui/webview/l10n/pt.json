@@ -2,9 +2,9 @@
   "stats": {
     "changes": "Alterações",
     "similar": "Similar",
-    "linesAdded": "linhas adicionadas",
-    "linesRemoved": "linhas removidas",
-    "linesModified": "linhas modificadas"
+    "linesAdded": "(linhas) Adicionadas",
+    "linesRemoved": "Removidas",
+    "linesModified": "Modificadas"
   },
   "buttons": {
     "clear": "Limpar",
