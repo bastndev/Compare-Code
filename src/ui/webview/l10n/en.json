@@ -14,8 +14,8 @@
     "stop": "Stop"
   },
   "tooltips": {
-    "closePanelLeft": "Close/Open panel LEFT",
-    "closePanelRight": "Close/Open panel RIGHT",
+    "closePanelLeft": "Close/Open panel L",
+    "closePanelRight": "Close/Open panel R",
     "showModifiedCode": "Show modified code",
     "normalPro": "Normal/Pro",
     "dualScroll": "Dual scroll",

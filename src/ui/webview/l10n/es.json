@@ -14,8 +14,8 @@
     "stop": "Detener"
   },
   "tooltips": {
-    "closePanelLeft": "Cerrar/Abrir panel IZQUIERDO",
-    "closePanelRight": "Cerrar/Abrir panel DERECHO",
+    "closePanelLeft": "Cerrar/Abrir panel ←",
+    "closePanelRight": "Cerrar/Abrir panel →",
     "showModifiedCode": "Mostrar código modificado",
     "normalPro": "Normal/Pro",
     "dualScroll": "Desplazamiento dual",
