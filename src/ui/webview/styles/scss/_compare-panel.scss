@@ -29,7 +29,7 @@
   height: 40px;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 50px 1fr;
+  grid-template-columns: 1fr auto 1fr;
 }
 
 // Panel Sections
@@ -197,4 +197,12 @@
     box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
     transform: scale(1.05);
   }
+}
+
+// ======================================
+// Message Equal | MARK: message .txt
+// ======================================
+.equal{
+  background-color: rgba(0, 0, 255, 0.185);
+  width: auto;
 }

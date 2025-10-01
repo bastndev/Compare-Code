@@ -200,3 +200,7 @@ export function initializeConfetti(): void {
     // Confetti is now triggered manually via triggerPerfectMatchConfetti()
     // when comparison shows 100% similarity
 }
+
+// ================================== 
+// Text animation (Future)| MARK: txt similar 
+// ==================================
