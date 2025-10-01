@@ -1,0 +1,5 @@
+{
+  "extension.displayName": "代码比较",
+  "extension.description": "现已可用：VSCode • Cursor • Windsurf • Trae.ai • Kiro & (Firebase Studio)... 雨",
+  "command.compareFiles.title": "比较文件"
+}
