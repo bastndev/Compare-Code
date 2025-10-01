@@ -107,7 +107,7 @@ export async function createCompareView(
   comparePanel.iconPath = iconUri;
   comparePanel.webview.html = getWebviewContent(context, comparePanel.webview);
 
-  // Crear el manager de iconos dinámicos
+  // =========== DYNAMIC ICONS =============
   iconManager = createDynamicIconManager(context, comparePanel.webview);
 
   comparePanel.webview.onDidReceiveMessage(async (message) => {
