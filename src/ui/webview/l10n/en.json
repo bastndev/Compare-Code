@@ -20,7 +20,12 @@
     "normalPro": "Normal/Pro",
     "dualScroll": "Dual scroll",
     "changeLanguage": "Change language",
-    "sponsor": "Sponsor"
+    "sponsor": "Sponsor",
+    "compareShortcut": "Ctrl + Enter"
+  },
+  "placeholders": {
+    "codeLeft": "// Example: Paste your original code here...",
+    "codeRight": "// Paste your modified code here..."
   },
   "messages": {
     "noChangesFound": "No differences found between the two code blocks",

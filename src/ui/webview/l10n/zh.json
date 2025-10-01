@@ -20,7 +20,12 @@
     "normalPro": "普通/专业",
     "dualScroll": "双重滚动",
     "changeLanguage": "更改语言",
-    "sponsor": "赞助"
+    "sponsor": "赞助",
+    "compareShortcut": "Ctrl + Enter"
+  },
+  "placeholders": {
+    "codeLeft": "// 示例：在此粘贴您的原始代码...",
+    "codeRight": "// 在此粘贴您修改的代码..."
   },
   "messages": {
     "noChangesFound": "两个代码块之间未发现差异",

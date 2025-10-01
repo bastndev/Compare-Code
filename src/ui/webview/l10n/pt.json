@@ -20,7 +20,12 @@
     "normalPro": "Normal/Pro",
     "dualScroll": "Rolagem dupla",
     "changeLanguage": "Alterar idioma",
-    "sponsor": "Patrocinar"
+    "sponsor": "Patrocinar",
+    "compareShortcut": "Ctrl + Enter"
+  },
+  "placeholders": {
+    "codeLeft": "// Exemplo: Cole seu código original aqui...",
+    "codeRight": "// Cole seu código modificado aqui..."
   },
   "messages": {
     "noChangesFound": "Nenhuma diferença encontrada entre os dois blocos de código",

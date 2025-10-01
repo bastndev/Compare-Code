@@ -100,6 +100,7 @@
    * Update UI with current language
    */
   function updateUI() {
+    // Update elements with data-i18n
     const elements = document.querySelectorAll('[data-i18n]');
     elements.forEach((element) => {
       const key = element.getAttribute('data-i18n');
@@ -111,6 +112,16 @@
         } else {
           element.textContent = translatedText;
         }
+      }
+    });
+
+    // Update elements with data-i18n-placeholder
+    const placeholderElements = document.querySelectorAll('[data-i18n-placeholder]');
+    placeholderElements.forEach((element) => {
+      const key = element.getAttribute('data-i18n-placeholder');
+      if (key) {
+        const translatedText = t(key);
+        element.setAttribute('placeholder', translatedText);
       }
     });
 
