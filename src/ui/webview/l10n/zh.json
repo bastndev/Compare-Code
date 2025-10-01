@@ -21,7 +21,8 @@
     "dualScroll": "双重滚动",
     "changeLanguage": "更改语言",
     "sponsor": "赞助",
-    "compareShortcut": "Ctrl + Enter"
+    "compareShortcut": "Ctrl + Enter",
+    "copy": "复制"
   },
   "placeholders": {
     "codeLeft": "// 示例：在此粘贴您的原始代码...",

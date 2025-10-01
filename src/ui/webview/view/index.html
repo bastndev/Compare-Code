@@ -7,6 +7,7 @@
     <script src="{{I18N_URI}}"></script>
     <script>{{I18N_SCRIPT}}</script>
     <script src="{{ICON_UPDATER_URI}}" defer></script>
+    <script src="{{TOOLTIP_MANAGER_URI}}" defer></script>
     <script src="{{SCRIPT_URI}}" defer></script>
 </head>
 <body>
@@ -52,7 +53,7 @@
 
         <!-- Toolbar | Clear - Close & Open -->
         <div class="buttons-container">
-            <button class="clear" onclick="clearAll()">🗑️ <span data-i18n="buttons.clear">Clear</span></button>
+            <button class="clear" onclick="clearAll()" title="Shift + Alt + ←">🗑️ <span data-i18n="buttons.clear">Clear</span></button>
             
             <button class="btn-panel-left" id="btn-panel-left" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.closePanelLeft">
                 <img src="{{PANEL_LEFT_ICON}}">
@@ -73,7 +74,7 @@
                 <button class="clear-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="buttons.clear">
                     <img src="{{CLEAR_ICON_L}}">
                 </button>
-                <button class="copy-code">
+                <button class="copy-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.copy">
                     <img src="{{COPY_ICON_L}}">
                     <div class="copy-message" data-i18n="buttons.copied">Copied!</div>
                 </button>
@@ -90,7 +91,7 @@
                 <button class="download-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="buttons.download">
                     <img src="{{DOWNLOAD_ICON_R}}">
                 </button>
-                <button class="copy-code">
+                <button class="copy-code" data-tooltip="" data-i18n-attr="data-tooltip" data-i18n="tooltips.copy">
                     <img src="{{COPY_ICON_R}}">
                     <div class="copy-message" data-i18n="buttons.copied">Copied!</div>
                 </button>

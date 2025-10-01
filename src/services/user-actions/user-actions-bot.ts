@@ -270,12 +270,42 @@ function initializeLanguageSelector(): void {
 
     languageBtn.addEventListener('click', (e) => {
       e.stopPropagation();
-      dropdown.classList.toggle('show');
+      const isShown = dropdown.classList.contains('show');
+      
+      if (isShown) {
+        closeDropdown(dropdown);
+      } else {
+        // Update selection before showing dropdown
+        updateSelectedLanguage(dropdown);
+        dropdown.classList.remove('closing');
+        dropdown.classList.add('show');
+      }
     });
 
     document.addEventListener('click', () => {
-      dropdown.classList.remove('show');
+      closeDropdown(dropdown);
     });
+    
+    // Update selection after i18n is fully initialized
+    setTimeout(() => {
+      updateSelectedLanguage(dropdown);
+    }, 50);
+    
+    // Also update when language changes from i18n service
+    window.addEventListener('languageChanged', () => {
+      updateSelectedLanguage(dropdown);
+    });
+  }
+}
+
+function closeDropdown(dropdown: HTMLElement): void {
+  if (dropdown.classList.contains('show')) {
+    dropdown.classList.add('closing');
+    dropdown.classList.remove('show');
+    
+    setTimeout(() => {
+      dropdown.classList.remove('closing');
+    }, 250); // Duration of the "closing" animation
   }
 }
 
@@ -298,14 +328,48 @@ function createLanguageDropdown(): HTMLElement {
 
     option.addEventListener('click', (e) => {
       e.stopPropagation();
+      
+      // Remove previous selection
+      dropdown.querySelectorAll('.language-option').forEach(opt => {
+        opt.classList.remove('selected');
+      });
+      
+      // Add 'selected' to current option
+      option.classList.add('selected');
+      
+      // Change language
       changeLanguage(lang.code);
-      dropdown.classList.remove('show');
+      
+      // Close dropdown
+      closeDropdown(dropdown);
     });
 
     dropdown.appendChild(option);
   });
 
   return dropdown;
+}
+
+/**
+ * Update the selected language in the dropdown
+ */
+function updateSelectedLanguage(dropdown: HTMLElement): void {
+  const currentLang = getCurrentLanguage();
+  const options = dropdown.querySelectorAll('.language-option');
+  
+  options.forEach((option) => {
+    const langCode = (option as HTMLElement).dataset.lang;
+    if (langCode === currentLang) {
+      option.classList.add('selected');
+    } else {
+      option.classList.remove('selected');
+    }
+  });
+}
+
+function getCurrentLanguage(): string {
+  const i18n = getI18n();
+  return i18n?.getCurrentLanguage?.() || i18n?.currentLanguage || 'en';
 }
 
 function changeLanguage(langCode: string): void {

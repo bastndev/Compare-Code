@@ -21,7 +21,8 @@
     "dualScroll": "Rolagem dupla",
     "changeLanguage": "Alterar idioma",
     "sponsor": "Patrocinar",
-    "compareShortcut": "Ctrl + Enter"
+    "compareShortcut": "Ctrl + Enter",
+    "copy": "Copiar"
   },
   "placeholders": {
     "codeLeft": "// Exemplo: Cole seu código original aqui...",

@@ -211,32 +211,64 @@ $scale-active: 0.98;
     position: absolute;
     bottom: 100%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(8px);
     margin-bottom: 8px;
     background-color: $input-bg;
     border: 1px solid $input-border;
     border-radius: $border-radius-md;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     min-width: 140px;
+    max-height: 0;
+    overflow: hidden;
     z-index: 1002;
     opacity: 0;
     visibility: hidden;
-    transform: translateX(-50%) translateY(4px);
-    transition: all 0.2s ease;
+    pointer-events: none;
+    transition: 
+      opacity 0.25s ease,
+      transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+      max-height 0.3s ease,
+      visibility 0s linear 0.25s;
     
     &.show {
       opacity: 1;
       visibility: visible;
+      pointer-events: auto;
+      max-height: 300px;
       transform: translateX(-50%) translateY(0);
+      transition: 
+        opacity 0.25s ease,
+        transform 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+        max-height 0.3s ease,
+        visibility 0s linear 0s;
+    }
+    // Closed Animation
+    &.closing {
+      opacity: 0;
+      transform: translateX(-50%) translateY(8px);
+      max-height: 0;
+      pointer-events: none;
+      transition: 
+        opacity 0.2s ease,
+        transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+        max-height 0.25s ease 0.05s,
+        visibility 0s linear 0.2s;
     }
     
     .language-option {
-      padding: 8px 12px;
+      padding: 10px 14px;
       cursor: pointer;
       font-size: 13px;
       font-family: $font-family;
       color: $fg;
-      transition: background-color 0.2s ease;
+      transition: 
+        background-color 0.15s ease,
+        color 0.15s ease,
+        transform 0.1s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
       
       &:first-child {
         border-radius: $border-radius-md $border-radius-md 0 0;
@@ -248,10 +280,25 @@ $scale-active: 0.98;
       
       &:hover {
         background-color: $list-hover-bg;
+        transform: translateX(2px);
       }
       
       &:active {
         background-color: $btn-bg;
+        color: $btn-fg;
+        transform: scale(0.98);
+      }
+      
+      // Selected language style
+      &.selected {
+        background-color: $btn-bg;
+        color: $btn-fg;
+        font-weight: 600;
+        
+        &:hover {
+          background-color: $btn-bg;
+          transform: translateX(0);
+        }
       }
     }
   }
