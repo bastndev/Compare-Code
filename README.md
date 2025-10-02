@@ -93,6 +93,15 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
 | [![bastndev](https://github.com/bastndev.png?size=100)](https://www.bastndev.com) |
 | :-------------------------------------------------------------------------------: |
 |                 **[Gohit Bastian](https://github.com/bastndev)**                  |
+|                              _Creator & Maintainer_                               |
+
+## About Me
+
+- [🐦 X](https://twitter.com/bastndev) - For questions and discussions.
+- 🔴 [Youtube](https://www.youtube.com/@bastndev?sub_confirmation=1) - Code, Software and development insights.
+- 💼 [Linkedin](https://www.linkedin.com/in/bastndev) - Professional networking and career updates.
+
+</br>
 
 ## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/>
 
@@ -133,18 +142,18 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
   <a href="https://github.com/sponsors/bastndev">Become a sponsor</a>
 </p>
 
-## About Me
-
-- [🐦 X](https://twitter.com/bastndev) - For questions and discussions.
-- 🔴 [Youtube](https://www.youtube.com/@bastndev?sub_confirmation=1) - Code, Software and development insights.
-- 💼 [Linkedin](https://www.linkedin.com/in/bastndev) - Professional networking and career updates.
-
-</br>
-
 | Icon                                                                                                                                                                                                                                   | Name                                                           | Description                                                                                                                                                                                   |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![Lynx Keymap Pro](https://raw.githubusercontent.com/bastndev/Lynx-Keymap-Pro/refs/heads/main/assets/images/logo.png)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynx-keymap)                                      | [Lynx Keymap Pro](https://github.com/bastndev/Lynx-Keymap-Pro) | Standardizes keyboard shortcuts across all code editors, allowing you to use key combinations to access any functionality. It improves workflow and development experience.                   |
 | [![Lynx Theme Pro](https://bastndev.gallerycdn.vsassets.io/extensions/bastndev/lynx-theme/0.1.2/1744898058774/Microsoft.VisualStudio.Services.Icons.Default)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynx-theme) | [Lynx Theme Pro](https://github.com/bastndev/Lynx-Theme)       | A professional extension with six available themes: Dark, Light, Night, Ghibli, Coffee, and Kiro—with integrated icons. Each theme is optimized to offer a more pleasant visual experience.   |
 | [![LynxJS Pack](https://bastndev.gallerycdn.vsassets.io/extensions/bastndev/lynxjs-pack/0.1.8/1745206864969/Microsoft.VisualStudio.Services.Icons.Default)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynxjs-pack)  | [LynxJS Pack](https://github.com/bastndev/LynxJs-Packge)       | An all-in-one toolkit for web and mobile development with LynxJS: includes keyboard shortcuts, error alerts, text correction, snippets, and more. Tools designed to streamline your workflow. |
 
-**Enjoy 🎉 Compare Code is now installed. If you find any bugs or have feedback, you can [open an issue](https://github.com/bastndev/Compare-Code/issues).**
+
+---
+
+<div align="center">
+  <p><strong>Made with ❤️ by <a href="https://github.com/bastndev">Gohit Bastian</a></strong></p>
+  
+  **Enjoy 🎉 Compare Code is now installed!**  
+  *If you find any bugs or have feedback, please [open an issue](https://github.com/bastndev/Compare-Code/issues)*
+</div>
