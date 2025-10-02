@@ -72,6 +72,17 @@
 
 </details>
 
+---
+
+### Compare Code (keymaps)
+
+| Command           | 🍎 macOS                | 🟦 Windows                | 🐧 Linux                  |
+| :---------------- | :---------------------- | :------------------------ | :------------------------ |
+| Open Compare Code | `Shift + ⌥ + \`         | `Shift + Alt + \`         | `Shift + Alt + \`         |
+| Button compare    | `⌘ + Enter`             | `Ctrl + Enter`            | `Ctrl + Enter`            |
+| -                 | -                       | -                         | -                         |
+| Clear panel code  | `Shift + ⌥ + Backspace` | `Shift + Alt + Backspace` | `Shift + Alt + Backspace` |
+
 ## Installation
 
 Launch _Quick Open_
@@ -147,7 +158,6 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
 | [![Lynx Keymap Pro](https://raw.githubusercontent.com/bastndev/Lynx-Keymap-Pro/refs/heads/main/assets/images/logo.png)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynx-keymap)                                      | [Lynx Keymap Pro](https://github.com/bastndev/Lynx-Keymap-Pro) | Standardizes keyboard shortcuts across all code editors, allowing you to use key combinations to access any functionality. It improves workflow and development experience.                   |
 | [![Lynx Theme Pro](https://bastndev.gallerycdn.vsassets.io/extensions/bastndev/lynx-theme/0.1.2/1744898058774/Microsoft.VisualStudio.Services.Icons.Default)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynx-theme) | [Lynx Theme Pro](https://github.com/bastndev/Lynx-Theme)       | A professional extension with six available themes: Dark, Light, Night, Ghibli, Coffee, and Kiro—with integrated icons. Each theme is optimized to offer a more pleasant visual experience.   |
 | [![LynxJS Pack](https://bastndev.gallerycdn.vsassets.io/extensions/bastndev/lynxjs-pack/0.1.8/1745206864969/Microsoft.VisualStudio.Services.Icons.Default)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynxjs-pack)  | [LynxJS Pack](https://github.com/bastndev/LynxJs-Packge)       | An all-in-one toolkit for web and mobile development with LynxJS: includes keyboard shortcuts, error alerts, text correction, snippets, and more. Tools designed to streamline your workflow. |
-
 
 ---
 
