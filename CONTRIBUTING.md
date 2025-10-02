@@ -1,24 +1,27 @@
 # Contributing to Compare Code
 
-Thank you for your interest in contributing to **Compare Code**! 🎉 This document provides guidelines and information for contributors to help make the process smooth and effective.
+## Welcome! 🌟
 
-## 📋 Table of Contents
+Thank you for your interest in contributing to **Compare Code**! We're excited to have you join our community of developers who are passionate about creating better tools for code comparison and analysis.
 
-- [Code of Conduct](#code-of-conduct)
-- [Getting Started](#getting-started)
-- [Development Setup](#development-setup)
-- [How to Contribute](#how-to-contribute)
-- [Pull Request Process](#pull-request-process)
-- [Coding Standards](#coding-standards)
-- [Testing Guidelines](#testing-guidelines)
-- [Documentation](#documentation)
-- [Community](#community)
+Whether you want to improve existing algorithms, add new comparison features, enhance the UI, or help with documentation, your contributions are valuable and welcome.
 
-## 🤝 Code of Conduct
+## Understanding the Project 🏗️
 
-This project and everyone participating in it is governed by our [Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [gobasdev@gmail.com](mailto:gobasdev@gmail.com).
+Before diving into contributions, we recommend reading our [**Architecture Documentation**](ARCHITECTURE.md) to understand:
 
-## 🚀 Getting Started
+- How the extension works internally
+- The comparison algorithms and their implementations
+- File organization and service structure
+- The overall project architecture
+
+This will help you make more effective contributions and understand where your changes fit in the bigger picture.
+
+## Code of Conduct 📋
+
+Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) to ensure a welcoming environment for everyone. Report any unacceptable behavior to [gobasdev@gmail.com](mailto:gobasdev@gmail.com).
+
+## Getting Started 🚀
 
 ### Prerequisites
 
@@ -29,20 +32,29 @@ Before you begin, ensure you have the following installed:
 - **VS Code** (latest version)
 - **Git**
 
-### First-time Setup
+### Setting Up Your Development Environment
 
-1. **Fork the repository** on GitHub
+1. **Fork the repository**: Click the "Fork" button on the [Compare Code repository](https://github.com/bastndev/Compare-Code)
+
 2. **Clone your fork** locally:
+
    ```bash
    git clone https://github.com/YOUR_USERNAME/Compare-Code.git
    cd Compare-Code
    ```
+
 3. **Add the upstream remote**:
+
    ```bash
    git remote add upstream https://github.com/bastndev/Compare-Code.git
    ```
 
-## 🛠️ Development Setup
+4. **Open in VS Code**:
+   ```bash
+   code .
+   ```
+
+## Development Workflow 🛠️
 
 ### Installation
 
@@ -57,11 +69,11 @@ npm run compile
 npm run watch
 ```
 
-### Running the Extension
+### Testing Your Changes
 
-1. Open the project in VS Code
-2. Press `F5` to launch a new Extension Development Host window
-3. Test your changes in the new window
+1. **Press `F5`** to launch a new Extension Development Host window
+2. **Test thoroughly** with different file types and comparison scenarios
+3. **Try various comparison algorithms** to ensure they work correctly
 
 ### Available Scripts
 
@@ -74,39 +86,70 @@ npm run test            # Run tests
 npm run check-types     # TypeScript type checking
 ```
 
-## 🎯 How to Contribute
-
-### Types of Contributions
+## Types of Contributions 📝
 
 We welcome various types of contributions:
 
-- 🐛 **Bug fixes**
-- ✨ **New features**
+### 1. Improving Comparison Algorithms
+
+**Location**: `./src/services/compare-code/`
+
+Enhance existing algorithms or create new ones:
+
+- **Similarity algorithms** (Jaccard, Cosine, etc.)
+- **Diff algorithms** for better change detection
+- **Performance optimizations** for large files
+- **Language-specific comparisons**
+
+### 2. UI/UX Enhancements
+
+**Location**: `./src/ui/`
+
+Improve the user experience:
+
+- **Webview components** (`./src/ui/webview/`)
+- **Comparison visualization**
+- **Theme support** and styling
+- **Responsive design** improvements
+
+### 3. New Features
+
+- 🔍 **Advanced search** and filtering
+- 📊 **Statistics and metrics**
+- 🎨 **Customization options**
+- 🔧 **Configuration settings**
+- 📱 **Mobile-friendly views**
+
+### 4. Internationalization
+
+**Location**: `./src/ui/webview/l10n/`
+
+Add support for new languages:
+
+- Create translation files (e.g., `fr.json`, `de.json`)
+- Follow existing language file structure
+- Test UI layout with different text lengths
+
+### 5. Documentation & Testing
+
 - 📚 **Documentation improvements**
-- 🌍 **Translations** (new languages)
-- 🎨 **UI/UX enhancements**
+- 🧪 **Unit and integration tests**
+- 🐛 **Bug fixes**
 - ⚡ **Performance optimizations**
-- 🧪 **Tests**
 
 ### Finding Issues to Work On
 
 - Check the [Issues](https://github.com/bastndev/Compare-Code/issues) page
-- Look for issues labeled `good first issue` for beginners
-- Issues labeled `help wanted` are great for experienced contributors
+- Look for `good first issue` labels for beginners
+- `help wanted` issues are great for experienced contributors
 - Feel free to propose new features by opening an issue first
 
-### Before You Start
+## Submitting Your Contribution 🎯
 
-1. **Check existing issues** to avoid duplicating work
-2. **Comment on the issue** you want to work on
-3. **Wait for assignment** or approval from maintainers
-4. **Create a new branch** for your work
-
-## 🔄 Pull Request Process
-
-### Creating a Pull Request
+### Development Process
 
 1. **Create a feature branch**:
+
    ```bash
    git checkout -b feature/your-feature-name
    # or
@@ -116,6 +159,7 @@ We welcome various types of contributions:
 2. **Make your changes** following our coding standards
 
 3. **Test thoroughly**:
+
    ```bash
    npm run test
    npm run lint
@@ -123,6 +167,7 @@ We welcome various types of contributions:
    ```
 
 4. **Commit with clear messages**:
+
    ```bash
    git commit -m "feat: add new comparison algorithm"
    # or
@@ -134,15 +179,33 @@ We welcome various types of contributions:
    git push origin feature/your-feature-name
    ```
 
-6. **Create a Pull Request** on GitHub
+### Pull Request Requirements
 
-### Pull Request Guidelines
+When creating your PR, please include:
 
-- **Title**: Use a clear, descriptive title
-- **Description**: Explain what changes you made and why
-- **Link issues**: Reference related issues with `Fixes #123`
-- **Screenshots**: Include screenshots for UI changes
-- **Testing**: Describe how you tested your changes
+1. **Clear description** of what you've added/changed
+2. **Feature information** (if adding new functionality):
+
+   - Feature name and purpose
+   - How it improves the comparison experience
+   - Any new configuration options
+
+3. **Screenshots** (highly recommended):
+   - Show your changes in action
+   - Include before/after comparisons for UI changes
+   - Demonstrate new features with examples
+
+### Testing Checklist
+
+Before submitting, please test with:
+
+- ✅ **Different file types** (JavaScript, Python, TypeScript, etc.)
+- ✅ **Various file sizes** (small and large files)
+- ✅ **Different comparison scenarios** (similar files, completely different files)
+- ✅ **UI responsiveness** across different screen sizes
+- ✅ **Performance** with large files
+
+## Important Notes ⚠️
 
 ### Commit Message Format
 
@@ -150,29 +213,31 @@ We follow the [Conventional Commits](https://conventionalcommits.org/) specifica
 
 ```
 type(scope): description
-
-[optional body]
-
-[optional footer]
 ```
 
 **Types:**
+
 - `feat`: New feature
 - `fix`: Bug fix
 - `docs`: Documentation changes
-- `style`: Code style changes (formatting, etc.)
+- `style`: Code style changes
 - `refactor`: Code refactoring
 - `test`: Adding or updating tests
 - `chore`: Maintenance tasks
 
 **Examples:**
+
 ```
 feat(comparison): add Jaccard similarity algorithm
 fix(ui): resolve scroll sync issue in webview
 docs(readme): update installation instructions
 ```
 
-## 📝 Coding Standards
+### What NOT to Modify
+
+- **`package.json`** - Only maintainers update this for version releases and feature registration
+
+## Coding Standards 📝
 
 ### TypeScript Guidelines
 
@@ -192,28 +257,33 @@ docs(readme): update installation instructions
 - **Quotes**: Single quotes for strings
 - **Trailing commas**: Use them in multiline structures
 
-### File Organization
+### Project Structure
 
 ```
 src/
-├── services/           # Business logic
-├── ui/                # User interface components
-├── utils/             # Utility functions
-└── __tests__/         # Test files
+├── services/           # Business logic and algorithms
+│   ├── compare-code/   # Comparison algorithms
+│   ├── display/        # Display and formatting
+│   └── user-actions/   # User interaction handlers
+├── ui/                 # User interface components
+│   ├── webview/        # Webview components and assets
+│   └── compareView.ts  # Main view controller
+├── utils/              # Utility functions
+└── __tests__/          # Test files
 ```
 
-### ESLint Configuration
+### Code Formatting
 
-We use ESLint with TypeScript support. Run `npm run lint` to check your code.
+The project uses ESLint and Prettier for consistent code formatting. Run `npm run lint` to check your code before submitting.
 
-## 🧪 Testing Guidelines
+## Testing Guidelines 🧪
 
 ### Writing Tests
 
 - **Unit tests** for individual functions and classes
 - **Integration tests** for component interactions
 - **Test file naming**: `*.test.ts` or `*.spec.ts`
-- **Test location**: Same directory as the code being tested
+- **Test location**: `src/__test__/` directory
 
 ### Test Structure
 
@@ -224,10 +294,10 @@ describe('ComparisonEngine', () => {
       // Arrange
       const text1 = 'hello world';
       const text2 = 'hello world';
-      
+
       // Act
       const result = ComparisonEngine.compare(text1, text2);
-      
+
       // Assert
       expect(result.similarity).toBe(100);
     });
@@ -242,130 +312,11 @@ npm run test              # Run all tests
 npm run test -- --watch  # Run tests in watch mode
 ```
 
-## 📚 Documentation
+## Getting Help 🆘
 
-### Code Documentation
-
-- Use **JSDoc comments** for public APIs
-- Include **examples** in documentation
-- Document **complex algorithms** with inline comments
-
-### README Updates
-
-When adding new features:
-- Update feature lists
-- Add usage examples
-- Update screenshots if needed
-
-### Translation Files
-
-For new UI text:
-1. Add the key to `src/ui/webview/l10n/en.json`
-2. Provide translations for other supported languages
-3. Use the i18n system in your code
-
-## 🌍 Internationalization
-
-### Adding New Languages
-
-1. Create a new JSON file in `src/ui/webview/l10n/`
-2. Follow the structure of existing language files
-3. Update the language list in `compareView.ts`
-4. Test the new language in the extension
-
-### Translation Guidelines
-
-- Keep translations **concise** and **clear**
-- Maintain **consistent terminology**
-- Consider **cultural context**
-- Test UI layout with longer translations
-
-## 🏗️ Architecture Guidelines
-
-### Adding New Services
-
-1. Create service in `src/services/`
-2. Follow the existing service patterns
-3. Add proper error handling
-4. Include comprehensive tests
-5. Update architecture documentation
-
-### UI Components
-
-- Use the webview architecture
-- Follow existing styling patterns
-- Ensure accessibility compliance
-- Test across different themes
-
-## 🐛 Bug Reports
-
-### Before Reporting
-
-1. **Search existing issues** for duplicates
-2. **Test with latest version**
-3. **Try in a clean environment**
-
-### Bug Report Template
-
-```markdown
-**Describe the bug**
-A clear description of what the bug is.
-
-**To Reproduce**
-Steps to reproduce the behavior:
-1. Go to '...'
-2. Click on '....'
-3. See error
-
-**Expected behavior**
-What you expected to happen.
-
-**Screenshots**
-If applicable, add screenshots.
-
-**Environment:**
-- OS: [e.g. Windows 10, macOS 12.0]
-- VS Code Version: [e.g. 1.74.0]
-- Extension Version: [e.g. 0.0.1]
-```
-
-## 💡 Feature Requests
-
-### Before Requesting
-
-1. **Check existing issues** and discussions
-2. **Consider the scope** - does it fit the project goals?
-3. **Think about implementation** - is it feasible?
-
-### Feature Request Template
-
-```markdown
-**Is your feature request related to a problem?**
-A clear description of what the problem is.
-
-**Describe the solution you'd like**
-A clear description of what you want to happen.
-
-**Describe alternatives you've considered**
-Other solutions you've thought about.
-
-**Additional context**
-Any other context or screenshots.
-```
-
-## 🎉 Recognition
-
-Contributors are recognized in:
-- **README.md** contributors section
-- **Release notes** for significant contributions
-- **GitHub contributors** page
-
-## 📞 Getting Help
-
-### Communication Channels
-
-- **GitHub Issues**: For bugs and feature requests
-- **GitHub Discussions**: For questions and community chat
+- **Bugs?** Create an [Issue](https://github.com/bastndev/Compare-Code/issues)
+- **Architecture questions?** Check the [Architecture documentation](ARCHITECTURE.md)
+- **Need inspiration?** Check out existing comparison algorithms and the [VS Code extension documentation](https://code.visualstudio.com/api)
 - **Email**: [gobasdev@gmail.com](mailto:gobasdev@gmail.com) for private matters
 
 ### Response Times
@@ -374,12 +325,8 @@ Contributors are recognized in:
 - **Pull Requests**: Initial review within 72 hours
 - **Email**: Response within 24-48 hours
 
-## 🙏 Thank You
-
-Every contribution, no matter how small, makes Compare Code better for everyone. We appreciate your time and effort in helping improve this project!
-
 ---
 
-**Happy Coding!** 🚀
+**Thank you for contributing to Compare Code!** Your work helps developers worldwide have better tools for code comparison and analysis. 🚀
 
 For more information, visit our [website](https://bastndev.com/extensions) or check out our other [projects](https://github.com/bastndev).

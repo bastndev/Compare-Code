@@ -49,7 +49,7 @@
     "commands": [
       {
         "command": "compare-code.compareFiles",
-        "title": "%command.compareFiles.title%",
+        "title": "%command.compareCode.title%",
         "icon": "$(activate-breakpoints)"
       }
     ],
