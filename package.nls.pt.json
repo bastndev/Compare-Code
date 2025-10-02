@@ -1,5 +1,5 @@
 {
   "extension.displayName": "Comparar Código",
   "extension.description": "Disponível agora: VSCode • Cursor • Windsurf • Trae.ai • Kiro & (Firebase Studio)... 雨",
-  "command.compareFiles.title": "Comparar Arquivos"
+  "command.compareCode.title": "Comparar Código"
 }
