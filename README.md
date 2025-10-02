@@ -96,6 +96,38 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
 
 ## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/>
 
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/sponsors/bastndev">
+          <img src="https://avatars.githubusercontent.com/u/94884563?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 1"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/sponsors/bastndev">
+          <img src="https://avatars.githubusercontent.com/u/54255862?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 2"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/sponsors/bastndev">
+          <img src="https://avatars.githubusercontent.com/u/1561955?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 3"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/sponsors/bastndev">
+          <img src="https://avatars.githubusercontent.com/u/207925904?s=200&v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 4"/>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+<p align="center">
+  <em>Thank you to all our amazing sponsors! 💖</em><br>
+  <a href="https://github.com/sponsors/bastndev">Become a sponsor</a>
+</p>
+
 ## About Me
 
 - [🐦 X](https://twitter.com/bastndev) - For questions and discussions.
