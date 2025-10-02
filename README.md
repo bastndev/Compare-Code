@@ -17,17 +17,25 @@
 <summary align="center">TUTORIAL / 教程</summary>
 
 <div align="start">
-  <h3>📋 Step 1: Activate Compare Code</h3>
-  <p>Use <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>\</kbd> or click the Compare Code icon in the editor toolbar</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t1.png" width="100%" alt="Step 1: Open Compare Code">
+  <h3>🚀 Step 1: Activate Compare Code</h3>
+  <p><strong>Keyboard shortcut:</strong> Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>\</kbd> for open fast Compare Code</p>
+  <p><em>💡 Tip: The keyboard shortcut is the fastest way to get started!</em></p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t1.png" width="100%" alt="Step 1: Multiple ways to activate Compare Code">
 </div>
 
 <br/>
 
 <div align="start">
   <h3>🎨 Step 2: Interface Overview</h3>
-  <p>Modern dual-panel interface with syntax highlighting and real-time comparison</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t2.png" width="100%" alt="Step 2: Interface Overview">
+  <p>Explore the clean, modern dual-panel interface featuring:</p>
+  <ul>
+    <li><strong>Left & Right Panels:</strong> Side-by-side code comparison with individual controls</li>
+    <li><strong>Comparison Stats:</strong> Real-time changes and similarity percentage display</li>
+    <li><strong>Action Buttons:</strong> Compare, Clear All, and panel-specific options</li>
+    <li><strong>Bottom Toolbar:</strong> Mode switching, language selection, and advanced features</li>
+  </ul>
+  <p><em>💡 Tip: Each panel has its own dropdown menu for downloading, copying, or clearing code!</em></p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t2.png" width="100%" alt="Step 2: Dual-panel interface with comparison tools">
 </div>
 
 <br/>
@@ -64,15 +72,13 @@
 
 </details>
 
+## ⌨️ Keyboard Shortcuts
 
-## Compare Code (keymaps)
-
-| Command                 | 🍎 macOS                | 🟦 Windows                | 🐧 Linux                  |
-| :---------------------- | :---------------------- | :------------------------ | :------------------------ |
-| Open/Close Compare Code | `Shift + ⌥ + \`         | `Shift + Alt + \`         | `Shift + Alt + \`         |
-| Button compare          | `⌘ + Enter`             | `Ctrl + Enter`            | `Ctrl + Enter`            |
-| -                       | -                       | -                         | -                         |
-| Clear All Code          | `Shift + ⌥ + Backspace` | `Shift + Alt + Backspace` | `Shift + Alt + Backspace` |
+| Action                 | Windows/Linux             | macOS                   |
+| :--------------------- | :------------------------ | :---------------------- |
+| **Open/Close Compare** | `Shift + Alt + \`         | `Shift + ⌥ + \`         |
+| **Execute Comparison** | `Ctrl + Enter`            | `⌘ + Enter`             |
+| **Clear All Code**     | `Shift + Alt + Backspace` | `Shift + ⌥ + Backspace` |
 
 ## Installation
 
