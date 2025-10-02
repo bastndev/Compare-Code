@@ -1,31 +1,79 @@
 <div align="center">
-  <a href="https://github.com/bastndev/Compare-Code/releases/tag/v1.2.5"><img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/screenshot.jpg?token=GHSAT0AAAAAADABDK4Q5GOYEPFCV7SCQWD22G5XOVA" width="100%" alt="CodePen"></a>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/screenshot.jpg" width="100%" alt="Compare Code Screenshot">
 </div>
 
 </br>
 
 <p align="center">
-  <img src="https://vsmarketplacebadges.dev/version-short/bastndev.lynx-theme.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=VERSION" alt="Version">&nbsp;
-  <img src="https://vsmarketplacebadges.dev/rating-short/bastndev.lynx-theme.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=RATING" alt="Rating">&nbsp;
-  <img src="https://vsmarketplacebadges.dev/downloads-short/bastndev.lynx-theme.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=Downloads" alt="Downloads">&nbsp;
-  <a href="https://github.com/bastndev/Compare-Code"><img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/star.png?token=GHSAT0AAAAAADABDK4QJNMKP3WWWUJQUZI42G5X7NQ" width="26.6px" alt="Github Star ⭐️"></a>
+  <img src="https://vsmarketplacebadges.dev/version-short/bastndev.compare-code.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=VERSION" alt="Version">&nbsp;
+  <img src="https://vsmarketplacebadges.dev/rating-short/bastndev.compare-code.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=RATING" alt="Rating">&nbsp;
+  <img src="https://vsmarketplacebadges.dev/downloads-short/bastndev.compare-code.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=Downloads" alt="Downloads">&nbsp;
+  <a href="https://github.com/bastndev/Compare-Code"><img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/star.png" width="26.6px" alt="Github Star ⭐️"></a>
 </p>
 
 </br>
 
 <details>
 <summary align="center">TUTORIAL / 教程</summary>
-</br>
-<p align="center">
-  <img src="assets/icon.png" width="20%"/>
-  <h1 align="center">Compare Code</h1>
-</p>
 
+<div align="start">
+  <h3>📋 Step 1: Activate Compare Code</h3>
+  <p>Use <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>\</kbd> or click the Compare Code icon in the editor toolbar</p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t1.png" width="100%" alt="Step 1: Open Compare Code">
+</div>
+
+<br/>
+
+<div align="start">
+  <h3>🎨 Step 2: Interface Overview</h3>
+  <p>Modern dual-panel interface with syntax highlighting and real-time comparison</p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t2.png" width="100%" alt="Step 2: Interface Overview">
+</div>
+
+<br/>
+
+<div align="start">
+  <h3>📝 Step 3: Show Changes Only</h3>
+  <p>Click this button to display only the modified code sections, filtering out identical lines to focus on the differences</p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t3.png" width="100%" alt="Step 3: Show Changes Only">
+</div>
+
+<br/>
+
+<div align="start">
+  <h3>⚡ Step 4: Normal/Pro Mode</h3>
+  <p>Choose between Normal view for basic comparison or Pro mode for advanced analysis with detailed metrics, statistics, and in-depth code insights</p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t4.png" width="100%" alt="Step 4: Normal/Pro Mode">
+</div>
+
+<br/>
+
+<div align="start">
+  <h3>💾 Step 5: Dual Scroll</h3>
+  <p>Both code panels scroll together simultaneously, making it easier to compare corresponding lines side by side</p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t5.png" width="100%" alt="Step 5: Dual Scroll">
+</div>
+
+<br/>
+
+<div align="start">
+  <h3>🌍 Multi-language Support</h3>
+  <p>Available in English, Spanish, Portuguese, and Chinese</p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t6.png" width="100%" alt="Language Support">
+</div>
+
+<br/>
+
+<div align="start">
+  <h3>♥️ Sponsor</h3>
+  <p>Support the project and help us continue developing new features, improvements, and innovations. Your sponsorship keeps Compare Code free and constantly evolving with cutting-edge functionality</p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t7.png" width="100%" alt="Sponsor">
+</div>
 
 </details>
 
 ## Installation
- 
+
 Launch _Quick Open_
 
 - <img src="https://raw.githubusercontent.com/bastndev/bastndev/refs/heads/main/.github/assets/OS/linux.png" width=16 height=16/> Linux `Ctrl+P`
@@ -46,8 +94,7 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
 | :-------------------------------------------------------------------------------: |
 |                 **[Gohit Bastian](https://github.com/bastndev)**                  |
 
-## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png?token=GHSAT0AAAAAADABDK4QA2QMHUDXLENBGDJK2G5XZNQ" width="20"/>
-
+## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/>
 
 ## About Me
 
