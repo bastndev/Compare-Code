@@ -105,7 +105,7 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
 
 </br>
 
-## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/>
+## Sponsors <a href="https://github.com/sponsors/bastndev"><img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/></a>
 
 <div align="center">
   <table>
