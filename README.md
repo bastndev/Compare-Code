@@ -62,26 +62,17 @@
   <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t6.png" width="100%" alt="Language Support">
 </div>
 
-<br/>
-
-<div align="start">
-  <h3>♥️ Sponsor</h3>
-  <p>Support the project and help us continue developing new features, improvements, and innovations. Your sponsorship keeps Compare Code free and constantly evolving with cutting-edge functionality</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t7.png" width="100%" alt="Sponsor">
-</div>
-
 </details>
 
----
 
-### Compare Code (keymaps)
+## Compare Code (keymaps)
 
-| Command           | 🍎 macOS                | 🟦 Windows                | 🐧 Linux                  |
-| :---------------- | :---------------------- | :------------------------ | :------------------------ |
-| Open Compare Code | `Shift + ⌥ + \`         | `Shift + Alt + \`         | `Shift + Alt + \`         |
-| Button compare    | `⌘ + Enter`             | `Ctrl + Enter`            | `Ctrl + Enter`            |
-| -                 | -                       | -                         | -                         |
-| Clear panel code  | `Shift + ⌥ + Backspace` | `Shift + Alt + Backspace` | `Shift + Alt + Backspace` |
+| Command                 | 🍎 macOS                | 🟦 Windows                | 🐧 Linux                  |
+| :---------------------- | :---------------------- | :------------------------ | :------------------------ |
+| Open/Close Compare Code | `Shift + ⌥ + \`         | `Shift + Alt + \`         | `Shift + Alt + \`         |
+| Button compare          | `⌘ + Enter`             | `Ctrl + Enter`            | `Ctrl + Enter`            |
+| -                       | -                       | -                         | -                         |
+| Clear All Code          | `Shift + ⌥ + Backspace` | `Shift + Alt + Backspace` | `Shift + Alt + Backspace` |
 
 ## Installation
 
