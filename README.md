@@ -14,7 +14,7 @@
 </br>
 
 <details>
-<summary align="center">TUTORIAL / 教程</summary>
+<summary align="center">TUTORIAL / 教程 (click )</summary>
 
 <div align="start">
   <h3>🚀 Step 1: Activate Compare Code</h3>
@@ -79,6 +79,8 @@
 | **Open/Close Compare** | `Shift + Alt + \`         | `Shift + ⌥ + \`         |
 | **Execute Comparison** | `Ctrl + Enter`            | `⌘ + Enter`             |
 | **Clear All Code**     | `Shift + Alt + Backspace` | `Shift + ⌥ + Backspace` |
+
+<br/>
 
 ## Installation
 
