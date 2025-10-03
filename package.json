@@ -2,7 +2,7 @@
   "name": "compare-code",
   "displayName": "%extension.displayName%",
   "description": "%extension.description%",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "publisher": "bastndev",
   "preview": true,
   "license": "MIT",
@@ -19,7 +19,6 @@
     "vscode",
     "extension",
     "productivity",
-    "2025",
     "cc"
   ],
   "icon": "assets/icon.png",
