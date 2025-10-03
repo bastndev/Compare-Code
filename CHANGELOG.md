@@ -19,9 +19,14 @@ Following VS Code best practices, Compare Code uses semantic versioning for all 
 
 <!-- --- -->
 
-## [0.0.1] - 2025-10-02
+## [0.0.3] - 2025-10-02
 
--  🐛 Better Bug index.html
+### 🐛 Bug Fixes
+
+- Improved bug handling in index.html
+
+- Enhanced README.md documentation
+
 
 ---
 

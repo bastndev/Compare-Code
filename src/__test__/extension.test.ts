@@ -1,15 +1,29 @@
 import * as assert from 'assert';
-
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
 import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+import * as myExtension from '../extension';
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+suite('Compare Code Extension Tests', () => {
+	vscode.window.showInformationMessage('Starting Compare Code tests...');
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
+	test('Extension should be present', () => {
+		assert.ok(vscode.extensions.getExtension('bastndev.compare-code'));
+	});
+
+	test('Extension should activate', async () => {
+		const extension = vscode.extensions.getExtension('bastndev.compare-code');
+		if (extension) {
+			await extension.activate();
+			assert.strictEqual(extension.isActive, true);
+		}
+	});
+
+	test('Compare command should be registered', async () => {
+		const commands = await vscode.commands.getCommands(true);
+		assert.ok(commands.includes('compare-code.compareFiles'));
+	});
+
+	test('Extension exports should be available', () => {
+		assert.ok(typeof myExtension.activate === 'function');
+		assert.ok(typeof myExtension.deactivate === 'function');
 	});
 });

@@ -14,20 +14,28 @@
 </br>
 
 <details>
-<summary align="center">TUTORIAL / 教程</summary>
+<summary align="center">TUTORIAL / 教程 (click )</summary>
 
 <div align="start">
-  <h3>📋 Step 1: Activate Compare Code</h3>
-  <p>Use <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>\</kbd> or click the Compare Code icon in the editor toolbar</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t1.png" width="100%" alt="Step 1: Open Compare Code">
+  <h3>🚀 Step 1: Activate Compare Code</h3>
+  <p><strong>Keyboard shortcut:</strong> Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>\</kbd> for open fast Compare Code</p>
+  <p><em>💡 Tip: The keyboard shortcut is the fastest way to get started!</em></p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t1.png" width="100%" alt="Step 1: Multiple ways to activate Compare Code">
 </div>
 
 <br/>
 
 <div align="start">
   <h3>🎨 Step 2: Interface Overview</h3>
-  <p>Modern dual-panel interface with syntax highlighting and real-time comparison</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t2.png" width="100%" alt="Step 2: Interface Overview">
+  <p>Explore the clean, modern dual-panel interface featuring:</p>
+  <ul>
+    <li><strong>Left & Right Panels:</strong> Side-by-side code comparison with individual controls</li>
+    <li><strong>Comparison Stats:</strong> Real-time changes and similarity percentage display</li>
+    <li><strong>Action Buttons:</strong> Compare, Clear All, and panel-specific options</li>
+    <li><strong>Bottom Toolbar:</strong> Mode switching, language selection, and advanced features</li>
+  </ul>
+  <p><em>💡 Tip: Each panel has its own dropdown menu for downloading, copying, or clearing code!</em></p>
+  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t2.png" width="100%" alt="Step 2: Dual-panel interface with comparison tools">
 </div>
 
 <br/>
@@ -62,26 +70,17 @@
   <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t6.png" width="100%" alt="Language Support">
 </div>
 
-<br/>
-
-<div align="start">
-  <h3>♥️ Sponsor</h3>
-  <p>Support the project and help us continue developing new features, improvements, and innovations. Your sponsorship keeps Compare Code free and constantly evolving with cutting-edge functionality</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t7.png" width="100%" alt="Sponsor">
-</div>
-
 </details>
 
----
+## ⌨️ Keyboard Shortcuts
 
-### Compare Code (keymaps)
+| Action                 | Windows/Linux             | macOS                   |
+| :--------------------- | :------------------------ | :---------------------- |
+| **Open/Close Compare** | `Shift + Alt + \`         | `Shift + ⌥ + \`         |
+| **Execute Comparison** | `Ctrl + Enter`            | `⌘ + Enter`             |
+| **Clear All Code**     | `Shift + Alt + Backspace` | `Shift + ⌥ + Backspace` |
 
-| Command           | 🍎 macOS                | 🟦 Windows                | 🐧 Linux                  |
-| :---------------- | :---------------------- | :------------------------ | :------------------------ |
-| Open Compare Code | `Shift + ⌥ + \`         | `Shift + Alt + \`         | `Shift + Alt + \`         |
-| Button compare    | `⌘ + Enter`             | `Ctrl + Enter`            | `Ctrl + Enter`            |
-| -                 | -                       | -                         | -                         |
-| Clear panel code  | `Shift + ⌥ + Backspace` | `Shift + Alt + Backspace` | `Shift + Alt + Backspace` |
+<br/>
 
 ## Installation
 
@@ -114,7 +113,7 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
 
 </br>
 
-## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/>
+## Sponsors <a href="https://github.com/sponsors/bastndev"><img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/></a>
 
 <div align="center">
   <table>
