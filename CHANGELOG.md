@@ -18,6 +18,13 @@ Discover more extensions at [bastndev.com/extensions](https://bastndev.com/exten
 Following VS Code best practices, Compare Code uses semantic versioning for all releases.
 
 <!-- --- -->
+## [0.1.0] - 2025-01-03
+
+### ✨ Changes
+
+- Updated extension icon
+
+---
 
 ## [0.0.3] - 2025-10-02
 
