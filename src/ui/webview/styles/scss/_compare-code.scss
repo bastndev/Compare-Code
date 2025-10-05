@@ -386,7 +386,7 @@ $line-padding-no-border: 10px;
   }
   
   &.identical {
-    // background: rgba($color-green, 0.02);
+    // background: rgba($color-green, 0.02); // todo
     padding-left: $line-padding-no-border;
     @include word-wrap-config;
   }
