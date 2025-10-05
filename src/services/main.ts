@@ -6,6 +6,7 @@ import { UserInformationManager } from './display/user-view-info';
 import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
 import { initializeConfetti, triggerPerfectMatchConfetti } from './display/animations';
+import { showPerfectMatchEffect, hidePerfectMatchEffect } from './display/match-effect';
 
 // ======================================
 // MAIN APPLICATION | MARK: MAIN
@@ -67,10 +68,18 @@ export function compare(): void {
                           comparison.stats.moved === 0;
     
     if (isPerfectMatch) {
+      // Show perfect match effect overlay
+      showPerfectMatchEffect();
+      
       // Trigger confetti for perfect matches
       setTimeout(() => {
         triggerPerfectMatchConfetti();
-      }, 150);
+      }, 600);
+      
+      // Hide effect after 3 seconds
+      setTimeout(() => {
+        hidePerfectMatchEffect();
+      }, 3000);
     }
   } catch (error) {
     console.error('Comparison failed:', error);

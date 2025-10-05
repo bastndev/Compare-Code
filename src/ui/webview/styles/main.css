@@ -1519,7 +1519,6 @@ body {
   display: none;
 }
 .diff-line.identical {
-  background: rgba(34, 197, 94, 0.02);
   padding-left: 10px;
   white-space: pre-wrap;
   word-wrap: break-word;
@@ -1700,6 +1699,54 @@ body {
   .word-removed:hover,
   .word-modified:hover {
     transform: none;
+  }
+}
+.match-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+}
+.match-effect.active {
+  opacity: 1;
+}
+.match-effect.active .ambient-glow {
+  animation: glowDescend 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.match-effect .ambient-glow {
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(34, 197, 94, 0.08) 30%, rgba(34, 197, 94, 0.12) 50%, rgba(34, 197, 94, 0.08) 70%, transparent 100%);
+  will-change: transform, opacity;
+}
+
+@keyframes glowDescend {
+  0% {
+    top: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    top: 0%;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
   }
 }
 /* ======================================
