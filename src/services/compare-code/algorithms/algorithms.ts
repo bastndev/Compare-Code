@@ -13,7 +13,8 @@ import {
   ComparisonResult,
   MovedLine,
   MoveCandidate,
-} from '../../utils/types';
+} from '../../../utils/types';
+import { AlgorithmSelector } from './algorithm-selector';
 
 /**
  * Core comparison engine for analyzing differences between two text inputs
@@ -29,7 +30,7 @@ export class ComparisonEngine {
   public static compare(text1: string, text2: string): ComparisonResult {
     const lines1 = text1.split('\n');
     const lines2 = text2.split('\n');
-    let alignment = this.computeLineAlignment(lines1, lines2);
+    let alignment = AlgorithmSelector.computeOptimalAlignment(lines1, lines2);
 
     // Detect moved lines
     const movedLines = this.detectMovedLines(lines1, lines2, alignment);
@@ -527,7 +528,7 @@ export class ComparisonEngine {
   /**
    * Compute line alignment using improved LCS algorithm
    */
-  private static computeLineAlignment(
+  public static computeLineAlignment(
     lines1: string[],
     lines2: string[]
   ): LineOperation[] {
