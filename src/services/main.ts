@@ -67,16 +67,10 @@ export function compare(): void {
                           comparison.stats.moved === 0;
     
     if (isPerfectMatch) {
-      // Show similar message and trigger confetti for perfect matches
-      UserInformationManager.showSimilarMessage();
-      
-      // Small delay to ensure UI updates are complete
+      // Trigger confetti for perfect matches
       setTimeout(() => {
         triggerPerfectMatchConfetti();
       }, 150);
-    } else {
-      // Hide similar message if code is not identical
-      UserInformationManager.hideSimilarMessage();
     }
   } catch (error) {
     console.error('Comparison failed:', error);

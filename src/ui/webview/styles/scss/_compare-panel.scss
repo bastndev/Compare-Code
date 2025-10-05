@@ -29,7 +29,7 @@
   height: 40px;
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  grid-template-columns: 1fr 25px 1fr;
 }
 
 // Panel Sections
@@ -47,6 +47,10 @@
   button {
     margin-left: 8px;
   }
+}
+// ---- --- -- - Future code HERE
+.future{
+  background-color: transparent
 }
 
 // ======================================
@@ -196,54 +200,5 @@
   100% {
     box-shadow: 0 2px 12px rgba(0, 122, 204, 0.6);
     transform: scale(1.05);
-  }
-}
-
-// ======================================
-// Similar message  | MARK: message .txt
-// ======================================
-.similar-message {
-  background-color: rgba(0, 255, 0, 0.08);
-  border: 1px solid rgba(0, 255, 0, 0.2);
-  border-radius: 6px;
-  padding: 1px 2px;
-  text-align: center;
-  font-weight: 600;
-  color: #00ff00;
-  visibility: hidden;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.3s ease;
-  width: auto;
-  box-shadow: 0 0 20px rgba(0, 255, 0, 0.1),
-              inset 0 0 15px rgba(0, 255, 0, 0.05);
-  
-  &.visible {
-    visibility: visible;
-    opacity: 1;
-    transform: scale(1);
-  }
-  
-  span {
-    font-size: 14px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-  }
-}
-
-// Animation for perfect match message
-@keyframes fadeInScale {
-  0% {
-    opacity: 0;
-    transform: scale(0.8) translateY(-10px);
-  }
-  50% {
-    transform: scale(1.05) translateY(-5px);
-  }
-  100% {
-    opacity: 1;
-    transform: scale(1) translateY(0);
   }
 }

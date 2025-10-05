@@ -34,7 +34,6 @@
     "pleaseEnterCode": "Por favor ingresa código en al menos un campo",
     "codeSaved": "¡Código del panel {0} guardado en Descargas!",
     "saveFailed": "Error al guardar código: {0}",
-    "editorNotInitialized": "Editor no inicializado",
-    "similar": "¡Tu código se ve similar 🎉!"
+    "editorNotInitialized": "Editor no inicializado"
   }
 }
