@@ -18,6 +18,7 @@ import { AlgorithmSelector } from './algorithm-selector';
 
 /**
  * Core comparison engine for analyzing differences between two text inputs
+ * Uses LCS algorithm with intelligent movement detection
  */
 export class ComparisonEngine {
   // ======================================
@@ -25,17 +26,15 @@ export class ComparisonEngine {
   // ======================================
 
   /**
-   * Compare two text strings line by line with inline diff support
+   * Compare two text strings with automatic algorithm selection
    */
   public static compare(text1: string, text2: string): ComparisonResult {
     const lines1 = text1.split('\n');
     const lines2 = text2.split('\n');
     let alignment = AlgorithmSelector.computeOptimalAlignment(lines1, lines2);
 
-    // Detect moved lines
+    // Detect and apply movement detection
     const movedLines = this.detectMovedLines(lines1, lines2, alignment);
-
-    // Apply move detection to operations
     alignment = this.applyMoveDetection(alignment, movedLines);
 
     const result1: ComparisonLine[] = [];
@@ -48,7 +47,6 @@ export class ComparisonEngine {
     };
 
     let identicalCount = 0;
-    let modifiedCount = 0;
     let lineNumber1 = 1;
     let lineNumber2 = 1;
 
@@ -95,7 +93,6 @@ export class ComparisonEngine {
             originalLineNumber: lineNumber2,
           });
           stats.modified++;
-          modifiedCount++;
           lineNumber1++;
           lineNumber2++;
           break;
@@ -171,7 +168,7 @@ export class ComparisonEngine {
 
     const totalLines = Math.max(result1.length, result2.length);
 
-    // Calculate similarity: 100% only if NO differences exist | CONFETTI
+    // Calculate similarity with movement-aware scoring
     let similarity: number;
     if (totalLines === 0) {
       similarity = 100;
@@ -181,11 +178,9 @@ export class ComparisonEngine {
       stats.modified === 0 &&
       stats.moved === 0
     ) {
-      // Perfect match: no differences at all
       similarity = 100;
     } else {
-      // Has differences: calculate based on identical lines only
-      // Moved lines don't reduce similarity as much since content is preserved
+      // Moved lines count less than actual changes since content is preserved
       const effectiveChanges =
         stats.added + stats.removed + stats.modified + stats.moved * 0.3;
       similarity = Math.round(
@@ -285,7 +280,7 @@ export class ComparisonEngine {
   }
 
   /**
-   * Compute differences between two token arrays using LCS algorithm
+   * Compute token differences using LCS algorithm
    */
   private static computeTokenDifferences(
     tokens1: Token[],
@@ -329,7 +324,7 @@ export class ComparisonEngine {
   }
 
   /**
-   * Render tokens for a specific side while preserving original content
+   * Render tokens for specific side with highlighting
    */
   private static renderTokensForSide(
     currentTokens: Token[],
@@ -346,11 +341,8 @@ export class ComparisonEngine {
         if (otherTokenTexts.has(token.text)) {
           return escapedText;
         } else {
-          if (side === 'left') {
-            return `<span class="word-removed">${escapedText}</span>`;
-          } else {
-            return `<span class="word-added">${escapedText}</span>`;
-          }
+          const className = side === 'left' ? 'word-removed' : 'word-added';
+          return `<span class="${className}">${escapedText}</span>`;
         }
       })
       .join('');
@@ -361,7 +353,7 @@ export class ComparisonEngine {
   // ======================================
 
   /**
-   * Escape HTML characters
+   * Escape HTML characters for safe rendering
    */
   private static escapeHtml(text: string): string {
     if (!text) {
@@ -430,7 +422,7 @@ export class ComparisonEngine {
       }
     });
 
-    // Find potential moves by matching content
+    // Find potential moves by matching content with 80% similarity threshold
     const usedRemoved = new Set<number>();
     const usedAdded = new Set<number>();
 
@@ -526,7 +518,7 @@ export class ComparisonEngine {
   // ======================================
 
   /**
-   * Compute line alignment using improved LCS algorithm
+   * Compute line alignment using LCS algorithm with similarity scoring
    */
   public static computeLineAlignment(
     lines1: string[],
@@ -535,6 +527,7 @@ export class ComparisonEngine {
     const m = lines1.length;
     const n = lines2.length;
 
+    // Handle edge cases
     if (m === 0 && n === 0) {
       return [];
     }
@@ -558,7 +551,7 @@ export class ComparisonEngine {
       .fill(null)
       .map(() => Array(n + 1).fill(0));
 
-    // Pre-calculate similarity scores
+    // Pre-calculate similarity scores for all line pairs
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         similarity[i][j] = this.calculateLineSimilarity(
@@ -568,7 +561,7 @@ export class ComparisonEngine {
       }
     }
 
-    // Fill DP table
+    // Fill DP table with similarity-aware scoring
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         if (lines1[i - 1] === lines2[j - 1]) {
@@ -581,7 +574,7 @@ export class ComparisonEngine {
       }
     }
 
-    // Backtrack to find alignment
+    // Backtrack to find optimal alignment
     const operations: LineOperation[] = [];
     let i = m,
       j = n;
@@ -609,16 +602,10 @@ export class ComparisonEngine {
         i--;
         j--;
       } else if (i > 0 && (j === 0 || dp[i - 1][j] >= dp[i][j - 1])) {
-        operations.unshift({
-          type: 'removed',
-          line1: lines1[i - 1],
-        });
+        operations.unshift({ type: 'removed', line1: lines1[i - 1] });
         i--;
       } else {
-        operations.unshift({
-          type: 'added',
-          line2: lines2[j - 1],
-        });
+        operations.unshift({ type: 'added', line2: lines2[j - 1] });
         j--;
       }
     }

@@ -3,8 +3,7 @@
 // ======================================
 
 /**
- * Main exports for the algorithms module
- * This provides a clean interface for importing comparison algorithms
+ * Clean interface for importing comparison algorithms
  */
 
 // Main comparison engine (LCS-based with movement detection)

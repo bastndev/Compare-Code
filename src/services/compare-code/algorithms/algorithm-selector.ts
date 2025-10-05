@@ -7,8 +7,8 @@ import { ComparisonEngine } from './algorithms';
 import { MyersAlgorithm } from './myers-algorithm';
 
 /**
- * Intelligent algorithm selection based on input characteristics
- * Automatically chooses the best algorithm for optimal performance
+ * Intelligent algorithm selection for optimal performance
+ * Automatically chooses between LCS and Myers based on input characteristics
  */
 export class AlgorithmSelector {
   // ======================================
@@ -16,25 +16,19 @@ export class AlgorithmSelector {
   // ======================================
 
   /**
-   * Select the best algorithm based on input characteristics
+   * Select best algorithm based on input characteristics
    */
   public static selectBestAlgorithm(
     lines1: string[],
     lines2: string[]
   ): AlgorithmType {
     const analysis = this.analyzeInput(lines1, lines2);
-    
-    // Decision matrix based on input characteristics
-    if (analysis.shouldUseMyers) {
-      return 'myers';
-    } else {
-      return 'lcs';
-    }
+    return analysis.shouldUseMyers ? 'myers' : 'lcs';
   }
 
   /**
-   * Compute optimal line alignment using the best algorithm
-   * This is the main entry point that replaces direct algorithm calls
+   * Compute optimal line alignment using best algorithm
+   * Main entry point that replaces direct algorithm calls
    */
   public static computeOptimalAlignment(
     lines1: string[],
@@ -43,34 +37,36 @@ export class AlgorithmSelector {
     const algorithm = this.selectBestAlgorithm(lines1, lines2);
     const startTime = performance.now();
 
-    let result: LineOperation[];
-    
     try {
-      if (algorithm === 'myers') {
-        result = MyersAlgorithm.computeLineAlignment(lines1, lines2);
-      } else {
-        result = ComparisonEngine.computeLineAlignment(lines1, lines2);
+      const result =
+        algorithm === 'myers'
+          ? MyersAlgorithm.computeLineAlignment(lines1, lines2)
+          : ComparisonEngine.computeLineAlignment(lines1, lines2);
+
+      const duration = performance.now() - startTime;
+
+      // Log slow operations for debugging
+      if (duration > 100) {
+        console.log(
+          `Algorithm: ${algorithm}, Lines: ${
+            lines1.length + lines2.length
+          }, Time: ${duration.toFixed(2)}ms`
+        );
       }
-      
-      const endTime = performance.now();
-      const duration = endTime - startTime;
-      
-      // Log performance for debugging (can be removed in production)
-      if (duration > 100) { // Only log slow operations
-        console.log(`Algorithm: ${algorithm}, Lines: ${lines1.length + lines2.length}, Time: ${duration.toFixed(2)}ms`);
-      }
-      
+
       return result;
-      
     } catch (error) {
-      console.warn(`${algorithm} algorithm failed, falling back to LCS:`, error);
-      
+      console.warn(
+        `${algorithm} algorithm failed, falling back to LCS:`,
+        error
+      );
+
       // Fallback to LCS if Myers fails
-      if (algorithm === 'myers') {
-        return ComparisonEngine.computeLineAlignment(lines1, lines2);
-      } else {
-        throw error; // Re-throw if LCS also fails
-      }
+      return algorithm === 'myers'
+        ? ComparisonEngine.computeLineAlignment(lines1, lines2)
+        : (() => {
+            throw error;
+          })(); // Re-throw if LCS fails
     }
   }
 
@@ -79,7 +75,7 @@ export class AlgorithmSelector {
   // ======================================
 
   /**
-   * Analyze input characteristics to make algorithm selection decision
+   * Analyze input characteristics for algorithm selection
    */
   private static analyzeInput(
     lines1: string[],
@@ -90,18 +86,12 @@ export class AlgorithmSelector {
     const totalLines = m + n;
     const maxLines = Math.max(m, n);
     const minLines = Math.min(m, n);
-    
-    // Calculate size ratio
+
     const sizeRatio = minLines > 0 ? maxLines / minLines : maxLines;
-    
-    // Estimate similarity by sampling
     const similarity = this.estimateSimilarity(lines1, lines2);
-    
-    // Calculate complexity estimates
     const lcsComplexity = m * n;
     const myersComplexity = this.estimateMyersComplexity(m, n, similarity);
-    
-    // Decision criteria
+
     const shouldUseMyers = this.shouldUseMyers({
       totalLines,
       maxLines,
@@ -147,25 +137,20 @@ export class AlgorithmSelector {
       return true;
     }
 
-    // Use Myers for medium files with good performance characteristics
+    // Use Myers for medium files with good characteristics
     if (totalLines > 500) {
-      // If files are very different, Myers is usually better
       if (similarity < 0.3) {
         return true;
-      }
-      
-      // If one file is much larger than the other, Myers handles it better
+      } // Very different files
       if (sizeRatio > 3) {
         return true;
-      }
-      
-      // If estimated Myers complexity is significantly better
+      } // Unbalanced file sizes
       if (myersComplexity < lcsComplexity * 0.7) {
         return true;
-      }
+      } // Better estimated performance
     }
 
-    // Use LCS for small files (current behavior)
+    // Use LCS for small files
     if (totalLines < 200) {
       return false;
     }
@@ -183,20 +168,18 @@ export class AlgorithmSelector {
     similarity: number
   ): number {
     const totalLines = m + n;
-    
-    // Estimate D (edit distance) based on similarity
-    // Higher similarity = fewer differences = better Myers performance
     const estimatedD = Math.max(1, totalLines * (1 - similarity) * 0.5);
-    
     return totalLines * estimatedD;
   }
 
   /**
-   * Estimate similarity by sampling lines (for performance)
+   * Estimate similarity by sampling lines for performance
    */
-  private static estimateSimilarity(lines1: string[], lines2: string[]): number {
+  private static estimateSimilarity(
+    lines1: string[],
+    lines2: string[]
+  ): number {
     const sampleSize = Math.min(50, Math.max(lines1.length, lines2.length));
-    
     if (sampleSize === 0) {
       return 1.0;
     }
@@ -226,7 +209,7 @@ export class AlgorithmSelector {
   // ======================================
 
   /**
-   * Compare performance of both algorithms (for testing/debugging)
+   * Compare performance of both algorithms for testing/debugging
    */
   public static benchmarkAlgorithms(
     lines1: string[],
@@ -241,11 +224,7 @@ export class AlgorithmSelector {
     const myersTime = performance.now() - startMyers;
 
     return {
-      lcs: {
-        time: lcsTime,
-        operations: lcsResult.length,
-        result: lcsResult,
-      },
+      lcs: { time: lcsTime, operations: lcsResult.length, result: lcsResult },
       myers: {
         time: myersTime,
         operations: myersResult.length,
@@ -257,7 +236,7 @@ export class AlgorithmSelector {
   }
 
   /**
-   * Get algorithm selection statistics (for debugging)
+   * Get algorithm selection statistics for debugging
    */
   public static getSelectionStats(
     lines1: string[],
@@ -278,7 +257,7 @@ export class AlgorithmSelector {
    * Calculate confidence in algorithm selection
    */
   private static calculateConfidence(analysis: InputAnalysis): number {
-    const { totalLines, similarity, lcsComplexity, myersComplexity } = analysis;
+    const { totalLines, lcsComplexity, myersComplexity } = analysis;
 
     // High confidence for very large or very small files
     if (totalLines > 2000 || totalLines < 100) {
@@ -286,9 +265,10 @@ export class AlgorithmSelector {
     }
 
     // Medium confidence based on complexity difference
-    const complexityRatio = Math.abs(lcsComplexity - myersComplexity) / 
-                           Math.max(lcsComplexity, myersComplexity);
-    
+    const complexityRatio =
+      Math.abs(lcsComplexity - myersComplexity) /
+      Math.max(lcsComplexity, myersComplexity);
+
     return Math.min(0.9, 0.5 + complexityRatio);
   }
 }

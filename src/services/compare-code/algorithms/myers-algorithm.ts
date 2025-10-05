@@ -6,18 +6,17 @@ import { LineOperation, LineOperationType } from '../../../utils/types';
 
 /**
  * Myers diff algorithm implementation
- * Based on "An O(ND) Difference Algorithm and Its Variations" by Eugene Myers
- * Optimized for large files and better performance than LCS
+ * Based on Eugene Myers' O(ND) algorithm - industry standard used by Git
+ * Optimized for large files with better performance than LCS
  */
 export class MyersAlgorithm {
   // ======================================
-  // MAIN MYERS ALGORITHM | MARK: MAIN
+  // MAIN ALGORITHM | MARK: MAIN
   // ======================================
 
   /**
    * Compute line alignment using Myers algorithm
-   * Time complexity: O((M+N)*D) where D is the number of differences
-   * Space complexity: O(M+N)
+   * Complexity: O((M+N)*D) where D = number of differences
    */
   public static computeLineAlignment(
     lines1: string[],
@@ -43,54 +42,47 @@ export class MyersAlgorithm {
       }));
     }
 
-    // Run Myers algorithm to get edit script
+    // Run Myers algorithm and convert to operations
     const edits = this.myersDiff(lines1, lines2);
-    
-    // Convert edit script to LineOperation format
     return this.buildOperationsFromEdits(edits, lines1, lines2);
   }
 
   // ======================================
-  // CORE MYERS IMPLEMENTATION | MARK: CORE
+  // CORE IMPLEMENTATION | MARK: CORE
   // ======================================
 
   /**
-   * Core Myers diff algorithm
-   * Returns an edit script representing the shortest edit sequence
+   * Core Myers diff algorithm - finds shortest edit sequence
    */
   private static myersDiff(lines1: string[], lines2: string[]): DiffEdit[] {
     const m = lines1.length;
     const n = lines2.length;
     const max = m + n;
 
-    // V array stores the furthest reaching D-path in diagonal k
+    // V array stores furthest reaching D-path in diagonal k
     const v: number[] = new Array(2 * max + 1);
     v[max + 1] = 0;
 
-    // Store the trace for backtracking
     const trace: number[][] = [];
 
-    // Forward search - find the shortest edit script
+    // Forward search to find shortest edit script
     for (let d = 0; d <= max; d++) {
-      // Save current state for backtracking
       trace.push([...v]);
 
       for (let k = -d; k <= d; k += 2) {
         const kIndex = k + max;
         let x: number;
 
-        // Determine if we came from diagonal k-1 (insertion) or k+1 (deletion)
+        // Choose path: deletion (k+1) or insertion (k-1)
         if (k === -d || (k !== d && v[kIndex - 1] < v[kIndex + 1])) {
-          // Came from k+1 (deletion from lines1)
-          x = v[kIndex + 1];
+          x = v[kIndex + 1]; // Deletion
         } else {
-          // Came from k-1 (insertion to lines2)
-          x = v[kIndex - 1] + 1;
+          x = v[kIndex - 1] + 1; // Insertion
         }
 
         let y = x - k;
 
-        // Extend diagonal as far as possible (matching lines)
+        // Extend diagonal as far as possible
         while (x < m && y < n && lines1[x] === lines2[y]) {
           x++;
           y++;
@@ -98,19 +90,18 @@ export class MyersAlgorithm {
 
         v[kIndex] = x;
 
-        // Check if we've reached the end
+        // Check if we reached the end
         if (x >= m && y >= n) {
           return this.buildEditScriptFromTrace(trace, lines1, lines2, d);
         }
       }
     }
 
-    // This should never happen for valid inputs
-    return [];
+    return []; // Should never reach here
   }
 
   /**
-   * Build edit script by backtracking through the trace
+   * Build edit script by backtracking through trace
    */
   private static buildEditScriptFromTrace(
     trace: number[][],
@@ -123,7 +114,7 @@ export class MyersAlgorithm {
     let y = lines2.length;
     const max = lines1.length + lines2.length;
 
-    // Backtrack through the trace to build edit script
+    // Backtrack through trace to build edit script
     for (let depth = d; depth > 0; depth--) {
       const v = trace[depth - 1];
       const k = x - y;
@@ -139,7 +130,7 @@ export class MyersAlgorithm {
       const prevX = v[prevK + max];
       const prevY = prevX - prevK;
 
-      // Add diagonal moves (identical lines) - process in reverse
+      // Add diagonal moves (identical lines)
       while (x > prevX && y > prevY) {
         x--;
         y--;
@@ -152,9 +143,8 @@ export class MyersAlgorithm {
         });
       }
 
-      // Add the edit operation
+      // Add edit operation
       if (x > prevX) {
-        // Deletion
         x--;
         edits.unshift({
           type: 'delete',
@@ -164,7 +154,6 @@ export class MyersAlgorithm {
           newLine: undefined,
         });
       } else if (y > prevY) {
-        // Insertion
         y--;
         edits.unshift({
           type: 'insert',
@@ -176,7 +165,7 @@ export class MyersAlgorithm {
       }
     }
 
-    // Add remaining diagonal moves at the beginning
+    // Add remaining diagonal moves
     while (x > 0 && y > 0) {
       x--;
       y--;
@@ -193,12 +182,11 @@ export class MyersAlgorithm {
   }
 
   // ======================================
-  // CONVERSION TO LINE OPERATIONS | MARK: CONVERT
+  // CONVERSION | MARK: CONVERT
   // ======================================
 
   /**
    * Convert Myers edit script to LineOperation format
-   * This maintains compatibility with the existing codebase
    */
   private static buildOperationsFromEdits(
     edits: DiffEdit[],
@@ -216,32 +204,24 @@ export class MyersAlgorithm {
             line2: edit.newLine!,
           });
           break;
-
         case 'delete':
-          operations.push({
-            type: 'removed',
-            line1: edit.oldLine!,
-          });
+          operations.push({ type: 'removed', line1: edit.oldLine! });
           break;
-
         case 'insert':
-          operations.push({
-            type: 'added',
-            line2: edit.newLine!,
-          });
+          operations.push({ type: 'added', line2: edit.newLine! });
           break;
       }
     }
 
-    // Post-process to detect modified lines
     return this.detectModifiedLines(operations);
   }
 
   /**
-   * Detect modified lines by looking for adjacent delete/insert pairs
-   * This improves the quality of the diff by showing modifications instead of separate add/remove
+   * Detect modified lines from adjacent delete/insert pairs
    */
-  private static detectModifiedLines(operations: LineOperation[]): LineOperation[] {
+  private static detectModifiedLines(
+    operations: LineOperation[]
+  ): LineOperation[] {
     const result: LineOperation[] = [];
     let i = 0;
 
@@ -258,11 +238,12 @@ export class MyersAlgorithm {
         current.line1 &&
         next.line2
       ) {
-        // Calculate similarity to determine if it's a modification
-        const similarity = this.calculateLineSimilarity(current.line1, next.line2);
-        
+        const similarity = this.calculateLineSimilarity(
+          current.line1,
+          next.line2
+        );
+
         if (similarity > 0.3) {
-          // Treat as modification
           result.push({
             type: 'modified',
             line1: current.line1,
@@ -270,7 +251,6 @@ export class MyersAlgorithm {
           });
           i += 2; // Skip both operations
         } else {
-          // Keep as separate delete and insert
           result.push(current);
           i++;
         }
@@ -288,8 +268,7 @@ export class MyersAlgorithm {
   // ======================================
 
   /**
-   * Calculate similarity between two lines using a simple token-based approach
-   * This is a simplified version for Myers algorithm
+   * Calculate line similarity using simple word-based approach
    */
   private static calculateLineSimilarity(line1: string, line2: string): number {
     if (line1 === line2) {
@@ -299,7 +278,6 @@ export class MyersAlgorithm {
       return 0.0;
     }
 
-    // Simple word-based similarity
     const words1 = line1.trim().split(/\s+/);
     const words2 = line2.trim().split(/\s+/);
 
@@ -323,31 +301,24 @@ export class MyersAlgorithm {
   // ======================================
 
   /**
-   * Estimate the performance characteristics for given input sizes
-   * Useful for algorithm selection
+   * Estimate performance characteristics for algorithm selection
    */
-  public static estimateComplexity(m: number, n: number): {
+  public static estimateComplexity(
+    m: number,
+    n: number
+  ): {
     timeComplexity: number;
     spaceComplexity: number;
     recommended: boolean;
   } {
-    const maxSize = Math.max(m, n);
     const totalSize = m + n;
-    
-    // Estimate D (number of differences) as worst case 50% of total lines
-    const estimatedD = Math.min(totalSize * 0.5, maxSize);
-    
+    const estimatedD = Math.min(totalSize * 0.5, Math.max(m, n));
+
     const timeComplexity = totalSize * estimatedD;
     const spaceComplexity = totalSize;
-    
-    // Recommend Myers for larger files or when estimated performance is better
     const recommended = totalSize > 500 || timeComplexity < m * n;
 
-    return {
-      timeComplexity,
-      spaceComplexity,
-      recommended,
-    };
+    return { timeComplexity, spaceComplexity, recommended };
   }
 }
 
