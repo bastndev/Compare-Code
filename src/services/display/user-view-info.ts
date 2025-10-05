@@ -23,6 +23,7 @@ export class UserInformationManager {
     const addedElement = document.getElementById('added-count');
     const removedElement = document.getElementById('removed-count');
     const modifiedElement = document.getElementById('modified-count');
+    const movedElement = document.getElementById('moved-count');
     const i18n = getI18n();
 
     if (addedElement) {
@@ -41,6 +42,12 @@ export class UserInformationManager {
         : 'lines modified';
       modifiedElement.innerHTML = `${stats.modified} <span data-i18n="stats.linesModified">${linesModifiedText}</span>`;
     }
+    if (movedElement) {
+      const linesMovedText = i18n
+        ? i18n.t('stats.linesMoved')
+        : 'lines moved';
+      movedElement.innerHTML = `${stats.moved} <span data-i18n="stats.linesMoved">${linesMovedText}</span>`;
+    }
   }
 
   /**
@@ -50,6 +57,7 @@ export class UserInformationManager {
     const addedElement = document.getElementById('added-count');
     const removedElement = document.getElementById('removed-count');
     const modifiedElement = document.getElementById('modified-count');
+    const movedElement = document.getElementById('moved-count');
     const i18n = getI18n();
 
     if (addedElement) {
@@ -68,6 +76,12 @@ export class UserInformationManager {
         : 'lines modified';
       modifiedElement.innerHTML = `0 <span data-i18n="stats.linesModified">${linesModifiedText}</span>`;
     }
+    if (movedElement) {
+      const linesMovedText = i18n
+        ? i18n.t('stats.linesMoved')
+        : 'lines moved';
+      movedElement.innerHTML = `0 <span data-i18n="stats.linesMoved">${linesMovedText}</span>`;
+    }
 
     // Also hide the similar message when clearing stats
     this.hideSimilarMessage();
@@ -85,7 +99,7 @@ export class UserInformationManager {
     const i18n = getI18n();
 
     if (warningBox) {
-      const totalChanges = stats.added + stats.removed + stats.modified;
+      const totalChanges = stats.added + stats.removed + stats.modified + stats.moved;
       const changesText = i18n ? i18n.t('stats.changes') : 'Changes';
       warningBox.innerHTML = `${totalChanges} : <span data-i18n="stats.changes">${changesText}</span>`;
     }

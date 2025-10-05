@@ -405,6 +405,14 @@ export class EditorInstance {
     lines.forEach((line) => {
       const cssClass = this.getLineCssClass(line.type);
       let lineContent: string;
+      let moveIndicator = '';
+
+      // Add move indicators
+      if (line.type === 'moved-from' && line.movedToLine !== undefined) {
+        moveIndicator = `<span class="move-indicator from" title="Moved to line ${line.movedToLine}">↓</span>`;
+      } else if (line.type === 'moved-to' && line.movedFromLine !== undefined) {
+        moveIndicator = `<span class="move-indicator to" title="Moved from line ${line.movedFromLine}">↑</span>`;
+      }
 
       if (line.htmlContent && line.htmlContent.trim()) {
         lineContent = line.htmlContent;
@@ -416,7 +424,8 @@ export class EditorInstance {
         lineContent = this.escapeHtml(line.content || '');
       }
 
-      html += `<div class="diff-line ${cssClass}">${lineContent}</div>`;
+      const moveId = line.moveId ? ` data-move-id="${line.moveId}"` : '';
+      html += `<div class="diff-line ${cssClass}"${moveId}>${moveIndicator}${lineContent}</div>`;
     });
 
     this.displayElement.innerHTML = html;
@@ -450,6 +459,10 @@ export class EditorInstance {
         return 'removed';
       case 'modified':
         return 'modified';
+      case 'moved-from':
+        return 'moved-from';
+      case 'moved-to':
+        return 'moved-to';
       case 'empty':
         return 'empty';
       default:

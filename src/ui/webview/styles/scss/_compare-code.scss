@@ -153,6 +153,11 @@ $line-padding-no-border: 10px;
   &.modified {
     @include line-number-bg-mixin($color-orange);
   }
+  
+  &.moved-from,
+  &.moved-to {
+    @include line-number-bg-mixin(#9c88ff);
+  }
 }
 
 // ========== Code Area Container ==========
@@ -317,6 +322,44 @@ $line-padding-no-border: 10px;
     @include diff-line-border-mixin($color-orange); // LINE MODIFIED
   }
   
+  &.moved-from {
+    @include diff-line-border-mixin(#9c88ff); // LINE MOVED FROM (purple)
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-left: 6px solid #9c88ff;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      opacity: 0.7;
+    }
+  }
+  
+  &.moved-to {
+    @include diff-line-border-mixin(#9c88ff); // LINE MOVED TO (purple)
+    position: relative;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      right: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0;
+      height: 0;
+      border-right: 6px solid #9c88ff;
+      border-top: 4px solid transparent;
+      border-bottom: 4px solid transparent;
+      opacity: 0.7;
+    }
+  }
+  
   &.empty {
     background: rgba($color-grey, 0.03);
     min-height: 1.4em;
@@ -346,6 +389,51 @@ $line-padding-no-border: 10px;
     background: rgba($color-green, 0.02);
     padding-left: $line-padding-no-border;
     @include word-wrap-config;
+  }
+}
+
+// ======================================
+// Move Indicators | MARK: MOVE INDICATORS
+// ======================================
+.move-indicator {
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: bold;
+  font-size: 14px;
+  opacity: 0.8;
+  transition: all 0.2s ease;
+  cursor: help;
+  
+  &.from {
+    color: #9c88ff;
+    animation: moveIndicatorPulse 2s ease-in-out infinite;
+    
+    &:hover {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+  
+  &.to {
+    color: #9c88ff;
+    animation: moveIndicatorPulse 2s ease-in-out infinite;
+    animation-delay: 0.5s;
+    
+    &:hover {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+}
+
+@keyframes moveIndicatorPulse {
+  0%, 100% {
+    opacity: 0.8;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
   }
 }
 

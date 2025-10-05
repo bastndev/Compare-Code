@@ -11,10 +11,14 @@ import {
   ComparisonStats,
   LineOperation,
   ComparisonResult,
-} from '../../utils/types';
+  MovedLine,
+  MoveCandidate,
+} from '../../../utils/types';
+import { AlgorithmSelector } from './algorithm-selector';
 
 /**
  * Core comparison engine for analyzing differences between two text inputs
+ * Uses LCS algorithm with intelligent movement detection
  */
 export class ComparisonEngine {
   // ======================================
@@ -22,19 +26,27 @@ export class ComparisonEngine {
   // ======================================
 
   /**
-   * Compare two text strings line by line with inline diff support
+   * Compare two text strings with automatic algorithm selection
    */
   public static compare(text1: string, text2: string): ComparisonResult {
     const lines1 = text1.split('\n');
     const lines2 = text2.split('\n');
-    const alignment = this.computeLineAlignment(lines1, lines2);
+    let alignment = AlgorithmSelector.computeOptimalAlignment(lines1, lines2);
+
+    // Detect and apply movement detection
+    const movedLines = this.detectMovedLines(lines1, lines2, alignment);
+    alignment = this.applyMoveDetection(alignment, movedLines);
 
     const result1: ComparisonLine[] = [];
     const result2: ComparisonLine[] = [];
-    const stats: ComparisonStats = { added: 0, removed: 0, modified: 0 };
+    const stats: ComparisonStats = {
+      added: 0,
+      removed: 0,
+      modified: 0,
+      moved: 0,
+    };
 
     let identicalCount = 0;
-    let modifiedCount = 0;
     let lineNumber1 = 1;
     let lineNumber2 = 1;
 
@@ -81,9 +93,45 @@ export class ComparisonEngine {
             originalLineNumber: lineNumber2,
           });
           stats.modified++;
-          modifiedCount++;
           lineNumber1++;
           lineNumber2++;
+          break;
+
+        case 'moved':
+          const isFromSide = operation.originalIndex1 !== undefined;
+
+          if (isFromSide) {
+            // Line moved from this position
+            result1.push({
+              content: operation.line1!,
+              type: 'moved-from',
+              originalLineNumber: lineNumber1,
+              moveId: operation.moveId,
+              movedToLine: operation.originalIndex2,
+            });
+            result2.push({
+              content: '',
+              type: 'empty',
+              originalLineNumber: lineNumber2,
+            });
+            lineNumber1++;
+          } else {
+            // Line moved to this position
+            result1.push({
+              content: '',
+              type: 'empty',
+              originalLineNumber: lineNumber1,
+            });
+            result2.push({
+              content: operation.line2!,
+              type: 'moved-to',
+              originalLineNumber: lineNumber2,
+              moveId: operation.moveId,
+              movedFromLine: operation.originalIndex1,
+            });
+            lineNumber2++;
+          }
+          stats.moved++;
           break;
 
         case 'removed':
@@ -119,20 +167,28 @@ export class ComparisonEngine {
     }
 
     const totalLines = Math.max(result1.length, result2.length);
-    
-    // Calculate similarity: 100% only if NO differences exist | CONFETTI
+
+    // Calculate similarity with movement-aware scoring
     let similarity: number;
     if (totalLines === 0) {
       similarity = 100;
-    } else if (stats.added === 0 && stats.removed === 0 && stats.modified === 0) {
-      // Perfect match: no differences at all
+    } else if (
+      stats.added === 0 &&
+      stats.removed === 0 &&
+      stats.modified === 0 &&
+      stats.moved === 0
+    ) {
       similarity = 100;
     } else {
-      // Has differences: calculate based on identical lines only
-      similarity = Math.round((identicalCount / totalLines) * 100);
+      // Moved lines count less than actual changes since content is preserved
+      const effectiveChanges =
+        stats.added + stats.removed + stats.modified + stats.moved * 0.3;
+      similarity = Math.round(
+        Math.max(0, ((totalLines - effectiveChanges) / totalLines) * 100)
+      );
     }
 
-    return { lines1: result1, lines2: result2, stats, similarity };
+    return { lines1: result1, lines2: result2, stats, similarity, movedLines };
   }
 
   // ======================================
@@ -224,7 +280,7 @@ export class ComparisonEngine {
   }
 
   /**
-   * Compute differences between two token arrays using LCS algorithm
+   * Compute token differences using LCS algorithm
    */
   private static computeTokenDifferences(
     tokens1: Token[],
@@ -268,7 +324,7 @@ export class ComparisonEngine {
   }
 
   /**
-   * Render tokens for a specific side while preserving original content
+   * Render tokens for specific side with highlighting
    */
   private static renderTokensForSide(
     currentTokens: Token[],
@@ -285,11 +341,8 @@ export class ComparisonEngine {
         if (otherTokenTexts.has(token.text)) {
           return escapedText;
         } else {
-          if (side === 'left') {
-            return `<span class="word-removed">${escapedText}</span>`;
-          } else {
-            return `<span class="word-added">${escapedText}</span>`;
-          }
+          const className = side === 'left' ? 'word-removed' : 'word-added';
+          return `<span class="${className}">${escapedText}</span>`;
         }
       })
       .join('');
@@ -300,7 +353,7 @@ export class ComparisonEngine {
   // ======================================
 
   /**
-   * Escape HTML characters
+   * Escape HTML characters for safe rendering
    */
   private static escapeHtml(text: string): string {
     if (!text) {
@@ -336,7 +389,128 @@ export class ComparisonEngine {
    * Check if comparison has any differences
    */
   public static hasDifferences(stats: ComparisonStats): boolean {
-    return stats.added > 0 || stats.removed > 0 || stats.modified > 0;
+    return (
+      stats.added > 0 ||
+      stats.removed > 0 ||
+      stats.modified > 0 ||
+      stats.moved > 0
+    );
+  }
+
+  // ======================================
+  // MOVEMENT DETECTION | MARK: MOVEMENT
+  // ======================================
+
+  /**
+   * Detect lines that were moved rather than added/removed
+   */
+  private static detectMovedLines(
+    lines1: string[],
+    lines2: string[],
+    operations: LineOperation[]
+  ): MovedLine[] {
+    const movedLines: MovedLine[] = [];
+    const removedLines: { content: string; index: number }[] = [];
+    const addedLines: { content: string; index: number }[] = [];
+
+    // Collect removed and added lines
+    operations.forEach((op, index) => {
+      if (op.type === 'removed' && op.line1) {
+        removedLines.push({ content: op.line1, index });
+      } else if (op.type === 'added' && op.line2) {
+        addedLines.push({ content: op.line2, index });
+      }
+    });
+
+    // Find potential moves by matching content with 80% similarity threshold
+    const usedRemoved = new Set<number>();
+    const usedAdded = new Set<number>();
+
+    removedLines.forEach((removed) => {
+      if (usedRemoved.has(removed.index)) {
+        return;
+      }
+
+      const bestMatch = this.findBestMoveMatch(
+        removed.content,
+        addedLines,
+        usedAdded
+      );
+
+      if (bestMatch && bestMatch.similarity >= 0.8) {
+        const moveId = `move_${movedLines.length}`;
+
+        movedLines.push({
+          content: removed.content,
+          fromIndex: removed.index,
+          toIndex: bestMatch.index,
+          moveId,
+          similarity: bestMatch.similarity,
+        });
+
+        usedRemoved.add(removed.index);
+        usedAdded.add(bestMatch.index);
+      }
+    });
+
+    return movedLines;
+  }
+
+  /**
+   * Find the best matching line for a potential move
+   */
+  private static findBestMoveMatch(
+    content: string,
+    candidates: { content: string; index: number }[],
+    usedIndices: Set<number>
+  ): { index: number; similarity: number } | null {
+    let bestMatch: { index: number; similarity: number } | null = null;
+
+    candidates.forEach((candidate) => {
+      if (usedIndices.has(candidate.index)) {
+        return;
+      }
+
+      const similarity = this.calculateLineSimilarity(
+        content,
+        candidate.content
+      );
+
+      if (!bestMatch || similarity > bestMatch.similarity) {
+        bestMatch = { index: candidate.index, similarity };
+      }
+    });
+
+    return bestMatch;
+  }
+
+  /**
+   * Apply move detection to line operations
+   */
+  private static applyMoveDetection(
+    operations: LineOperation[],
+    movedLines: MovedLine[]
+  ): LineOperation[] {
+    const moveMap = new Map<number, MovedLine>();
+
+    movedLines.forEach((move) => {
+      moveMap.set(move.fromIndex, move);
+      moveMap.set(move.toIndex, move);
+    });
+
+    return operations.map((op, index) => {
+      const move = moveMap.get(index);
+      if (move) {
+        return {
+          ...op,
+          type: 'moved' as LineOperationType,
+          moveId: move.moveId,
+          originalIndex1: move.fromIndex,
+          originalIndex2: move.toIndex,
+        };
+      }
+      return op;
+    });
   }
 
   // ======================================
@@ -344,15 +518,16 @@ export class ComparisonEngine {
   // ======================================
 
   /**
-   * Compute line alignment using improved LCS algorithm
+   * Compute line alignment using LCS algorithm with similarity scoring
    */
-  private static computeLineAlignment(
+  public static computeLineAlignment(
     lines1: string[],
     lines2: string[]
   ): LineOperation[] {
     const m = lines1.length;
     const n = lines2.length;
 
+    // Handle edge cases
     if (m === 0 && n === 0) {
       return [];
     }
@@ -376,7 +551,7 @@ export class ComparisonEngine {
       .fill(null)
       .map(() => Array(n + 1).fill(0));
 
-    // Pre-calculate similarity scores
+    // Pre-calculate similarity scores for all line pairs
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         similarity[i][j] = this.calculateLineSimilarity(
@@ -386,7 +561,7 @@ export class ComparisonEngine {
       }
     }
 
-    // Fill DP table
+    // Fill DP table with similarity-aware scoring
     for (let i = 1; i <= m; i++) {
       for (let j = 1; j <= n; j++) {
         if (lines1[i - 1] === lines2[j - 1]) {
@@ -399,7 +574,7 @@ export class ComparisonEngine {
       }
     }
 
-    // Backtrack to find alignment
+    // Backtrack to find optimal alignment
     const operations: LineOperation[] = [];
     let i = m,
       j = n;
@@ -427,16 +602,10 @@ export class ComparisonEngine {
         i--;
         j--;
       } else if (i > 0 && (j === 0 || dp[i - 1][j] >= dp[i][j - 1])) {
-        operations.unshift({
-          type: 'removed',
-          line1: lines1[i - 1],
-        });
+        operations.unshift({ type: 'removed', line1: lines1[i - 1] });
         i--;
       } else {
-        operations.unshift({
-          type: 'added',
-          line2: lines2[j - 1],
-        });
+        operations.unshift({ type: 'added', line2: lines2[j - 1] });
         j--;
       }
     }
