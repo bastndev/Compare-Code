@@ -6,7 +6,11 @@ import { UserInformationManager } from './display/user-view-info';
 import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
 import { initializeConfetti, triggerPerfectMatchConfetti } from './display/animations';
-import { showPerfectMatchEffect, hidePerfectMatchEffect } from './display/match-effect';
+import { 
+  showPerfectMatchEffect, 
+  hidePerfectMatchEffect,
+  MATCH_EFFECT_CONFIG 
+} from './display/match-effect';
 
 // ======================================
 // MAIN APPLICATION | MARK: MAIN
@@ -71,15 +75,15 @@ export function compare(): void {
       // Show perfect match effect overlay
       showPerfectMatchEffect();
       
-      // Trigger confetti for perfect matches
+      // Trigger confetti (timed with effect animation)
       setTimeout(() => {
         triggerPerfectMatchConfetti();
-      }, 600);
+      }, MATCH_EFFECT_CONFIG.CONFETTI_DELAY);
       
-      // Hide effect after 3 seconds
+      // Hide effect after animation completes
       setTimeout(() => {
         hidePerfectMatchEffect();
-      }, 3000);
+      }, MATCH_EFFECT_CONFIG.HIDE_DELAY);
     }
   } catch (error) {
     console.error('Comparison failed:', error);
