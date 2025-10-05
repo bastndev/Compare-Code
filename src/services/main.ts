@@ -63,7 +63,8 @@ export function compare(): void {
     const isPerfectMatch = comparison.similarity === 100 && 
                           comparison.stats.added === 0 && 
                           comparison.stats.removed === 0 && 
-                          comparison.stats.modified === 0;
+                          comparison.stats.modified === 0 &&
+                          comparison.stats.moved === 0;
     
     if (isPerfectMatch) {
       // Show similar message and trigger confetti for perfect matches

@@ -158,6 +158,10 @@
   &.modified {
     @include icon-gradient($color-orange, #d97706);
   }
+  
+  &.moved {
+    @include icon-gradient(#9c88ff, #7c3aed);
+  }
 
   &:hover {
     transform: translateY(-1px);
