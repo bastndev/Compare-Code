@@ -769,7 +769,7 @@ body {
   width: 100%;
   height: 100%;
   background: var(--vscode-editor-background);
-  color: var(--vscode-foreground);
+  color: #cccccc;
   font-family: var(--vscode-editor-font-family, "JetBrains Mono", "Consolas", "Monaco", "Courier New", sans-serif);
   font-size: 13px;
   line-height: 1.4;
