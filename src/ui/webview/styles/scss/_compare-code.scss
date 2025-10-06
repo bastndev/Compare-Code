@@ -153,11 +153,6 @@ $line-padding-no-border: 10px;
   &.modified {
     @include line-number-bg-mixin($color-orange);
   }
-  
-  &.moved-from,
-  &.moved-to {
-    @include line-number-bg-mixin(#9c88ff);
-  }
 }
 
 // ========== Code Area Container ==========
@@ -172,7 +167,7 @@ $line-padding-no-border: 10px;
   width: 100%;
   height: 100%;
   background: $bg;
-  color: $fg;
+  color: $color-grey;
   font-family: $font-family;
   font-size: 13px;
   line-height: 1.4;
@@ -320,44 +315,6 @@ $line-padding-no-border: 10px;
   
   &.modified {
     @include diff-line-border-mixin($color-orange); // LINE MODIFIED
-  }
-  
-  &.moved-from {
-    @include diff-line-border-mixin(#9c88ff); // LINE MOVED FROM (purple)
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0;
-      height: 0;
-      border-left: 6px solid #9c88ff;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      opacity: 0.7;
-    }
-  }
-  
-  &.moved-to {
-    @include diff-line-border-mixin(#9c88ff); // LINE MOVED TO (purple)
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0;
-      height: 0;
-      border-right: 6px solid #9c88ff;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      opacity: 0.7;
-    }
   }
   
   &.empty {
