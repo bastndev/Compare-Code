@@ -5,7 +5,11 @@ import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './display/user-view-info';
 import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
-import { initializeConfetti, triggerPerfectMatchConfetti } from './display/animations';
+import { 
+  showPerfectMatchEffect, 
+  hidePerfectMatchEffect,
+  MATCH_EFFECT_CONFIG 
+} from './display/match-effect';
 
 // ======================================
 // MAIN APPLICATION | MARK: MAIN
@@ -42,8 +46,9 @@ export function compare(): void {
     const text1 = editorManager.getContent('1');
     const text2 = editorManager.getContent('2');
 
-    if (!text1.trim() && !text2.trim()) {
-      alert('Please enter code in at least one field');
+    // Validate that both inputs have content
+    if (!text1.trim() || !text2.trim()) {
+      alert('Both code areas must have content to compare');
       return;
     }
 
@@ -63,17 +68,20 @@ export function compare(): void {
     const isPerfectMatch = comparison.similarity === 100 && 
                           comparison.stats.added === 0 && 
                           comparison.stats.removed === 0 && 
-                          comparison.stats.modified === 0 &&
-                          comparison.stats.moved === 0;
+                          comparison.stats.modified === 0;
     
     if (isPerfectMatch) {
-      // Trigger confetti for perfect matches
+      // Show perfect match effect overlay
+      showPerfectMatchEffect();
+      
+      // Hide effect after animation completes
       setTimeout(() => {
-        triggerPerfectMatchConfetti();
-      }, 150);
+        hidePerfectMatchEffect();
+      }, MATCH_EFFECT_CONFIG.HIDE_DELAY);
     }
   } catch (error) {
     console.error('Comparison failed:', error);
+    setPlayBtnToCompare(); // Reset button state on error
     alert('An error occurred during comparison. Please try again.');
   }
 }
@@ -174,7 +182,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSwitchMode();
     initializeLanguageMenu();
     initializeCompareCode();
-    initializeConfetti();
 
     // Global functions
     (window as any).toggle = toggle;

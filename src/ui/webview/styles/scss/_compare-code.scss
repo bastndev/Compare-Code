@@ -153,11 +153,6 @@ $line-padding-no-border: 10px;
   &.modified {
     @include line-number-bg-mixin($color-orange);
   }
-  
-  &.moved-from,
-  &.moved-to {
-    @include line-number-bg-mixin(#9c88ff);
-  }
 }
 
 // ========== Code Area Container ==========
@@ -172,7 +167,7 @@ $line-padding-no-border: 10px;
   width: 100%;
   height: 100%;
   background: $bg;
-  color: $fg;
+  color: $color-grey;
   font-family: $font-family;
   font-size: 13px;
   line-height: 1.4;
@@ -322,44 +317,6 @@ $line-padding-no-border: 10px;
     @include diff-line-border-mixin($color-orange); // LINE MODIFIED
   }
   
-  &.moved-from {
-    @include diff-line-border-mixin(#9c88ff); // LINE MOVED FROM (purple)
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0;
-      height: 0;
-      border-left: 6px solid #9c88ff;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      opacity: 0.7;
-    }
-  }
-  
-  &.moved-to {
-    @include diff-line-border-mixin(#9c88ff); // LINE MOVED TO (purple)
-    position: relative;
-    
-    &::after {
-      content: '';
-      position: absolute;
-      right: 10px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 0;
-      height: 0;
-      border-right: 6px solid #9c88ff;
-      border-top: 4px solid transparent;
-      border-bottom: 4px solid transparent;
-      opacity: 0.7;
-    }
-  }
-  
   &.empty {
     background: rgba($color-grey, 0.03);
     min-height: 1.4em;
@@ -386,7 +343,7 @@ $line-padding-no-border: 10px;
   }
   
   &.identical {
-    background: rgba($color-green, 0.02);
+    // background: rgba($color-green, 0.02); // todo
     padding-left: $line-padding-no-border;
     @include word-wrap-config;
   }
@@ -601,5 +558,69 @@ $line-padding-no-border: 10px;
   .word-removed:hover,
   .word-modified:hover {
     transform: none;
+  }
+}
+
+// ======================================
+// Animation effect down | MARK:Match Effect
+// ======================================
+.match-effect {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  overflow: hidden;
+
+  &.active {
+    opacity: 1;
+
+    .ambient-glow {
+      animation: glowDescend 2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+    }
+  }
+
+  // Ambient light curtain
+  .ambient-glow {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(34, 197, 94, 0.08) 30%,
+      rgba(34, 197, 94, 0.12) 50%,
+      rgba(34, 197, 94, 0.08) 70%,
+      transparent 100%
+    );
+    will-change: transform, opacity;
+  }
+}
+
+// Keyframe Animation
+@keyframes glowDescend {
+  0% {
+    top: -100%;
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  50% {
+    top: 0%;
+    opacity: 1;
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    top: 100%;
+    opacity: 0;
   }
 }

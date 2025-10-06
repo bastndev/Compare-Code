@@ -6,6 +6,7 @@ declare const acquireVsCodeApi: any;
 const vscode = acquireVsCodeApi();
 
 let iconUris: { play: string; stop: string } | null = null;
+let isComparing = false;
 
 window.addEventListener('message', (event) => {
   if (event.data.type === 'setIcons') {
@@ -16,6 +17,53 @@ window.addEventListener('message', (event) => {
 // ======================================
 // TOOLBAR ACTIONS | MARK: TOOLBAR
 // ======================================
+
+/**
+ * Check if both textareas have content
+ */
+function checkButtonState(): void {
+  const editor1 = document.getElementById('codeInput1') as HTMLTextAreaElement;
+  const editor2 = document.getElementById('codeInput2') as HTMLTextAreaElement;
+  const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
+
+  if (!editor1 || !editor2 || !playBtn) {
+    return;
+  }
+
+  const hasContent1 = editor1.value.trim().length > 0;
+  const hasContent2 = editor2.value.trim().length > 0;
+  const shouldEnable = hasContent1 && hasContent2;
+
+  if (shouldEnable && !isComparing) {
+    enableCompareButton();
+  } else if (!shouldEnable && !isComparing) {
+    disableCompareButton();
+  }
+}
+
+/**
+ * Enable the compare button
+ */
+function enableCompareButton(): void {
+  const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
+  if (playBtn) {
+    playBtn.disabled = false;
+    playBtn.classList.remove('disabled');
+    playBtn.title = 'Ctrl + Enter';
+  }
+}
+
+/**
+ * Disable the compare button
+ */
+function disableCompareButton(): void {
+  const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
+  if (playBtn) {
+    playBtn.disabled = true;
+    playBtn.classList.add('disabled');
+    playBtn.title = 'Both code areas must have content to compare';
+  }
+}
 
 function initializeClearButton(): void {
   const clearBtn = document.querySelector('.clear') as HTMLElement;
@@ -28,7 +76,32 @@ function initializeClearButton(): void {
           editor.dispatchEvent(new Event('input'));
         }
       });
+      // Check button state after clearing
+      setTimeout(checkButtonState, 50);
     });
+  }
+}
+
+/**
+ * Initialize content monitoring for both textareas
+ */
+function initializeContentMonitoring(): void {
+  const editor1 = document.getElementById('codeInput1') as HTMLTextAreaElement;
+  const editor2 = document.getElementById('codeInput2') as HTMLTextAreaElement;
+
+  if (editor1 && editor2) {
+    // Add event listeners for content changes
+    [editor1, editor2].forEach((editor) => {
+      editor.addEventListener('input', checkButtonState);
+      editor.addEventListener('paste', () => {
+        // Check state after paste event is processed
+        setTimeout(checkButtonState, 50);
+      });
+      editor.addEventListener('keyup', checkButtonState);
+    });
+
+    // Initial check
+    checkButtonState();
   }
 }
 
@@ -55,32 +128,47 @@ function initializePanelRightButton(): void {
 // ======================================
 
 export function setPlayBtnToEdit(): void {
-  const playBtn = document.getElementById('playBtn') as HTMLElement;
+  const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
   if (playBtn) {
+    isComparing = true;
+
     const img = playBtn.querySelector('img') as HTMLImageElement;
     const span = playBtn.querySelector('span') as HTMLSpanElement;
+
     if (img && iconUris) {
       img.src = iconUris.stop;
     }
     if (span) {
       span.textContent = (window as any).i18n?.t('buttons.stop') || 'Stop';
     }
+
     playBtn.classList.add('stop');
+    playBtn.classList.remove('disabled');
+    playBtn.disabled = false;
+    playBtn.title = 'Ctrl + Enter - Stop comparison';
   }
 }
 
 export function setPlayBtnToCompare(): void {
-  const playBtn = document.getElementById('playBtn') as HTMLElement;
+  const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
   if (playBtn) {
+    isComparing = false;
+
     const img = playBtn.querySelector('img') as HTMLImageElement;
     const span = playBtn.querySelector('span') as HTMLSpanElement;
+
     if (img && iconUris) {
       img.src = iconUris.play;
     }
     if (span) {
-      span.textContent = (window as any).i18n?.t('buttons.compare') || 'Compare';
+      span.textContent =
+        (window as any).i18n?.t('buttons.compare') || 'Compare';
     }
+
     playBtn.classList.remove('stop');
+
+    // Check if button should be enabled based on content
+    setTimeout(checkButtonState, 50);
   }
 }
 
@@ -141,6 +229,9 @@ function initializeClearCodeButtons(): void {
         if (playBtn && playBtn.classList.contains('stop')) {
           (window as any).toggle();
         }
+
+        // Check button state after clearing
+        setTimeout(checkButtonState, 50);
 
         if (hasContent) {
           setTimeout(() => {
@@ -203,6 +294,10 @@ export function initializeUserActions(): void {
   initializeClearCodeButtons();
   initializePanelLeftButton();
   initializePanelRightButton();
+  initializeContentMonitoring();
 }
+
+// Export functions for external use
+export { checkButtonState };
 
 export {};

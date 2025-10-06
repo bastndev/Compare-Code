@@ -21,5 +21,4 @@ export type {
   ComparisonLine,
   ComparisonStats,
   LineOperation,
-  MovedLine,
 } from '../../../utils/types';
