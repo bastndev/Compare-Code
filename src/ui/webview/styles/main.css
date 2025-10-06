@@ -33,6 +33,11 @@ body {
   background: var(--vscode-widget-border);
 }
 
+::selection {
+  background-color: var(--vscode-editor-selectionBackground);
+  color: #b4b4b4;
+}
+
 @keyframes tooltipFadeIn {
   from {
     opacity: 0;

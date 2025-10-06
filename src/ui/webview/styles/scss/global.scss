@@ -31,7 +31,7 @@ $scrollbar-thumb-bg: $border;
 
 // USER-CODE / USER-CODE / USER-CODE
 $primary-bg: var(--bg-primary);
-$selection-bg: var(--vscode-editor-selectionBackground,rgba(173, 214, 255, 0.3));
+$selection-bg: var(--vscode-editor-selectionBackground);
 $contrast: var(--vscode-editor-foreground, #ffffff);
 
 // ======================================
@@ -113,6 +113,14 @@ body {
   // border-radius: 2px;
 }
 
+// ======================================
+// Selection global Styles
+// ======================================
+
+::selection {
+  background-color: $selection-bg;
+  color: #b4b4b4;
+}
 
 // ======================================
 // Tooltips global styles
