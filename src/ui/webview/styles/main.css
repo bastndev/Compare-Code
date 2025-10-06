@@ -302,9 +302,6 @@ body {
 .stat-icon.modified {
   background: linear-gradient(135deg, #f59e0b, #d97706);
 }
-.stat-icon.moved {
-  background: linear-gradient(135deg, #9c88ff, #7c3aed);
-}
 .stat-icon:hover {
   transform: translateY(-1px);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
@@ -721,10 +718,6 @@ body {
 .line-number-item.modified {
   background: rgba(245, 158, 11, 0.1);
   color: #f59e0b;
-}
-.line-number-item.moved-from, .line-number-item.moved-to {
-  background: rgba(156, 136, 255, 0.1);
-  color: #9c88ff;
 }
 
 .code-area {
@@ -1451,46 +1444,6 @@ body {
   border-left: 3px solid #f59e0b;
   border-radius: 3px 0 0 3px;
   padding-left: 7px;
-}
-.diff-line.moved-from {
-  background: linear-gradient(90deg, rgba(156, 136, 255, 0.2) 0%, rgba(156, 136, 255, 0.1) 100%);
-  border-left: 3px solid #9c88ff;
-  border-radius: 3px 0 0 3px;
-  padding-left: 7px;
-  position: relative;
-}
-.diff-line.moved-from::after {
-  content: "";
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-left: 6px solid #9c88ff;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  opacity: 0.7;
-}
-.diff-line.moved-to {
-  background: linear-gradient(90deg, rgba(156, 136, 255, 0.2) 0%, rgba(156, 136, 255, 0.1) 100%);
-  border-left: 3px solid #9c88ff;
-  border-radius: 3px 0 0 3px;
-  padding-left: 7px;
-  position: relative;
-}
-.diff-line.moved-to::after {
-  content: "";
-  position: absolute;
-  right: 10px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 0;
-  height: 0;
-  border-right: 6px solid #9c88ff;
-  border-top: 4px solid transparent;
-  border-bottom: 4px solid transparent;
-  opacity: 0.7;
 }
 .diff-line.empty {
   background: rgba(204, 204, 204, 0.03);

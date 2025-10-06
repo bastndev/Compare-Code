@@ -3,10 +3,10 @@
 // ==========================================
 
 // Basic types for comparison operations
-export type LineType = 'identical' | 'added' | 'removed' | 'modified' | 'empty' | 'moved-from' | 'moved-to';
+export type LineType = 'identical' | 'added' | 'removed' | 'modified' | 'empty';
 export type TokenType = 'word' | 'whitespace' | 'punctuation' | 'operator' | 'number';
 export type DiffOperationType = 'unchanged' | 'added' | 'removed' | 'modified';
-export type LineOperationType = 'identical' | 'added' | 'removed' | 'modified' | 'moved';
+export type LineOperationType = 'identical' | 'added' | 'removed' | 'modified';
 
 // Token-related interfaces
 export interface Token {
@@ -28,23 +28,18 @@ export interface ComparisonLine {
   type: LineType;
   htmlContent?: string;
   originalLineNumber?: number;
-  movedFromLine?: number;
-  movedToLine?: number;
-  moveId?: string;
 }
 
 export interface ComparisonStats {
   added: number;
   removed: number;
   modified: number;
-  moved: number;
 }
 
 export interface LineOperation {
   type: LineOperationType;
   line1?: string;
   line2?: string;
-  moveId?: string;
   originalIndex1?: number;
   originalIndex2?: number;
 }

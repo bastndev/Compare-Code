@@ -43,7 +43,6 @@ export class ComparisonEngine {
       added: 0,
       removed: 0,
       modified: 0,
-      moved: 0,
     };
 
     let identicalCount = 0;
@@ -97,43 +96,6 @@ export class ComparisonEngine {
           lineNumber2++;
           break;
 
-        case 'moved':
-          const isFromSide = operation.originalIndex1 !== undefined;
-
-          if (isFromSide) {
-            // Line moved from this position
-            result1.push({
-              content: operation.line1!,
-              type: 'moved-from',
-              originalLineNumber: lineNumber1,
-              moveId: operation.moveId,
-              movedToLine: operation.originalIndex2,
-            });
-            result2.push({
-              content: '',
-              type: 'empty',
-              originalLineNumber: lineNumber2,
-            });
-            lineNumber1++;
-          } else {
-            // Line moved to this position
-            result1.push({
-              content: '',
-              type: 'empty',
-              originalLineNumber: lineNumber1,
-            });
-            result2.push({
-              content: operation.line2!,
-              type: 'moved-to',
-              originalLineNumber: lineNumber2,
-              moveId: operation.moveId,
-              movedFromLine: operation.originalIndex1,
-            });
-            lineNumber2++;
-          }
-          stats.moved++;
-          break;
-
         case 'removed':
           result1.push({
             content: operation.line1!,
@@ -168,21 +130,19 @@ export class ComparisonEngine {
 
     const totalLines = Math.max(result1.length, result2.length);
 
-    // Calculate similarity with movement-aware scoring
+    // Calculate similarity
     let similarity: number;
     if (totalLines === 0) {
       similarity = 100;
     } else if (
       stats.added === 0 &&
       stats.removed === 0 &&
-      stats.modified === 0 &&
-      stats.moved === 0
+      stats.modified === 0
     ) {
       similarity = 100;
     } else {
-      // Moved lines count less than actual changes since content is preserved
       const effectiveChanges =
-        stats.added + stats.removed + stats.modified + stats.moved * 0.3;
+        stats.added + stats.removed + stats.modified;
       similarity = Math.round(
         Math.max(0, ((totalLines - effectiveChanges) / totalLines) * 100)
       );
@@ -392,8 +352,7 @@ export class ComparisonEngine {
     return (
       stats.added > 0 ||
       stats.removed > 0 ||
-      stats.modified > 0 ||
-      stats.moved > 0
+      stats.modified > 0
     );
   }
 
