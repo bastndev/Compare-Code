@@ -416,7 +416,7 @@ body {
 }
 
 .options-panel-left {
-  text-align: left;
+  text-align: right;
 }
 .options-panel-left button {
   margin-right: 8px;
