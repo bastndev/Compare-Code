@@ -22,8 +22,7 @@
     "changeLanguage": "Change language",
     "sponsor": "Sponsor",
     "compareShortcut": "Ctrl + Enter",
-    "copy": "Copy",
-    "needBothInputs": "Both code areas must have content to compare"
+    "copy": "Copy"
   },
   "placeholders": {
     "codeLeft": "// Example: Paste your original code here...",
@@ -36,9 +35,5 @@
     "codeSaved": "Code from {0} panel saved to Downloads!",
     "saveFailed": "Failed to save code: {0}",
     "editorNotInitialized": "Editor manager not initialized"
-  },
-  "errors": {
-    "needBothInputs": "Both code areas must have content to compare",
-    "comparisonFailed": "An error occurred during comparison. Please try again."
   }
 }

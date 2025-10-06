@@ -48,8 +48,7 @@ export function compare(): void {
 
     // Validate that both inputs have content
     if (!text1.trim() || !text2.trim()) {
-      const message = (window as any).i18n?.t('errors.needBothInputs') || 'Both code areas must have content to compare';
-      alert(message);
+      alert('Both code areas must have content to compare');
       return;
     }
 
@@ -89,15 +88,13 @@ export function compare(): void {
       } catch (error) {
         console.error('Comparison failed:', error);
         setPlayBtnToCompare(); // Reset button state on error
-        const errorMessage = (window as any).i18n?.t('errors.comparisonFailed') || 'An error occurred during comparison. Please try again.';
-        alert(errorMessage);
+        alert('An error occurred during comparison. Please try again.');
       }
     }, 100);
   } catch (error) {
     console.error('Comparison failed:', error);
     setPlayBtnToCompare(); // Reset button state on error
-    const errorMessage = (window as any).i18n?.t('errors.comparisonFailed') || 'An error occurred during comparison. Please try again.';
-    alert(errorMessage);
+    alert('An error occurred during comparison. Please try again.');
   }
 }
 

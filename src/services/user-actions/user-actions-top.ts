@@ -61,7 +61,7 @@ function disableCompareButton(): void {
   if (playBtn) {
     playBtn.disabled = true;
     playBtn.classList.add('disabled');
-    playBtn.title = (window as any).i18n?.t('tooltips.needBothInputs') || 'Both code areas must have content to compare';
+    playBtn.title = 'Both code areas must have content to compare';
   }
 }
 
