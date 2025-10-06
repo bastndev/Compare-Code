@@ -5,7 +5,6 @@ import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './display/user-view-info';
 import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
-import { initializeConfetti, triggerPerfectMatchConfetti } from './display/animations';
 import { 
   showPerfectMatchEffect, 
   hidePerfectMatchEffect,
@@ -74,11 +73,6 @@ export function compare(): void {
     if (isPerfectMatch) {
       // Show perfect match effect overlay
       showPerfectMatchEffect();
-      
-      // Trigger confetti (timed with effect animation)
-      setTimeout(() => {
-        triggerPerfectMatchConfetti();
-      }, MATCH_EFFECT_CONFIG.CONFETTI_DELAY);
       
       // Hide effect after animation completes
       setTimeout(() => {
@@ -187,7 +181,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSwitchMode();
     initializeLanguageMenu();
     initializeCompareCode();
-    initializeConfetti();
 
     // Global functions
     (window as any).toggle = toggle;

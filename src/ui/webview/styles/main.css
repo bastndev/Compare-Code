@@ -166,9 +166,6 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  .confetti {
-    display: none !important;
-  }
 }
 /* ======================================
    TOOLBAR - VS Code Extension | MARK: TOOLBAR
@@ -346,13 +343,6 @@ body {
 }
 .btn-play.stop {
   background-color: red;
-}
-
-.confetti {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  will-change: transform, opacity;
 }
 
 .buttons-container {

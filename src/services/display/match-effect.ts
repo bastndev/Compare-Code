@@ -6,8 +6,6 @@
  * Animation timing configuration (must match SCSS animation durations)
  */
 export const MATCH_EFFECT_CONFIG = {
-  /** Delay before triggering confetti (ms) */
-  CONFETTI_DELAY: 600,
   /** Total duration before hiding effect (ms) */
   HIDE_DELAY: 3000,
   /** Animation duration in SCSS (for reference) */

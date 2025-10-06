@@ -206,14 +206,6 @@
   }
 }
 
-// ---- --- -- - Confetti  Animation
-.confetti {
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  will-change: transform, opacity;
-}
-
 // ======================================
 // Secondary Button Controls | MARK: clear - panels
 // ======================================
