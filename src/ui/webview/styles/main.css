@@ -339,7 +339,7 @@ body {
   transition: opacity 0.3s ease;
 }
 .btn-play span {
-  color: var(--vscode-button-foreground);
+  color: red;
   font-weight: bold;
   padding-left: 6px;
   font-size: 15px;
@@ -366,10 +366,12 @@ body {
   pointer-events: none;
   box-shadow: none;
 }
-.btn-play:disabled img,
-.btn-play:disabled span, .btn-play.disabled img,
-.btn-play.disabled span {
+.btn-play:disabled img, .btn-play.disabled img {
   opacity: 0.6;
+}
+.btn-play:disabled span, .btn-play.disabled span {
+  color: #e9e9e9;
+  opacity: 0.8;
 }
 .btn-play:disabled::before, .btn-play.disabled::before {
   content: "";
