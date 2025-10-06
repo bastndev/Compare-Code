@@ -246,9 +246,4 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-  
-  // Disable confetti for users who prefer reduced motion
-  .confetti {
-    display: none !important;
-  }
 }
