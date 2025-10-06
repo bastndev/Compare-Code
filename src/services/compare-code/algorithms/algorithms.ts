@@ -11,8 +11,6 @@ import {
   ComparisonStats,
   LineOperation,
   ComparisonResult,
-  MovedLine,
-  MoveCandidate,
 } from '../../../utils/types';
 import { AlgorithmSelector } from './algorithm-selector';
 
@@ -31,11 +29,7 @@ export class ComparisonEngine {
   public static compare(text1: string, text2: string): ComparisonResult {
     const lines1 = text1.split('\n');
     const lines2 = text2.split('\n');
-    let alignment = AlgorithmSelector.computeOptimalAlignment(lines1, lines2);
-
-    // Detect and apply movement detection
-    const movedLines = this.detectMovedLines(lines1, lines2, alignment);
-    alignment = this.applyMoveDetection(alignment, movedLines);
+    const alignment = AlgorithmSelector.computeOptimalAlignment(lines1, lines2);
 
     const result1: ComparisonLine[] = [];
     const result2: ComparisonLine[] = [];
@@ -148,7 +142,7 @@ export class ComparisonEngine {
       );
     }
 
-    return { lines1: result1, lines2: result2, stats, similarity, movedLines };
+    return { lines1: result1, lines2: result2, stats, similarity };
   }
 
   // ======================================
@@ -354,122 +348,6 @@ export class ComparisonEngine {
       stats.removed > 0 ||
       stats.modified > 0
     );
-  }
-
-  // ======================================
-  // MOVEMENT DETECTION | MARK: MOVEMENT
-  // ======================================
-
-  /**
-   * Detect lines that were moved rather than added/removed
-   */
-  private static detectMovedLines(
-    lines1: string[],
-    lines2: string[],
-    operations: LineOperation[]
-  ): MovedLine[] {
-    const movedLines: MovedLine[] = [];
-    const removedLines: { content: string; index: number }[] = [];
-    const addedLines: { content: string; index: number }[] = [];
-
-    // Collect removed and added lines
-    operations.forEach((op, index) => {
-      if (op.type === 'removed' && op.line1) {
-        removedLines.push({ content: op.line1, index });
-      } else if (op.type === 'added' && op.line2) {
-        addedLines.push({ content: op.line2, index });
-      }
-    });
-
-    // Find potential moves by matching content with 80% similarity threshold
-    const usedRemoved = new Set<number>();
-    const usedAdded = new Set<number>();
-
-    removedLines.forEach((removed) => {
-      if (usedRemoved.has(removed.index)) {
-        return;
-      }
-
-      const bestMatch = this.findBestMoveMatch(
-        removed.content,
-        addedLines,
-        usedAdded
-      );
-
-      if (bestMatch && bestMatch.similarity >= 0.8) {
-        const moveId = `move_${movedLines.length}`;
-
-        movedLines.push({
-          content: removed.content,
-          fromIndex: removed.index,
-          toIndex: bestMatch.index,
-          moveId,
-          similarity: bestMatch.similarity,
-        });
-
-        usedRemoved.add(removed.index);
-        usedAdded.add(bestMatch.index);
-      }
-    });
-
-    return movedLines;
-  }
-
-  /**
-   * Find the best matching line for a potential move
-   */
-  private static findBestMoveMatch(
-    content: string,
-    candidates: { content: string; index: number }[],
-    usedIndices: Set<number>
-  ): { index: number; similarity: number } | null {
-    let bestMatch: { index: number; similarity: number } | null = null;
-
-    candidates.forEach((candidate) => {
-      if (usedIndices.has(candidate.index)) {
-        return;
-      }
-
-      const similarity = this.calculateLineSimilarity(
-        content,
-        candidate.content
-      );
-
-      if (!bestMatch || similarity > bestMatch.similarity) {
-        bestMatch = { index: candidate.index, similarity };
-      }
-    });
-
-    return bestMatch;
-  }
-
-  /**
-   * Apply move detection to line operations
-   */
-  private static applyMoveDetection(
-    operations: LineOperation[],
-    movedLines: MovedLine[]
-  ): LineOperation[] {
-    const moveMap = new Map<number, MovedLine>();
-
-    movedLines.forEach((move) => {
-      moveMap.set(move.fromIndex, move);
-      moveMap.set(move.toIndex, move);
-    });
-
-    return operations.map((op, index) => {
-      const move = moveMap.get(index);
-      if (move) {
-        return {
-          ...op,
-          type: 'moved' as LineOperationType,
-          moveId: move.moveId,
-          originalIndex1: move.fromIndex,
-          originalIndex2: move.toIndex,
-        };
-      }
-      return op;
-    });
   }
 
   // ======================================

@@ -44,26 +44,9 @@ export interface LineOperation {
   originalIndex2?: number;
 }
 
-// Movement detection interfaces
-export interface MovedLine {
-  content: string;
-  fromIndex: number;
-  toIndex: number;
-  moveId: string;
-  similarity: number;
-}
-
-export interface MoveCandidate {
-  line1Index: number;
-  line2Index: number;
-  content: string;
-  similarity: number;
-}
-
 export interface ComparisonResult {
   lines1: ComparisonLine[];
   lines2: ComparisonLine[];
   stats: ComparisonStats;
   similarity: number;
-  movedLines: MovedLine[];
 }
