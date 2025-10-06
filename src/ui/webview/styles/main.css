@@ -339,7 +339,7 @@ body {
   transition: opacity 0.3s ease;
 }
 .btn-play span {
-  color: red;
+  color: white;
   font-weight: bold;
   padding-left: 6px;
   font-size: 15px;
@@ -354,10 +354,12 @@ body {
   transform: scale(0.95) translateY(0);
 }
 .btn-play.stop {
-  background-color: var(--vscode-errorForeground, #f14c4c);
+  background-color: red;
 }
-.btn-play.stop:hover {
-  background-color: var(--vscode-errorForeground, #d73a49);
+.btn-play.stop:hover:not(:disabled):not(.disabled) {
+  background-color: #cc0000 !important;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 .btn-play:disabled, .btn-play.disabled {
   background-color: var(--vscode-button-background);

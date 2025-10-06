@@ -209,10 +209,12 @@
   }
 
   &.stop {
-    background-color: var(--vscode-errorForeground, #f14c4c);
+    background-color: red;
 
-    &:hover {
-      background-color: var(--vscode-errorForeground, #d73a49);
+    &:hover:not(:disabled):not(.disabled) {
+      background-color: #b60000 !important;
+      transform: translateY(-1px);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     }
   }
 
