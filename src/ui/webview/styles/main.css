@@ -339,7 +339,7 @@ body {
   transition: opacity 0.3s ease;
 }
 .btn-play span {
-  color: white;
+  color: var(--vscode-foreground);
   font-weight: bold;
   padding-left: 6px;
   font-size: 15px;
@@ -357,7 +357,7 @@ body {
   background-color: red;
 }
 .btn-play.stop:hover:not(:disabled):not(.disabled) {
-  background-color: #cc0000 !important;
+  background-color: #b60000 !important;
   transform: translateY(-1px);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
@@ -385,36 +385,7 @@ body {
   background: rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
-.btn-play.loading {
-  pointer-events: none;
-}
-.btn-play.loading::after {
-  content: "";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 16px;
-  height: 16px;
-  margin: -8px 0 0 -8px;
-  border: 2px solid transparent;
-  border-top: 2px solid currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  z-index: 2;
-}
-.btn-play.loading img,
-.btn-play.loading span {
-  opacity: 0.3;
-}
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
 .buttons-container {
   display: flex;
   align-items: center;

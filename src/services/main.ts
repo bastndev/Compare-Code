@@ -3,7 +3,7 @@ import { ComparisonEngine } from './compare-code/algorithms';
 import { ComparisonResult } from '../utils/types';
 import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './display/user-view-info';
-import {setPlayBtnToEdit,setPlayBtnToCompare,setPlayBtnLoading,} from './user-actions/user-actions-top';
+import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
 import { 
   showPerfectMatchEffect, 
@@ -52,45 +52,33 @@ export function compare(): void {
       return;
     }
 
-    // Set loading state
-    setPlayBtnLoading();
+    const comparison: ComparisonResult = ComparisonEngine.compare(text1, text2);
 
-    // Use setTimeout to allow UI to update before heavy computation
-    setTimeout(() => {
-      try {
-        const comparison: ComparisonResult = ComparisonEngine.compare(text1, text2);
+    editorManager.setCompareMode(comparison.lines1, comparison.lines2);
 
-        editorManager.setCompareMode(comparison.lines1, comparison.lines2);
+    isComparing = true;
+    setPlayBtnToEdit();
+    UserInformationManager.updateStatsDisplay(comparison.stats);
+    UserInformationManager.updateNormalStats(
+      comparison.stats,
+      comparison.similarity
+    );
 
-        isComparing = true;
-        setPlayBtnToEdit();
-        UserInformationManager.updateStatsDisplay(comparison.stats);
-        UserInformationManager.updateNormalStats(
-          comparison.stats,
-          comparison.similarity
-        );
-
-        // Check for perfect match (100% similarity AND no differences)
-        const isPerfectMatch = comparison.similarity === 100 && 
-                              comparison.stats.added === 0 && 
-                              comparison.stats.removed === 0 && 
-                              comparison.stats.modified === 0;
-        
-        if (isPerfectMatch) {
-          // Show perfect match effect overlay
-          showPerfectMatchEffect();
-          
-          // Hide effect after animation completes
-          setTimeout(() => {
-            hidePerfectMatchEffect();
-          }, MATCH_EFFECT_CONFIG.HIDE_DELAY);
-        }
-      } catch (error) {
-        console.error('Comparison failed:', error);
-        setPlayBtnToCompare(); // Reset button state on error
-        alert('An error occurred during comparison. Please try again.');
-      }
-    }, 100);
+    // Check for perfect match (100% similarity AND no differences)
+    const isPerfectMatch = comparison.similarity === 100 && 
+                          comparison.stats.added === 0 && 
+                          comparison.stats.removed === 0 && 
+                          comparison.stats.modified === 0;
+    
+    if (isPerfectMatch) {
+      // Show perfect match effect overlay
+      showPerfectMatchEffect();
+      
+      // Hide effect after animation completes
+      setTimeout(() => {
+        hidePerfectMatchEffect();
+      }, MATCH_EFFECT_CONFIG.HIDE_DELAY);
+    }
   } catch (error) {
     console.error('Comparison failed:', error);
     setPlayBtnToCompare(); // Reset button state on error

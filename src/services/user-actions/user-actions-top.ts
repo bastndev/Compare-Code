@@ -25,15 +25,15 @@ function checkButtonState(): void {
   const editor1 = document.getElementById('codeInput1') as HTMLTextAreaElement;
   const editor2 = document.getElementById('codeInput2') as HTMLTextAreaElement;
   const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
-  
+
   if (!editor1 || !editor2 || !playBtn) {
     return;
   }
-  
+
   const hasContent1 = editor1.value.trim().length > 0;
   const hasContent2 = editor2.value.trim().length > 0;
   const shouldEnable = hasContent1 && hasContent2;
-  
+
   if (shouldEnable && !isComparing) {
     enableCompareButton();
   } else if (!shouldEnable && !isComparing) {
@@ -65,24 +65,6 @@ function disableCompareButton(): void {
   }
 }
 
-/**
- * Set button to loading state
- */
-function setButtonLoading(loading: boolean): void {
-  const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
-  if (playBtn) {
-    if (loading) {
-      playBtn.classList.add('loading');
-      playBtn.disabled = true;
-    } else {
-      playBtn.classList.remove('loading');
-      if (!playBtn.classList.contains('disabled')) {
-        playBtn.disabled = false;
-      }
-    }
-  }
-}
-
 function initializeClearButton(): void {
   const clearBtn = document.querySelector('.clear') as HTMLElement;
   if (clearBtn) {
@@ -106,10 +88,10 @@ function initializeClearButton(): void {
 function initializeContentMonitoring(): void {
   const editor1 = document.getElementById('codeInput1') as HTMLTextAreaElement;
   const editor2 = document.getElementById('codeInput2') as HTMLTextAreaElement;
-  
+
   if (editor1 && editor2) {
     // Add event listeners for content changes
-    [editor1, editor2].forEach(editor => {
+    [editor1, editor2].forEach((editor) => {
       editor.addEventListener('input', checkButtonState);
       editor.addEventListener('paste', () => {
         // Check state after paste event is processed
@@ -117,7 +99,7 @@ function initializeContentMonitoring(): void {
       });
       editor.addEventListener('keyup', checkButtonState);
     });
-    
+
     // Initial check
     checkButtonState();
   }
@@ -149,18 +131,17 @@ export function setPlayBtnToEdit(): void {
   const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
   if (playBtn) {
     isComparing = true;
-    setButtonLoading(false);
-    
+
     const img = playBtn.querySelector('img') as HTMLImageElement;
     const span = playBtn.querySelector('span') as HTMLSpanElement;
-    
+
     if (img && iconUris) {
       img.src = iconUris.stop;
     }
     if (span) {
       span.textContent = (window as any).i18n?.t('buttons.stop') || 'Stop';
     }
-    
+
     playBtn.classList.add('stop');
     playBtn.classList.remove('disabled');
     playBtn.disabled = false;
@@ -172,30 +153,23 @@ export function setPlayBtnToCompare(): void {
   const playBtn = document.getElementById('playBtn') as HTMLButtonElement;
   if (playBtn) {
     isComparing = false;
-    setButtonLoading(false);
-    
+
     const img = playBtn.querySelector('img') as HTMLImageElement;
     const span = playBtn.querySelector('span') as HTMLSpanElement;
-    
+
     if (img && iconUris) {
       img.src = iconUris.play;
     }
     if (span) {
-      span.textContent = (window as any).i18n?.t('buttons.compare') || 'Compare';
+      span.textContent =
+        (window as any).i18n?.t('buttons.compare') || 'Compare';
     }
-    
+
     playBtn.classList.remove('stop');
-    
+
     // Check if button should be enabled based on content
     setTimeout(checkButtonState, 50);
   }
-}
-
-/**
- * Set button to loading state during comparison
- */
-export function setPlayBtnLoading(): void {
-  setButtonLoading(true);
 }
 
 // ======================================
@@ -324,6 +298,6 @@ export function initializeUserActions(): void {
 }
 
 // Export functions for external use
-export { checkButtonState, setButtonLoading };
+export { checkButtonState };
 
 export {};
