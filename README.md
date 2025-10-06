@@ -2,7 +2,7 @@
   <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/screenshot.jpg" width="100%" alt="Compare Code Screenshot">
 </div>
 
-</br>
+<br>
 
 <p align="center">
   <img src="https://vsmarketplacebadges.dev/version-short/bastndev.compare-code.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=VERSION" alt="Version">&nbsp;
@@ -11,10 +11,10 @@
   <a href="https://github.com/bastndev/Compare-Code"><img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/star.png" width="26.6px" alt="Github Star ⭐️"></a>
 </p>
 
-</br>
+<br>
 
 <details>
-<summary align="center">TUTORIAL / 教程 (click )</summary>
+<summary align="center">(𝗖𝗹𝗶𝗰𝗸) 𝗧𝘂𝘁𝗼𝗿𝗶𝗮𝗹 / 教程</summary>
 
 <div align="start">
   <h3>🚀 Step 1: Activate Compare Code</h3>
@@ -23,7 +23,7 @@
   <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t1.png" width="100%" alt="Step 1: Multiple ways to activate Compare Code">
 </div>
 
-<br/>
+<br>
 
 <div align="start">
   <h3>🎨 Step 2: Interface Overview</h3>
@@ -38,7 +38,7 @@
   <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t2.png" width="100%" alt="Step 2: Dual-panel interface with comparison tools">
 </div>
 
-<br/>
+<br>
 
 <div align="start">
   <h3>📝 Step 3: Show Changes Only</h3>
@@ -46,7 +46,7 @@
   <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t3.png" width="100%" alt="Step 3: Show Changes Only">
 </div>
 
-<br/>
+<br>
 
 <div align="start">
   <h3>⚡ Step 4: Normal/Pro Mode</h3>
@@ -54,7 +54,7 @@
   <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t4.png" width="100%" alt="Step 4: Normal/Pro Mode">
 </div>
 
-<br/>
+<br>
 
 <div align="start">
   <h3>💾 Step 5: Dual Scroll</h3>
@@ -62,7 +62,7 @@
   <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t5.png" width="100%" alt="Step 5: Dual Scroll">
 </div>
 
-<br/>
+<br>
 
 <div align="start">
   <h3>🌍 Multi-language Support</h3>
@@ -72,23 +72,23 @@
 
 </details>
 
-## ⌨️ Keyboard Shortcuts
+### Shortcuts available
 
-| Action                 | Windows/Linux             | macOS                   |
-| :--------------------- | :------------------------ | :---------------------- |
-| **Open/Close Compare** | `Shift + Alt + \`         | `Shift + ⌥ + \`         |
-| **Execute Comparison** | `Ctrl + Enter`            | `⌘ + Enter`             |
-| **Clear All Code**     | `Shift + Alt + Backspace` | `Shift + ⌥ + Backspace` |
+| Command                | 🍎 macOS                | 🟦 Windows                | 🐧 Linux                  |
+| :--------------------- | :---------------------- | :------------------------ | :------------------------ |
+| **Open/Close Compare** | `Shift + ⌥ + \`         | `Shift + Alt + \`         | `Shift + Alt + \`         |
+| **Execute Comparison** | `⌘ + Enter`             | `Ctrl + Enter`            | `Ctrl + Enter`            |
+| **Clear All Code**     | `Shift + ⌥ + Backspace` | `Shift + Alt + Backspace` | `Shift + Alt + Backspace` |
 
-<br/>
+<br>
 
 ## Installation
 
 Launch _Quick Open_
 
-- <img src="https://raw.githubusercontent.com/bastndev/bastndev/refs/heads/main/.github/assets/OS/linux.png" width=16 height=16/> Linux `Ctrl+P`
-- <img src="https://raw.githubusercontent.com/bastndev/bastndev/refs/heads/main/.github/assets/OS/macOs.ico" width=16 height=16/> macOS `⌘P`
-- <img src="https://raw.githubusercontent.com/bastndev/bastndev/refs/heads/main/.github/assets/OS/windows.ico" width=16 height=16/> Windows `Ctrl+P`
+- <img src="https://raw.githubusercontent.com/bastndev/bastndev/refs/heads/main/.github/assets/OS/linux.png" width="16" height="16"/> Linux `Ctrl+P`
+- <img src="https://raw.githubusercontent.com/bastndev/bastndev/refs/heads/main/.github/assets/OS/macOs.ico" width="16" height="16"/> macOS `⌘P`
+- <img src="https://raw.githubusercontent.com/bastndev/bastndev/refs/heads/main/.github/assets/OS/windows.ico" width="16" height="16"/> Windows `Ctrl+P`
 
 Paste the following command and press `Enter`:
 
@@ -111,7 +111,7 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
 - 🔴 [Youtube](https://www.youtube.com/@bastndev?sub_confirmation=1) - Code, Software and development insights.
 - 💼 [Linkedin](https://www.linkedin.com/in/bastndev) - Professional networking and career updates.
 
-</br>
+<br>
 
 ## Sponsors <a href="https://github.com/sponsors/bastndev"><img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/></a>
 
@@ -121,26 +121,13 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
       <td align="center">
         <a href="https://github.com/sponsors/bastndev">
           <img src="https://avatars.githubusercontent.com/u/94884563?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 1"/>
+          <p>Lams</p>
         </a>
       </td>
       <td align="center">
         <a href="https://github.com/sponsors/bastndev">
           <img src="https://avatars.githubusercontent.com/u/54255862?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 2"/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/sponsors/bastndev">
-          <img src="https://avatars.githubusercontent.com/u/1561955?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 3"/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/sponsors/bastndev">
-          <img src="https://avatars.githubusercontent.com/u/207925904?s=200&v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 4"/>
-        </a>
-      </td>
-      <td align="center">
-        <a href="https://github.com/sponsors/bastndev">
-          <img src="https://avatars.githubusercontent.com/u/200909301?s=200&v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 5"/>
+          <p>M</p>
         </a>
       </td>
     </tr>
@@ -152,17 +139,19 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
   <a href="https://github.com/sponsors/bastndev">Become a sponsor</a>
 </p>
 
+<br>
+
 | Icon                                                                                                                                                                                                                                   | Name                                                           | Description                                                                                                                                                                                   |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![Lynx Keymap Pro](https://raw.githubusercontent.com/bastndev/Lynx-Keymap-Pro/refs/heads/main/assets/images/logo.png)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynx-keymap)                                      | [Lynx Keymap Pro](https://github.com/bastndev/Lynx-Keymap-Pro) | Standardizes keyboard shortcuts across all code editors, allowing you to use key combinations to access any functionality. It improves workflow and development experience.                   |
 | [![Lynx Theme Pro](https://bastndev.gallerycdn.vsassets.io/extensions/bastndev/lynx-theme/0.1.2/1744898058774/Microsoft.VisualStudio.Services.Icons.Default)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynx-theme) | [Lynx Theme Pro](https://github.com/bastndev/Lynx-Theme)       | A professional extension with six available themes: Dark, Light, Night, Ghibli, Coffee, and Kiro—with integrated icons. Each theme is optimized to offer a more pleasant visual experience.   |
 | [![LynxJS Pack](https://bastndev.gallerycdn.vsassets.io/extensions/bastndev/lynxjs-pack/0.1.8/1745206864969/Microsoft.VisualStudio.Services.Icons.Default)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynxjs-pack)  | [LynxJS Pack](https://github.com/bastndev/LynxJs-Packge)       | An all-in-one toolkit for web and mobile development with LynxJS: includes keyboard shortcuts, error alerts, text correction, snippets, and more. Tools designed to streamline your workflow. |
 
----
+<br>
 
 <div align="center">
-  <p><strong>Made with ❤️ by <a href="https://github.com/bastndev">Gohit Bastian</a></strong></p>
+    <p><strong>Made with 🧡 by <a href="https://bastndev.com/extensions">@bastndev</a></strong></p>
   
-  **Enjoy 🎉 Compare Code is now installed!**  
+  **Enjoy 🎉 (Compare Code) is now installed!**  
   *If you find any bugs or have feedback, please [open an issue](https://github.com/bastndev/Compare-Code/issues)*
 </div>

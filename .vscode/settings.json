@@ -13,6 +13,7 @@
     "cSpell.words": [
         "**/main.css.map",
         "bbtn",
+        "𝗖𝗹𝗶𝗰𝗸",
         "EAGI",
         "Español",
         "Ghibli",
@@ -22,7 +23,8 @@
         "Kiro",
         "Português",
         "scrollbars",
-        "Trae"
+        "Trae",
+        "𝗧𝘂𝘁𝗼𝗿𝗶𝗮𝗹"
     ],
     // Auto-run watch task when workspace opens
     "task.autoDetect": "on",
