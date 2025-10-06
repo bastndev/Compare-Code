@@ -18,7 +18,20 @@ Discover more extensions at [bastndev.com/extensions](https://bastndev.com/exten
 Following VS Code best practices, Compare Code uses semantic versioning for all releases.
 
 <!-- --- -->
-## [0.1.0] - 2025-01-03
+## [0.2.0] - 2025-10-06
+
+### ✨ Changes
+
+- Enhanced comparison algorithm with improved Myers diff technique for better accuracy in code differences
+- Integrated VS Code APIs for optimized number review and line highlighting
+- Upgraded UI with new animations when files are identical, providing visual feedback
+- Improved Compare button with better responsiveness and accessibility
+- Updated README.md with detailed usage instructions and algorithm explanations
+- Refined logic in compare-code services for seamless integration across supported editors
+
+---
+
+## [0.1.0] - 2025-10-03
 
 ### ✨ Changes
 
