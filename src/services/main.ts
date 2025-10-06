@@ -3,7 +3,7 @@ import { ComparisonEngine } from './compare-code/algorithms';
 import { ComparisonResult } from '../utils/types';
 import { EditorManager } from './compare-code/ui-comparator';
 import { UserInformationManager } from './display/user-view-info';
-import {setPlayBtnToEdit,setPlayBtnToCompare,} from './user-actions/user-actions-top';
+import {setPlayBtnToEdit,setPlayBtnToCompare,setPlayBtnLoading,} from './user-actions/user-actions-top';
 import {initializeDualScroll,initializeOnlyCode,resetOnlyModified,initializeSwitchMode,toggleSwitchMode,initializeLanguageMenu,} from './user-actions/user-actions-bot';
 import { 
   showPerfectMatchEffect, 
@@ -46,41 +46,58 @@ export function compare(): void {
     const text1 = editorManager.getContent('1');
     const text2 = editorManager.getContent('2');
 
-    if (!text1.trim() && !text2.trim()) {
-      alert('Please enter code in at least one field');
+    // Validate that both inputs have content
+    if (!text1.trim() || !text2.trim()) {
+      const message = (window as any).i18n?.t('errors.needBothInputs') || 'Both code areas must have content to compare';
+      alert(message);
       return;
     }
 
-    const comparison: ComparisonResult = ComparisonEngine.compare(text1, text2);
+    // Set loading state
+    setPlayBtnLoading();
 
-    editorManager.setCompareMode(comparison.lines1, comparison.lines2);
+    // Use setTimeout to allow UI to update before heavy computation
+    setTimeout(() => {
+      try {
+        const comparison: ComparisonResult = ComparisonEngine.compare(text1, text2);
 
-    isComparing = true;
-    setPlayBtnToEdit();
-    UserInformationManager.updateStatsDisplay(comparison.stats);
-    UserInformationManager.updateNormalStats(
-      comparison.stats,
-      comparison.similarity
-    );
+        editorManager.setCompareMode(comparison.lines1, comparison.lines2);
 
-    // Check for perfect match (100% similarity AND no differences)
-    const isPerfectMatch = comparison.similarity === 100 && 
-                          comparison.stats.added === 0 && 
-                          comparison.stats.removed === 0 && 
-                          comparison.stats.modified === 0;
-    
-    if (isPerfectMatch) {
-      // Show perfect match effect overlay
-      showPerfectMatchEffect();
-      
-      // Hide effect after animation completes
-      setTimeout(() => {
-        hidePerfectMatchEffect();
-      }, MATCH_EFFECT_CONFIG.HIDE_DELAY);
-    }
+        isComparing = true;
+        setPlayBtnToEdit();
+        UserInformationManager.updateStatsDisplay(comparison.stats);
+        UserInformationManager.updateNormalStats(
+          comparison.stats,
+          comparison.similarity
+        );
+
+        // Check for perfect match (100% similarity AND no differences)
+        const isPerfectMatch = comparison.similarity === 100 && 
+                              comparison.stats.added === 0 && 
+                              comparison.stats.removed === 0 && 
+                              comparison.stats.modified === 0;
+        
+        if (isPerfectMatch) {
+          // Show perfect match effect overlay
+          showPerfectMatchEffect();
+          
+          // Hide effect after animation completes
+          setTimeout(() => {
+            hidePerfectMatchEffect();
+          }, MATCH_EFFECT_CONFIG.HIDE_DELAY);
+        }
+      } catch (error) {
+        console.error('Comparison failed:', error);
+        setPlayBtnToCompare(); // Reset button state on error
+        const errorMessage = (window as any).i18n?.t('errors.comparisonFailed') || 'An error occurred during comparison. Please try again.';
+        alert(errorMessage);
+      }
+    }, 100);
   } catch (error) {
     console.error('Comparison failed:', error);
-    alert('An error occurred during comparison. Please try again.');
+    setPlayBtnToCompare(); // Reset button state on error
+    const errorMessage = (window as any).i18n?.t('errors.comparisonFailed') || 'An error occurred during comparison. Please try again.';
+    alert(errorMessage);
   }
 }
 

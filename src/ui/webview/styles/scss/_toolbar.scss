@@ -180,26 +180,97 @@
   background-color: $btn-bg;
   padding: 6px 14px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
 
   img {
     width: 18px;
     height: 18px;
+    transition: opacity 0.3s ease;
   }
 
   span {
-    color: white;
+    color: $btn-fg;
     font-weight: bold;
     padding-left: 6px;
     font-size: 15px;
+    transition: opacity 0.3s ease;
   }
 
-  &:hover {
+  &:hover:not(:disabled):not(.disabled) {
     background-color: $btn-hover;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+
+  &:active:not(:disabled):not(.disabled) {
+    transform: scale(0.95) translateY(0);
   }
 
   &.stop {
-    background-color: red;
+    background-color: var(--vscode-errorForeground, #f14c4c);
+    
+    &:hover {
+      background-color: var(--vscode-errorForeground, #d73a49);
+    }
   }
+
+  // Disabled state
+  &:disabled,
+  &.disabled {
+    background-color: var(--vscode-button-background);
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+    box-shadow: none;
+    
+    img,
+    span {
+      opacity: 0.6;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.1);
+      z-index: 1;
+    }
+  }
+
+  // Loading state animation
+  &.loading {
+    pointer-events: none;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 16px;
+      height: 16px;
+      margin: -8px 0 0 -8px;
+      border: 2px solid transparent;
+      border-top: 2px solid currentColor;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      z-index: 2;
+    }
+    
+    img,
+    span {
+      opacity: 0.3;
+    }
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }
 
 // ======================================

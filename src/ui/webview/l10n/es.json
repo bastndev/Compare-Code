@@ -22,7 +22,8 @@
     "changeLanguage": "Cambiar idioma",
     "sponsor": "Patrocinar",
     "compareShortcut": "Ctrl + Enter",
-    "copy": "Copiar"
+    "copy": "Copiar",
+    "needBothInputs": "Ambas áreas de código deben tener contenido para comparar"
   },
   "placeholders": {
     "codeLeft": "// Ejemplo: Pega tu código original aquí...",
@@ -35,5 +36,9 @@
     "codeSaved": "¡Código del panel {0} guardado en Descargas!",
     "saveFailed": "Error al guardar código: {0}",
     "editorNotInitialized": "Editor no inicializado"
+  },
+  "errors": {
+    "needBothInputs": "Ambas áreas de código deben tener contenido para comparar",
+    "comparisonFailed": "Ocurrió un error durante la comparación. Por favor intenta de nuevo."
   }
 }
