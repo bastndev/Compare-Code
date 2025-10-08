@@ -119,16 +119,12 @@ If you want to contribute, check the guidelines: [[>_ᅠ]](https://github.com/ba
   <table>
     <tr>
       <td align="center">
-        <a href="https://github.com/sponsors/bastndev">
-          <img src="https://avatars.githubusercontent.com/u/94884563?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 1"/>
-          <p>Lams</p>
-        </a>
+        <img src="https://avatars.githubusercontent.com/u/94884563?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 1"/>
+        <p>Lams</p>
       </td>
       <td align="center">
-        <a href="https://github.com/sponsors/bastndev">
-          <img src="https://avatars.githubusercontent.com/u/54255862?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 2"/>
-          <p>M</p>
-        </a>
+        <img src="https://avatars.githubusercontent.com/u/54255862?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 2"/>
+        <p>M</p>
       </td>
     </tr>
   </table>
