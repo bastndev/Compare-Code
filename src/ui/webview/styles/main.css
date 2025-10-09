@@ -458,6 +458,7 @@ body {
 
 .options-panel-left {
   text-align: right;
+  display: flex;
 }
 .options-panel-left button {
   margin-right: 8px;
@@ -465,6 +466,7 @@ body {
 
 .options-panel-right {
   text-align: right;
+  display: flex;
 }
 .options-panel-right button {
   margin-left: 8px;

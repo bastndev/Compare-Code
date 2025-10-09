@@ -35,6 +35,7 @@
 // Panel Sections
 .options-panel-left {
   text-align: right;
+  display: flex;
   
   button {
     margin-right: 8px;
@@ -43,6 +44,7 @@
 
 .options-panel-right {
   text-align: right;
+  display: flex;
   
   button {
     margin-left: 8px;
@@ -52,6 +54,11 @@
 .future{
   background-color: transparent
 }
+
+// ======================================
+// File Selector Dropdown | MARK: Dropdown
+// ======================================
+
 
 // ======================================
 // Action Buttons | MARK: buttons
