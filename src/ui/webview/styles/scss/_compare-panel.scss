@@ -36,22 +36,27 @@
 .options-panel-left,
 .options-panel-right {
   width: 100%;
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   align-items: center;
-  justify-content: space-between;
-  padding: 0 10px;
+  padding: 0 15px;
+  gap: 15px;
   
   .container-sd {
-    flex: 1;
+    grid-column: 2;
     display: flex;
     justify-content: center;
     align-items: center;
+    max-width: 280px;
   }
   
   .copy-clear {
+    grid-column: 3;
     display: flex;
     align-items: center;
-    margin-left: auto;
+    justify-content: flex-end;
+    margin-right: 10px;
+    gap: 10px;
   }
 }
 
@@ -61,11 +66,102 @@
 }
 
 // ======================================
-// File Selector Dropdown | MARK: Dropdown
+// File Selector Dropdown | MARK: Search-sd
 // ======================================
-// .search-container {
-//   background-color: rebeccapurple;
-// }
+.container-sd {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  padding: 4px 10px;
+  height: 28px;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  &:focus-within {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-color: #007acc;
+    box-shadow: 0 0 0 1px #007acc;
+  }
+
+  .search-icon {
+    font-size: 13px;
+    opacity: 0.6;
+    user-select: none;
+    transition: opacity 0.2s ease;
+    line-height: 1;
+  }
+
+  .search-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: white;
+    font-size: 12px;
+    min-width: 80px;
+    max-width: 150px;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    &:focus::placeholder {
+      color: rgba(255, 255, 255, 0.3);
+    }
+  }
+
+  .separator {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 13px;
+    user-select: none;
+    margin: 0 1px;
+    line-height: 1;
+  }
+
+  .file-search-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 2px 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 3px;
+    transition: all 0.2s ease;
+    line-height: 1;
+
+    span {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 11px;
+      transition: all 0.2s ease;
+      line-height: 1;
+    }
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      
+      span {
+        color: rgba(255, 255, 255, 0.9);
+      }
+    }
+
+    &:active {
+      background-color: rgba(255, 255, 255, 0.15);
+      transform: scale(0.95);
+    }
+  }
+
+  &:focus-within .search-icon {
+    opacity: 0.9;
+  }
+}
 
 // ======================================
 // Action Buttons | MARK: buttons
@@ -77,10 +173,6 @@
 }
 
 .copy-clear {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  
   button {
     @include button-icon-mixin;
   }
