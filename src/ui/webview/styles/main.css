@@ -447,29 +447,34 @@ body {
 .compare-panel {
   background-color: var(--vscode-input-background);
   color: white;
-  padding: 10px;
-  font-weight: bold;
-  text-align: center;
-  height: 40px;
+  min-height: 38px;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 25px 1fr;
+  align-items: center;
+  justify-items: center;
 }
 
-.options-panel-left {
-  text-align: right;
-  display: flex;
-}
-.options-panel-left button {
-  margin-right: 8px;
-}
-
+.options-panel-left,
 .options-panel-right {
-  text-align: right;
+  width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
 }
-.options-panel-right button {
-  margin-left: 8px;
+.options-panel-left .container-sd,
+.options-panel-right .container-sd {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.options-panel-left .copy-clear,
+.options-panel-right .copy-clear {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
 }
 
 .future {
@@ -497,20 +502,22 @@ body {
 }
 
 .copy-clear {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.copy-clear button {
   background: none;
   cursor: pointer;
   border: none;
 }
-.copy-clear img {
+.copy-clear button img {
   width: 15px;
   opacity: 0.6;
   transition: opacity 0.2s ease;
 }
-.copy-clear img:hover {
+.copy-clear button img:hover {
   opacity: 1;
-}
-.copy-clear {
-  margin: 0 12px;
 }
 
 .clear-code.clearing img {

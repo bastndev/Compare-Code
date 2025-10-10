@@ -23,33 +23,38 @@
 .compare-panel {
   background-color: $input-bg;
   color: white;
-  padding: 10px;
-  font-weight: bold;
-  text-align: center;
-  height: 40px;
+  min-height: 38px;
   width: 100%;
   display: grid;
   grid-template-columns: 1fr 25px 1fr;
+  align-items: center;
+  justify-items: center;
+  // padding: 10px 0; 
 }
-
+// ...existing code...
 // Panel Sections
-.options-panel-left {
-  text-align: right;
+.options-panel-left,
+.options-panel-right {
+  width: 100%;
   display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px;
   
-  button {
-    margin-right: 8px;
+  .container-sd {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .copy-clear {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
   }
 }
 
-.options-panel-right {
-  text-align: right;
-  display: flex;
-  
-  button {
-    margin-left: 8px;
-  }
-}
 // ---- --- -- - Future code HERE
 .future{
   background-color: transparent
@@ -58,7 +63,9 @@
 // ======================================
 // File Selector Dropdown | MARK: Dropdown
 // ======================================
-
+// .search-container {
+//   background-color: rebeccapurple;
+// }
 
 // ======================================
 // Action Buttons | MARK: buttons
@@ -70,10 +77,14 @@
 }
 
 .copy-clear {
-  @include button-icon-mixin;
-  margin: 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  
+  button {
+    @include button-icon-mixin;
+  }
 }
-
 // =========== Button Animations ================
 
 // Clear Animation
