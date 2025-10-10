@@ -446,7 +446,7 @@ body {
   ==================================================== */
 .compare-panel {
   background-color: var(--vscode-input-background);
-  color: white;
+  color: var(--vscode-foreground);
   min-height: 38px;
   width: 100%;
   display: grid;
@@ -490,25 +490,26 @@ body {
   display: flex;
   align-items: center;
   gap: 6px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border);
   border-radius: 5px;
   padding: 4px 10px;
   height: 28px;
   transition: all 0.2s ease;
 }
 .container-sd:hover {
-  background-color: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.2);
+  background-color: var(--vscode-list-hoverBackground);
+  border-color: var(--vscode-widget-border);
 }
 .container-sd:focus-within {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: #007acc;
-  box-shadow: 0 0 0 1px #007acc;
+  background-color: var(--vscode-input-background);
+  border-color: var(--vscode-input-border);
+  box-shadow: none;
 }
 .container-sd .search-icon {
   font-size: 13px;
-  opacity: 0.6;
+  opacity: 0.7;
+  color: var(--vscode-descriptionForeground);
   user-select: none;
   transition: opacity 0.2s ease;
   line-height: 1;
@@ -518,19 +519,21 @@ body {
   background: transparent;
   border: none;
   outline: none;
-  color: white;
+  color: var(--vscode-foreground);
   font-size: 12px;
   min-width: 80px;
   max-width: 150px;
 }
 .container-sd .search-input::placeholder {
-  color: rgba(255, 255, 255, 0.4);
+  color: var(--vscode-descriptionForeground);
+  opacity: 0.6;
 }
 .container-sd .search-input:focus::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  opacity: 0.5;
 }
 .container-sd .separator {
-  color: rgba(255, 255, 255, 0.2);
+  color: var(--vscode-widget-border);
+  opacity: 0.5;
   font-size: 13px;
   user-select: none;
   margin: 0 1px;
@@ -549,23 +552,27 @@ body {
   line-height: 1;
 }
 .container-sd .file-search-btn span {
-  color: rgba(255, 255, 255, 0.6);
+  color: var(--vscode-descriptionForeground);
+  opacity: 0.8;
   font-size: 11px;
   transition: all 0.2s ease;
   line-height: 1;
 }
 .container-sd .file-search-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--vscode-list-hoverBackground);
 }
 .container-sd .file-search-btn:hover span {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--vscode-foreground);
+  opacity: 1;
 }
 .container-sd .file-search-btn:active {
-  background-color: rgba(255, 255, 255, 0.15);
+  background-color: var(--vscode-list-hoverBackground);
+  opacity: 0.8;
   transform: scale(0.95);
 }
 .container-sd:focus-within .search-icon {
-  opacity: 0.9;
+  opacity: 1;
+  color: var(--vscode-foreground);
 }
 
 .copy-code,

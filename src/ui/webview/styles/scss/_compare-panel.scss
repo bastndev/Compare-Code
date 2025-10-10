@@ -22,7 +22,7 @@
 // ============= Main Panel =============
 .compare-panel {
   background-color: $input-bg;
-  color: white;
+  color: $fg;
   min-height: 38px;
   width: 100%;
   display: grid;
@@ -72,27 +72,28 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: $input-bg;
+  border: 1px solid $input-border;
   border-radius: 5px;
   padding: 4px 10px;
   height: 28px;
   transition: all 0.2s ease;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.08);
-    border-color: rgba(255, 255, 255, 0.2);
+    background-color: $list-hover-bg;
+    border-color: $border;
   }
 
   &:focus-within {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: #007acc;
-    box-shadow: 0 0 0 1px #007acc;
+    background-color: $input-bg;
+    border-color: $input-border;
+    box-shadow: none;
   }
 
   .search-icon {
     font-size: 13px;
-    opacity: 0.6;
+    opacity: 0.7;
+    color: $fg-muted;
     user-select: none;
     transition: opacity 0.2s ease;
     line-height: 1;
@@ -103,22 +104,24 @@
     background: transparent;
     border: none;
     outline: none;
-    color: white;
+    color: $fg;
     font-size: 12px;
     min-width: 80px;
     max-width: 150px;
 
     &::placeholder {
-      color: rgba(255, 255, 255, 0.4);
+      color: $fg-muted;
+      opacity: 0.6;
     }
 
     &:focus::placeholder {
-      color: rgba(255, 255, 255, 0.3);
+      opacity: 0.5;
     }
   }
 
   .separator {
-    color: rgba(255, 255, 255, 0.2);
+    color: $border;
+    opacity: 0.5;
     font-size: 13px;
     user-select: none;
     margin: 0 1px;
@@ -133,33 +136,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 3px;
+    border-radius: $border-radius-sm;
     transition: all 0.2s ease;
     line-height: 1;
 
     span {
-      color: rgba(255, 255, 255, 0.6);
+      color: $fg-muted;
+      opacity: 0.8;
       font-size: 11px;
       transition: all 0.2s ease;
       line-height: 1;
     }
 
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: $list-hover-bg;
       
       span {
-        color: rgba(255, 255, 255, 0.9);
+        color: $fg;
+        opacity: 1;
       }
     }
 
     &:active {
-      background-color: rgba(255, 255, 255, 0.15);
+      background-color: $list-hover-bg;
+      opacity: 0.8;
       transform: scale(0.95);
     }
   }
 
   &:focus-within .search-icon {
-    opacity: 0.9;
+    opacity: 1;
+    color: $fg;
   }
 }
 
