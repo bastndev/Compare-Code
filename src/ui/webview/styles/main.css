@@ -465,8 +465,8 @@ body {
   gap: 15px;
   position: relative;
 }
-.options-panel-left .search-container,
-.options-panel-right .search-container {
+.options-panel-left .file-selector-container,
+.options-panel-right .file-selector-container {
   position: relative;
   display: flex;
   flex-direction: column;
