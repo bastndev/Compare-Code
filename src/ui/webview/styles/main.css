@@ -463,21 +463,21 @@ body {
   justify-content: center;
   padding: 0 15px;
   gap: 15px;
+  position: relative;
 }
-.options-panel-left .container-sd,
-.options-panel-right .container-sd {
-  grid-column: 2;
+.options-panel-left .search-container,
+.options-panel-right .search-container {
+  position: relative;
   display: flex;
-  max-width: 280px;
-  margin-left: 7.1rem;
+  flex-direction: column;
+  align-items: center;
 }
 .options-panel-left .copy-clear,
 .options-panel-right .copy-clear {
-  grid-column: 3;
+  position: absolute;
+  right: 15px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin-left: auto;
   gap: 10px;
 }
 
@@ -494,6 +494,7 @@ body {
   border-radius: 5px;
   padding: 4px 10px;
   height: 28px;
+  width: 280px;
   transition: all 0.2s ease;
 }
 .container-sd:hover {
@@ -578,12 +579,19 @@ body {
   display: none;
   background-color: var(--vscode-input-background);
   border: 1px solid var(--vscode-input-border);
-  width: 350px;
+  width: 280px;
   height: 200px;
   border-radius: 5px;
   position: absolute;
-  top: 90px;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
   z-index: 999999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+.search-suggestions.visible {
+  display: block;
+  background-color: blue;
 }
 
 .copy-code,
