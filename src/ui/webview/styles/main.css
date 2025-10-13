@@ -469,9 +469,9 @@ body {
 .options-panel-right .container-sd {
   grid-column: 2;
   display: flex;
-  justify-content: center;
-  align-items: center;
   max-width: 280px;
+  margin-left: 7.1rem;
+  background-color: blue;
 }
 .options-panel-left .copy-clear,
 .options-panel-right .copy-clear {

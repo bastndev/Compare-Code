@@ -47,11 +47,12 @@
   .container-sd {
     grid-column: 2;
     display: flex;
-    justify-content: center;
-    align-items: center;
+    // justify-content: center;
+    // align-items: center;
     max-width: 280px;
     // margin-top: 5px;
-    // margin-left: 2rem;
+    margin-left: 7.1rem;
+    background-color: blue;
   }
   
   .copy-clear {
