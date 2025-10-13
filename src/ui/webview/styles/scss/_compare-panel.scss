@@ -71,11 +71,11 @@
 .container-sd {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   background-color: $input-bg;
   border: 1px solid $input-border;
   border-radius: 5px;
-  padding: 4px 10px;
+  padding: 4px 8px;
   height: 28px;
   width: 280px; // Ancho fijo para consistencia
   transition: all 0.2s ease;
@@ -107,8 +107,8 @@
     outline: none;
     color: $fg;
     font-size: 12px;
-    min-width: 80px;
-    max-width: 150px;
+    min-width: 120px;
+    max-width: 200px;
 
     &::placeholder {
       color: $fg-muted;
@@ -133,13 +133,15 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 2px 4px;
+    padding: 2px 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: $border-radius-sm;
     transition: all 0.2s ease;
     line-height: 1;
+    min-width: 20px;
+    flex-shrink: 0;
 
     span {
       color: $fg-muted;
@@ -175,7 +177,7 @@
 // File Selector Dropdown | MARK: Box SD
 // ======================================
 .search-suggestions {
-  display: none; // Oculto por defecto
+  display: none;
   background-color: $input-bg;
   border: 1px solid $input-border;
   width: 280px; // Mismo ancho que el input
@@ -189,10 +191,10 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   
   // Estado visible (para testing - quitar después)
-  &.visible {
-    display: block;
-    background-color: blue; // Color temporal para ver la alineación
-  }
+  // &.visible {
+  //   display: block;
+  //   background-color: blue; 
+  // }
 }
 
 // ======================================
