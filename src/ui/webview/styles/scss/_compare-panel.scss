@@ -181,7 +181,7 @@
   background-color: $input-bg;
   border: 1px solid $input-border;
   width: 280px; // Mismo ancho que el input
-  height: 200px;
+  max-height: 200px;
   border-radius: 5px;
   position: absolute;
   top: 100%; // Justo debajo del input
@@ -189,12 +189,7 @@
   margin-top: 4px; // Pequeño espacio
   z-index: 999999;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  
-  // Estado visible (para testing - quitar después)
-  // &.visible {
-  //   display: block;
-  //   background-color: blue; 
-  // }
+  overflow-y: auto;
 }
 
 // ======================================

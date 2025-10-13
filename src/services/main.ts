@@ -10,6 +10,7 @@ import {
   hidePerfectMatchEffect,
   MATCH_EFFECT_CONFIG 
 } from './display/match-effect';
+import { initializeSearchManager } from './display/search-down/search-manager';
 
 // ======================================
 // MAIN APPLICATION | MARK: MAIN
@@ -182,6 +183,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initializeSwitchMode();
     initializeLanguageMenu();
     initializeCompareCode();
+    initializeSearchManager();
 
     // Global functions
     (window as any).toggle = toggle;
