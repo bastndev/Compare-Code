@@ -463,7 +463,6 @@ body {
   justify-content: center;
   padding: 0 15px;
   gap: 15px;
-  background-color: red;
 }
 .options-panel-left .container-sd,
 .options-panel-right .container-sd {
@@ -471,7 +470,6 @@ body {
   display: flex;
   max-width: 280px;
   margin-left: 7.1rem;
-  background-color: blue;
 }
 .options-panel-left .copy-clear,
 .options-panel-right .copy-clear {
