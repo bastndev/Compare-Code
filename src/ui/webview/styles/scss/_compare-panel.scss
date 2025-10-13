@@ -36,26 +36,26 @@
 .options-panel-left,
 .options-panel-right {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: center; // Volvemos a centrar
   padding: 0 15px;
   gap: 15px;
+  position: relative;
   
-  .container-sd {
-    grid-column: 2;
+  // File selector container - centrado
+  .file-selector-container {
+    position: relative;
     display: flex;
-    justify-content: center;
-    align-items: center;
-    max-width: 280px;
+    flex-direction: column;
+    align-items: center; // Centrar el contenedor
   }
   
   .copy-clear {
-    grid-column: 3;
+    position: absolute; // Posición absoluta para no afectar el centrado
+    right: 15px; // Fijo a la derecha
     display: flex;
     align-items: center;
-    justify-content: flex-end;
-    margin-right: 10px;
     gap: 10px;
   }
 }
@@ -71,12 +71,13 @@
 .container-sd {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   background-color: $input-bg;
   border: 1px solid $input-border;
   border-radius: 5px;
-  padding: 4px 10px;
+  padding: 4px 8px;
   height: 28px;
+  width: 280px; // Ancho fijo para consistencia
   transition: all 0.2s ease;
 
   &:hover {
@@ -106,8 +107,8 @@
     outline: none;
     color: $fg;
     font-size: 12px;
-    min-width: 80px;
-    max-width: 150px;
+    min-width: 120px;
+    max-width: 200px;
 
     &::placeholder {
       color: $fg-muted;
@@ -132,13 +133,15 @@
     background: transparent;
     border: none;
     cursor: pointer;
-    padding: 2px 4px;
+    padding: 2px 6px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: $border-radius-sm;
     transition: all 0.2s ease;
     line-height: 1;
+    min-width: 20px;
+    flex-shrink: 0;
 
     span {
       color: $fg-muted;
@@ -168,6 +171,30 @@
     opacity: 1;
     color: $fg;
   }
+}
+
+// ======================================
+// File Selector Dropdown | MARK: Box SD
+// ======================================
+.search-suggestions {
+  display: none;
+  background-color: $input-bg;
+  border: 1px solid $input-border;
+  width: 280px; // Mismo ancho que el input
+  height: 200px;
+  border-radius: 5px;
+  position: absolute;
+  top: 100%; // Justo debajo del input
+  left: 0; // Alineado con el input
+  margin-top: 4px; // Pequeño espacio
+  z-index: 999999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  
+  // Estado visible (para testing - quitar después)
+  // &.visible {
+  //   display: block;
+  //   background-color: blue; 
+  // }
 }
 
 // ======================================

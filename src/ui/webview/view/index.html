@@ -70,14 +70,18 @@
         ================================================== -->
     <div class="compare-panel">
         <div class="options-panel-left">
-            <!-- Search-sd - Left Panel -->
-            <div class="container-sd">
-                <span class="search-icon">🔍</span>
-                <input  class="search-input" type="text" placeholder="Search files...">
-                <span class="separator">|</span>
-                <button class="file-search-btn">
-                    <span>▼</span>
-                </button>
+            <!-- File Selector Container - Left Panel -->
+            <div class="file-selector-container">
+                <div class="container-sd">
+                    <span class="search-icon">🔍</span>
+                    <input  class="search-input" id="search-input-left" type="text" placeholder="Search files...">
+                    <span class="separator">|</span>
+                    <button class="file-search-btn" id="file-search-btn-left">
+                        <span>▼</span>
+                    </button>
+                </div>
+                <!-- Search Suggestions - Left Panel -->
+                <div class="search-suggestions visible" id="search-suggestions-left"></div>
             </div>
 
             <div class="copy-clear">
@@ -97,14 +101,18 @@
         <div class="future"></div>
     
         <div class="options-panel-right">
-            <!-- Search-sd - Right Panel -->
-            <div class="container-sd">
-                <span class="search-icon">🔍</span>
-                <input  class="search-input" type="text" placeholder="Search files...">
-                <span class="separator">|</span>
-                <button class="file-search-btn">
-                    <span>▼</span>
-                </button>
+            <!-- File Selector Container - Right Panel -->
+            <div class="file-selector-container">
+                <div class="container-sd">
+                    <span class="search-icon">🔍</span>
+                    <input  class="search-input" id="search-input-right" type="text" placeholder="Search files...">
+                    <span class="separator">|</span>
+                    <button class="file-search-btn" id="file-search-btn-right">
+                        <span>▼</span>
+                    </button>
+                </div>
+                <!-- Search Suggestions - Right Panel -->
+                <div class="search-suggestions visible" id="search-suggestions-right"></div>
             </div>
 
             <div class="copy-clear">

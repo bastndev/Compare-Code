@@ -458,27 +458,26 @@ body {
 .options-panel-left,
 .options-panel-right {
   width: 100%;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
+  display: flex;
   align-items: center;
+  justify-content: center;
   padding: 0 15px;
   gap: 15px;
+  position: relative;
 }
-.options-panel-left .container-sd,
-.options-panel-right .container-sd {
-  grid-column: 2;
+.options-panel-left .file-selector-container,
+.options-panel-right .file-selector-container {
+  position: relative;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  max-width: 280px;
 }
 .options-panel-left .copy-clear,
 .options-panel-right .copy-clear {
-  grid-column: 3;
+  position: absolute;
+  right: 15px;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin-right: 10px;
   gap: 10px;
 }
 
@@ -489,12 +488,13 @@ body {
 .container-sd {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   background-color: var(--vscode-input-background);
   border: 1px solid var(--vscode-input-border);
   border-radius: 5px;
-  padding: 4px 10px;
+  padding: 4px 8px;
   height: 28px;
+  width: 280px;
   transition: all 0.2s ease;
 }
 .container-sd:hover {
@@ -521,8 +521,8 @@ body {
   outline: none;
   color: var(--vscode-foreground);
   font-size: 12px;
-  min-width: 80px;
-  max-width: 150px;
+  min-width: 120px;
+  max-width: 200px;
 }
 .container-sd .search-input::placeholder {
   color: var(--vscode-descriptionForeground);
@@ -543,13 +543,15 @@ body {
   background: transparent;
   border: none;
   cursor: pointer;
-  padding: 2px 4px;
+  padding: 2px 6px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 3px;
   transition: all 0.2s ease;
   line-height: 1;
+  min-width: 20px;
+  flex-shrink: 0;
 }
 .container-sd .file-search-btn span {
   color: var(--vscode-descriptionForeground);
@@ -573,6 +575,21 @@ body {
 .container-sd:focus-within .search-icon {
   opacity: 1;
   color: var(--vscode-foreground);
+}
+
+.search-suggestions {
+  display: none;
+  background-color: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border);
+  width: 280px;
+  height: 200px;
+  border-radius: 5px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  margin-top: 4px;
+  z-index: 999999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
 .copy-code,
@@ -894,7 +911,6 @@ body {
   transition: opacity 0.2s ease;
 }
 .code-input:focus {
-  background-color: rgba(255, 255, 255, 0.03);
   border: none !important;
   outline: none !important;
   box-shadow: none !important;
