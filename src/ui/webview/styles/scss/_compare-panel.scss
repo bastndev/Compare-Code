@@ -170,8 +170,19 @@
 }
 
 // ======================================
-// File Selector Dropdown | MARK: Search-suggest...
+// File Selector Dropdown | MARK: Box SD
 // ======================================
+.search-suggestions{
+  // display: none;
+  background-color: $input-bg;
+  border: 1px solid $input-border;
+  width: 350px;
+  height: 200px;
+  border-radius: 5px;
+  position: absolute;
+  top: 90px;
+  z-index: 999999;
+}
 
 // ======================================
 // Action Buttons | MARK: buttons

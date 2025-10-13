@@ -574,6 +574,18 @@ body {
   color: var(--vscode-foreground);
 }
 
+.search-suggestions {
+  display: none;
+  background-color: var(--vscode-input-background);
+  border: 1px solid var(--vscode-input-border);
+  width: 350px;
+  height: 200px;
+  border-radius: 5px;
+  position: absolute;
+  top: 90px;
+  z-index: 999999;
+}
+
 .copy-code,
 .clear-code,
 .download-code {
