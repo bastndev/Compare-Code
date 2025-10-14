@@ -20,6 +20,13 @@ Following VS Code best practices, Compare Code uses semantic versioning for all 
 <!-- --- -->
 ## [0.2.5] - 2025-10-00
 
+### ✨ Changes
+
+- Enhanced line number synchronization with dynamic cursor tracking
+- Improved cursor position highlighting for better navigation during comparison
+- Updated README.md with clearer instructions and examples
+- Optimized performance for real-time cursor movement across compared files
+
 ---
 ## [0.2.0] - 2025-10-06
 
