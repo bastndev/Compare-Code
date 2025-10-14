@@ -159,7 +159,7 @@ export class EditorInstance {
 
   public clearContent(): void {
     this.textareaElement.value = '';
-    this.updateLineNumbers();
+    this.lineNumbersElement.innerHTML = '';
   }
 
   // ======================================
@@ -173,7 +173,13 @@ export class EditorInstance {
 
     const content = this.textareaElement.value;
     const logicalLines = content.split('\n');
-    const lineCount = Math.max(logicalLines.length, 1);
+    
+    if (content.trim() === '') {
+      this.lineNumbersElement.innerHTML = '';
+      return;
+    }
+    
+    const lineCount = logicalLines.length;
     const visualLineHeights = this.calculateVisualLines(
       logicalLines,
       this.textareaElement
@@ -231,7 +237,7 @@ export class EditorInstance {
   }
 
   private createLineNumberElement(
-    lineNumber: number,
+    lineNumber: number | string,
     visualLines: number,
     className?: string
   ): string {
@@ -250,11 +256,20 @@ export class EditorInstance {
 
     let numbersHTML = '';
     for (let i = 0; i < lines.length; i++) {
-      const logicalLineNumber = lines[i].originalLineNumber || i + 1;
+      const line = lines[i];
       const visualLines = visualHeights[i];
-      const className = this.getLineCssClass(lines[i].type);
+      const className = this.getLineCssClass(line.type);
+      
+      // ADD here point . or void 
+      let displayNumber: string;
+      if (line.type === 'empty' || (line.content && line.content.trim() === '')) {
+        displayNumber = '.';
+      } else {
+        displayNumber = (line.originalLineNumber || i + 1).toString();
+      }
+      
       numbersHTML += this.createLineNumberElement(
-        logicalLineNumber,
+        displayNumber,
         visualLines,
         className
       );
