@@ -71,6 +71,15 @@ $line-padding-no-border: 10px;
   &#panel2 {
     animation-delay: 0.1s;
   }
+  
+  // Disable hover effects when panel is not active
+  &.hover-disabled {
+    .line-number-item:hover {
+      opacity: 0.7;
+      color: $color-numbers;
+      cursor: default;
+    }
+  }
 }
 
 // Smooth fade-in from bottom animation
@@ -136,22 +145,58 @@ $line-padding-no-border: 10px;
   color: $color-numbers;
   user-select: none;
   opacity: 0.7;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.2s ease, color 0.2s ease;
   
+  // Hover effect - similar to VS Code
   &:hover {
     opacity: 1;
+    color: $fg; // Use foreground color for better contrast in both themes
+  }
+  
+  // Current line highlighting - when cursor is on this line
+  &.current-line {
+    opacity: 1;
+    color: $fg; // Use foreground color for better contrast in both themes
+    font-weight: 500; // Slightly bolder to make it more prominent
   }
   
   &.added {
     @include line-number-bg-mixin($color-green);
+    
+    &:hover {
+      color: $color-green;
+    }
+    
+    &.current-line {
+      color: $color-green;
+      font-weight: 500;
+    }
   }
   
   &.removed {
     @include line-number-bg-mixin($color-red);
+    
+    &:hover {
+      color: $color-red;
+    }
+    
+    &.current-line {
+      color: $color-red;
+      font-weight: 500;
+    }
   }
   
   &.modified {
     @include line-number-bg-mixin($color-orange);
+    
+    &:hover {
+      color: $color-orange;
+    }
+    
+    &.current-line {
+      color: $color-orange;
+      font-weight: 500;
+    }
   }
 }
 
