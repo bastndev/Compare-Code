@@ -148,8 +148,19 @@ export class EditorInstance {
       
       codePanelElement.addEventListener('mouseleave', () => {
         this.disableHoverForThisPanel();
+        // Clear current line highlight when mouse leaves the entire panel
+        this.clearAllCurrentLineHighlights();
       });
     }
+    
+    // Add hover tracking on line numbers to manage current-line highlight
+    this.lineNumbersElement.addEventListener('mouseover', (e) => {
+      this.handleLineNumberHover(e);
+    });
+    
+    this.lineNumbersElement.addEventListener('mouseout', (e) => {
+      this.handleLineNumberMouseOut(e);
+    });
   }
 
   private handleKeyDown(e: KeyboardEvent): void {
@@ -250,6 +261,8 @@ export class EditorInstance {
     
     if (otherPanel) {
       otherPanel.classList.add('hover-disabled');
+      // Clear current-line highlight from the other panel
+      this.clearCurrentLineHighlightFromPanel(otherPanelId);
     }
   }
 
@@ -259,6 +272,52 @@ export class EditorInstance {
     
     if (otherPanel) {
       otherPanel.classList.remove('hover-disabled');
+    }
+  }
+
+  private clearCurrentLineHighlightFromPanel(panelId: string): void {
+    const lineNumbers = document.getElementById(`lineNumbers${panelId}`);
+    if (lineNumbers) {
+      const lineNumberItems = lineNumbers.querySelectorAll('.line-number-item');
+      lineNumberItems.forEach(item => {
+        item.classList.remove('current-line');
+      });
+    }
+  }
+
+  private clearAllCurrentLineHighlights(): void {
+    const lineNumberItems = this.lineNumbersElement.querySelectorAll('.line-number-item');
+    lineNumberItems.forEach(item => {
+      item.classList.remove('current-line');
+    });
+  }
+
+  private handleLineNumberHover(e: MouseEvent): void {
+    const target = e.target as HTMLElement;
+    
+    // Only apply hover effect in compare mode
+    if (!this.unifiedEditor.classList.contains('mode-compare')) {
+      return;
+    }
+    
+    if (target.classList.contains('line-number-item')) {
+      // Clear all current-line highlights first
+      this.clearAllCurrentLineHighlights();
+      // Add current-line to the hovered element
+      target.classList.add('current-line');
+    }
+  }
+
+  private handleLineNumberMouseOut(e: MouseEvent): void {
+    const target = e.target as HTMLElement;
+    
+    // Only in compare mode
+    if (!this.unifiedEditor.classList.contains('mode-compare')) {
+      return;
+    }
+    
+    if (target.classList.contains('line-number-item')) {
+      target.classList.remove('current-line');
     }
   }
 
