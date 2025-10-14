@@ -27,7 +27,7 @@ This Code of Conduct applies to all project spaces (GitHub issues, PRs, discussi
 
 ## Reporting & Enforcement
 
-If you experience or witness violations, report them to **gobasdev@gmail.com**
+If you experience or witness violations, report them to **dev@bastndev.com**
 
 **Email format:** `[Project Name] - Brief Description`  
 Example: `[Compare Code] - Code of Conduct Concern`

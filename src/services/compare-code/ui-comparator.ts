@@ -123,13 +123,201 @@ export class EditorInstance {
     this.textareaElement.addEventListener('keydown', (e) =>
       this.handleKeyDown(e)
     );
+    this.textareaElement.addEventListener('keyup', () =>
+      this.updateCurrentLineHighlight()
+    );
+    this.textareaElement.addEventListener('click', () =>
+      this.updateCurrentLineHighlight()
+    );
+    this.textareaElement.addEventListener('selectionchange', () =>
+      this.updateCurrentLineHighlight()
+    );
     window.addEventListener('resize', () => this.updateLineNumbers());
+    
+    // Add line number click functionality
+    this.lineNumbersElement.addEventListener('click', (e) =>
+      this.handleLineNumberClick(e)
+    );
+    
+    // Add hover isolation - disable hover effects on opposite panel
+    const codePanelElement = document.getElementById(`panel${this.editorId}`);
+    if (codePanelElement) {
+      codePanelElement.addEventListener('mouseenter', () => {
+        this.enableHoverForThisPanel();
+      });
+      
+      codePanelElement.addEventListener('mouseleave', () => {
+        this.disableHoverForThisPanel();
+        // Clear current line highlight when mouse leaves the entire panel
+        this.clearAllCurrentLineHighlights();
+      });
+    }
+    
+    // Add hover tracking on line numbers to manage current-line highlight
+    this.lineNumbersElement.addEventListener('mouseover', (e) => {
+      this.handleLineNumberHover(e);
+    });
+    
+    this.lineNumbersElement.addEventListener('mouseout', (e) => {
+      this.handleLineNumberMouseOut(e);
+    });
   }
 
   private handleKeyDown(e: KeyboardEvent): void {
     if (e.key === 'Tab') {
       e.preventDefault();
       this.insertTab();
+    }
+  }
+
+  private handleLineNumberClick(e: MouseEvent): void {
+    const target = e.target as HTMLElement;
+    if (target.classList.contains('line-number-item')) {
+      const lineNumber = parseInt(target.textContent || '1');
+      this.selectLineInTextarea(lineNumber);
+    }
+  }
+
+  private selectLineInTextarea(lineNumber: number): void {
+    const content = this.textareaElement.value;
+    const lines = content.split('\n');
+    
+    if (lineNumber < 1 || lineNumber > lines.length) {
+      return;
+    }
+    
+    // Calculate the start and end positions for the line
+    let startPos = 0;
+    for (let i = 0; i < lineNumber - 1; i++) {
+      startPos += lines[i].length + 1; // +1 for the newline character
+    }
+    
+    const endPos = startPos + lines[lineNumber - 1].length;
+    
+    // Set the selection
+    this.textareaElement.focus();
+    this.textareaElement.setSelectionRange(startPos, endPos);
+    
+    // Scroll to the selected line
+    this.scrollToLine(lineNumber);
+  }
+
+  private scrollToLine(lineNumber: number): void {
+    const content = this.textareaElement.value;
+    const lines = content.split('\n');
+    
+    if (lineNumber < 1 || lineNumber > lines.length) {
+      return;
+    }
+    
+    // Calculate approximate scroll position
+    const lineHeight = parseFloat(window.getComputedStyle(this.textareaElement).lineHeight);
+    const scrollTop = (lineNumber - 1) * lineHeight;
+    
+    this.textareaElement.scrollTop = scrollTop;
+    this.lineNumbersElement.scrollTop = scrollTop;
+  }
+
+  private updateCurrentLineHighlight(): void {
+    // Only update in edit mode
+    if (this.unifiedEditor.classList.contains('mode-compare')) {
+      return;
+    }
+
+    const cursorPosition = this.textareaElement.selectionStart;
+    const content = this.textareaElement.value;
+    const lines = content.split('\n');
+    
+    let currentLine = 1;
+    let charCount = 0;
+    
+    for (let i = 0; i < lines.length; i++) {
+      if (cursorPosition <= charCount + lines[i].length) {
+        currentLine = i + 1;
+        break;
+      }
+      charCount += lines[i].length + 1; // +1 for newline
+    }
+    
+    // Remove current-line class from all line numbers
+    const lineNumberItems = this.lineNumbersElement.querySelectorAll('.line-number-item');
+    lineNumberItems.forEach(item => {
+      item.classList.remove('current-line');
+    });
+    
+    // Add current-line class to the current line number
+    if (currentLine <= lineNumberItems.length) {
+      lineNumberItems[currentLine - 1]?.classList.add('current-line');
+    }
+  }
+
+  // ======================================
+  // HOVER ISOLATION | MARK: HOVER
+  // ======================================
+
+  private enableHoverForThisPanel(): void {
+    const otherPanelId = this.editorId === '1' ? '2' : '1';
+    const otherPanel = document.getElementById(`panel${otherPanelId}`);
+    
+    if (otherPanel) {
+      otherPanel.classList.add('hover-disabled');
+      // Clear current-line highlight from the other panel
+      this.clearCurrentLineHighlightFromPanel(otherPanelId);
+    }
+  }
+
+  private disableHoverForThisPanel(): void {
+    const otherPanelId = this.editorId === '1' ? '2' : '1';
+    const otherPanel = document.getElementById(`panel${otherPanelId}`);
+    
+    if (otherPanel) {
+      otherPanel.classList.remove('hover-disabled');
+    }
+  }
+
+  private clearCurrentLineHighlightFromPanel(panelId: string): void {
+    const lineNumbers = document.getElementById(`lineNumbers${panelId}`);
+    if (lineNumbers) {
+      const lineNumberItems = lineNumbers.querySelectorAll('.line-number-item');
+      lineNumberItems.forEach(item => {
+        item.classList.remove('current-line');
+      });
+    }
+  }
+
+  private clearAllCurrentLineHighlights(): void {
+    const lineNumberItems = this.lineNumbersElement.querySelectorAll('.line-number-item');
+    lineNumberItems.forEach(item => {
+      item.classList.remove('current-line');
+    });
+  }
+
+  private handleLineNumberHover(e: MouseEvent): void {
+    const target = e.target as HTMLElement;
+    
+    // Only apply hover effect in compare mode
+    if (!this.unifiedEditor.classList.contains('mode-compare')) {
+      return;
+    }
+    
+    if (target.classList.contains('line-number-item')) {
+      // Clear all current-line highlights first
+      this.clearAllCurrentLineHighlights();
+      // Add current-line to the hovered element
+      target.classList.add('current-line');
+    }
+  }
+
+  private handleLineNumberMouseOut(e: MouseEvent): void {
+    const target = e.target as HTMLElement;
+    
+    // Only in compare mode
+    if (!this.unifiedEditor.classList.contains('mode-compare')) {
+      return;
+    }
+    
+    if (target.classList.contains('line-number-item')) {
+      target.classList.remove('current-line');
     }
   }
 
@@ -159,7 +347,7 @@ export class EditorInstance {
 
   public clearContent(): void {
     this.textareaElement.value = '';
-    this.updateLineNumbers();
+    this.lineNumbersElement.innerHTML = '';
   }
 
   // ======================================
@@ -173,7 +361,14 @@ export class EditorInstance {
 
     const content = this.textareaElement.value;
     const logicalLines = content.split('\n');
-    const lineCount = Math.max(logicalLines.length, 1);
+    
+    // Always show at least line number 1, even for empty content
+    if (content.trim() === '') {
+      this.lineNumbersElement.innerHTML = '<div class="line-number-item" style="height: 1.4em; line-height: 1.4em; padding-top: 0em;">1</div>';
+      return;
+    }
+    
+    const lineCount = logicalLines.length;
     const visualLineHeights = this.calculateVisualLines(
       logicalLines,
       this.textareaElement
@@ -190,6 +385,9 @@ export class EditorInstance {
     }
 
     this.lineNumbersElement.innerHTML = numbersHTML;
+    
+    // Update current line highlight after updating line numbers
+    this.updateCurrentLineHighlight();
   }
 
   private calculateVisualLines(
@@ -231,7 +429,7 @@ export class EditorInstance {
   }
 
   private createLineNumberElement(
-    lineNumber: number,
+    lineNumber: number | string,
     visualLines: number,
     className?: string
   ): string {
@@ -250,11 +448,20 @@ export class EditorInstance {
 
     let numbersHTML = '';
     for (let i = 0; i < lines.length; i++) {
-      const logicalLineNumber = lines[i].originalLineNumber || i + 1;
+      const line = lines[i];
       const visualLines = visualHeights[i];
-      const className = this.getLineCssClass(lines[i].type);
+      const className = this.getLineCssClass(line.type);
+      
+      // ADD here point . or void 
+      let displayNumber: string;
+      if (line.type === 'empty' || (line.content && line.content.trim() === '')) {
+        displayNumber = '.';
+      } else {
+        displayNumber = (line.originalLineNumber || i + 1).toString();
+      }
+      
       numbersHTML += this.createLineNumberElement(
-        logicalLineNumber,
+        displayNumber,
         visualLines,
         className
       );
@@ -367,6 +574,8 @@ export class EditorInstance {
     requestAnimationFrame(() => {
       this.textareaElement.scrollTop = this.savedScrollPosition;
       this.lineNumbersElement.scrollTop = this.savedScrollPosition;
+      // Update current line highlight after restoring scroll position
+      this.updateCurrentLineHighlight();
     });
   }
 

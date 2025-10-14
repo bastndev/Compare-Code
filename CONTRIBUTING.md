@@ -19,7 +19,7 @@ This will help you make more effective contributions and understand where your c
 
 ## Code of Conduct 📋
 
-Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) to ensure a welcoming environment for everyone. Report any unacceptable behavior to [gobasdev@gmail.com](mailto:gobasdev@gmail.com).
+Please read and follow our [Code of Conduct](CODE_OF_CONDUCT.md) to ensure a welcoming environment for everyone. Report any unacceptable behavior to [dev@bastndev.com](mailto:dev@bastndev.com).
 
 ## Getting Started 🚀
 
@@ -317,7 +317,7 @@ npm run test -- --watch  # Run tests in watch mode
 - **Bugs?** Create an [Issue](https://github.com/bastndev/Compare-Code/issues)
 - **Architecture questions?** Check the [Architecture documentation](ARCHITECTURE.md)
 - **Need inspiration?** Check out existing comparison algorithms and the [VS Code extension documentation](https://code.visualstudio.com/api)
-- **Email**: [gobasdev@gmail.com](mailto:gobasdev@gmail.com) for private matters
+- **Email**: [dev@bastndev.com](mailto:dev@bastndev.com) for private matters
 
 ### Response Times
 
