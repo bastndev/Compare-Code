@@ -9,6 +9,30 @@
     <script src="{{ICON_UPDATER_URI}}" defer></script>
     <script src="{{TOOLTIP_MANAGER_URI}}" defer></script>
     <script src="{{SCRIPT_URI}}" defer></script>
+    <script>
+        // Debug script to check VS Code API availability
+        window.addEventListener('load', () => {
+            console.log('Webview loaded');
+            console.log('VS Code API available:', typeof window.vscode !== 'undefined');
+            console.log('Window object:', typeof window);
+            
+            // Try to access VS Code API
+            if (typeof window.vscode !== 'undefined') {
+                console.log('VS Code API is available!');
+            } else {
+                console.error('VS Code API is NOT available!');
+            }
+        });
+
+        // Listen for messages from extension
+        window.addEventListener('message', (event) => {
+            console.log('Webview received message:', event.data);
+            
+            if (event.data.type === 'test') {
+                console.log('Extension test message received:', event.data.message);
+            }
+        });
+    </script>
 </head>
 <body>
     <!-- ==========================================

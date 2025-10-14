@@ -180,16 +180,129 @@
   display: none;
   background-color: $input-bg;
   border: 1px solid $input-border;
-  width: 280px; // Mismo ancho que el input
-  max-height: 200px;
-  border-radius: 5px;
+  width: 320px; // Un poco más ancho para mostrar rutas
+  max-height: 250px;
+  border-radius: 6px;
   position: absolute;
   top: 100%; // Justo debajo del input
   left: 0; // Alineado con el input
   margin-top: 4px; // Pequeño espacio
   z-index: 999999;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
   overflow-y: auto;
+  backdrop-filter: blur(8px);
+  
+  // Scrollbar styling
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: $border;
+    border-radius: 3px;
+    
+    &:hover {
+      background: $fg-muted;
+    }
+  }
+}
+
+// ======================================
+// Suggestion Items | MARK: SUGGESTION ITEMS
+// ======================================
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  position: relative;
+  
+  &:last-child {
+    border-bottom: none;
+  }
+  
+  &:hover,
+  &.hover {
+    background-color: $list-hover-bg;
+    transform: translateX(2px);
+  }
+  
+  &.loading {
+    cursor: default;
+    opacity: 0.7;
+    
+    &:hover {
+      transform: none;
+      background-color: transparent;
+    }
+  }
+  
+  &.error {
+    cursor: default;
+    color: #ff6b6b;
+    
+    &:hover {
+      transform: none;
+      background-color: transparent;
+    }
+  }
+  
+  &.no-results {
+    cursor: default;
+    opacity: 0.6;
+    
+    &:hover {
+      transform: none;
+      background-color: transparent;
+    }
+  }
+  
+  .file-icon {
+    font-size: 16px;
+    margin-right: 10px;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+  }
+  
+  .file-name {
+    font-size: 13px;
+    font-weight: 500;
+    color: $fg;
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 8px;
+  }
+  
+  .file-path {
+    font-size: 11px;
+    color: $fg-muted;
+    opacity: 0.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 120px;
+    flex-shrink: 0;
+  }
+  
+  // Highlight matching text
+  .file-name,
+  .file-path {
+    .highlight {
+      background-color: rgba(255, 255, 255, 0.2);
+      padding: 1px 2px;
+      border-radius: 2px;
+      font-weight: 600;
+    }
+  }
 }
 
 // ======================================

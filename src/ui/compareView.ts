@@ -8,6 +8,7 @@ import {
   createDynamicIconManager,
   DynamicIconManager,
 } from './webview/view/webviewIcons';
+import { FileExplorerService, FileItem } from '../services/file-explorer';
 
 // ======================================
 // COMPARE VIEW MANAGER | MARK: MANAGER
@@ -15,6 +16,7 @@ import {
 
 let comparePanel: vscode.WebviewPanel | undefined;
 let iconManager: DynamicIconManager | undefined;
+let fileExplorerService: FileExplorerService | undefined;
 
 // ======================================
 // TRANSLATIONS | MARK: I18N
@@ -110,7 +112,12 @@ export async function createCompareView(
   // =========== DYNAMIC ICONS =============
   iconManager = createDynamicIconManager(context, comparePanel.webview);
 
+  // =========== FILE EXPLORER SERVICE =============
+  fileExplorerService = new FileExplorerService();
+
   comparePanel.webview.onDidReceiveMessage(async (message) => {
+    console.log('Extension received message:', message);
+    
     const config = vscode.workspace.getConfiguration('workbench');
     const location = config.get('sideBar.location');
 
@@ -143,6 +150,15 @@ export async function createCompareView(
       case 'changeLanguage':
         console.log(`Language changed to: ${message.language}`);
         break;
+      case 'searchFiles':
+        await handleFileSearch(message.searchTerm);
+        break;
+      case 'fileSelected':
+        await handleFileSelected(message.filePath, message.side);
+        break;
+      default:
+        console.log('Unknown command received:', message.command);
+        break;
     }
   });
 
@@ -151,6 +167,7 @@ export async function createCompareView(
       iconManager.dispose();
       iconManager = undefined;
     }
+    fileExplorerService = undefined;
     comparePanel = undefined;
   });
 }
@@ -167,6 +184,7 @@ export async function closeCompareView(): Promise<void> {
     iconManager.dispose();
     iconManager = undefined;
   }
+  fileExplorerService = undefined;
 }
 
 /**
@@ -280,6 +298,14 @@ function getWebviewContent(
   };
   webview.postMessage(iconMessage);
 
+  // Send a test message to verify communication
+  setTimeout(() => {
+    webview.postMessage({
+      type: 'test',
+      message: 'Extension is ready'
+    });
+  }, 1000);
+
   return html;
 }
 
@@ -325,5 +351,74 @@ async function handleCodeDownload(
         error instanceof Error ? error.message : 'Unknown error'
       }`
     );
+  }
+}
+
+// ======================================
+// FILE SEARCH HANDLERS | MARK: FILE SEARCH
+// ======================================
+
+/**
+ * Handle file search requests from webview
+ */
+async function handleFileSearch(searchTerm: string): Promise<void> {
+  if (!fileExplorerService || !comparePanel) {
+    return;
+  }
+
+  try {
+    console.log(`Searching for files with term: "${searchTerm}"`);
+    const files = await fileExplorerService.searchFiles(searchTerm, 20);
+    console.log(`Found ${files.length} files:`, files);
+    
+    // Send files back to webview
+    comparePanel.webview.postMessage({
+      type: 'fileSearchResults',
+      files: files
+    });
+  } catch (error) {
+    console.error('Error searching files:', error);
+    
+    // Send error back to webview
+    comparePanel.webview.postMessage({
+      type: 'fileSearchError',
+      error: 'Failed to search files'
+    });
+  }
+}
+
+/**
+ * Handle file selection from webview
+ */
+async function handleFileSelected(filePath: string, side: 'left' | 'right'): Promise<void> {
+  if (!fileExplorerService || !comparePanel) {
+    console.error('FileExplorerService or comparePanel not available');
+    return;
+  }
+
+  console.log(`Loading file content for: ${filePath} (${side} panel)`);
+
+  try {
+    const content = await fileExplorerService.getFileContent(filePath);
+    
+    console.log(`Successfully loaded file content, sending to webview`);
+    
+    // Send file content back to webview
+    comparePanel.webview.postMessage({
+      type: 'fileContentLoaded',
+      side: side,
+      filePath: filePath,
+      content: content
+    });
+  } catch (error) {
+    console.error('Error loading file content:', error);
+    
+    // Send error back to webview
+    comparePanel.webview.postMessage({
+      type: 'fileLoadError',
+      side: side,
+      filePath: filePath,
+      error: `Failed to load file content: ${error instanceof Error ? error.message : 'Unknown error'}`
+    });
   }
 }
