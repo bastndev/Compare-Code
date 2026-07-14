@@ -1,147 +1,44 @@
 <div align="center">
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/screenshot.jpg" width="100%" alt="Compare Code Screenshot">
+  <img src="https://raw.githubusercontent.com/bastndev/compare-code/refs/heads/archived/assets/banner.webp" alt="Bracket Lynx" width="90%" />
 </div>
 
-<br>
+<div align="center">
 
-<p align="center">
-  <img src="https://vsmarketplacebadges.dev/version-short/bastndev.compare-code.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=VERSION" alt="Version">&nbsp;
-  <img src="https://vsmarketplacebadges.dev/rating-short/bastndev.compare-code.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=RATING" alt="Rating">&nbsp;
-  <img src="https://vsmarketplacebadges.dev/downloads-short/bastndev.compare-code.jpg?style=for-the-badge&colorA=1a1a1a&colorB=008a5a&label=Downloads" alt="Downloads">&nbsp;
-  <a href="https://github.com/bastndev/Compare-Code"><img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/star.png" width="26.6px" alt="Github Star ⭐️"></a>
-</p>
+> ⚠️ **This extension is deprecated. Install [ATM](https://marketplace.visualstudio.com/items?itemName=bastndev.atm) instead.**
 
-<br>
-
-<details>
-<summary align="center">(𝗖𝗹𝗶𝗰𝗸) 𝗧𝘂𝘁𝗼𝗿𝗶𝗮𝗹 / 教程</summary>
-
-<div align="start">
-  <h3>🚀 Step 1: Activate Compare Code</h3>
-  <p><strong>Keyboard shortcut:</strong> Press <kbd>Alt</kbd> + <kbd>Shift</kbd> + <kbd>\</kbd> for open fast Compare Code</p>
-  <p><em>💡 Tip: The keyboard shortcut is the fastest way to get started!</em></p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t1.png" width="100%" alt="Step 1: Multiple ways to activate Compare Code">
 </div>
 
-<br>
+---
 
-<div align="start">
-  <h3>🎨 Step 2: Interface Overview</h3>
-  <p>Explore the clean, modern dual-panel interface featuring:</p>
-  <ul>
-    <li><strong>Left & Right Panels:</strong> Side-by-side code comparison with individual controls</li>
-    <li><strong>Comparison Stats:</strong> Real-time changes and similarity percentage display</li>
-    <li><strong>Action Buttons:</strong> Compare, Clear All, and panel-specific options</li>
-    <li><strong>Bottom Toolbar:</strong> Mode switching, language selection, and advanced features</li>
-  </ul>
-  <p><em>💡 Tip: Each panel has its own dropdown menu for downloading, copying, or clearing code!</em></p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t2.png" width="100%" alt="Step 2: Dual-panel interface with comparison tools">
-</div>
+## 🇺🇸 English
 
-<br>
+# ⚠️ Deprecated Extension
 
-<div align="start">
-  <h3>📝 Step 3: Show Changes Only</h3>
-  <p>Click this button to display only the modified code sections, filtering out identical lines to focus on the differences</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t3.png" width="100%" alt="Step 3: Show Changes Only">
-</div>
+Bracket Lynx has been integrated into **[ATM](https://marketplace.visualstudio.com/items?itemName=bastndev.atm)** (`bastndev.atm`). The Bracket Lynx extension is no longer maintained.
 
-<br>
+When this extension is activated, it will automatically install ATM if it is not already installed. Please uninstall Bracket Lynx after the migration.
 
-<div align="start">
-  <h3>⚡ Step 4: Normal/Pro Mode</h3>
-  <p>Choose between Normal view for basic comparison or Pro mode for advanced analysis with detailed metrics, statistics, and in-depth code insights</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t4.png" width="100%" alt="Step 4: Normal/Pro Mode">
-</div>
+Thank you for using and supporting Bracket Lynx! ❤️
 
-<br>
+## 🇪🇸 Español
 
-<div align="start">
-  <h3>💾 Step 5: Dual Scroll</h3>
-  <p>Both code panels scroll together simultaneously, making it easier to compare corresponding lines side by side</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t5.png" width="100%" alt="Step 5: Dual Scroll">
-</div>
+# ⚠️ Extensión descontinuada
 
-<br>
+Bracket Lynx ha sido integrado en **[ATM](https://marketplace.visualstudio.com/items?itemName=bastndev.atm)** (`bastndev.atm`). La extensión Bracket Lynx ya no recibe mantenimiento.
 
-<div align="start">
-  <h3>🌍 Multi-language Support</h3>
-  <p>Available in English, Spanish, Portuguese, and Chinese</p>
-  <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/tutorial/t6.png" width="100%" alt="Language Support">
-</div>
+Al activarse, esta extensión instalará automáticamente ATM si todavía no está instalado. Por favor, desinstala Bracket Lynx después de la migración.
 
-</details>
-
-### Shortcuts available
-
-| Command                | 🍎 macOS                | 🟦 Windows                | 🐧 Linux                  |
-| :--------------------- | :---------------------- | :------------------------ | :------------------------ |
-| **Open/Close Compare** | `Shift + ⌥ + \`         | `Shift + Alt + \`         | `Shift + Alt + \`         |
-| **Execute Comparison** | `⌘ + Enter`             | `Ctrl + Enter`            | `Ctrl + Enter`            |
-| **Clear All Code**     | `Shift + ⌥ + Backspace` | `Shift + Alt + Backspace` | `Shift + Alt + Backspace` |
-
-<br>
+¡Gracias por usar y apoyar Bracket Lynx! ❤️
 
 ## Installation
 
-Launch _Quick Open_
+Install the replacement extension from the VS Code Command Palette:
 
-- <img src="https://www.kernel.org/theme/images/logos/favicon.png" width=16 height=16/> Linux `Ctrl+P`
-- <img src="https://developer.apple.com/favicon.ico" width=16 height=16/> macOS `⌘P`
-- <img src="https://www.microsoft.com/favicon.ico" width=16 height=16/> Windows `Ctrl+P`
-
-Paste the following command and press `Enter`:
-
-```
-ext install bastndev.compare-code
+```text
+ext install bastndev.atm
 ```
 
-## About Me
+## About
 
-| [![gohitx](https://github.com/gohitx.png?size=100)](https://gohit.xyz/me) |
-| :-----------------------------------------------------------------------: |
-|                     **[Gohit X](https://gohit.xyz)**                      |
-|                          _Creator & Maintainer_                           |
-
-- [🐦 X](https://twitter.com/gohitx) - For questions and discussions.
-- 🔴 [Youtube](https://www.youtube.com/@gohitx?sub_confirmation=1) - Code, Software and development insights.
-- 💼 [Linkedin](https://www.linkedin.com/in/gohitx) - Professional networking and career updates.
-
-<br>
-
-## Sponsors <img src="https://raw.githubusercontent.com/bastndev/Compare-Code/refs/heads/main/assets/images/sponsor.png" width="20"/>
-
-<div align="center"><table>
-    <tr>
-      <td align="center">
-        <img src="https://avatars.githubusercontent.com/u/94884563?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 1"/>
-        <p>Lams</p>
-      </td>
-      <td align="center">
-        <img src="https://avatars.githubusercontent.com/u/22199520?v=4" width="80" height="80" style="border-radius: 50%;" alt="Sponsor 2"/>
-        <p>M</p>
-      </td>
-    </tr>
-  </table>
-</div>
-
-<p align="center">
-  <em>Thank you to all our amazing sponsors! 💖</em><br>
-  <a href="https://github.com/sponsors/bastndev">Become a sponsor</a>
-</p>
-
-<br>
-
-| Icon                                                                                                                                                                                                                                   | Name                                                           | Description                                                                                                                                                                                   |
-| -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [![Lynx Keymap Pro](https://raw.githubusercontent.com/bastndev/Lynx-Keymap-Pro/refs/heads/main/assets/images/logo.png)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynx-keymap)                                      | [Lynx Keymap Pro](https://github.com/bastndev/Lynx-Keymap-Pro) | Standardizes keyboard shortcuts across all code editors, allowing you to use key combinations to access any functionality. It improves workflow and development experience.                   |
-| [![Lynx Theme Pro](https://bastndev.gallerycdn.vsassets.io/extensions/bastndev/lynx-theme/0.1.2/1744898058774/Microsoft.VisualStudio.Services.Icons.Default)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynx-theme) | [Lynx Theme Pro](https://github.com/bastndev/Lynx-Theme)       | A professional extension with six available themes: Dark, Light, Night, Ghibli, Coffee, and Kiro—with integrated icons. Each theme is optimized to offer a more pleasant visual experience.   |
-| [![LynxJS Pack](https://bastndev.gallerycdn.vsassets.io/extensions/bastndev/lynxjs-pack/0.1.8/1745206864969/Microsoft.VisualStudio.Services.Icons.Default)](https://marketplace.visualstudio.com/items?itemName=bastndev.lynxjs-pack)  | [LynxJS Pack](https://github.com/bastndev/LynxJs-Packge)       | An all-in-one toolkit for web and mobile development with LynxJS: includes keyboard shortcuts, error alerts, text correction, snippets, and more. Tools designed to streamline your workflow. |
-
-<br>
-
-<div align="center">
-  
-  **Enjoy 🎉 (Compare Code) is now installed!**  
-  *If you find any bugs or have feedback, please [open an issue](https://github.com/bastndev/Compare-Code/issues)*
-</div>
+- [ATM on Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=bastndev.atm)
+- [Bracket Lynx source repository](https://github.com/bastndev/Bracket-Lynx)

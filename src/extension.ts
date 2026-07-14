@@ -1,24 +1,27 @@
 import * as vscode from 'vscode';
-import { createCompareView, closeCompareView, isViewOpen } from './ui/compareView';
 
-export function activate(context: vscode.ExtensionContext) {
-	let disposable = vscode.commands.registerCommand('compare-code.compareFiles', async () => {
-		try {
-			if (isViewOpen()) {
-				// If it's open, close it
-				await closeCompareView();
-			} else {
-				// If it's not open, create/show it
-				await createCompareView(context);
-			}
-		} catch (error) {
-			vscode.window.showErrorMessage(`Error handling the comparison view: ${error}`);
-		}
-	});
+const NEW_EXTENSION_ID = 'bastndev.atm';
 
-	context.subscriptions.push(disposable);
-}
+export async function activate(_context: vscode.ExtensionContext) {
+  if (!vscode.extensions.getExtension(NEW_EXTENSION_ID)) {
+    try {
+      await vscode.commands.executeCommand(
+        'workbench.extensions.installExtension',
+        NEW_EXTENSION_ID
+      );
+    } catch {
+      // ignore — the notification button still lets the user open the page
+    }
+  }
 
-export function deactivate() {
-	closeCompareView(); // Clean up on deactivation
+  const selection = await vscode.window.showWarningMessage(
+    'Bracket Lynx is deprecated and has been integrated into ATM. Please uninstall this extension and use ATM instead.',
+    'Open ATM'
+  );
+
+  if (selection === 'Open ATM') {
+    await vscode.env.openExternal(
+      vscode.Uri.parse(`vscode:extension/${NEW_EXTENSION_ID}`)
+    );
+  }
 }
