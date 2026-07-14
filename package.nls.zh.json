@@ -1,5 +1,4 @@
 {
-  "extension.displayName": "代码比较",
-  "extension.description": "现已可用：VSCode • Cursor • Windsurf • Trae.ai • Kiro & (Firebase Studio)... 雨",
-  "command.compareCode.title": "比较代码"
+  "extension.displayName": "Compare Code（已弃用）",
+  "extension.description": "已弃用：Compare Code 现已集成到 ATM。"
 }

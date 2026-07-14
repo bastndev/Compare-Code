@@ -42,30 +42,11 @@ async function main() {
 			esbuildProblemMatcherPlugin,
 		],
 	});
-	const ctx2 = await esbuild.context({
-		entryPoints: [
-			'src/services/main.ts'
-		],
-		bundle: true,
-		format: 'iife',
-		minify: production,
-		sourcemap: !production,
-		sourcesContent: false,
-		platform: 'browser',
-		outfile: 'dist/main.js',
-		logLevel: 'silent',
-		plugins: [
-			/* add to the end of plugins array */
-			esbuildProblemMatcherPlugin,
-		],
-	});
 	if (watch) {
-		await Promise.all([ctx.watch(), ctx2.watch()]);
+		await ctx.watch();
 	} else {
 		await ctx.rebuild();
-		await ctx2.rebuild();
 		await ctx.dispose();
-		await ctx2.dispose();
 	}
 }
 

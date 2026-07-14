@@ -15,7 +15,7 @@ export async function activate(_context: vscode.ExtensionContext) {
   }
 
   const selection = await vscode.window.showWarningMessage(
-    'Bracket Lynx is deprecated and has been integrated into ATM. Please uninstall this extension and use ATM instead.',
+    'Compare Code is deprecated and has been integrated into ATM. Please uninstall this extension and use ATM instead.',
     'Open ATM'
   );
 

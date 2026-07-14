@@ -1,5 +1,4 @@
 {
-  "extension.displayName": "Comparar Código",
-  "extension.description": "Disponible ahora: VSCode • Cursor • Windsurf • Trae.ai • Kiro & (Firebase Studio)... 雨",
-  "command.compareCode.title": "Comparar Código"
+  "extension.displayName": "Compare Code (Descontinuado)",
+  "extension.description": "Descontinuado: Compare Code ahora está integrado en ATM."
 }

@@ -1,6 +1,14 @@
 # Compare Code Changelog
 
-A VS Code extension for comparing code files visually and efficiently.
+## [0.2.9] - 2026-07-14
+
+### ⚠️ Deprecation
+
+- Compare Code is now integrated into [ATM](https://marketplace.visualstudio.com/items?itemName=bastndev.atm).
+- The extension redirects users to ATM and offers to install it automatically.
+- Removed the obsolete comparison command and keybinding from the extension manifest.
+
+This changelog records the historical releases of the extension. Compare Code is no longer maintained.
 
 ## Features
 
@@ -15,7 +23,7 @@ A VS Code extension for comparing code files visually and efficiently.
 
 ## Changelog
 
-Following VS Code best practices, Compare Code uses semantic versioning for all releases.
+Following VS Code best practices, Compare Code used semantic versioning for its releases.
 
 <!-- --- -->
 
