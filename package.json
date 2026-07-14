@@ -2,7 +2,7 @@
   "name": "compare-code",
   "displayName": "%extension.displayName%",
   "description": "%extension.description%",
-  "version": "0.2.6",
+  "version": "0.2.8",
   "publisher": "bastndev",
   "preview": true,
   "license": "MIT",
